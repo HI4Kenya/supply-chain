@@ -33,6 +33,9 @@
         <!-- $.ajax() method uses this js -->
         <script type="text/javascript" src="assets/js/jquery-2.1.4.js"></script>
 
+        <!-- jQuery.confirm -->
+        <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
+
         <!-- PROJECT JS -->        
         <script type="text/javascript" src="assets/projectjs/classification.js"></script>
         <script type="text/javascript" src="assets/projectjs/common.js"></script>
@@ -89,7 +92,7 @@
                             <?php echo $_SESSION["name"];?>
                         </span>
                         <a class="mb-control" data-box="#mb-signout">
-                            <span class="fa fa-sign-out unclickedColor" onclick="javascript:userSignout();"></span>
+                            <span class="fa fa-sign-out unclickedColor user_logout_button"></span>
                         </a>
                     </span>
                 </div>

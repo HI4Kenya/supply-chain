@@ -221,7 +221,7 @@ function getUsers(display)
                                             "<td id ='activate_deactivate_"+receivedUsers[counting].user_identifier+"' style = 'color:red;cursor: pointer;'>"+
                                                 "<button id = 'btn_account_status_change' class = 'pull-right btn btn-danger btn-sm' onclick='userOperations(\"deactivate\",\"user\",\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>Deactivate</button>"+
                                             "</td>"+
-                                            "<td class = 'fa fa-folder-o' style = 'color:blue;cursor: pointer;'"+
+                                            "<td class = 'fa fa-list' style = 'color:blue;cursor: pointer;'"+
                                                 "onclick='detailedUserProfile(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
                                             "</td>"+
                                         "</tr>";
