@@ -6,18 +6,13 @@
         <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
         <link href="assets/css/normalize.css" rel="stylesheet">
         <link href="assets/css/login.css" rel="stylesheet">
-<<<<<<< HEAD
-        <script type="text/javascript" src="assets/js/loginjs/prefixfree.min.js"></script>
-        <script type="text/javascript" src="assets/js/projectjs/mshTask.js"></script>
-=======
-
+        
         <!-- jQuery v1.11.2 library-->
         <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
 
         <!-- Login js -->
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
         <script type="text/javascript" src="assets/js/loginjs/prefixfree.min.js"></script> 
->>>>>>> wahome_branch
     </head>
 
     <body style = "background-color:#1d5288">
