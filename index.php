@@ -6,7 +6,7 @@
         <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
         <link href="assets/css/normalize.css" rel="stylesheet">
         <link href="assets/css/login.css" rel="stylesheet">
-        
+
         <!-- jQuery v1.11.2 library-->
         <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
 
@@ -71,11 +71,5 @@
                 </span>
             </div>
           </div>
-<<<<<<< HEAD
-
-        <script type="text/javascript" src="assets/js/jquery-2.1.4.js"></script>
-        <script type="text/javascript" src="assets/js/loginjs/index.js"></script>
-=======
->>>>>>> wahome_branch
     </body>
 </html>
