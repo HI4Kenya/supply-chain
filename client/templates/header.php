@@ -29,30 +29,6 @@
         <!-- jQuery v1.11.2 library-->
         <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
 
-<<<<<<< HEAD
-        <script type="text/javascript" src="assets/js/projectjs/mshTask.js"></script>
-        <script type="text/javascript" src="assets/js/projectjs/jquery.min.js"></script>
-        <script type="text/javascript" src="assets/Bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery-2.1.4.js"></script>
-        
-
-        <link rel="stylesheet" type="text/css" id="theme" href="assets/template/css/theme-light.css"/>
-        <link href="assets/Bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-        <link href="assets/Bootstrap/dist/css/jquery-ui.min.css" rel="stylesheet">
-        <link href="assets/css/mshTask.css" rel="stylesheet" type="text/css">
-        <link href="assets/pagecss/page.css" rel="stylesheet" type="text/css">
-
-        <!-- COLLAPSIBLE -->        
-        <!--<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>-->
-        <!--<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>-->
-        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-         <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js">
-        </script>
-
-=======
         <!-- jQuery v2.1.4 library-->
         <!-- $.ajax() method uses this js -->
         <script type="text/javascript" src="assets/js/jquery-2.1.4.js"></script>
@@ -87,7 +63,6 @@
         <!-- Data Table CSS -->
         <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
         
->>>>>>> wahome_branch
         <!-- Font Awesome -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
