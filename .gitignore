@@ -1,0 +1,7 @@
+#Ignore the following
+
+#DB Config File
+db/db_auth/db_con.php
+
+#System Config File
+system/config.php
