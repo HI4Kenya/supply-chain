@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 01, 2015 at 03:10 PM
+-- Generation Time: Jul 06, 2015 at 01:06 PM
 -- Server version: 5.5.43-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -40,6 +40,7 @@ INSERT INTO `central_site` (`central_id`) VALUES
 ('D5VHnJ2vect'),
 ('Js2jIKhWf6P'),
 ('JXcyxGXlL9O'),
+('Lt4qYE1GCBQ'),
 ('NcCkDlIqJuM'),
 ('Pjcbi0XJi3f'),
 ('pZEtdfLJ2CX'),
@@ -128,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `datasets` (
   PRIMARY KEY (`id`),
   KEY `dataset_id` (`dataset_id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `datasets`
@@ -136,7 +137,11 @@ CREATE TABLE IF NOT EXISTS `datasets` (
 
 INSERT INTO `datasets` (`id`, `dataset_id`, `program_id`) VALUES
 (1, 'CcrrIEt35vP', 1),
-(2, 'rV6fPhufzlU', 1);
+(2, 'rV6fPhufzlU', 1),
+(3, 'KUCi7uw6YhR', 2),
+(4, 'epnKYskZQGU', 2),
+(5, 'a8MrJ8DRaWC', 3),
+(6, 'a8Gz5XBpIt4', 3);
 
 -- --------------------------------------------------------
 
@@ -9793,7 +9798,7 @@ CREATE TABLE IF NOT EXISTS `facility_program_mapping` (
   PRIMARY KEY (`mapping_id`),
   KEY `facility_id` (`facility_id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `facility_program_mapping`
@@ -9801,7 +9806,12 @@ CREATE TABLE IF NOT EXISTS `facility_program_mapping` (
 
 INSERT INTO `facility_program_mapping` (`mapping_id`, `facility_id`, `program_id`, `classification`) VALUES
 (1, 'Js2jIKhWf6P', 1, 'Central Site'),
-(3, 'c6HYkOftQuG', 1, 'StandAlone');
+(3, 'c6HYkOftQuG', 1, 'StandAlone'),
+(4, 'Lt4qYE1GCBQ', 1, 'Central Site'),
+(5, 'QWZ7Qd8Jex1', 1, 'Satellite Site'),
+(6, 'Js2jIKhWf6P', 2, 'Central Site'),
+(7, 'ih3vU3AXadk', 1, 'Satellite Site'),
+(8, 'qZqNL79w8Zg', 1, 'Satellite Site');
 
 -- --------------------------------------------------------
 
@@ -9833,15 +9843,15 @@ CREATE TABLE IF NOT EXISTS `login` (
   KEY `password_last_updated_by` (`password_last_updated_by`),
   KEY `details_last_updated_by` (`details_last_updated_by`),
   KEY `account_created_by` (`account_created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`login_id`, `username`, `password`, `role`, `user_id`, `account_created`, `account_created_by`, `details_last_updated`, `details_last_updated_by`, `password_expiry`, `password_status`, `password_last_updated`, `password_last_updated_by`, `account_status`, `account_status_last_updated`, `account_status_updated_by`, `last_login`) VALUES
-(4, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', '2015-09-01', 'UPDATED', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-01 03:06:05pm'),
-(6, 'tuser', 'f62bd79a302e2cea2bd0baeb27d4b765', 'USER', 'EK39', 'Wednesday 2015-07-01 12:43:52pm', 'EK001', 'Wednesday 2015-07-01 12:43:52pm', 'EK001', '2015-09-01', 'NEW', 'Wednesday 2015-07-01 12:43:52pm', 'EK001', 'DEACTIVATED', 'Wednesday 2015-07-01 12:43:52pm', 'EK001', '');
+(1, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Friday 2015-07-03 10:45:56am', 'EK001', '2015-09-03', 'UPDATED', 'Friday 2015-07-03 10:46:10am', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Monday 2015-07-06 12:07:08pm'),
+(8, 'john', '6579e96f76baa00787a28653876c6127', 'USER', 'E001', 'Friday 2015-07-03 01:34:25pm', 'EK001', 'Friday 2015-07-03 01:35:34pm', 'E001', '2015-09-03', 'UPDATED', 'Friday 2015-07-03 01:34:42pm', 'E001', 'ACTIVE', 'Monday 2015-07-06 11:15:46am', 'EK001', 'Monday 2015-07-06 12:01:13pm');
 
 -- --------------------------------------------------------
 
@@ -9853,14 +9863,16 @@ CREATE TABLE IF NOT EXISTS `programs` (
   `program_id` int(255) NOT NULL AUTO_INCREMENT,
   `program_name` varchar(255) NOT NULL,
   PRIMARY KEY (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `programs`
 --
 
 INSERT INTO `programs` (`program_id`, `program_name`) VALUES
-(1, 'ART');
+(1, 'ART'),
+(2, 'NUTRITION'),
+(3, 'A TEST');
 
 -- --------------------------------------------------------
 
@@ -9892,7 +9904,10 @@ INSERT INTO `satelite_site` (`satelite_id`, `central_id`) VALUES
 ('Gl7SdQYuaiN', 'D5VHnJ2vect'),
 ('aNvmypL0Xft', 'Js2jIKhWf6P'),
 ('aOcXhIAdIu9', 'Js2jIKhWf6P'),
-('Js2jIKhWf6P', 'Js2jIKhWf6P');
+('ih3vU3AXadk', 'Js2jIKhWf6P'),
+('Js2jIKhWf6P', 'Js2jIKhWf6P'),
+('qZqNL79w8Zg', 'Js2jIKhWf6P'),
+('QWZ7Qd8Jex1', 'Lt4qYE1GCBQ');
 
 -- --------------------------------------------------------
 
@@ -10284,8 +10299,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_identifier`, `name`, `gender`, `email`, `mobile_no`, `date_created`, `created_by`, `details_last_updated`, `details_updated_by`) VALUES
-('EK001', 'Kelvin Wahome', 'MALE', 'kevowahome@gmail.com', '0700234567', 'Wednesday 2015-07-01 11:53:06am', 'ADMIN1', 'Wednesday 2015-07-01 11:53:06am', 'ADMIN1'),
-('EK39', 'TRIAL USER', 'FEMALE', 'trialuser@gmail.com', '0724563783', 'Wednesday 2015-07-01 12:43:37pm', 'EK001', 'Wednesday 2015-07-01 12:43:37pm', 'EK001');
+('E001', 'JOHN DOE', 'FEMALE', 'johndoe@gmail.com', '0722277332', 'Friday 2015-07-03 01:34:14pm', 'EK001', 'Friday 2015-07-03 01:35:34pm ', 'E001'),
+('EK001', 'Wahome Macharia', 'MALE', 'kevowahome@gmail.com', '0710502654', 'Wednesday 2015-07-01 11:53:06am', 'EK001', 'Friday 2015-07-03 10:45:56am ', 'EK001');
 
 --
 -- Constraints for dumped tables
@@ -10327,11 +10342,11 @@ ALTER TABLE `facility_program_mapping`
 -- Constraints for table `login`
 --
 ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_5` FOREIGN KEY (`account_created_by`) REFERENCES `users` (`user_identifier`),
   ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_identifier`),
   ADD CONSTRAINT `login_ibfk_2` FOREIGN KEY (`details_last_updated_by`) REFERENCES `users` (`user_identifier`),
   ADD CONSTRAINT `login_ibfk_3` FOREIGN KEY (`password_last_updated_by`) REFERENCES `users` (`user_identifier`),
-  ADD CONSTRAINT `login_ibfk_4` FOREIGN KEY (`account_status_updated_by`) REFERENCES `users` (`user_identifier`);
+  ADD CONSTRAINT `login_ibfk_4` FOREIGN KEY (`account_status_updated_by`) REFERENCES `users` (`user_identifier`),
+  ADD CONSTRAINT `login_ibfk_5` FOREIGN KEY (`account_created_by`) REFERENCES `users` (`user_identifier`);
 
 --
 -- Constraints for table `satelite_site`
