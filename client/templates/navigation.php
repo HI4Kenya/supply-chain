@@ -20,7 +20,7 @@
                     <br>
                     <div style = "margin-top:5px">
                         <span class="fa fa-cog unclickedColor" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
-                        <span class="fa fa-power-off unclickedColor" style ="margin-left:5px" onclick="javascript:userSignout();"></span>
+                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px"></span>
                     </div>            
                 </div>
             </div>

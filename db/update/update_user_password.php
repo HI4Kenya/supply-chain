@@ -26,14 +26,15 @@
 		if($user_id == "LOGGED IN USER")
 		{
 			$user = $_SESSION["user_id"];
+			$password_status = "UPDATED";
 		}
 		else
 		{
 			$user = $user_id;
+			$password_status = "NEW";
 		}
 
 		$password = md5($_POST['password']);
-		$password_status = "UPDATED";
 
 		// Date created
 		$date_updated = date("l")." ".date("Y-m-d")." ".date("h:i:sa");

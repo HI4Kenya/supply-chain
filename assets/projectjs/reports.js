@@ -599,9 +599,22 @@ function reportData()
         }
     }
 
-    if(selectedFacilityClassification=="central store")
+    if(selectedFacilityClassification=="central site")
     {
-        //Fetch Satellite Sites for the current Central Store
+        
+    }
+}
+// End function
+/* -------------------------------------------------------------------------------------------------------------------------------*/
+
+function generateReport(selectedProgramID, dataSetOptions, periodOptions, reportPeriodOptions, selectedFacilityID, selectedFacilityClassification)
+{
+    if(selectedFacilityClassification == "central site")
+    {
+        var MOH730A = "client/report_templates/MOH730A.php";
+        reportTemplate(MOH730A, reportPeriodOptions, selectedFacilityID, dataSetOptions);
+        
+        //Fetch Satellite Sites for the current Central Site
         var satellite_url = "db/fetch/get_satellite_sites.php";
         $.getJSON
         (
@@ -619,23 +632,12 @@ function reportData()
                 for(var k=0; k<values.length-1;k++)
                 {                                  
 
-                   // alert(values[k].facility_id);
+                   alert(values[k].facility_id);
 
                     
                 }  
             }
         );
-    }
-}
-// End function
-/* -------------------------------------------------------------------------------------------------------------------------------*/
-
-function generateReport(selectedProgramID, dataSetOptions, periodOptions, reportPeriodOptions, selectedFacilityID, selectedFacilityClassification)
-{
-    if(selectedFacilityClassification == "central site")
-    {   
-        var MOH730A = "client/report_templates/MOH730A.php";
-        reportTemplate(MOH730A, reportPeriodOptions, selectedFacilityID, dataSetOptions);
     }
 
     else if((selectedFacilityClassification == "satellite site")||(selectedFacilityClassification == "standalone site"))
