@@ -109,7 +109,7 @@ function getUsers(display)
                             "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
                             "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
                             "<th style = 'font-weight:bold;color:blue'>Edit</th>"+ 
-                            "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
+                            // "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
                         "</thead>"+
                         "<tbody>"+
                         "</tbody>"+
@@ -142,9 +142,9 @@ function getUsers(display)
                                             "<td class = 'fa fa-edit' style = 'color:blue;cursor: pointer;'"+
                                                 "onclick='editUsers(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
                                             "</td>"+
-                                            "<td class = 'fa fa-cog' style = 'color:red;cursor: pointer;'"+
-                                                "onclick='javascript:adminEditPassword(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
-                                            "</td>"+
+                                            // "<td class = 'fa fa-cog' style = 'color:red;cursor: pointer;'"+
+                                            //     "onclick='javascript:adminEditPassword(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
+                                            // "</td>"+
                                         "</tr>";
                     $(dataToAppend).appendTo("#userdata tbody");
                     

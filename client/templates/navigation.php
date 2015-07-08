@@ -92,14 +92,18 @@
                                     <div id='collapseFacilities' class='panel-collapse collapse'>
                                         <div class='panel-body'>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(1)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
-                                                Central Sites
+                                                Sub-County Stores
                                             </div>
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(2)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
+                                                Central Sites
+                                            </div>
+                                            <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:satelliteClassificationType()' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
                                                 Satellite Sites
                                             </div>
                                             <br>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(3)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(4)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
                                                 Stand Alones
                                             </div>
                                         </div>
@@ -181,10 +185,10 @@
                     </div>
                     <div id="collapseReports" class="panel-collapse collapse">
                         <div class="panel-body">
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getUsers('report')">
+                            <!-- <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getUsers('report')">
                                 Users
                             </div>
-                            <br>
+                            <br> -->
                             <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getPrograms('report')">
                                 Programs
                             </div>
