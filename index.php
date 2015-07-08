@@ -19,7 +19,7 @@
 
         <div style = "background-color:;width:100%;height:10em;text-align:left;">
           <img style ='width:10%;height:50%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
-          src='assets/img/KenyaFlagImage1.png'>
+          src='assets/img/mshlogo.jpg'>
           <h3>
             <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome'>
               Supply Pipeline Hierarchy Tool

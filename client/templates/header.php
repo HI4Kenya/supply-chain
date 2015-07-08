@@ -84,7 +84,10 @@
                 <div class = "header_container" id = "container-fluid">
 
                     <a href="" class="navbar-brand" id = "logo">
-                        <p style = "color:white;font-weight:bold;margin-left:40px;font-size:16pt">dhis<b style = "color:#7ec0ee;font-size:18pt">2</b><b style = "margin-left:100px">Supply Pipeline Hierarchy Tool</p>
+                        <p style = "color:white;font-weight:bold;margin-left:10px;font-size:16pt">
+                            <img style ='width:10%;height:200%;margin-left:px;margin-top:-10px;margin-right:10px;float:left;border:1px solid white' src='assets/img/mshlogo.jpg'>
+                            <b style = "margin-left:120px">Supply Pipeline Hierarchy Tool
+                        </p>
                     </a>
 
                     <span class = "pull-right" style = "margin-right:100px;margin-top:20px">

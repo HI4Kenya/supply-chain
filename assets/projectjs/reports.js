@@ -31,6 +31,16 @@ function hierarchyReport()
                                             "<div id='"+responseData[no].program_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'program"+responseData[no].program_id+"'>"+
 
+                                                    "<a data-toggle='collapse' data-parent='#supply_hierarchy_scs' href='#supply_hierarchy_scs"+responseData[no].program_id+"' style = 'margin-left:10px'>"+
+                                                        "<span class='fa fa-plus-square-o'></span> "+
+                                                        "<span class='fa fa-folder-o'></span> "+
+                                                    "</a>"+
+
+                                                    "<span style = 'color:blue;font-size:10pt'>Sub-County Stores</span>"+
+                                                    "<div id = 'supply_hierarchy_scs"+responseData[no].program_id+"' class = 'panel-collapse collapse'>"+
+                                                    "</div>"+
+                                                    "<br>"+
+
                                                     "<a data-toggle='collapse' data-parent='#supply_hierarchy_cs' href='#supply_hierarchy_cs"+responseData[no].program_id+"' style = 'margin-left:10px'>"+
                                                         "<span class='fa fa-plus-square-o'></span> "+
                                                         "<span class='fa fa-folder-o'></span> "+
@@ -54,12 +64,12 @@ function hierarchyReport()
                                             "</div>";
                 $(allProgramsToAppend).appendTo("div#central_stores");
 
-                //Fetch Central Sites
+                //Fetch sub county stores
                 var centralstores_url = "db/fetch/get_supply_hierarchy.php";
                 $.getJSON
                 (
                     centralstores_url,
-                    {program:responseData[no].program_id,classification:'Central Site'},
+                    {program:responseData[no].program_id,classification:'Sub-County Store'},
                     function(received)
                     {
                         for(var j=0; j<received.length-1;j++)
@@ -71,12 +81,12 @@ function hierarchyReport()
                                                 "<span class = 'fa fa-folder-o unclickedColor' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
-                                                "<div class='panel-body' id = 'satellite"+received[j].facility_id+"'>"+
+                                                "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
                                                 "</div>"+
                                             "</div>";
-                            $(toAppend).appendTo("div#supply_hierarchy_cs"+received[received.length-1].program_id);
+                            $(toAppend).appendTo("div#supply_hierarchy_scs"+received[received.length-1].program_id);
 
-                            //Fetch Satellite Sites for the current Central Store
+                            //Fetch Satellite Sites for the current sub county store
                             var satellite_url = "db/fetch/get_supply_hierarchy.php";
                             $.getJSON
                             (
@@ -98,7 +108,71 @@ function hierarchyReport()
                                         The last item returned is the parent of the satellites returned. It had been appended as the 
                                         id of the parent div where we need to append the satellite sites we have fetched
                                         */
-                                        $("div#satellite"+values[values.length-2].facility_id).append(satellitesToAppend);
+                                        $("div#satellite"+values[values.length-1].program_id+values[values.length-2].facility_id).append(satellitesToAppend);
+                                        
+                                        //Distinguish central site dispensing points from other satellites
+                                        if((values[k].facility_id)==(values[values.length-2].facility_id))
+                                        {
+                                            $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                                        }
+
+                                        else if((values[k].facility_id)!=(values[values.length-1].facility_id))
+                                        {
+                                            $("span#satellite_classification"+values[k].facility_id).html("[Satellite site]");
+                                        }
+                                        
+                                    }  
+                                }
+                            );
+                        }   
+                    }
+                );
+
+                //Fetch Central Sites
+                var centralstores_url = "db/fetch/get_supply_hierarchy.php";
+                $.getJSON
+                (
+                    centralstores_url,
+                    {program:responseData[no].program_id,classification:'Central Site'},
+                    function(received)
+                    {
+                        for(var j=0; j<received.length-1;j++)
+                        {
+                            var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:25px;' id='central_accordion'>"+
+                                                "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#program"+received[received.length-1].program_id+received[j].facility_id+"'>"+
+                                                    "<span class='glyphicon glyphicon-plus-sign'></span> "+
+                                                "</a>"+
+                                                "<span class = 'fa fa-folder-o unclickedColor' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
+                                            "</div>"+
+                                            "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
+                                                "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
+                                                "</div>"+
+                                            "</div>";
+                            $(toAppend).appendTo("div#supply_hierarchy_cs"+received[received.length-1].program_id);
+
+                            //Fetch Satellite Sites for the current Central Site
+                            var satellite_url = "db/fetch/get_supply_hierarchy.php";
+                            $.getJSON
+                            (
+                                satellite_url,
+                                {program:+received[received.length-1].program_id,classification:'Satellite Site',central_id:received[j].facility_id},
+                                function(values)
+                                {  
+                                    /* 
+                                    The reason for looping with values.length-1 is to ensure the last item returned is not appended
+                                    because it is the parent of the satellites returned
+                                    */
+                                    for(var k=0; k<values.length-2;k++)
+                                    {                                  
+                                        var satellitesToAppend ="<div style='color:#23527C;font-size:8pt;margin-left:25px;' class = 'unclickedColor' onclick =''>"+
+                                                                    values[k].facility_name+
+                                                                    "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
+                                                                "</div>";
+                                        /* 
+                                        The last item returned is the parent of the satellites returned. It had been appended as the 
+                                        id of the parent div where we need to append the satellite sites we have fetched
+                                        */
+                                        $("div#satellite"+values[values.length-1].program_id+values[values.length-2].facility_id).append(satellitesToAppend);
                                         
                                         //Distinguish central site dispensing points from other satellites
                                         if((values[k].facility_id)==(values[values.length-2].facility_id))
@@ -159,7 +233,7 @@ function getAnalytics()
                                     "<br>"+
                                     "<span>Report Period</span><span style = 'color:red;margin-left:10px'>*</span><br>"+
 
-                                    "<select id = 'periodType' style='width:60%' onchange='javascript:changePeriod()'>"+
+                                    "<select id = 'periodType' style='width:100%' onchange='javascript:changePeriod()'>"+
                                         "<option value = 'none selected'>[Select Period Type]</option>"+
                                         // "<option value = 'daily'>Daily</option>"+
                                         // "<option value = 'weekly'>Weekly</option>"+
@@ -169,15 +243,42 @@ function getAnalytics()
                                         "<option value = 'six-monthly'>Six Monthly</option>"+
                                         "<option value = 'yearly'>Yearly</option>"+
                                     "</select>"+
-
-                                    "<input type ='button' value='Prev Year' style ='font-size:8pt' onchange=''></input>"+
-                                    "<input type ='button' value='Next Year' style ='font-size:8pt' onchange=''></input>"+
                                     
-                                    "<select id = 'period' style = 'width:100%;margin-bottom:10px'>"+
+                                    "<select id = 'period' style = 'width:70%;margin-bottom:10px'>"+
                                     "</select>"+
+
+                                    "<select id = 'year' style='width:30%'>"+
+                                        "<option value = '2015'>2015</option>"+
+                                        "<option value = '2014'>2014</option>"+
+                                        "<option value = '2013'>2013</option>"+
+                                        "<option value = '2012'>2012</option>"+
+                                        "<option value = '2011'>2011</option>"+
+                                        "<option value = '2010'>2010</option>"+
+                                        "<option value = '2009'>2009</option>"+
+                                        "<option value = '2008'>2008</option>"+
+                                        "<option value = '2007'>2007</option>"+
+                                        "<option value = '2006'>2006</option>"+
+                                        "<option value = '2005'>2005</option>"+
+                                        "<option value = '2004'>2004</option>"+
+                                        "<option value = '2003'>2003</option>"+
+                                        "<option value = '2002'>2002</option>"+
+                                        "<option value = '2001'>2001</option>"+
+                                        "<option value = '2000'>2000</option>"+
+                                    "</select>"+
+                                    "<br>"+
 
                                     "<span>Report Organization Unit</span><span style = 'color:red;margin-left:10px'>*</span><br>"+
                                     "<div id = 'report_org_unit' style = 'background-color:white;padding:px;height:200px;overflow:scroll'>"+
+                                        
+                                        "<a data-toggle='collapse' data-parent='#supply_hierarchy_scs' href='#supply_hierarchy_scs' style = 'margin-left:10px'>"+
+                                            "<span class='fa fa-plus-square-o'></span> "+
+                                        "</a>"+
+
+                                        "<span style = 'color:blue;font-size:10pt'>Sub-County Stores</span>"+
+                                        "<div id = 'supply_hierarchy_scs' class = 'panel-collapse collapse'>"+
+                                        "</div>"+
+                                        "<br>"+
+
                                         "<a data-toggle='collapse' data-parent='#supply_hierarchy_cs' href='#supply_hierarchy_cs' style = 'margin-left:10px'>"+
                                             "<span class='fa fa-plus-square-o'></span> "+
                                         "</a>"+
@@ -217,7 +318,7 @@ function getAnalytics()
         }
     );
 
-    $('div#returned_messages').html("<span style = 'color:green'>DATA CRITERIA</span> ");
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
     $('div#facilities').empty();
     $('div#facilities').html(analyticsCriteria);
 }
@@ -248,6 +349,77 @@ function programDetails()
                 $("<option id = '"+receivedValues[datasetsNo].dataset_id+"' value = '"+receivedValues[datasetsNo].dataset_id+"'>"
                 +receivedValues[datasetsNo].dataset_name+"</option>").appendTo("select#dataSets");   
             }
+        }
+    );
+
+    //Fetch Sub-Conty Stores
+    var subcountystores_url = "db/fetch/get_subcounty_stores.php";
+    $.getJSON
+    (
+        subcountystores_url,
+        {program:selectedProgramID},
+        function(received)
+        {
+            $('div#supply_hierarchy_scs').empty();
+            for(var j=0; j<received.length;j++)
+            {
+                var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:20px' id='central_accordion'>"+
+                                    "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
+                                        "<span class='fa fa-plus-square-o'></span> "+
+                                    "</a>"+
+                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'central site'"+
+                                        "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
+                                        received[j].facility_name+
+                                    "</span>"+                                            
+                                "</div>"+
+
+                                // Where satellites will be appended
+                                "<div id='"+received[j].facility_id+"' class='panel-collapse collapse' style ='margin-left:20px'>"+
+                                    "<div class='panel-body' id = 'facility_satellite"+received[j].facility_id+"'>"+
+                                    "</div>"+
+                                "</div>";
+                $(toAppend).appendTo("div#supply_hierarchy_scs");
+
+                //Fetch Satellite Sites for the current Central Store
+                var satellite_url = "db/fetch/get_satellite_sites.php";
+                $.getJSON
+                (
+                    satellite_url,
+                    {program:selectedProgramID,central_id:received[j].facility_id},
+                    function(values)
+                    {  
+                        /* 
+                        The reason for looping with values.length-1 is to ensure the last item returned is not appended
+                        because it is the parent of the satellites returned
+                        */
+                        $("div#facility_satellite"+values[values.length-1].facility_id).empty();
+                        for(var k=0; k<values.length-1;k++)
+                        {                                  
+                            var satellitesToAppend ="<div style='color:;font-size:8pt;' id = 'satellite_"+values[k].facility_id+"' value = '"+values[k].facility_id+"' classification = 'satellite site'"+
+                                                        "class = 'unclickedColor color' onclick ='javascript:selectFacility(\"satellite_"+values[k].facility_id+"\")'>"+
+                                                        values[k].facility_name+
+                                                        "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
+                                                    "</div>";
+                            /* 
+                            The last item returned is the parent of the satellites returned. It had been appended as the 
+                            id of the parent div where we need to append the satellite sites we have fetched
+                            */
+                            $("div#facility_satellite"+values[values.length-1].facility_id).append(satellitesToAppend);
+                            //Distinguish central site dispensing points from other satellites
+                            if((values[k].facility_id)==(values[values.length-1].facility_id))
+                            {
+                                $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                            }
+
+                            else if((values[k].facility_id)!=(values[values.length-1].facility_id))
+                            {
+                                $("span#satellite_classification"+values[k].facility_id).html("[Satellite site]");
+                            }
+                            
+                        }  
+                    }
+                );
+            }   
         }
     );
 
@@ -382,26 +554,28 @@ function changePeriod()
     else if(periodOptions == "weekly")
     {
         $('select#period').empty();
+        $('select#year').show();
 
     }
 
     else if(periodOptions == "monthly")
     {
-        var optionsToAppend =   "<option value = '"+currentYear+"12'>December"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"11'>November"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"10'>October"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"09'>September"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"08'>August"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"07'>July"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"06'>June"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"05'>May"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"04'>April"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"03'>March"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"02'>February"+" "+currentYear+"</option>"+
-                                "<option value = '"+currentYear+"01'>January"+" "+currentYear+"</option>";
+        var optionsToAppend =   "<option value = '12'>December</option>"+
+                                "<option value = '11'>November</option>"+
+                                "<option value = '10'>October</option>"+
+                                "<option value = '09'>September</option>"+
+                                "<option value = '08'>August</option>"+
+                                "<option value = '07'>July</option>"+
+                                "<option value = '06'>June</option>"+
+                                "<option value = '05'>May</option>"+
+                                "<option value = '04'>April</option>"+
+                                "<option value = '03'>March</option>"+
+                                "<option value = '02'>February</option>"+
+                                "<option value = '01'>January</option>";
 
         $('select#period').empty();
         $(optionsToAppend).appendTo("select#period");
+        $('select#year').show();
     }
 
     else if(periodOptions == "bi-monthly")
@@ -415,6 +589,7 @@ function changePeriod()
 
         $('select#period').empty();
         $(optionsToAppend).appendTo("select#period");
+        $('select#year').show();
     }
 
     else if(periodOptions == "quarterly")
@@ -426,6 +601,7 @@ function changePeriod()
 
         $('select#period').empty();
         $(optionsToAppend).appendTo("select#period");
+        $('select#year').show();
     }
 
     else if(periodOptions == "six-monthly")
@@ -435,6 +611,7 @@ function changePeriod()
 
         $('select#period').empty();
         $(optionsToAppend).appendTo("select#period");
+        $('select#year').show();
     }
 
     else if(periodOptions == "yearly")
@@ -458,6 +635,7 @@ function changePeriod()
 
         $('select#period').empty();
         $(optionsToAppend).appendTo("select#period");
+        $('select#year').hide();
     }
 
 }
@@ -487,6 +665,7 @@ function reportData()
             function()
             {
                 $("div#returned_messages").empty();
+                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
             },
             1500
         );
@@ -510,6 +689,7 @@ function reportData()
                 function()
                 {
                     $("div#returned_messages").empty();
+                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
                 },
                 1500
             );
@@ -533,6 +713,7 @@ function reportData()
                     function()
                     {
                         $("div#returned_messages").empty();
+                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
                     },
                     1500
                 );
@@ -587,9 +768,23 @@ function reportData()
                         var selectedFacilityID = selectedFacility[the_number].getAttribute("value");
                         var selectedFacilityClassification = selectedFacility[the_number].getAttribute("classification");
                         
+                        // Year of the report
+                        var year= document.getElementById("year");
+                        var yearOptions = year.options[year.selectedIndex].value;
+
+                        // Concertenate the year with the other period options
+                        if(periodOptions == "yearly")
+                        {
+                            periodOfTheReport = reportPeriodOptions;
+                        }
+                        else
+                        {
+                            periodOfTheReport = yearOptions+reportPeriodOptions;
+                        }
+                        
                         // Get report
                         // Pass necessary parameters
-                        generateReport(selectedProgramID, dataSetOptions, periodOptions, reportPeriodOptions, selectedFacilityID, selectedFacilityClassification);
+                        generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification);
                     }
 
                 }
@@ -598,21 +793,16 @@ function reportData()
 
         }
     }
-
-    if(selectedFacilityClassification=="central site")
-    {
-        
-    }
 }
 // End function
 /* -------------------------------------------------------------------------------------------------------------------------------*/
 
-function generateReport(selectedProgramID, dataSetOptions, periodOptions, reportPeriodOptions, selectedFacilityID, selectedFacilityClassification)
+function generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification)
 {
     if(selectedFacilityClassification == "central site")
     {
         var MOH730A = "client/report_templates/MOH730A.php";
-        reportTemplate(MOH730A, reportPeriodOptions, selectedFacilityID, dataSetOptions);
+        reportTemplate(MOH730A, periodOfTheReport, selectedFacilityID, dataSetOptions);
         
         //Fetch Satellite Sites for the current Central Site
         var satellite_url = "db/fetch/get_satellite_sites.php";
@@ -643,7 +833,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, report
     else if((selectedFacilityClassification == "satellite site")||(selectedFacilityClassification == "standalone site"))
     {
         var MOH730B = "client/report_templates/MOH730B.php";
-        reportTemplate(MOH730B, reportPeriodOptions, selectedFacilityID, dataSetOptions);
+        reportTemplate(MOH730B, periodOfTheReport, selectedFacilityID, dataSetOptions);
     }
 
 }
