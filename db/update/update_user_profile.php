@@ -156,22 +156,7 @@
 					details_last_updated_by = '$updated_by'	WHERE user_id = '$user_id'";
 					if(mysqli_query($conn,$updateUserName))
 					{
-						// Reset user session
-						$query = "SELECT * FROM login WHERE user_id = '$user_id'";
-					    $result = mysqli_query($conn,$query);
-					    if(mysqli_num_rows($result)>0)
-					    {
-					        // Echo success message
-					        while($row = mysqli_fetch_assoc($result)) 
-					        {
-					            // Check if account is deactivated
-					            if($row['account_status']=="ACTIVE")
-					            {
-					                // Set session
-					                require '../user_auth/sess_set.php';
-					            }
-					        }
-					    }
+
 						echo 0;
 					}
 

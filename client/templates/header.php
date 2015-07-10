@@ -41,6 +41,7 @@
         <script type="text/javascript" src="assets/projectjs/common.js"></script>
         <script type="text/javascript" src="assets/projectjs/data.js"></script>
         <script type="text/javascript" src="assets/projectjs/dataAdministration.js"></script>
+        <script type="text/javascript" src="assets/projectjs/deletionLog.js"></script>
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
         <script type="text/javascript" src="assets/projectjs/logout.js"></script>
         <script type="text/javascript" src="assets/projectjs/programs.js"></script>

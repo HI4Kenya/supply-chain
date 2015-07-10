@@ -25,11 +25,11 @@ function satelliteClassificationType()
 
         var data =  // Select Program under which these satellite sites are classified
                     "<div style ='width:90%'>"+
-                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;margin-top:-10px;color:;'>"+
+                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;margin-top:-10px;background-color:white;'>"+
                             "How do you want to classify satellites?"+
                         "</span>"+
-                        "<button class ='btn btn-info btn-md' style = 'margin-left:70px;width:20%' ONCLICK='classifyFacilities(3,\"sub-county satellites\")'>Sub-County Store Satellites</button>"+
-                        "<button class ='btn btn-success btn-md' style = 'margin-left:70px;width:20%' ONCLICK='classifyFacilities(3,\"central site satellites\")'>Central Site Satellites</button>"+                        
+                        "<button class ='btn btn-info btn-md' style = 'margin-left:0px;margin-top:20px;width:25%;font-weight:bold' ONCLICK='classifyFacilities(3,\"sub-county satellites\")'>Sub-County Store Satellites</button>"+
+                        "<button class ='btn btn-success btn-md' style = 'margin-left:30px;margin-top:20px;width:25%;font-weight:bold' ONCLICK='classifyFacilities(3,\"central site satellites\")'>Central Site Satellites</button>"+                        
                     //Organization units hierarchy area
                     "<div id = 'org_units_area' style = 'width:100%;margin-top:25px'></div>";
         // Append

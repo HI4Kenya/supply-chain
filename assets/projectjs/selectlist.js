@@ -332,7 +332,7 @@ function submitIt(btn)
                 type: "POST",   
                      url: "db/insertion/insert_sites.php",   
                      async: false,
-                     data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,central:CSpickOptions[CSPickIndex].value,type:"Satellite Site"},
+                     data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,parent:CSpickOptions[CSPickIndex].value,type:"Satellite Site"},
                      success:function(result)
                      {
                         if(result == -1)
@@ -367,6 +367,22 @@ function submitIt(btn)
                         else if(result == 11)
                         {
                             $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                            //Delete the item from the selected area
+                            var idOfSelectList = "SelectList";
+                            var idOfPickList = "PickList";
+                            delIt(idOfSelectList,idOfPickList);
+                        }
+                        else if(result == 12)
+                        {
+                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Sub-County Store<br><br></span>");
+                            //Delete the item from the selected area
+                            var idOfSelectList = "SelectList";
+                            var idOfPickList = "PickList";
+                            delIt(idOfSelectList,idOfPickList);
+                        }
+                        else if(result == 13)
+                        {
+                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Central Site<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";

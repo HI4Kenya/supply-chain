@@ -407,6 +407,32 @@ function supplyHierarchyDelete(itemToDelete,idToDelete,programID)
                             1500
                         );
                     }
+
+                    else if(statusMessage == 10)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "There are no sub-county stores"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:red;margin-left:30px'>DELETE PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                getSupplyHierarchy();
+                            },
+                            1500
+                        );
+                    }
                 }
             );
         }
@@ -476,6 +502,32 @@ function supplyHierarchyDelete(itemToDelete,idToDelete,programID)
                             1500
                         );
                     }
+
+                    else if(statusMessage == 10)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "There are no central sites"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:red;margin-left:30px'>DELETE PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                getSupplyHierarchy();
+                            },
+                            1500
+                        );
+                    }
                 }
             );
         }
@@ -485,7 +537,7 @@ function supplyHierarchyDelete(itemToDelete,idToDelete,programID)
         {
             $.post
             (
-                'db/deletion/delete_all_central_sites.php',
+                'db/deletion/delete_all_standalone_sites.php',
                 {program_id:programID,classification:"StandAlone"},
                 function(statusMessage)
                 {
@@ -525,6 +577,32 @@ function supplyHierarchyDelete(itemToDelete,idToDelete,programID)
                         var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
                                                 "<span style ='margin-left:80px'>"+
                                                     "Standalone Sites Deleted"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:red;margin-left:30px'>DELETE PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                getSupplyHierarchy();
+                            },
+                            1500
+                        );
+                    }
+
+                    else if(statusMessage == 10)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "There are no standalone sites"+
                                                 "</span>"+
                                             "</div>";
                         $("div#returned_messages").html(errorMessage);

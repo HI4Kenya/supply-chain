@@ -367,7 +367,7 @@ function programDetails()
                                     "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
                                         "<span class='fa fa-plus-square-o'></span> "+
                                     "</a>"+
-                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'central site'"+
+                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'sub-county store'"+
                                         "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
                                         received[j].facility_name+
                                     "</span>"+                                            
@@ -799,7 +799,7 @@ function reportData()
 
 function generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification)
 {
-    if(selectedFacilityClassification == "central site")
+    if((selectedFacilityClassification == "central site")||(selectedFacilityClassification == "sub-county store"))
     {
         var MOH730A = "client/report_templates/MOH730A.php";
         reportTemplate(MOH730A, periodOfTheReport, selectedFacilityID, dataSetOptions);
@@ -809,7 +809,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
         $.getJSON
         (
             satellite_url,
-            {central_id:selectedFacilityID},
+            {central_id:selectedFacilityID,program:selectedProgramID},
             function(values)
             {  
                 /* 
@@ -820,11 +820,9 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                     id of the parent div where we need to append the satellite sites we have fetched.
                 */
                 for(var k=0; k<values.length-1;k++)
-                {                                  
+                {     
 
-                   alert(values[k].facility_id);
-
-                    
+                   //alert(values[k].facility_id);                    
                 }  
             }
         );
