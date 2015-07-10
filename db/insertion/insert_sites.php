@@ -16,7 +16,7 @@
 
 		$id= $_POST['data'];
 		$facility_type = $_POST['type'];
-		$central_id = $_POST['central'];
+		$central_id = $_POST['parent'];
 		$program = $_POST['program'];
 
 		// Sub-County Stores

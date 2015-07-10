@@ -62,6 +62,7 @@
                         echo    "<!-- Append facilities here -->
                                 <div class='row panel-body' id = 'facilities' style = 'margin-left:20px'>";
 
+                                // Require user guide file
                                 require "client/templates/userguide.php";
                                 
                         echo    "</div>";

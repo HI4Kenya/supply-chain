@@ -75,9 +75,10 @@ function createUsers(load,createdUserID,createdUserName)
                     "<div class='form-group' style = 'width:40%'>"+
                         "<span style = 'color;padding:5px'>User Role:</span>"+
                         "<select id = 'user_role' class='form-control' style = 'margin-top:-25px;margin-left:150px'>"+
-                             "<option value = ''>[Select]</option>"+
-                            "<option value = 'ADMIN'>ADMINISTRATOR</option>"+
-                            "<option value = 'USER'>USER</option>"+
+                            "<option value = ''>[Select]</option>"+
+                            "<option value = 'READ'>READ</option>"+
+                            "<option value = 'WRITE'>WRITE</option>"+
+                            "<option value = 'ADMIN'>ADMIN</option>"+
                         "</select>"+
                     "</div>"+
                     "<button type='submit' class='btn btn-success' style = 'margin-left:280px' onclick='javascript:userOperations(\"add\",\"credentials\",\""+createdUserID+"\");'>Submit</button>"+
@@ -97,7 +98,7 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
+        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
                         "<table id= 'userdata' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
@@ -176,7 +177,7 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>DEACTIVATE USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
+        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
                         "<table id= 'userdata' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
@@ -247,10 +248,10 @@ function getUsers(display)
                 }  
             }
         );
-        $(function()
-        {
-            //$("#programdata").dataTable();
-        })
+        // $(function()
+        // {
+        //     $("#userdata").dataTable();
+        // });
 
     }
 
@@ -259,7 +260,7 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> LIST OF CREATED USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
+        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
                         "<table id= 'userdata' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
@@ -1095,7 +1096,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                             (
                                 function()
                                 {
-                                    window.location.href="home.php";
+                                    getUsers('administration');
                                 },
                                 1500
                             );
@@ -1430,13 +1431,16 @@ function updateUserPassword(user)
                             (
                                 function()
                                 {
-                                    $("div#returned_messages").empty();
-                                    var message = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
-                                                            "<span style ='margin-left:70px'>"+
-                                                                "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Use the new password to login</span>"+
-                                                            "</span>"+
-                                                        "</div>";
-                                    $("div#returned_messages").html(message);
+                                    if(user == "LOGGED IN USER")
+                                    {
+                                        $("div#returned_messages").empty();
+                                        var message = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Use the new password to login</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(message);
+                                    }
 
                                     setTimeout
                                     (
@@ -1444,11 +1448,11 @@ function updateUserPassword(user)
                                         {
                                             if(user == "LOGGED IN USER")
                                             {
-                                                window.location.href="db/user_auth/sess_unset.php";
+                                                window.location.href="home.php";
                                             }
                                             else
                                             {
-                                                getUsers('update');
+                                                getUsers('administration');
                                             }
                                         },
                                         1500
@@ -1642,15 +1646,25 @@ function editUsers(userID, userName)
             //User role
             if(userData[1].role == "ADMIN")
             {
-                var roleOptions =   "<option value = 'ADMIN'>ADMINISTRATOR</option>"+
-                                    "<option value = 'USER'>USER</option>";
+                var roleOptions =   "<option value = 'ADMIN'>ADMIN</option>"+
+                                    "<option value = 'READ'>READ</option>"+
+                                    "<option value = 'WRITE'>WRITE</option>";
                 $('select#user_role').append(roleOptions);
             }
 
-            else if(userData[1].role == "USER")
+            else if(userData[1].role == "WRITE")
             {
-                var roleOptions =   "<option value = 'USER'>USER</option>"+
-                                    "<option value = 'ADMIN'>ADMINISTRATOR</option>";
+                var roleOptions =   "<option value = 'WRITE'>WRITE</option>"+
+                                    "<option value = 'ADMIN'>ADMIN</option>"+
+                                    "<option value = 'READ'>READ</option>";
+                $('select#user_role').append(roleOptions);
+            }
+
+            else if(userData[1].role == "READ")
+            {
+                var roleOptions =   "<option value = 'READ'>READ</option>"+
+                                    "<option value = 'WRITE'>WRITE</option>"+
+                                    "<option value = 'ADMIN'>ADMIN</option>";
                 $('select#user_role').append(roleOptions);
             }
         }

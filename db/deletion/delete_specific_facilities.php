@@ -30,8 +30,33 @@
 		$run_mapping_query = mysqli_query($conn,$delete_mapping_query);
 		if($run_mapping_query)
 		{
-			// Successful deletion
-			echo 0;
+			$programs = "SELECT * FROM programs WHERE program_id = '$program_id'";
+	        $result = mysqli_query($conn,$programs);
+	        if(mysqli_num_rows($result)>0)
+	        {
+	            while($row = mysqli_fetch_assoc($result)) 
+	            {
+	            	$facilities = "SELECT * FROM facilities WHERE facility_id='$facility_id' ORDER BY facility_name";
+		            $result = mysqli_query($conn,$facilities);
+		            if(mysqli_num_rows($result)>0)
+		            {
+		            	// Details to log
+		            	$number_deleted = mysqli_num_rows($result);
+		                while($the_row = mysqli_fetch_assoc($result)) 
+		                {
+							$deleted_item_id = $classification.":".$facility_id;
+							$deleted_item_name = $classification.":".$the_row['facility_name'];
+							$deleted_item_description = "Program ID:".$row['program_id']."."."Program Name:".
+														$row['program_name'].".".$deleted_item_id;
+							$date_deleted = date("l")." ".date("Y-m-d")." ".date("h:i:sa");
+							$deleted_by = $_SESSION["user_id"];
+							
+							// require the insertion script
+							require 'log_deletion.php';
+		                }
+		            }
+	            }
+	        }
 
 		}
 		else

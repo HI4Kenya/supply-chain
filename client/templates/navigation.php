@@ -11,8 +11,8 @@
                         <?php echo $_SESSION["name"]."";?>
                     </span> 
                     <br>
-                    <span style ="color:;margin-right:10px;">
-                        <?php echo $_SESSION["user_role"];?>
+                    <span style ="color:green;margin-right:10px;">
+                        <span style = "color:black">ACCESS:</span> <?php echo $_SESSION["user_role"];?>
                     </span>
                     <br>
                     <span class="fa fa-edit unclickedColor" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')"></span>
@@ -29,6 +29,7 @@
 
             <div class="panel-group" id="accordion" style = "cursor:auto">               
                 <?php
+                    // User creation and editing reserved to the ADMIN role
                     if($_SESSION["user_role"]=="ADMIN")
                     {
                         echo "<!--USERS -->
@@ -49,12 +50,20 @@
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"update\")'>
                                                 Update
-                                            </div>                            
+                                            </div>
+                                            <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"administration\")'>
+                                                Administration
+                                            </div>                           
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END USERS -->";
+                    }
 
+                    // Creating and editing programs done by ADMIN role
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!--PROGRAMS -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -73,12 +82,19 @@
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"update\")'>
                                                 Update
+                                            </div>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"administration\");'>
+                                                Administration
                                             </div>                            
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END PROGRAMS -->";
+                    }
 
+                    // Classification of facilities in the hierarchy done by ADMIN
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!-- CLASSIFY FACILITIES -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -110,7 +126,11 @@
                                     </div>
                                 </div>
                                 <!-- END CLASSIFY FACILITIES -->";
-
+                    }
+                    
+                    // System UPDATES reserved to the ADMIN role
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!-- UPDATES -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -141,6 +161,11 @@
                                     </div>
                                 </div>
                                 <!-- END UPDATES -->";
+                    }
+
+                    // Data Administration reserved to the ADMIN and WRITE roles
+                    if(($_SESSION["user_role"]=="ADMIN")||($_SESSION["user_role"]=="WRITE"))
+                    {
 
                         echo "<!-- DATA ADMINISTRATION -->
                                 <div class='panel panel-default'>
@@ -154,55 +179,69 @@
                                     </div>
                                     <div id='collapseDataAdministration' class='panel-collapse collapse'>
                                         <div class='panel-body'>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"administration\")'>
-                                                Users
-                                            </div>
-                                            <br>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"administration\");'>
-                                                Programs
-                                            </div> 
-                                            <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getSupplyHierarchy();'>
                                                 Supply Hierarchy
                                             </div> 
                                             <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getDeletionLog();'>
+                                                Deleted Data
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END DATA ADMINISTRATION-->";
                     }
-                ?>
 
-                <!-- REPORTS -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <p>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseReports" style = "padding-left:5px">REPORTS</a>
-                            <a class="pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapseReports">
-                                <span class="fa fa-newspaper-o" onclick="javascript:changeIcon()"></span>
-                            </a>
-                        </p>
-                    </div>
-                    <div id="collapseReports" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <!-- <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getUsers('report')">
-                                Users
+                    // Reports visible to all roles
+                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
+                    {
+                        echo "<!-- REPORTS -->
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'>
+                                    <p>
+                                        <a data-toggle='collapse' data-parent='#accordion' href='#collapseReports' style = 'padding-left:5px'>REPORTS</a>
+                                        <a class='pull-left' data-toggle='collapse' data-parent='#accordion' href='#collapseReports'>
+                                            <span class='fa fa-newspaper-o' onclick='javascript:changeIcon()'></span>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div id='collapseReports' class='panel-collapse collapse'>
+                                    <div class='panel-body'>
+                                        <!-- <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
+                                            Users
+                                        </div>
+                                        <br> -->
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
+                                            Programs
+                                        </div>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
+                                            Supply Hierarchy
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getAnalytics()'>
+                                            Data Set Report
+                                        </div>
+                                        <br>";
+                    }
+
+                    // Posting data back to DHIS reserved for WRITE role
+                    if(($_SESSION["user_role"]=="WRITE"))
+                    {
+                        echo            "<div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick=''>
+                                            Update DHIS
+                                        </div>
+                                        <br>";
+                    }
+
+                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
+                    {
+                        echo        "</div>
+                                </div>
                             </div>
-                            <br> -->
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getPrograms('report')">
-                                Programs
-                            </div>
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:hierarchyReport()">
-                                Supply Hierarchy
-                            </div>
-                            <br>
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getAnalytics()">
-                                Data Set Report
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END REPORTS -->
+                            <!-- END REPORTS -->";
+
+                    }
+                ?>
 
             </div>
         </div>   
