@@ -113,7 +113,7 @@ function hierarchyReport()
                                         //Distinguish central site dispensing points from other satellites
                                         if((values[k].facility_id)==(values[values.length-2].facility_id))
                                         {
-                                            $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                                            $("span#satellite_classification"+values[k].facility_id).html("[Dispensing Point]");
                                         }
 
                                         else if((values[k].facility_id)!=(values[values.length-1].facility_id))
@@ -177,7 +177,7 @@ function hierarchyReport()
                                         //Distinguish central site dispensing points from other satellites
                                         if((values[k].facility_id)==(values[values.length-2].facility_id))
                                         {
-                                            $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                                            $("span#satellite_classification"+values[k].facility_id).html("[Dispensing Point]");
                                         }
 
                                         else if((values[k].facility_id)!=(values[values.length-1].facility_id))
@@ -408,7 +408,7 @@ function programDetails()
                             //Distinguish central site dispensing points from other satellites
                             if((values[k].facility_id)==(values[values.length-1].facility_id))
                             {
-                                $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                                $("span#satellite_classification"+values[k].facility_id).html("[Dispensing Point]");
                             }
 
                             else if((values[k].facility_id)!=(values[values.length-1].facility_id))
@@ -479,7 +479,7 @@ function programDetails()
                             //Distinguish central site dispensing points from other satellites
                             if((values[k].facility_id)==(values[values.length-1].facility_id))
                             {
-                                $("span#satellite_classification"+values[k].facility_id).html("[CS dispensing point]");
+                                $("span#satellite_classification"+values[k].facility_id).html("[Dispensing Point]");
                             }
 
                             else if((values[k].facility_id)!=(values[values.length-1].facility_id))

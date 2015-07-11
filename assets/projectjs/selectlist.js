@@ -430,6 +430,15 @@ function submitIt(btn)
                             delIt(idOfSelectList,idOfPickList);
                         }
 
+                        else if(result == 9)
+                        {
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a sub-county store<br><br></span>");
+                            //Delete the item from the selected area
+                            var idOfSelectList = "SelectList";
+                            var idOfPickList = "PickList";
+                            delIt(idOfSelectList,idOfPickList);
+                        }
+
                         else if(result == 10)
                         {
                             $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a central store<br><br></span>");
@@ -438,6 +447,7 @@ function submitIt(btn)
                             var idOfPickList = "PickList";
                             delIt(idOfSelectList,idOfPickList);
                         }
+
                         else if(result == 11)
                         {
                             $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
@@ -446,7 +456,6 @@ function submitIt(btn)
                             var idOfPickList = "PickList";
                             delIt(idOfSelectList,idOfPickList);
                         }
-
 
                      }
             }

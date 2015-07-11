@@ -245,14 +245,9 @@ function getUsers(display)
                             }
                         }
                     );
-                }  
+                } 
             }
         );
-        // $(function()
-        // {
-        //     $("#userdata").dataTable();
-        // });
-
     }
 
     // Display purposes
@@ -1867,7 +1862,7 @@ function detailedUserProfile(userID, userName)
                                             userData[1].password_last_updated_by+
                                             "</div>"+
                                         "</div>"+
-                                        "<button class = 'pull-right btn btn-warning btn-sm' onclick='adminEditPassword(\""+userData[0].user_identifier+"\",\""+userData[0].name+"\")'>Change Password</button>"+
+                                        "<button class = 'pull-right btn btn-success btn-sm' onclick='adminEditPassword(\""+userData[0].user_identifier+"\",\""+userData[0].name+"\")'>Change Password</button>"+
                                     "</div>"+
                                 "</div>";  
             $('div#facilities').append(userDetails);

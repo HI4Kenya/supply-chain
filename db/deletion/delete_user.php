@@ -53,6 +53,10 @@
 					echo -1;
 				}
 
+				// Reset the AI of this table
+				$reset_ai = "ALTER TABLE login AUTO_INCREMENT = 1";
+				mysqli_query($conn,$reset_ai);
+
 			}
 			else
 			{
