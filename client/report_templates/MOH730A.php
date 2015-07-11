@@ -1,10 +1,11 @@
 <div class="container-fluid">
-	<div class="panel panel-warning">
+	<div class="panel panel-success">
 		<div class="panel-heading">
 			<h2>Ministry Of Health</h2></br></br>
             <h3>CENTRAL SITE /DISTRICT STORE CONSUMPTION DATA REPORT AND REQUEST MoH 730A</h3></br>
             <b style="color:black">Facility Name:</b><span id="facility_detail"></span>&nbsp;&nbsp;&nbsp;<b style="color:black">Master Facility Code:</b><span id="facility_id"></span>&nbsp;&nbsp;
-           <h4><b>Period of reporting:</b></h4></br><b style="color:black">Beginning:</b><input tpye="text"/>&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:black">Ending:</b><input type="text"/>
+           <h4><b>Period of reporting:</b></h4><span id="reportingperiod"></span>
+			<div id="loading"></div>
         </div>
         <div class="panel-body" style="overflow: scroll">
 			<table class="table table-responsive table-bordered table-condensed" onload="javascript:loadData();">

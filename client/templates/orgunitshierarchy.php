@@ -10,7 +10,19 @@
             header('Location:'.$base_path.'');
         }
     ?>
-    <div style = "margin-left:10px;margin-top:-10px;border-radius:5px;max-height:450px;width:25%; overflow:scroll;">
+    <script>
+        $().ready(function() {
+            var $scrollingDiv = $("#scrollingDiv");
+
+            $(window).scroll(function(){
+                $scrollingDiv
+                    .stop()
+                    .animate({"marginTop": ($(window).scrollTop() + 5) + "px"}, "slow" );
+            });
+        });
+    </script>
+
+    <div id="scrollingDiv" style = "margin-left:10px;margin-top:-10px;border-radius:5px;max-height:350px;width:25%; overflow:scroll;">
         
         <!-- HIERARCHY BASED ON THE ORGANIZATION UNITS AS CAPTURED IN DHIS -->
         <div class="panel panel-default">
