@@ -5,7 +5,8 @@
             <h2>Ministry Of Health</h2></br></br>
             <h3>FACILITY CONSUMPTION DATA REPORT AND REQUEST (F-CDRR) FOR NUTRITION COMMODITIES</h3></br>
             <b style="color:black">Facility Name:</b><span id="facility_detail"></span>&nbsp;&nbsp;&nbsp;<b style="color:black">Master Facility Code:</b><span id="facility_id"></span>&nbsp;&nbsp;
-           <h4><b>Period of reporting:</b></h4></br><b style="color:black">Beginning:</b><input tpye="text"/>&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:black">Ending:</b><input type="text"/>
+			<h4><b>Period of reporting:</b></h4><span id="reportingperiod"></span>
+			<div id="loading"></div>
         </div>
 <div class="panel-body" style="overflow: scroll">
 

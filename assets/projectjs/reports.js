@@ -801,12 +801,10 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
 {
     var path="client/report_templates/";
     var multiplier=0;
-    alert(selectedFacilityClassification);
 
     if((selectedFacilityClassification == "central-site")||(selectedFacilityClassification == "sub-county-store"))
     {
         var dataSetTemplate;
-        alert(periodOfTheReport);
         //Fetch Satellite Sites for the current Central Site
         var satellite_url ="db/fetch/get_satellite_sites.php";
         var satellites=[];
@@ -838,8 +836,8 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 else
                 if(dataSetOptions=="VoCwF0LPGjb"){
                     dataSetTemplate= path+"MOH729A.php";
-                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
-                    //reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    //reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
                 }
                 else
                 if(dataSetOptions=="VOzBhzjvVcw"){
@@ -848,7 +846,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 }
                 else
                 if(dataSetOptions=="HAcToQkdUS1"){
-                    dataSetTemplate= path+"MOH730B.php";
+                    dataSetTemplate= path+"MOH730Ba.php";
                     reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
                 }
                 else{
@@ -922,7 +920,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
 // Function reportTemplate-Central Stores
 function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 {
-    console.log(satellites);
+
     $.get(templateUrl).then
     (
         function(responseData) 
@@ -935,21 +933,58 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
             var urlAggregate="api/get_aggregate.php";
             var urlGetDataset="api/get_data.php";
 
-            //Category combinations for aggregation
-            var categoryOptionCombos=["w5mBD3FwKg3","YO3e43lWky0"];
+            //Category Combinations -730A
+            var aggregatedQuanityConsumed_Combo="w5mBD3FwKg3";
+            var aggregatedPhysicalStock_Combo= "YO3e43lWky0";
+            var PhysicalStock_Combo= "CrPXhlkjtxD";
+            var quanityResupply_Combo="CCQF8AMSN7B";
+            var categoryOptionCombos=[];
 
-            satellites.push(orgUnit);
+            categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
+            categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
+            categoryOptionCombos.push(quanityResupply_Combo);
+
+            var multiplier=3;
+
+            //730B
+            var totalConsumptionCombo="MQxdLLBfwIL";
+            var totalPhysicalStockCombo="UIjvPBrmiNE";
+
+
+            $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
+            setTimeout(function(){
+                $('#loading').html("Try Again.");
+            }, 60000);
 
             //Getting and Setting the facility Name
             getOrganisationUnitName(urlOrgUnit);
 
-            //Getting dataValues for the dataElements and appending them to the report
             $.getJSON
             ( urlGetDataset,
                 {dataSet:dataSet,period:period,orgUnit:orgUnit},
                 function(response) {
-                    alert("OKAY");
-                    var dataValues = response.dataValues;
+
+                    var response_data=response;
+
+                    if(response==-1){
+                        $('#loading').html('<span>Error Loading Try Again</span>');
+                    }
+
+                    if ('dataValues' in response_data){
+
+                        var dataValues = response_data.dataValues;
+                    }
+                    else{
+
+                        $('#loading').html('<span>Loading Complete</span>');
+                    }
+
+
+                    //data to post to dhis2
+                    var post_data=response_data;
+                    post_data.dataValues=[];
+                    var dataElementsUpadated=[];
+
                     $.each(dataValues, function (index, dataObj) {
                         var dataElementId = dataObj.dataElement;
                         var optionComboId = dataObj.categoryOptionCombo;
@@ -959,37 +994,106 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 
                             var categoryCombination = dataObj.categoryOptionCombo;
                             //physical stock
-                            if (dataObj.categoryOptionCombo == "YO3e43lWky0") {
+                            if (dataObj.categoryOptionCombo == aggregatedPhysicalStock_Combo) {
 
-                                categoryCombination = "UIjvPBrmiNE";
+                                categoryCombination =totalPhysicalStockCombo ;
                             }
 
                             //Quantity consumed
-                            if (dataObj.categoryOptionCombo == "w5mBD3FwKg3") {
+                            if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
 
-                                categoryCombination = "MQxdLLBfwIL";
+                                categoryCombination = totalConsumptionCombo;
                             }
 
                             var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination};
 
                             $.getJSON(urlAggregate,dataSatelites,function (data){
 
-                                dataObj.val = data;
+                                dataObj.value = data;
                                 var tableItem = $(dataObj.id);
-                                tableItem.text(dataObj.val);
+                                tableItem.text(dataObj.value);
+                                tableItem.val(dataObj.value);
 
+                                //Get an array of Objects with the same dataElement
+                                var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId; });
+
+                                if (result.length > 1) {
+
+                                    var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
+                                    var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
+                                    var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
+
+                                    var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
+
+                                    //Calculating quantity required for resupply
+                                    if(columnH.length>0 && columnG.length>0 )
+                                    {
+                                        var valueH=0;
+                                        var valueG=0;
+                                        var valueResupply=0;
+                                        var valueAggregatePhysicalStock=0;
+
+                                        if ('value' in columnH[0]){
+                                            valueH=parseInt(columnH[0].value);
+                                            valueH=valueH*multiplier;
+                                        }
+
+                                        if ('value' in columnG[0]){
+                                            valueG=parseInt(columnG[0].value);
+                                        }
+                                        valueResupply=valueH-valueG;
+
+                                        //Quantity to resupply Calculated is less than zero, intialize to zero
+                                        if(valueResupply<0){
+                                            valueResupply=0;
+                                        }
+
+                                        var tableItem=$(elementId);
+                                        tableItem.text(valueResupply);
+                                        tableItem.val(valueResupply);
+
+                                        if ('value' in aggregatePhysicalStock[0]){
+
+                                            valueAggregatePhysicalStock=parseInt(aggregatePhysicalStock.value);
+                                        }
+
+                                        ////post data
+                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
+
+                                            var post_obj_resupply= { "dataElement": dataElementId, "categoryOptionCombo": quanityResupply_Combo, "value": valueResupply.toString()};
+                                            var post_obj_H= { "dataElement": dataElementId, "categoryOptionCombo": aggregatedQuanityConsumed_Combo, "value": valueH.toString()};
+                                            var post_obj_PhysicalStock= { "dataElement": dataElementId, "categoryOptionCombo": aggregatePhysicalStock, "value": valueAggregatePhysicalStock.toString()};
+                                            post_data.dataValues.push(post_obj_resupply);
+                                            post_data.dataValues.push(post_obj_H);
+                                            post_data.dataValues.push(post_obj_PhysicalStock);
+
+                                            dataElementsUpadated.push(dataElementId);
+                                        }
+
+                                        if(dataElementsUpadated.length>53){
+
+                                            $('#loading').html('<span>Loading Complete</span>');
+                                        }
+
+                                    }
+                                }
                             });
-
                         }
                         else {
 
                             dataObj.val = parseInt(dataObj.val);
                             var tableItem=$(dataObj.id);
                             tableItem.text(dataObj.val);
+                            tableItem.val(dataObj.val);
                         }
+
+
                     });
 
+
                 });
+
+
 
 
 
@@ -1000,8 +1104,10 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
                 jqxhr.done(function (response) {
                     var tableItem=$("#facility_detail");
                     var tablefacilityid=$("#facility_id");
+                    var reportingPeriod=$('#reportingperiod');
                     var facility=response.name;
                     var facilityid=response.code;
+                    reportingPeriod.text(period);
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
 
@@ -1030,8 +1136,10 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
             var urlGetDataset="api/get_data.php";
             var urlPostToDHIS="api/post_datavalues.php";
 
-
-
+            $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
+            setTimeout(function(){
+                $('#loading').html("Try Again.");
+            }, 60000);
             //Get the orgUnit details
             getOrganisationUnitName(urlOrgUnit);
 
@@ -1043,8 +1151,10 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
                     var tablefacilityid=$("#facility_id");
                     var facility=response.name;
                     var facilityid=response.code;
+                    var reportingPeriod=$('#reportingperiod');
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
+                    reportingPeriod.text(period);
 
                 });
 
@@ -1060,10 +1170,25 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
             ( urlGetDataset,
                 {dataSet:dataSet,period:period,orgUnit:orgUnit},
                 function(response) {
-                    alert("Data Loaded");
                     var response_data=response;
-                    var dataValues = response_data.dataValues;
 
+
+                    if(response==-1){
+                        $('#loading').html('<span>Error Loading Try Again</span>');
+                    }
+
+                    if ('dataValues' in response_data){
+
+                        var dataValues = response_data.dataValues;
+                    }
+                    else{
+
+                        $('#loading').html('<span>Loading Complete</span>');
+                    }
+
+
+
+                    var dataValuesLength=dataValues.length;
                     //data to post to dhis2
                     var post_data=response_data;
                     post_data.dataValues=[];
@@ -1127,11 +1252,19 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
                                     dataElementsUpadated.push(dataElementId);
                                 }
 
+                                if(dataElementsUpadated.length>50)
+                                {
+                                    $('#loading').html('<span>loading complete</span>');
+                                }
+
                             }
 
                         }
-                    });
 
+                        if(dataValues.length-1<=index){
+                            $('#loading').html('<span>Loading Complete</span>');
+                        }
+                    });
 
 
                     //Method to post data values back to DHIS2
