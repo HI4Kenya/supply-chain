@@ -3,6 +3,7 @@
         <div class="panel-heading">
             <h3>FACILITY CONSUMPTION DATA REPORT and REQUEST (F-CDRR) for ANTIRETROVIRAL and OPPORTUNISTIC INFECTION MEDICINES (MoH 730B)</h3>
             <span id="facility_detail"></span><br/>
+            <button class="btn btn-success post-data"> Post to DHIS</button>
         </div>
         <div class="panel-body" style="overflow: scroll">
             <table border="1" cellpadding="0" cellspacing="0" width="1456">
