@@ -236,12 +236,12 @@ function getAnalytics()
                                     "<select id = 'periodType' style='width:100%' onchange='javascript:changePeriod()'>"+
                                         "<option value = 'none selected'>[Select Period Type]</option>"+
                                         // "<option value = 'daily'>Daily</option>"+
-                                        // "<option value = 'weekly'>Weekly</option>"+
+                                       //"<option value = 'weekly'>Weekly</option>"+
                                         "<option value = 'monthly'>Monthly</option>"+
-                                        "<option value = 'bi-monthly'>Bi-Monthly</option>"+
-                                        "<option value = 'quarterly'>Quarterly</option>"+
-                                        "<option value = 'six-monthly'>Six Monthly</option>"+
-                                        "<option value = 'yearly'>Yearly</option>"+
+                                        //"<option value = 'bi-monthly'>Bi-Monthly</option>"+
+                                        //"<option value = 'quarterly'>Quarterly</option>"+
+                                        //"<option value = 'six-monthly'>Six Monthly</option>"+
+                                        //"<option value = 'yearly'>Yearly</option>"+
                                     "</select>"+
                                     
                                     "<select id = 'period' style = 'width:70%;margin-bottom:10px'>"+
@@ -367,7 +367,7 @@ function programDetails()
                                     "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
                                         "<span class='fa fa-plus-square-o'></span> "+
                                     "</a>"+
-                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'sub-county store'"+
+                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'sub-county-store'"+
                                         "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
                                         received[j].facility_name+
                                     "</span>"+                                            
@@ -395,7 +395,7 @@ function programDetails()
                         $("div#facility_satellite"+values[values.length-1].facility_id).empty();
                         for(var k=0; k<values.length-1;k++)
                         {                                  
-                            var satellitesToAppend ="<div style='color:;font-size:8pt;' id = 'satellite_"+values[k].facility_id+"' value = '"+values[k].facility_id+"' classification = 'satellite site'"+
+                            var satellitesToAppend ="<div style='color:;font-size:8pt;' id = 'satellite_"+values[k].facility_id+"' value = '"+values[k].facility_id+"' classification = 'satellite-site'"+
                                                         "class = 'unclickedColor color' onclick ='javascript:selectFacility(\"satellite_"+values[k].facility_id+"\")'>"+
                                                         values[k].facility_name+
                                                         "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
@@ -438,7 +438,7 @@ function programDetails()
                                     "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
                                         "<span class='fa fa-plus-square-o'></span> "+
                                     "</a>"+
-                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'central site'"+
+                                    "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'central-site'"+
                                         "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
                                         received[j].facility_name+
                                     "</span>"+                                            
@@ -466,7 +466,7 @@ function programDetails()
                         $("div#facility_satellite"+values[values.length-1].facility_id).empty();
                         for(var k=0; k<values.length-1;k++)
                         {                                  
-                            var satellitesToAppend ="<div style='color:;font-size:8pt;' id = 'satellite_"+values[k].facility_id+"' value = '"+values[k].facility_id+"' classification = 'satellite site'"+
+                            var satellitesToAppend ="<div style='color:;font-size:8pt;' id = 'satellite_"+values[k].facility_id+"' value = '"+values[k].facility_id+"' classification = 'satellite-site'"+
                                                         "class = 'unclickedColor color' onclick ='javascript:selectFacility(\"satellite_"+values[k].facility_id+"\")'>"+
                                                         values[k].facility_name+
                                                         "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
@@ -505,7 +505,7 @@ function programDetails()
             $('div#supply_hierarchy_sa').empty();
             for(var j=0; j<received.length;j++)
             {  
-                var standalonesToAppend = "<div id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'stand alone'"+
+                var standalonesToAppend = "<div id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'standalone-site'"+
                                             "class = 'unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")' style='color:;font-size:8pt;margin-left:20px'>"+
                                             received[j].facility_name+
                                             "</div>";
@@ -527,7 +527,7 @@ function changePeriod()
 
     // Get the selected period type
     var period = document.getElementById("periodType");
-    var periodOptions = period.options[period.selectedIndex].value;
+    var periodOptions =period.options[period.selectedIndex].value;
 
     if(periodOptions == "none selected")
     {
@@ -547,7 +547,7 @@ function changePeriod()
                 day:16
             },
             yearsRange: new Array(1971,2100),
-            limitToToday:true,
+            limitToToday:true
         });       
     }
 
@@ -800,14 +800,18 @@ function reportData()
 function generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification)
 {
     var path="client/report_templates/";
+    var multiplier=0;
+    alert(selectedFacilityClassification);
 
-    if((selectedFacilityClassification == "central site")||(selectedFacilityClassification == "sub-county store"))
+    if((selectedFacilityClassification == "central-site")||(selectedFacilityClassification == "sub-county-store"))
     {
         var dataSetTemplate;
         alert(periodOfTheReport);
         //Fetch Satellite Sites for the current Central Site
         var satellite_url ="db/fetch/get_satellite_sites.php";
         var satellites=[];
+        multiplier=3;
+
 
         $.getJSON
         (  satellite_url,
@@ -834,17 +838,18 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 else
                 if(dataSetOptions=="VoCwF0LPGjb"){
                     dataSetTemplate= path+"MOH729A.php";
-                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+                    //reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
                 }
                 else
                 if(dataSetOptions=="VOzBhzjvVcw"){
                     dataSetTemplate= path+"MOH729Ba.php";
-                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
                 }
                 else
                 if(dataSetOptions=="HAcToQkdUS1"){
                     dataSetTemplate= path+"MOH730B.php";
-                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
                 }
                 else{
                     alert("Dataset Not found");
@@ -854,53 +859,58 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
         );
 
     }
-
-    if(selectedFacilityClassification == "satellite site")
+    else
+    if(selectedFacilityClassification == "satellite-site")
     {
         var dataSetTemplate;
+        multiplier=2;
 
         if(dataSetOptions=="VOzBhzjvVcw"){
             dataSetTemplate= path+"MOH729Ba.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
         }
         else
         if(dataSetOptions=="HAcToQkdUS1"){
             dataSetTemplate= path+"MOH730Ba.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
         }
         else
         if(dataSetOptions=="q1Or1k6pQAC"){
             dataSetTemplate= path+"MOH734B.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
         }
         else{
             alert("Dataset Not found");
         }
 
     }
-
-    if(selectedFacilityClassification == "standalone site")
+    else
+    if(selectedFacilityClassification == "standalone-site")
     {
         var dataSetTemplate;
+        multiplier=3;
 
         if(dataSetOptions=="KoAUVRcQcX3"){
             dataSetTemplate= path+"MOH729Bb.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
         }
         else
         if(dataSetOptions=="uAxwIxtsn6u"){
             dataSetTemplate= path+"MOH730Bb.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions.multiplier);
         }
         else
         if(dataSetOptions=="KUCi7uw6YhR"){
             dataSetTemplate= path+"MOH734.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
         }
         else{
             alert("Dataset Not found");
         }
 
+    }
+    else{
+        alert("Wrong Classification");
     }
 
 
@@ -1007,7 +1017,7 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 
 
 // Function reportTemplate
-function reportTemplate(templateUrl, period, orgUnit, dataSet)
+function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
 {
     $.get(templateUrl).then
     (
@@ -1018,6 +1028,9 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
             var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
 
             var urlGetDataset="api/get_data.php";
+            var urlPostToDHIS="api/post_datavalues.php";
+
+
 
             //Get the orgUnit details
             getOrganisationUnitName(urlOrgUnit);
@@ -1063,7 +1076,9 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
                         dataObj.val= dataObj.value;
                         dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val"
                         var tableItem=$(dataObj.id);
-                        tableItem.text(dataObj.val);
+                        tableItem.val(dataObj.val);
+                        console.log(dataObj.val);
+                        //tableItem.text(dataObj.val);
 
                         //Get an array of Objects with the same dataElement
                         var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId ; });
@@ -1095,6 +1110,10 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
                                     valueG=parseInt(columnG[0].value);
                                 }
                                 valueResupply=valueC-valueG;
+                                //check if the quantity required for resupply is less than zero
+                                if(valueResupply<0){
+                                    valueResupply=0;
+                                }
 
                                 var tableItem=$(elementId);
                                 tableItem.text(valueResupply);
@@ -1118,7 +1137,7 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
                     //Method to post data values back to DHIS2
                     $(".post-data").click(function(){
 
-                        $.post("post_datavalues.php", {"post":post_data},
+                        $.post(urlPostToDHIS, {"post":post_data},
                             function(data, status){
                                 if(data==-1){
                                     alert("Post was Unsuccessful"+status);
