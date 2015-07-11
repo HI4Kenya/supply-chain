@@ -799,46 +799,120 @@ function reportData()
 
 function generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification)
 {
+    var path="client/report_templates/";
+
     if((selectedFacilityClassification == "central site")||(selectedFacilityClassification == "sub-county store"))
     {
-        var MOH730A = "client/report_templates/MOH730A.php";
-        reportTemplate(MOH730A, periodOfTheReport, selectedFacilityID, dataSetOptions);
-        
+        var dataSetTemplate;
+        alert(periodOfTheReport);
         //Fetch Satellite Sites for the current Central Site
-        var satellite_url = "db/fetch/get_satellite_sites.php";
+        var satellite_url ="db/fetch/get_satellite_sites.php";
+        var satellites=[];
+
         $.getJSON
-        (
-            satellite_url,
-            {central_id:selectedFacilityID,program:selectedProgramID},
+        (  satellite_url,
+            {central_id:selectedFacilityID, program:selectedProgramID },
             function(values)
-            {  
-                /* 
-                    The reason for looping with values.length-1 is to ensure the last item returned is not appended
-                    because it is the parent of the satellites returned.
-
-                    The last item returned is the parent of the satellites returned. It had been appended as the 
-                    id of the parent div where we need to append the satellite sites we have fetched.
-                */
+            {
                 for(var k=0; k<values.length-1;k++)
-                {     
+                {
+                    satellites.push(values[k].facility_id);
+                }
 
-                   //alert(values[k].facility_id);                    
-                }  
+                if(dataSetOptions=="rV6fPhufzlU"){
+
+                    dataSetTemplate= path+"MOH730A.php";
+                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+
+                }
+                else
+                if(dataSetOptions=="epnKYskZQGU"){
+
+                    dataSetTemplate= path+"MOH734A.php";
+                    reportTemplateCentral(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
+                }
+                else
+                if(dataSetOptions=="VoCwF0LPGjb"){
+                    dataSetTemplate= path+"MOH729A.php";
+                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                }
+                else
+                if(dataSetOptions=="VOzBhzjvVcw"){
+                    dataSetTemplate= path+"MOH729Ba.php";
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                }
+                else
+                if(dataSetOptions=="HAcToQkdUS1"){
+                    dataSetTemplate= path+"MOH730B.php";
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                }
+                else{
+                    alert("Dataset Not found");
+                }
+
             }
         );
+
     }
 
-    else if((selectedFacilityClassification == "satellite site")||(selectedFacilityClassification == "standalone site"))
+    if(selectedFacilityClassification == "satellite site")
     {
-        var MOH730B = "client/report_templates/MOH730B.php";
-        reportTemplate(MOH730B, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        var dataSetTemplate;
+
+        if(dataSetOptions=="VOzBhzjvVcw"){
+            dataSetTemplate= path+"MOH729Ba.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else
+        if(dataSetOptions=="HAcToQkdUS1"){
+            dataSetTemplate= path+"MOH730Ba.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else
+        if(dataSetOptions=="q1Or1k6pQAC"){
+            dataSetTemplate= path+"MOH734B.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else{
+            alert("Dataset Not found");
+        }
+
     }
+
+    if(selectedFacilityClassification == "standalone site")
+    {
+        var dataSetTemplate;
+
+        if(dataSetOptions=="KoAUVRcQcX3"){
+            dataSetTemplate= path+"MOH729Bb.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else
+        if(dataSetOptions=="uAxwIxtsn6u"){
+            dataSetTemplate= path+"MOH730Bb.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else
+        if(dataSetOptions=="KUCi7uw6YhR"){
+            dataSetTemplate= path+"MOH734.php";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions);
+        }
+        else{
+            alert("Dataset Not found");
+        }
+
+    }
+
 
 }
 
-// Function reportTemplate
-function reportTemplate(templateUrl, period, orgUnit, dataSet)
+
+
+
+// Function reportTemplate-Central Stores
+function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 {
+    console.log(satellites);
     $.get(templateUrl).then
     (
         function(responseData) 
@@ -846,64 +920,68 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
             $('div#facilities').empty();
             $('div#facilities').append(responseData);
 
-            // Append data
-            // var period = reportPeriodOptions;
-            // var orgUnit = selectedFacilityID;
-            // var dataSet = dataSetOptions;
-
-            var urlDataSet=null;
-            //loading the dataSet template
-            urlDataSet="http://test.hiskenya.org/api/dataSets/"+dataSet+"/dataValueSet.jsonp?callback=?";
             //url for getting datavalues and org unit details
-            var url="http://test.hiskenya.org/api/dataValues.jsonp?pe="+ period+"&ou=" +orgUnit;
             var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+            var urlAggregate="api/get_aggregate.php";
+            var urlGetDataset="api/get_data.php";
+
+            //Category combinations for aggregation
+            var categoryOptionCombos=["w5mBD3FwKg3","YO3e43lWky0"];
+
+            satellites.push(orgUnit);
 
             //Getting and Setting the facility Name
             getOrganisationUnitName(urlOrgUnit);
 
-            //starting to load dataSet Values
-            start();
+            //Getting dataValues for the dataElements and appending them to the report
+            $.getJSON
+            ( urlGetDataset,
+                {dataSet:dataSet,period:period,orgUnit:orgUnit},
+                function(response) {
+                    alert("OKAY");
+                    var dataValues = response.dataValues;
+                    $.each(dataValues, function (index, dataObj) {
+                        var dataElementId = dataObj.dataElement;
+                        var optionComboId = dataObj.categoryOptionCombo;
+                        dataObj.val= dataObj.value;
+                        dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
+                        if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
 
-            //function to get the name of the orgUnit
-            function start (){
-                var jqxhr = $.getJSON(urlDataSet);
-                jqxhr.done(function (response) {
-                    response=response.dataValues;
-                    var dataElements=response;
-                    var dataElementId=null;
-                    var optionComboId=null;
-                    var  url_link=null;
-                    var id=null;
+                            var categoryCombination = dataObj.categoryOptionCombo;
+                            //physical stock
+                            if (dataObj.categoryOptionCombo == "YO3e43lWky0") {
 
-                    $.each(dataElements, function (key, dataElement) {
-                        dataElementId=dataElement.dataElement;
-                        optionComboId = dataElement.categoryOptionCombo;
-                        url_link = url+"&de=" + dataElementId + "&co=" + optionComboId+"&callback=?";
-                        id = "#" + dataElementId + "-" + optionComboId+"-val";
-                        getDataValue(url_link,id);
+                                categoryCombination = "UIjvPBrmiNE";
+                            }
+
+                            //Quantity consumed
+                            if (dataObj.categoryOptionCombo == "w5mBD3FwKg3") {
+
+                                categoryCombination = "MQxdLLBfwIL";
+                            }
+
+                            var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination};
+
+                            $.getJSON(urlAggregate,dataSatelites,function (data){
+
+                                dataObj.val = data;
+                                var tableItem = $(dataObj.id);
+                                tableItem.text(dataObj.val);
+
+                            });
+
+                        }
+                        else {
+
+                            dataObj.val = parseInt(dataObj.val);
+                            var tableItem=$(dataObj.id);
+                            tableItem.text(dataObj.val);
+                        }
                     });
+
                 });
 
-                jqxhr.error(function(jqXHR, textStatus, errorThrown)
-                {
-                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
-                    $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure you are logged in to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a></span>");
-                    console.log(textStatus + ': ' + errorThrown);
-                });
 
-            };
-
-
-            //function to get Datavalue for a data Element
-            var getDataValue= function(url_data, id){
-                var jqxhr = $.getJSON(url_data);
-                jqxhr.done(function (response) {
-                    result=response;
-                    var tableItem=$(id);
-                    tableItem.text(response);
-                });
-
-            };
 
 
             //function to get the name of the orgUnit
@@ -920,7 +998,140 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet)
 
                 });
 
-            };
+            }
         }
     );    
+}
+
+
+
+
+// Function reportTemplate
+function reportTemplate(templateUrl, period, orgUnit, dataSet)
+{
+    $.get(templateUrl).then
+    (
+        function(responseData) {
+            $('div#facilities').empty();
+            $('div#facilities').append(responseData);
+
+            var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+
+            var urlGetDataset="api/get_data.php";
+
+            //Get the orgUnit details
+            getOrganisationUnitName(urlOrgUnit);
+
+            //function to get the name of the orgUnit
+            function getOrganisationUnitName(urlOrgUnit){
+                var jqxhr = $.getJSON(urlOrgUnit);
+                jqxhr.done(function (response) {
+                    var tableItem=$("#facility_detail");
+                    var tablefacilityid=$("#facility_id");
+                    var facility=response.name;
+                    var facilityid=response.code;
+                    tableItem.text(facility);
+                    tablefacilityid.text(facilityid);
+
+                });
+
+                jqxhr.error(function (jxqhr, status, errorThrown) {
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
+                    $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure you are logged in to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a></span>");
+
+                });
+            }
+
+            //Load the Report+ aggregated the fields
+            $.getJSON
+            ( urlGetDataset,
+                {dataSet:dataSet,period:period,orgUnit:orgUnit},
+                function(response) {
+                    alert("Data Loaded");
+                    var response_data=response;
+                    var dataValues = response_data.dataValues;
+
+                    //data to post to dhis2
+                    var post_data=response_data;
+                    post_data.dataValues=[];
+                    var dataElementsUpadated=[];
+
+                    var post_obj=null;
+                    $.each(dataValues, function (index, dataObj) {
+                        var dataElementId = dataObj.dataElement;
+                        var optionComboId = dataObj.categoryOptionCombo;
+                        dataObj.val= dataObj.value;
+                        dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val"
+                        var tableItem=$(dataObj.id);
+                        tableItem.text(dataObj.val);
+
+                        //Get an array of Objects with the same dataElement
+                        var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId ; });
+
+                        if (result.length == 0) {
+                            // not found
+                        } else if (result.length == 1) {
+                            // one object
+                        } else {
+                            var columnC=$.grep(result, function(e){ return e.categoryOptionCombo =="MQxdLLBfwIL" ;});
+                            var columnG=$.grep(result, function(e){ return e.categoryOptionCombo =="UIjvPBrmiNE";});
+                            var quanityResupplyElement="SxfihIxpyin";
+
+                            var elementId="#"+dataElementId+"-"+quanityResupplyElement+"-val";
+
+                            //Calculating quantity required for resupply
+                            if(columnC.length>0 && columnG.length>0 )
+                            {
+                                var valueC=0;
+                                var valueG=0;
+                                var valueResupply=0;
+
+                                if ('value' in columnC[0]){
+                                    valueC=parseInt(columnC[0].value);
+                                    valueC=valueC*multiplier;
+                                }
+
+                                if ('value' in columnG[0]){
+                                    valueG=parseInt(columnG[0].value);
+                                }
+                                valueResupply=valueC-valueG;
+
+                                var tableItem=$(elementId);
+                                tableItem.text(valueResupply);
+
+                                //post data
+                                if ($.inArray(dataElementId,dataElementsUpadated)==-1){
+
+                                    var post_obj= { "dataElement": dataElementId, "categoryOptionCombo": quanityResupplyElement, "value": valueResupply.toString()};
+                                    post_data.dataValues.push(post_obj);
+
+                                    dataElementsUpadated.push(dataElementId);
+                                }
+
+                            }
+
+                        }
+                    });
+
+
+
+                    //Method to post data values back to DHIS2
+                    $(".post-data").click(function(){
+
+                        $.post("post_datavalues.php", {"post":post_data},
+                            function(data, status){
+                                if(data==-1){
+                                    alert("Post was Unsuccessful"+status);
+                                }
+
+                                if(data==0){
+                                    alert("Post was successful"+status);
+                                }
+                            });
+
+                    });
+
+                });
+
+        });
 }

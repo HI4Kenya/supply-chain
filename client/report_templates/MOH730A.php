@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="panel panel-warning">
+	<div class="panel panel-success">
 		<div class="panel-heading">
 			<h2>Ministry Of Health</h2></br></br>
             <h3>CENTRAL SITE /DISTRICT STORE CONSUMPTION DATA REPORT AND REQUEST MoH 730A</h3></br>
