@@ -163,8 +163,8 @@
                                 <!-- END UPDATES -->";
                     }
 
-                    // Data Administration reserved to the ADMIN and WRITE roles
-                    if(($_SESSION["user_role"]=="ADMIN")||($_SESSION["user_role"]=="WRITE"))
+                    // Data Administration reserved to the ADMIN
+                    if(($_SESSION["user_role"]=="ADMIN"))
                     {
 
                         echo "<!-- DATA ADMINISTRATION -->

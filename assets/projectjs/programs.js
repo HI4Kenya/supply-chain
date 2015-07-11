@@ -524,7 +524,7 @@ function programOperations(operation,programID)
             {
                 for(var datasetsNo = 0; datasetsNo<receivedValues.length; datasetsNo++)
                 {
-                    $("<option id = '"+receivedValues[datasetsNo].dataset_id+"' value = '"+receivedValues[datasetsNo].dataset_id+"'>"
+                    $("<option id = 'available_datasets"+receivedValues[datasetsNo].dataset_id+"' value = '"+receivedValues[datasetsNo].dataset_id+"'>"
                     +receivedValues[datasetsNo].dataset_name+"</option>").appendTo("select#available_program_datasets");   
                 }
             }
@@ -542,7 +542,9 @@ function programOperations(operation,programID)
                 for(var datasetsNo = 0; datasetsNo<receivedValues.length; datasetsNo++)
                 {
                     $("<option id = '"+receivedValues[datasetsNo].dataset_id+"' value = '"+receivedValues[datasetsNo].dataset_id+"'>"
-                    +receivedValues[datasetsNo].dataset_name+"</option>").appendTo("select#selected_program_datasets");   
+                    +receivedValues[datasetsNo].dataset_name+"</option>").appendTo("select#selected_program_datasets");
+                    
+                    $("#available_datasets"+receivedValues[datasetsNo].dataset_id).empty();
                 }
             }
         );
@@ -568,157 +570,131 @@ function programOperations(operation,programID)
         {
             $('div#search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
 
+            // Array to hold the program datasets
+            var programDatasets = [];
             for (var i = 0; i < pickOLength; i++) 
             {
-                pickOptions[i].selected = true;
-                // Insert program
-                $.post
-                (
-                    'db/update/edit_programs.php',
-                    {program_id:programID,program_name:programName,program_datasetID:pickOptions[i].value},
-                    function(statusMessage)
-                    {
-                        /*
-                            NOTES: MESSAGE CODES
-                                   -1 - Error
-                                    0 - Program Name and Dataset Updated
-                                    1 - Program Name Updated
-                                    2 - New Dataset Inserted
-                                   10 - No Changes
-                            */
-                        if(statusMessage == -1)
-                        {
-                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                    "<span style ='margin-left:80px'>"+
-                                                        "An error occured"+
-                                                    "</span>"+
-                                                "</div>";
-                            $("div#returned_messages").html(errorMessage);
-                            //Clear the error message after 1500 ms
-                            setTimeout
-                            (
-                                function()
-                                {
-                                    $("div#returned_messages").empty();
-                                    var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
-                                                            "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
-                                                            "NOTE: Changes affect the classification"
-                                                            "</span>"+
-                                                        "</span>";
-                                    $('div#returned_messages').html(noteToAppend);
-                                    programOperations("update",programID);
-                                },
-                                1500
-                            );
-                        }
-
-                        else if(statusMessage == 0)
-                        {
-                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                    "<span style ='margin-left:80px'>"+
-                                                        "Program Name and Datasets Updated"+
-                                                    "</span>"+
-                                                "</div>";
-                            $("div#returned_messages").html(errorMessage);
-                            //Clear the error message after 1500 ms
-                            setTimeout
-                            (
-                                function()
-                                {
-                                    $("div#returned_messages").empty();
-                                    var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
-                                                            "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
-                                                            "NOTE: Changes affect the classification"
-                                                            "</span>"+
-                                                        "</span>";
-                                    $('div#returned_messages').html(noteToAppend);
-                                    programOperations("update",programID);
-                                },
-                                1500
-                            );
-                        }
-
-                        else if(statusMessage == 1)
-                        {
-                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                    "<span style ='margin-left:80px'>"+
-                                                        "Program Name Updated"+
-                                                    "</span>"+
-                                                "</div>";
-                            $("div#returned_messages").html(errorMessage);
-                            //Clear the error message after 1500 ms
-                            setTimeout
-                            (
-                                function()
-                                {
-                                    $("div#returned_messages").empty();
-                                    var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
-                                                            "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
-                                                            "NOTE: Changes affect the classification"
-                                                            "</span>"+
-                                                        "</span>";
-                                    $('div#returned_messages').html(noteToAppend);
-                                    programOperations("update",programID);
-                                },
-                                1500
-                            );
-                        }
-
-                        else if(statusMessage == 2)
-                        {
-                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                    "<span style ='margin-left:80px'>"+
-                                                        "A new dataset has been added"+
-                                                    "</span>"+
-                                                "</div>";
-                            $("div#returned_messages").html(errorMessage);
-                            //Clear the error message after 1500 ms
-                            setTimeout
-                            (
-                                function()
-                                {
-                                    $("div#returned_messages").empty();
-                                    var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
-                                                            "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
-                                                            "NOTE: Changes affect the classification"
-                                                            "</span>"+
-                                                        "</span>";
-                                    $('div#returned_messages').html(noteToAppend);
-                                    programOperations("update",programID);
-                                },
-                                1500
-                            );
-                        }
-                        else if(statusMessage == 10)
-                        {
-                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                    "<span style ='margin-left:80px'>"+
-                                                        "No Changes made to this program"+
-                                                    "</span>"+
-                                                "</div>";
-                            $("div#returned_messages").html(errorMessage);
-                            //Clear the error message after 1500 ms
-                            setTimeout
-                            (
-                                function()
-                                {
-                                    $("div#returned_messages").empty();
-                                    var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
-                                                            "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
-                                                            "NOTE: Changes affect the classification"
-                                                            "</span>"+
-                                                        "</span>";
-                                    $('div#returned_messages').html(noteToAppend);
-                                    programOperations("update",programID);
-                                },
-                                1500
-                            );
-                        }
-                    }
-                );
-
+                programDatasets.push(pickOptions[i].value);
             }
 
+            // Edit the program
+            $.post
+            (
+                'db/update/update_programs.php',
+                {program_id:programID,program_name:programName,program_datasetID:programDatasets},
+                function(statusMessage)
+                {
+                    /*
+                        NOTES: MESSAGE CODES
+                               -1 - Error
+                                0 - Program Name and Datasets Updated
+                                1 - Program Name Updated
+                               10 - Program datasets updated
+                        */
+                    if(statusMessage == -1)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "An error occured"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                programOperations("update",programID);
+                            },
+                            1500
+                        );
+                    }
+
+                    else if(statusMessage == 0)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "Program Name and Datasets Updated"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                programOperations("update",programID);
+                            },
+                            1500
+                        );
+                    }
+
+                    else if(statusMessage == 1)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "Program Name Updated"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                programOperations("update",programID);
+                            },
+                            1500
+                        );
+                    }
+                    else if(statusMessage == 10)
+                    {
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "Program Datasets Updated"+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        //Clear the error message after 1500 ms
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                var noteToAppend = "<span style = 'color:green;margin-left:30px'>EDIT PROGRAMS<br>"+
+                                                        "<span id = 'note' style ='color:red;font-weight:normal;font-size:10pt;margin-left:30px'>"+
+                                                        "NOTE: Changes affect the classification"
+                                                        "</span>"+
+                                                    "</span>";
+                                $('div#returned_messages').html(noteToAppend);
+                                programOperations("update",programID);
+                            },
+                            1500
+                        );
+                    }
+                }
+            );
         }        
     }
 

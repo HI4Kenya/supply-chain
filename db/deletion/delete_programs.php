@@ -92,18 +92,30 @@
 				{
 					// Log the deletion
 					// require the log insertion script
-					require 'log_deletion.php';				            
+					require 'log_deletion.php';	
+
+					// Reset the AI of this table
+					$reset_ai = "ALTER TABLE programs AUTO_INCREMENT = 1";
+					mysqli_query($conn,$reset_ai);			            
 				}
 				else
 				{
 					echo -1;
 				}
+
+				// Reset the AI of this table
+				$reset_ai = "ALTER TABLE facility_program_mapping AUTO_INCREMENT = 1";
+				mysqli_query($conn,$reset_ai);
 			}
 			else
 			{
 				// Error message
 				echo -1;
 			}
+
+			// Reset the AI of this table
+			$reset_ai = "ALTER TABLE datasets AUTO_INCREMENT = 1";
+			mysqli_query($conn,$reset_ai);
 
 		}
 		else

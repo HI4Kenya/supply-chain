@@ -60,18 +60,13 @@
 			$run_mapping_query = mysqli_query($conn,$delete_mapping_query);
 			if($run_mapping_query)
 			{
-				$programs = "SELECT * FROM programs WHERE program_id = '$program_id'";
-		        $result = mysqli_query($conn,$programs);
-		        if(mysqli_num_rows($result)>0)
-		        {
-		            while($row = mysqli_fetch_assoc($result)) 
-		            {
-		            	// Log the deletion
-						// require the log insertion script
-						require 'log_deletion.php';
-		            }
-		        }
+				// Log the deletion
+				// require the log insertion script
+				require 'log_deletion.php';
 
+				// Reset the AI of this table
+				$reset_ai = "ALTER TABLE facility_program_mapping AUTO_INCREMENT = 1";
+				mysqli_query($conn,$reset_ai);
 			}
 			else
 			{

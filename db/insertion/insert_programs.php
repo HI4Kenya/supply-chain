@@ -17,6 +17,11 @@
 		$program_name = str_replace("'", "",$_POST['program_name']);
 		$program_dataset = $_POST['program_datasetID'];
 
+		// Date updated
+		$date_created = date("l")." ".date("Y-m-d")." ".date("h:i:sa");
+        // User updating this account
+        $created_by = $_SESSION["user_id"];
+
 		//Check if program exists
 		$exists = "SELECT * FROM programs WHERE program_name = '$program_name'";
 		$result = mysqli_query($conn,$exists);
@@ -38,8 +43,8 @@
 	        else
 	        {
 	        	// Update Dataset
-				$insert_dataset = "INSERT INTO datasets(dataset_id,program_id)
-				VALUES ('$program_dataset','$the_program_id')";
+				$insert_dataset = "INSERT INTO datasets(dataset_id, program_id, created_on, created_by)
+				VALUES ('$program_dataset','$the_program_id', '$date_created', '$created_by')";
 				if (mysqli_query($conn, $insert_dataset)) 
 				{
 					echo 10;
@@ -54,8 +59,8 @@
 
 		else
 		{
-			$sql = "INSERT INTO programs(program_name)
-			VALUES ('$program_name')";
+			$sql = "INSERT INTO programs(program_name, date_created, created_by, date_updated, updated_by)
+			VALUES ('$program_name', '$date_created', '$created_by', '$date_created', '$created_by')";
 
 			if (mysqli_query($conn, $sql)) 
 			{
@@ -68,8 +73,8 @@
 	                {
 	                   $the_program_id = $row['program_id'];
 	                }
-					$insert_dataset = "INSERT INTO datasets(dataset_id,program_id)
-					VALUES ('$program_dataset','$the_program_id')";
+					$insert_dataset = "INSERT INTO datasets(dataset_id, program_id, created_on, created_by)
+					VALUES ('$program_dataset', '$the_program_id', '$date_created', '$created_by')";
 					if (mysqli_query($conn, $insert_dataset)) 
 					{
 						echo 0;

@@ -63,6 +63,10 @@
 				// Log the deletion
 				// require the log insertion script
 				require 'log_deletion.php';
+
+				// Reset the AI of this table
+				$reset_ai = "ALTER TABLE facility_program_mapping AUTO_INCREMENT = 1";
+				mysqli_query($conn,$reset_ai);
 			}
 			else
 			{
