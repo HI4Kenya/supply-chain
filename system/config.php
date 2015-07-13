@@ -19,7 +19,7 @@
     # Base Path url
     # Path to the root of the project
 
-    $base_path = "http://localhost/mshTask/";
+    $base_path = "http://localhost/msh/";
 
     # DHIS2 API login credentials
     # Edit accordingly
