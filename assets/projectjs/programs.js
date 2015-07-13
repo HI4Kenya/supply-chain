@@ -352,100 +352,101 @@ function programOperations(operation,programID)
             {
                 $('div#search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
 
+                // Array to hold the program datasets
+                var programDatasets = [];
                 for (var i = 0; i < pickOLength; i++) 
                 {
-                    pickOptions[i].selected = true;
-                    // Insert program
-                    $.post
-                    (
-                        'db/insertion/insert_programs.php',
-                        {program_name:programName,program_datasetID:pickOptions[i].value},
-                        function(statusMessage)
-                        {
-                            if(statusMessage == 0)
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:70px'>"+
-                                                            "<span class = 'fa fa-check-square' style = 'color:white;'> Program has been saved</span>"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        createPrograms();
-                                    },
-                                    1500
-                                );
-                            }
-
-                            else if(statusMessage == 1)
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:70px'>"+
-                                                            "<span class = 'fa fa-ok' style = 'color:white;'> This program exists </span>"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        createPrograms();
-                                    },
-                                    1500
-                                );
-                            }
-
-                            else if(statusMessage == 10)
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:70px'>"+
-                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Program datasets updated</span>"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        createPrograms();
-                                    },
-                                    1500
-                                );
-                            }
-
-                            else if(statusMessage == -1)
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:70px'>"+
-                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Error. Program not inserted</span>"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        createPrograms();
-                                    },
-                                    1500
-                                );
-                            }
-                        }
-                    );
-
+                    programDatasets.push(pickOptions[i].value);
                 }
 
+                // Insert program
+                $.post
+                (
+                    'db/insertion/insert_programs.php',
+                    {program_name:programName,program_datasetID:programDatasets},
+                    function(statusMessage)
+                    {
+                        if(statusMessage == 0)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-check-square' style = 'color:white;'> Program has been saved</span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    createPrograms();
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'> This program exists </span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    createPrograms();
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 10)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'> Program datasets updated</span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    createPrograms();
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == -1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'> Error. Program not inserted</span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    createPrograms();
+                                },
+                                1500
+                            );
+                        }
+                    }
+                );
             }
         }
         

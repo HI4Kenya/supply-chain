@@ -1,43 +1,46 @@
 <?php
-//API login Credentials
-$username="kayeli";
-$password="Kdenno25@gmail";
+	// Include system config file
+	//require 'system/config.php';
 
-//HTTP GET request -Using Curl -Response JSON
-$data=$_POST['post'];
-$data=json_encode($data);
+	//API login Credentials
+	$username = "kayeli";
+	$password = "Kdenno25@gmail";;
 
-$url="http://test.hiskenya.org/api/dataValueSets";
+	//HTTP GET request -Using Curl -Response JSON
+	$data=$_POST['post'];
+	$data=json_encode($data);
 
-
-
-// initailizing curl
-$ch = curl_init();
-//curl options
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-//execute
-$result = curl_exec($ch);
-
-//close connection
-curl_close($ch);
+	$url="http://test.hiskenya.org/api/dataValueSets";
 
 
-if ($result){
 
-    echo 0;
-}
-else{
+	// initailizing curl
+	$ch = curl_init();
+	//curl options
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+	//execute
+	$result = curl_exec($ch);
 
-    echo -1;
-}
+	//close connection
+	curl_close($ch);
+
+
+	if ($result){
+
+	    echo 0;
+	}
+	else{
+
+	    echo -1;
+	}
 
 ?>
