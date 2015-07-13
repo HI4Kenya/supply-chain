@@ -47,7 +47,7 @@
     				$deleted_item_id = "All StandAlone Sites program:".$row['program_id'];
 					$deleted_item_name = "All StandAlone Sites in the ".$row['program_name']." program";
 					$deleted_item_description = "Program ID:".$row['program_id']."."."Program Name:".
-												$row['program_name']."."."Sub-County Stores:".$to_log
+												$row['program_name']."."."StandAlone Sites:".$to_log
 												.".".$classification;
 					$date_deleted = date("l")." ".date("Y-m-d")." ".date("h:i:sa");
 					$deleted_by = $_SESSION["user_id"];
