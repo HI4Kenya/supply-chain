@@ -1,19 +1,15 @@
 <?php
+// Include system config file
+//require 'system/config.php';
+
 //API login Credentials
-$username="kayeli";
-$password="Kdenno25@gmail";
+$username = "kayeli";
+$password = "Kdenno25@gmail";
 
 //HTTP GET request -Using Curl -Response JSON
 $dataset =$_GET['dataSet'];
-$period = $_GET['period'];
-$orgUnit =$_GET['orgUnit'];
 
-
-$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataValueSet?";
-
-$data = array("period" => "$period", "orgUnit" => "$orgUnit");
-$data_string = http_build_query($data);
-$url.="$data_string";
+$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataEntryForm";
 
 // initailizing curl
 $ch = curl_init();

@@ -52,6 +52,8 @@
 
         <!-- bootstrap js library-->
         <script type="text/javascript" src="assets/Bootstrap/dist/js/bootstrap.min.js"></script>
+        <!--jspdf js-->
+        <script type="text/javascript" src="assets/js/jspdf.js"></script>
 
         <!-- Data Tables -->
         <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js">
