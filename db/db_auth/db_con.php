@@ -19,8 +19,8 @@
     // Database connection parameters
     $servername = "localhost";
     $username = "root";
-    $password = "wahome";
-    $dbname = "msh_task";
+    $password = "1234pass";
+    $dbname = "msh";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password,$dbname);

@@ -12,6 +12,8 @@
     $orgUnits = $_GET['orgUnits'];
     $categoryCombo = $_GET['co'];
     $dataElement =$_GET['de'];
+    $prefix=$_GET['prefix'];
+    $prefix_replace=$_GET['prefix_replace'];
    // $prefix=$_GET['prefix'];
     $sum=0;
 
@@ -35,9 +37,7 @@
     curl_close($ch);
     $form_name=json_decode($form_name,true);
 //   echo $form_name="MOH 730B ".$form_name["formName"];
-    $form_name=str_ireplace("moh 730a", "moh 730b",$form_name["name"]);
-
-
+    $form_name=str_ireplace($prefix_replace, $prefix,$form_name["name"]);
 
 //    //Data Elements
 //    $url_dataElements="http://test.hiskenya.org/api/dataElements?paging=false";

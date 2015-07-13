@@ -4,8 +4,9 @@
 			<h2>Ministry Of Health</h2></br></br>
             <h3>MOH 729Ba-F-MAPS for ART Central sites</h3></br>
             <b style="color:black">Facility Name:</b><span id="facility_detail"></span>&nbsp;&nbsp;&nbsp;<b style="color:black">Master Facility Code:</b><span id="facility_id"></span>&nbsp;&nbsp;
-			<h4><b>Period of reporting:</b></h4><span id="reportingperiod"></span>
-			<div id="loading"></div>
+			<h4><b>Period of reporting:<span id="reportingperiod"></span></b></h4>
+			  <button class="btn btn-success post-data">Post Data</button>
+            <div id="loading"></div>
         </div>
 <div class="panel-body" style="overflow: scroll">
 

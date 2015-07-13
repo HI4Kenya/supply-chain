@@ -809,6 +809,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
         var satellite_url ="db/fetch/get_satellite_sites.php";
         var satellites=[];
         multiplier=3;
+        var form=null;
 
 
         $.getJSON
@@ -831,23 +832,22 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 if(dataSetOptions=="epnKYskZQGU"){
 
                     dataSetTemplate= path+"MOH734A.php";
-                    reportTemplateCentral(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplateCentral734(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
                 }
                 else
                 if(dataSetOptions=="VoCwF0LPGjb"){
                     dataSetTemplate= path+"MOH729A.php";
-                    //reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
-                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate729(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
                 }
                 else
                 if(dataSetOptions=="VOzBhzjvVcw"){
                     dataSetTemplate= path+"MOH729Ba.php";
-                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
                 }
                 else
                 if(dataSetOptions=="HAcToQkdUS1"){
                     dataSetTemplate= path+"MOH730Ba.php";
-                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+                    reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
                 }
                 else{
                     alert("Dataset Not found");
@@ -861,21 +861,22 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
     if(selectedFacilityClassification == "satellite-site")
     {
         var dataSetTemplate;
-        multiplier=2;
+        multiplier=3;
 
         if(dataSetOptions=="VOzBhzjvVcw"){
             dataSetTemplate= path+"MOH729Ba.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else
         if(dataSetOptions=="HAcToQkdUS1"){
             dataSetTemplate= path+"MOH730Ba.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else
         if(dataSetOptions=="q1Or1k6pQAC"){
             dataSetTemplate= path+"MOH734B.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+            form="734B";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else{
             alert("Dataset Not found");
@@ -890,17 +891,18 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
 
         if(dataSetOptions=="KoAUVRcQcX3"){
             dataSetTemplate= path+"MOH729Bb.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else
         if(dataSetOptions=="uAxwIxtsn6u"){
             dataSetTemplate= path+"MOH730Bb.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions.multiplier);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions.multiplier, form);
         }
         else
         if(dataSetOptions=="KUCi7uw6YhR"){
             dataSetTemplate= path+"MOH734.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier);
+            form="734B";
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else{
             alert("Dataset Not found");
@@ -945,6 +947,8 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
             categoryOptionCombos.push(quanityResupply_Combo);
 
             var multiplier=3;
+            var prefix="MOH 730B";
+            var prefix_replace="MOH 730A";
 
             //730B
             var totalConsumptionCombo="MQxdLLBfwIL";
@@ -953,7 +957,7 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 
             $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
             setTimeout(function(){
-                $('#loading').html("Try Again.");
+                $('#loading').html("");
             }, 60000);
 
             //Getting and Setting the facility Name
@@ -1005,7 +1009,8 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
                                 categoryCombination = totalConsumptionCombo;
                             }
 
-                            var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination};
+                            var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                            prefix_replace:prefix_replace};
 
                             $.getJSON(urlAggregate,dataSatelites,function (data){
 
@@ -1123,7 +1128,7 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
 
 
 // Function reportTemplate
-function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
+function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
 {
     $.get(templateUrl).then
     (
@@ -1135,6 +1140,22 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
 
             var urlGetDataset="api/get_data.php";
             var urlPostToDHIS="api/post_datavalues.php";
+
+            var totalConsumptionCombo="MQxdLLBfwIL";
+            var totalPhysicalStockCombo="UIjvPBrmiNE";
+            var quanityResupply_Combo="SxfihIxpyin";
+
+            if(form=="734B"){
+                totalConsumptionCombo="RWCHIdXizft";
+                totalPhysicalStockCombo="OmTneOE9mMF";
+                quanityResupply_Combo="xPj1IPoxoHH";
+
+            }else{
+                totalConsumptionCombo="MQxdLLBfwIL";
+                totalPhysicalStockCombo="UIjvPBrmiNE";
+                quanityResupply_Combo="SxfihIxpyin";
+            }
+
 
             $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
             setTimeout(function(){
@@ -1213,9 +1234,9 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
                         } else if (result.length == 1) {
                             // one object
                         } else {
-                            var columnC=$.grep(result, function(e){ return e.categoryOptionCombo =="MQxdLLBfwIL" ;});
-                            var columnG=$.grep(result, function(e){ return e.categoryOptionCombo =="UIjvPBrmiNE";});
-                            var quanityResupplyElement="SxfihIxpyin";
+                            var columnC=$.grep(result, function(e){ return e.categoryOptionCombo ==totalConsumptionCombo;});
+                            var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==totalPhysicalStockCombo;});
+                            var quanityResupplyElement=quanityResupply_Combo;
 
                             var elementId="#"+dataElementId+"-"+quanityResupplyElement+"-val";
 
@@ -1287,3 +1308,337 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier)
 
         });
 }
+
+
+
+
+function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
+{
+    console.log(satellites);
+    $.get(templateUrl).then
+    (
+        function(responseData)
+        {
+            $('div#facilities').empty();
+            $('div#facilities').append(responseData);
+
+            //url for getting datavalues and org unit details
+            var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+            var urlAggregate="api/get_aggregate.php";
+            var urlGetDataset="api/get_data.php";
+            var urlPostToDHIS="api/post_datavalues.php";
+
+            var prefix="MOH 729B";
+            var prefix_replace="MOH 729A";
+            var categoryCombination="DYZDW0RYLKs";
+
+
+            $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
+            setTimeout(function(){
+                $('#loading').html("");
+            }, 60000);
+
+            //Getting and Setting the facility Name
+            getOrganisationUnitName(urlOrgUnit);
+
+            $.getJSON
+            ( urlGetDataset,
+                {dataSet:dataSet,period:period,orgUnit:orgUnit},
+                function(response) {
+
+                    var response_data=response;
+
+                    if(response==-1){
+                        $('#loading').html('<span>Error Loading Try Again</span>');
+                    }
+
+                    if ('dataValues' in response_data){
+
+                        var dataValues = response_data.dataValues;
+                    }
+                    else{
+
+                        $('#loading').html('<span>Loading Complete</span>');
+                    }
+
+                    //data to post to dhis2
+                    var post_data=response_data;
+                    post_data.dataValues=[];
+                    var dataElementsUpadated=[];
+
+                    $.each(dataValues, function (index, dataObj) {
+
+                        var dataElementId = dataObj.dataElement;
+                        var optionComboId = dataObj.categoryOptionCombo;
+                        dataObj.val= dataObj.value;
+                        dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
+
+                        var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                            prefix_replace:prefix_replace};
+
+                        $.getJSON(urlAggregate,dataSatelites,function (data){
+
+                            dataObj.value = data;
+                            var tableItem = $(dataObj.id);
+                            tableItem.text(dataObj.value);
+                            tableItem.val(dataObj.value);
+
+                            dataElementsUpadated.push(dataElementId);
+                            var post_obj= { "dataElement": dataElementId, "categoryOptionCombo": optionComboId, "value":dataObj.value.toString()};
+                            post_data.dataValues.push(post_obj);
+
+                            if(dataElementsUpadated.length>=(dataValues.length)-1){
+
+                                $('#loading').html('<span>Loading Complete</span>');
+                            }
+
+                        });
+                    });
+
+                    //Method to post data values back to DHIS2
+                    $(".post-data").click(function(){
+
+                        console.log(post_data);
+
+                        $.post(urlPostToDHIS, {"post":post_data},
+                            function(data, status){
+                                if(data==-1){
+                                    alert("Post was Unsuccessful"+status);
+                                }
+
+                                if(data==0){
+                                    alert("Post was successful"+status);
+                                }
+                            });
+
+                    });
+                });
+
+
+            //function to get the name of the orgUnit
+            function getOrganisationUnitName(urlOrgUnit){
+                var jqxhr = $.getJSON(urlOrgUnit);
+                jqxhr.done(function (response) {
+                    var tableItem=$("#facility_detail");
+                    var tablefacilityid=$("#facility_id");
+                    var reportingPeriod=$('#reportingperiod');
+                    var facility=response.name;
+                    var facilityid=response.code;
+                    reportingPeriod.text(period);
+                    tableItem.text(facility);
+                    tablefacilityid.text(facilityid);
+
+
+                });
+
+            }
+        }
+    );
+}
+
+
+// Function reportTemplate-Central Stores
+function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataSet)
+{
+
+    $.get(templateUrl).then
+    (
+        function(responseData)
+        {
+            $('div#facilities').empty();
+            $('div#facilities').append(responseData);
+
+            //url for getting datavalues and org unit details
+            var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+            var urlAggregate="api/get_aggregate.php";
+            var urlGetDataset="api/get_data.php";
+
+            //Category Combinations -730A
+            var aggregatedQuanityConsumed_Combo="x14wq0sboVv";
+            var aggregatedPhysicalStock_Combo= "uWnMa5aRgda";
+            var PhysicalStock_Combo= "AmqP2wmFOz7";
+            var quanityResupply_Combo="lkr4fyQv3w5";
+            var categoryOptionCombos=[];
+
+            categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
+            categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
+            categoryOptionCombos.push(quanityResupply_Combo);
+
+            var multiplier=3;
+            var prefix="";
+            var prefix_replace="MOH 734A";
+
+            //730B
+            var totalConsumptionCombo="RWCHIdXizft";
+            var totalPhysicalStockCombo="OmTneOE9mMF";
+
+
+            $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
+            setTimeout(function(){
+                $('#loading').html("");
+            }, 60000);
+
+            //Getting and Setting the facility Name
+            getOrganisationUnitName(urlOrgUnit);
+
+            $.getJSON
+            ( urlGetDataset,
+                {dataSet:dataSet,period:period,orgUnit:orgUnit},
+                function(response) {
+
+                    var response_data=response;
+
+                    if(response==-1){
+                        $('#loading').html('<span>Error Loading Try Again</span>');
+                    }
+
+                    if ('dataValues' in response_data){
+
+                        var dataValues = response_data.dataValues;
+                    }
+                    else{
+
+                        $('#loading').html('<span>Loading Complete</span>');
+                    }
+
+
+                    //data to post to dhis2
+                    var post_data=response_data;
+                    post_data.dataValues=[];
+                    var dataElementsUpadated=[];
+
+                    $.each(dataValues, function (index, dataObj) {
+                        var dataElementId = dataObj.dataElement;
+                        var optionComboId = dataObj.categoryOptionCombo;
+                        dataObj.val= dataObj.value;
+                        dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
+                        if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
+
+                            var categoryCombination = dataObj.categoryOptionCombo;
+                            //physical stock
+                            if (dataObj.categoryOptionCombo == aggregatedPhysicalStock_Combo) {
+
+                                categoryCombination =totalPhysicalStockCombo ;
+                            }
+
+                            //Quantity consumed
+                            if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
+
+                                categoryCombination = totalConsumptionCombo;
+                            }
+
+                            var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                                prefix_replace:prefix_replace};
+
+                            $.getJSON(urlAggregate,dataSatelites,function (data){
+
+                                dataObj.value = data;
+                                var tableItem = $(dataObj.id);
+                                tableItem.text(dataObj.value);
+                                tableItem.val(dataObj.value);
+
+                                //Get an array of Objects with the same dataElement
+                                var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId; });
+
+                                if (result.length > 1) {
+
+                                    var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
+                                    var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
+                                    var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
+
+                                    var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
+
+                                    //Calculating quantity required for resupply
+                                    if(columnH.length>0 && columnG.length>0 )
+                                    {
+                                        var valueH=0;
+                                        var valueG=0;
+                                        var valueResupply=0;
+                                        var valueAggregatePhysicalStock=0;
+
+                                        if ('value' in columnH[0]){
+                                            valueH=parseInt(columnH[0].value);
+                                            valueH=valueH*multiplier;
+                                        }
+
+                                        if ('value' in columnG[0]){
+                                            valueG=parseInt(columnG[0].value);
+                                        }
+                                        valueResupply=valueH-valueG;
+
+                                        //Quantity to resupply Calculated is less than zero, intialize to zero
+                                        if(valueResupply<0){
+                                            valueResupply=0;
+                                        }
+
+                                        var tableItem=$(elementId);
+                                        tableItem.text(valueResupply);
+                                        tableItem.val(valueResupply);
+
+                                        if ('value' in aggregatePhysicalStock[0]){
+
+                                            valueAggregatePhysicalStock=parseInt(aggregatePhysicalStock.value);
+                                        }
+
+                                        ////post data
+                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
+
+                                            var post_obj_resupply= { "dataElement": dataElementId, "categoryOptionCombo": quanityResupply_Combo, "value": valueResupply.toString()};
+                                            var post_obj_H= { "dataElement": dataElementId, "categoryOptionCombo": aggregatedQuanityConsumed_Combo, "value": valueH.toString()};
+                                            var post_obj_PhysicalStock= { "dataElement": dataElementId, "categoryOptionCombo": aggregatePhysicalStock, "value": valueAggregatePhysicalStock.toString()};
+                                            post_data.dataValues.push(post_obj_resupply);
+                                            post_data.dataValues.push(post_obj_H);
+                                            post_data.dataValues.push(post_obj_PhysicalStock);
+
+                                            dataElementsUpadated.push(dataElementId);
+                                        }
+
+                                        if(dataElementsUpadated.length>53){
+
+                                            $('#loading').html('<span>Loading Complete</span>');
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
+                        else {
+
+                            dataObj.val = parseInt(dataObj.val);
+                            var tableItem=$(dataObj.id);
+                            tableItem.text(dataObj.val);
+                            tableItem.val(dataObj.val);
+                        }
+
+
+                    });
+
+
+                });
+
+
+
+
+
+
+            //function to get the name of the orgUnit
+            function getOrganisationUnitName(urlOrgUnit){
+                var jqxhr = $.getJSON(urlOrgUnit);
+                jqxhr.done(function (response) {
+                    var tableItem=$("#facility_detail");
+                    var tablefacilityid=$("#facility_id");
+                    var reportingPeriod=$('#reportingperiod');
+                    var facility=response.name;
+                    var facilityid=response.code;
+                    reportingPeriod.text(period);
+                    tableItem.text(facility);
+                    tablefacilityid.text(facilityid);
+
+
+                });
+
+            }
+        }
+    );
+}
+
