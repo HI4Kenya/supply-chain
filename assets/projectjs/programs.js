@@ -85,6 +85,7 @@ function getPrograms(display)
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
+                            "<th style = 'font-weight:bold;color:blue'># Sub-County Stores</th>"+
                             "<th style = 'font-weight:bold;color:blue'># Central Sites</th>"+
                             "<th style = 'font-weight:bold;color:brown'># Satellite Sites</th>"+
                             "<th style = 'font-weight:bold;color:green'># StandAlone Sites</th>"+
@@ -113,6 +114,8 @@ function getPrograms(display)
                     var dataToAppend = "<tr>"+
                                             "<td>"+itemNumber+"</td>"+
                                             "<td style = 'text-align:left'>"+receivedPrograms[counting].program_name+"</td>"+
+                                            "<td id = 'subcounty_stores_program_"+receivedPrograms[counting].program_id+"'>"+
+                                            "</td>"+
                                             "<td id = 'central_sites_program_"+receivedPrograms[counting].program_id+"'>"+
                                             "</td>"+
                                             "<td id = 'satellite_sites_program_"+receivedPrograms[counting].program_id+"'>"+
@@ -135,10 +138,11 @@ function getPrograms(display)
                         {program:receivedPrograms[counting].program_id},
                         function(programData)
                         {
-                            $("#central_sites_program_"+programData[4]).html("<span style ='color:blue'>"+programData[0]+"</span>");
-                            $("#satellite_sites_program_"+programData[4]).html("<span style ='color:brown'>"+programData[1]+"</span>");
-                            $("#standalone_sites_program_"+programData[4]).html("<span style ='color:green'>"+programData[2]+"</span>");
-                            $("#datasets_program_"+programData[4]).html("<span style ='color:purple'>"+programData[3]+"</span>");
+                            $("#subcounty_stores_program_"+programData[5]).html("<span style ='color:blue'>"+programData[0]+"</span>");
+                            $("#central_sites_program_"+programData[5]).html("<span style ='color:blue'>"+programData[1]+"</span>");
+                            $("#satellite_sites_program_"+programData[5]).html("<span style ='color:brown'>"+programData[2]+"</span>");
+                            $("#standalone_sites_program_"+programData[5]).html("<span style ='color:green'>"+programData[3]+"</span>");
+                            $("#datasets_program_"+programData[5]).html("<span style ='color:purple'>"+programData[4]+"</span>");
                         }
                     );
                 }  
@@ -161,6 +165,7 @@ function getPrograms(display)
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
+                            "<th style = 'font-weight:bold;color:blue'># Sub-County Stores</th>"+
                             "<th style = 'font-weight:bold;color:blue'># Central Sites</th>"+
                             "<th style = 'font-weight:bold;color:brown'># Satellite Sites</th>"+
                             "<th style = 'font-weight:bold;color:green'># StandAlone Sites</th>"+
@@ -189,6 +194,8 @@ function getPrograms(display)
                     var dataToAppend = "<tr>"+
                                             "<td>"+itemNumber+"</td>"+
                                             "<td style = 'text-align:left'>"+receivedPrograms[counting].program_name+"</td>"+
+                                            "<td id = 'subcounty_stores_program_"+receivedPrograms[counting].program_id+"'>"+
+                                            "</td>"+
                                             "<td id = 'central_sites_program_"+receivedPrograms[counting].program_id+"'>"+
                                             "</td>"+
                                             "<td id = 'satellite_sites_program_"+receivedPrograms[counting].program_id+"'>"+
@@ -211,10 +218,11 @@ function getPrograms(display)
                         {program:receivedPrograms[counting].program_id},
                         function(programData)
                         {
-                            $("#central_sites_program_"+programData[4]).html("<span style ='color:blue'>"+programData[0]+"</span>");
-                            $("#satellite_sites_program_"+programData[4]).html("<span style ='color:brown'>"+programData[1]+"</span>");
-                            $("#standalone_sites_program_"+programData[4]).html("<span style ='color:green'>"+programData[2]+"</span>");
-                            $("#datasets_program_"+programData[4]).html("<span style ='color:purple'>"+programData[3]+"</span>");
+                            $("#subcounty_stores_program_"+programData[5]).html("<span style ='color:blue'>"+programData[0]+"</span>");
+                            $("#central_sites_program_"+programData[5]).html("<span style ='color:blue'>"+programData[1]+"</span>");
+                            $("#satellite_sites_program_"+programData[5]).html("<span style ='color:brown'>"+programData[2]+"</span>");
+                            $("#standalone_sites_program_"+programData[5]).html("<span style ='color:green'>"+programData[3]+"</span>");
+                            $("#datasets_program_"+programData[5]).html("<span style ='color:purple'>"+programData[4]+"</span>");
                         }
                     );
                 }  
@@ -237,6 +245,7 @@ function getPrograms(display)
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
+                            "<th style = 'font-weight:bold;color:blue'># Sub-County Stores</th>"+
                             "<th style = 'font-weight:bold;color:blue'># Central Sites</th>"+
                             "<th style = 'font-weight:bold;color:brown'># Satellite Sites</th>"+
                             "<th style = 'font-weight:bold;color:green'># StandAlone Sites</th>"+
@@ -264,6 +273,8 @@ function getPrograms(display)
                     var dataToAppend = "<tr>"+
                                             "<td>"+itemNumber+"</td>"+
                                             "<td style = 'text-align:left'>"+receivedPrograms[counting].program_name+"</td>"+
+                                            "<td id = 'subcounty_stores_program_"+receivedPrograms[counting].program_id+"'>"+
+                                            "</td>"+
                                             "<td id = 'central_sites_program_"+receivedPrograms[counting].program_id+"'>"+
                                             "</td>"+
                                             "<td id = 'satellite_sites_program_"+receivedPrograms[counting].program_id+"'>"+
@@ -283,10 +294,11 @@ function getPrograms(display)
                         {program:receivedPrograms[counting].program_id},
                         function(programData)
                         {
-                            $("#central_sites_program_"+programData[4]).html("<span style ='color:blue'>"+programData[0]+"</span>");
-                            $("#satellite_sites_program_"+programData[4]).html("<span style ='color:brown'>"+programData[1]+"</span>");
-                            $("#standalone_sites_program_"+programData[4]).html("<span style ='color:green'>"+programData[2]+"</span>");
-                            $("#datasets_program_"+programData[4]).html("<span style ='color:purple'>"+programData[3]+"</span>");
+                            $("#subcounty_stores_program_"+programData[5]).html("<span style ='color:blue'>"+programData[0]+"</span>");
+                            $("#central_sites_program_"+programData[5]).html("<span style ='color:blue'>"+programData[1]+"</span>");
+                            $("#satellite_sites_program_"+programData[5]).html("<span style ='color:brown'>"+programData[2]+"</span>");
+                            $("#standalone_sites_program_"+programData[5]).html("<span style ='color:green'>"+programData[3]+"</span>");
+                            $("#datasets_program_"+programData[5]).html("<span style ='color:purple'>"+programData[4]+"</span>");
                         }
                     );
                 }  

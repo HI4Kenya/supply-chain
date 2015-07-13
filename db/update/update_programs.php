@@ -31,6 +31,8 @@
         // User updating this account
         $updated_by = $_SESSION["user_id"];
 
+        $comment = "CREATED";
+
 		if($program_name == "")
 		{
 			// No changes on the name of the program
@@ -48,8 +50,8 @@
 				foreach ($program_dataset as $dataset_to_update) 
 				{
 		        	// Insert this new dataset
-		        	$insert_dataset = "INSERT INTO datasets(dataset_id,program_id,created_on,created_by)
-					VALUES ('$dataset_to_update','$program_id', '$date_updated', '$updated_by')";
+		        	$insert_dataset = "INSERT INTO datasets(dataset_id,program_id,created_on,created_by,comment)
+					VALUES ('$dataset_to_update','$program_id', '$date_updated', '$updated_by', '$comment')";
 					mysqli_query($conn, $insert_dataset);
 				}
 
@@ -81,8 +83,8 @@
 					foreach ($program_dataset as $dataset_to_update) 
 					{
 						// Insert this new dataset
-			        	$insert_dataset = "INSERT INTO datasets(dataset_id,program_id,created_on,created_by)
-						VALUES ('$dataset_to_update','$program_id', '$date_updated', '$updated_by')";
+			        	$insert_dataset = "INSERT INTO datasets(dataset_id,program_id,created_on,created_by,comment)
+						VALUES ('$dataset_to_update','$program_id', '$date_updated', '$updated_by', '$comment')";
 						mysqli_query($conn, $insert_dataset);
 					}
 					echo 0;

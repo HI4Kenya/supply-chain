@@ -24,6 +24,8 @@
         // User creating
         $created_by = $_SESSION["user_id"];
 
+        $comment = "CREATED";
+
 		/* ----------------------------------------------------------------------------------------------------------------- */
 		/* ----------------------------------------------------------------------------------------------------------------- */
 
@@ -76,8 +78,8 @@
 							else
 							{
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -107,8 +109,8 @@
 						else
 						{
 							$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-							created_on,created_by)
-							VALUES ('$id','$program','$classification','$date_created','$created_by')";
+							created_on,created_by,comment)
+							VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 							if (mysqli_query($conn, $mappingQuery))
 							{
 								echo 11;
@@ -175,8 +177,8 @@
 									else
 									{
 										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-										created_on,created_by)
-										VALUES ('$id','$program','$classification','$date_created','$created_by')";
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 										if (mysqli_query($conn, $mappingQuery))
 										{
 											echo 0;
@@ -215,8 +217,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -271,8 +273,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -311,8 +313,8 @@
 							else
 							{
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 0;
@@ -387,8 +389,8 @@
 							else
 							{
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -419,8 +421,8 @@
 						else
 						{
 							$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-							created_on,created_by)
-							VALUES ('$id','$program','$classification','$date_created','$created_by')";
+							created_on,created_by,comment)
+							VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 							if (mysqli_query($conn, $mappingQuery))
 							{
 								echo 11;
@@ -487,8 +489,8 @@
 									else
 									{
 										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-										created_on,created_by)
-										VALUES ('$id','$program','$classification','$date_created','$created_by')";
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 										if (mysqli_query($conn, $mappingQuery))
 										{
 											echo 0;
@@ -527,8 +529,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -582,8 +584,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -622,8 +624,8 @@
 							else
 							{
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 0;
@@ -653,21 +655,20 @@
 			$classification = "Satellite Site";
 
 			// PARENT TYPE
+			// Sub-county store
 			$parent_is_an_scs = "SELECT * FROM sub_county_stores WHERE sub_county_store_id = '$central_id'";
 			$return_scs = mysqli_query($conn,$parent_is_an_scs);
 			if(mysqli_num_rows($return_scs)>0)
 			{
 				$parent_type = "Sub-County Store";
 			}
-			else
-			{
-				$parent_is_a_cs = "SELECT * FROM central_site WHERE central_id = '$central_id'";
-				$return_cs = mysqli_query($conn,$parent_is_a_cs);
-				if(mysqli_num_rows($return_cs)>0)
-				{
-					$parent_type = "Central Site";
 
-				}
+			// Central Site
+			$parent_is_a_cs = "SELECT * FROM central_site WHERE central_id = '$central_id'";
+			$return_cs = mysqli_query($conn,$parent_is_a_cs);
+			if(mysqli_num_rows($return_cs)>0)
+			{
+				$parent_type = "Central Site";
 			}
 
 			//Check if the facility exists as a satellite
@@ -714,8 +715,8 @@
 							{
 								// Classify the satellite because its not classified as a central site
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -745,8 +746,8 @@
 							{
 								// classify the satellite because its not classified as a sub-county store
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -813,8 +814,8 @@
 									else
 									{
 										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-										created_on,created_by)
-										VALUES ('$id','$program','$classification','$date_created','$created_by')";
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 										if (mysqli_query($conn, $mappingQuery))
 										{
 											echo 0;
@@ -864,8 +865,8 @@
 									else
 									{
 										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-										created_on,created_by)
-										VALUES ('$id','$program','$classification','$date_created','$created_by')";
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 										if (mysqli_query($conn, $mappingQuery))
 										{
 											echo 0;
@@ -920,8 +921,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -972,8 +973,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -1056,8 +1057,8 @@
 								{
 									/*CLASSIFY AS A STAND ALONE*/
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 11;
@@ -1074,8 +1075,8 @@
 							{
 								/*CLASSIFY AS A STAND ALONE*/
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -1113,8 +1114,8 @@
 							{
 								/*CLASSIFY AS A STAND ALONE*/
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 11;
@@ -1132,8 +1133,8 @@
 							// Its not a sub-county store
 							/*CLASSIFY AS A STAND ALONE*/
 							$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-							created_on,created_by)
-							VALUES ('$id','$program','$classification','$date_created','$created_by')";
+							created_on,created_by,comment)
+							VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 							if (mysqli_query($conn, $mappingQuery))
 							{
 								echo 11;
@@ -1203,8 +1204,8 @@
 									else
 									{
 										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-										created_on,created_by)
-										VALUES ('$id','$program','$classification','$date_created','$created_by')";
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 										if (mysqli_query($conn, $mappingQuery))
 										{
 											echo 0;
@@ -1243,8 +1244,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -1303,8 +1304,8 @@
 								else
 								{
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by)
-									VALUES ('$id','$program','$classification','$date_created','$created_by')";
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 									if (mysqli_query($conn, $mappingQuery))
 									{
 										echo 0;
@@ -1343,8 +1344,8 @@
 							else
 							{
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by)
-								VALUES ('$id','$program','$classification','$date_created','$created_by')";
+								created_on,created_by,comment)
+								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
 								if (mysqli_query($conn, $mappingQuery))
 								{
 									echo 0;
