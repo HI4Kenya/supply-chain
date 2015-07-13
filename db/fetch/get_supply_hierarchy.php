@@ -47,7 +47,7 @@
                     $mapping_response = mysqli_query($conn,$check_mapping);
                     if(mysqli_num_rows($mapping_response)>0)
                     {
-                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id'";
+                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id' ORDER BY facility_name";
                         $response= mysqli_query($conn,$facility_name);
                         if(mysqli_num_rows($response)>0)
                         {
@@ -102,7 +102,7 @@
                     $mapping_response = mysqli_query($conn,$check_mapping);
                     if(mysqli_num_rows($mapping_response)>0)
                     {
-                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id'";
+                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id' ORDER BY facility_name";
                         $response= mysqli_query($conn,$facility_name);
                         if(mysqli_num_rows($response)>0)
                         {
@@ -163,7 +163,7 @@
                 for($i=0;$i<$count;$i++)
                 {
                     $id=$data[$i];            
-                    $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id'";
+                    $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id' ORDER BY facility_name";
                     $response= mysqli_query($conn,$facility_name);
                     if(mysqli_num_rows($response)>0)
                     {
@@ -230,7 +230,7 @@
                     $mapping_response = mysqli_query($conn,$check_mapping);
                     if(mysqli_num_rows($mapping_response)>0)
                     {
-                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id'";
+                        $facility_name = "SELECT * FROM facilities WHERE facility_id = '$id' ORDER BY facility_name";
                         $response= mysqli_query($conn,$facility_name);
                         if(mysqli_num_rows($response)>0)
                         {

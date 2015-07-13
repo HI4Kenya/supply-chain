@@ -322,6 +322,33 @@ function getUsers(display)
 }
 // END FUNCTION
 /*------------------------------------------------------------------------------------------------------------------------------*/
+// Function dhisUsers()
+function dhisUsers()
+{
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+
+    var data = "<div class='panel-headin' style = 'height:auto;width:100%;margin-right:10px;margin-bottom:5px;'>"+
+                    "<div class='form-inline'>"+
+                      "<div class='form-group' style = 'margin-bottom:10px;'>"+
+                        "<label class='sr-only' for='exampleInputEmail3'>Name</label>"+
+                        "<div id = 'program_name_status' style = 'margin-left:5px'></div>"+
+                        "<input id = 'program_name' class='form-control' placeholder='Full Name' style ='width:120%'>"+
+                      "</div>"+
+                      "<div class = 'pull-left' style = 'position:absolute;margin-top:-40px;margin-left:250px'>"+
+                        "<input type = 'button' class='btn btn-success' style = '' ONCLICK='searchDHISUser();' value = 'Search'></input>"+
+                      "</div>"+
+                      "<br>"+ 
+                "</div>";
+    // Append
+    $('div#facilities').html(data);
+}
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function searchDHISUser()
+function searchDHISUser()
+{
+    alert("hello");
+}
+/*------------------------------------------------------------------------------------------------------------------------------*/
 // Function userOperations()
 function userOperations(operation,item,createdUserID,createdUserName)
 {

@@ -19,7 +19,7 @@
 --> 
 <html>
     <head>
-        <title>Kenya Health Information System</title>
+        <title>MSH|Home</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,7 +27,7 @@
 
         <!-- NOTE: jQuery before JavaScript -->
         <!-- jQuery v1.11.2 library-->
-        <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
         <!-- jQuery v2.1.4 library-->
         <!-- $.ajax() method uses this js -->
