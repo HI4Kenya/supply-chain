@@ -47,10 +47,10 @@
 		if(mysqli_num_rows($run_the_mapping)>0)
 		{
 			$number_of_mappings = mysqli_num_rows($run_the_mapping);
-			$mapping_to_log = "CLASSIFICATIONS=".$number_of_mapping;
+			$mapping_to_log = "CLASSIFICATIONS=".$number_of_mappings;
 			while($mapping_row = mysqli_fetch_assoc($run_the_mapping))
 			{
-				$mapping_to_log = $mapping_to_log."/".$mapping_row['facility_id']."-".$mapping_row['classification'];
+				$mapping_to_log = $mapping_to_log."/".$mapping_row['facility_id']."#".$mapping_row['classification'];
 			}
 		}
 

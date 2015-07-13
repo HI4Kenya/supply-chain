@@ -1,5 +1,8 @@
 <?php
 
+    // Include system config file
+    //require 'system/config.php';
+
     //API login Credentials
     $username = "kayeli";
     $password = "Kdenno25@gmail";

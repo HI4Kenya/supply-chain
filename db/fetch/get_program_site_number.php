@@ -17,6 +17,12 @@
         $program_id = $_GET['program'];
         $data = array();
 
+        // Number of sub-county stores
+        $subcounty_stores = "SELECT * FROM facility_program_mapping WHERE program_id ='$program_id'
+        AND classification = 'Sub-County Store'";
+        $subcounty_stores_response = mysqli_query($conn,$subcounty_stores);
+        $data[] = mysqli_num_rows($subcounty_stores_response);
+
         // Number of central sites
         $central_sites = "SELECT * FROM facility_program_mapping WHERE program_id ='$program_id'
         AND classification = 'Central Site'";
