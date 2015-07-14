@@ -557,7 +557,7 @@ function programOperations(operation,programID)
                     $("<option id = '"+receivedValues[datasetsNo].dataset_id+"' value = '"+receivedValues[datasetsNo].dataset_id+"'>"
                     +receivedValues[datasetsNo].dataset_name+"</option>").appendTo("select#selected_program_datasets");
                     
-                    $("#available_datasets"+receivedValues[datasetsNo].dataset_id).empty();
+                    $("#available_datasets"+receivedValues[datasetsNo].dataset_id).remove();
                 }
             }
         );
