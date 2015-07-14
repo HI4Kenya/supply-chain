@@ -14,10 +14,10 @@
         // If user has logged in
 		require '../db_auth/db_con.php';
 
-		$id= $_POST['id'];
-		$name = str_replace("'", "",$_POST['name']);
-		$parent_id = $_POST['parent'];
-		$mfl_code = $_POST['mfl_code'];
+		// $id= $_POST['id'];
+		// $name = str_replace("'", "",$_POST['name']);
+		// $parent_id = $_POST['parent'];
+		// $mfl_code = $_POST['mfl_code'];
 
 		//Check if the facility exists
 		$exists = "SELECT * FROM facilities WHERE facility_id = '$id'";

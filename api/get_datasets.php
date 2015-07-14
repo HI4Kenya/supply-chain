@@ -15,11 +15,8 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		# GET THE LEVEL TO UPDATE
-		$level == $_GET['level'];
-
 		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/organisationUnits?paging=false";
+		$url="http://test.hiskenya.org/api/dataSets?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -31,8 +28,8 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
 		//execute
 		$result = curl_exec($ch);
 
@@ -43,15 +40,18 @@
 		if ($result)
 		{
 			$data= json_decode($result,true);
-			$organisationUnits = $data["organisationUnits"];
+			$dataSets = $data["dataSets"];
 
-			foreach ($organisationUnits as $value) 
+			foreach ($dataSets as $value) 
 		    {	
-		    	$href = $value["href"];
+		    	$id= $value["id"];
+				$name = str_replace("'", "",$value["name"]);
+				$href = $value["href"];
+				$code = $value["code"];
 
-		    	// Require the get details script
-		    	require 'get_organisation_unit_details.php';
-		    };
+		    	// Require the insert script
+		    	require '../db/insertion/insert_datasets.php';
+		    }
 		    echo 0;
 		}
 		else

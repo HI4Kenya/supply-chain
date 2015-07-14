@@ -409,15 +409,16 @@ function addDHISUser()
 
                 // Account credentials
                 var loginUserName = data.userCredentials.code;
-                var loginPassword = data.userCredentials.code; 
-
-                if(data.access.write == "true")
+                var loginPassword = data.userCredentials.code;
+                var selectedUserRole;
+                
+                if(data.access.write == 'true')
                 {
-                    var selectedUserRole = "WRITE";
+                    selectedUserRole = "WRITE";
                 }
                 else
                 {
-                    var selectedUserRole = "READ";
+                    selectedUserRole = "READ";
                 }
 
                 // Place an insert request to the database side

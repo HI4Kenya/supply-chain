@@ -15,11 +15,8 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		# GET THE LEVEL TO UPDATE
-		$level == $_GET['level'];
-
 		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/organisationUnits?paging=false";
+		$url=$href;
 
 		// initailizing curl
 		$ch = curl_init();
@@ -34,25 +31,42 @@
 		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 		//execute
-		$result = curl_exec($ch);
+		$response = curl_exec($ch);
 
 		//close connection
 		curl_close($ch);
 
 
-		if ($result)
+		if ($response)
 		{
-			$data= json_decode($result,true);
-			$organisationUnits = $data["organisationUnits"];
+			$details = json_decode($response,true);
 
-			foreach ($organisationUnits as $value) 
-		    {	
-		    	$href = $value["href"];
+			# Details of Organisation Units
+			$id= $details['id'];
+			$name = str_replace("'", "",$details['name']);
+			$parent_id = $details['parent']['id'];
+			$mfl_code = $details['code'];
 
-		    	// Require the get details script
-		    	require 'get_organisation_unit_details.php';
-		    };
-		    echo 0;
+			// Facilities level
+			if($details["level"] == $level)
+			{
+				# Require the facilities insert script
+				require '../db/insertion/insert_facilities.php';
+			}
+
+			// Sub-Counties Level
+			else if($details["level"] == $level)
+			{
+				# Require the sub-counties insert script
+				require '../db/insertion/insert_sub_counties.php';
+			}
+
+			// County Level
+			else if($details["level"] == $level)
+			{
+				# Require the counties insert script
+				require '../db/insertion/insert_counties.php';
+			}
 		}
 		else
 		{
