@@ -7,7 +7,7 @@
     // If not logged in, redirect to the log in page
     if(!isset($_SESSION['login_id']))
     {
-        hheader('Location:'.$base_path.'');
+        header('Location:'.$base_path.'');
     }
     else
     {

@@ -98,20 +98,17 @@
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
         //execute
             $result = curl_exec($ch);
-        //    echo $result;
-        //close connection
 
             if (is_array(json_decode($result, true)) ){
                 $result=json_decode($result);
                 $data=intval($result[0]);
-    //            echo ",";
                 $sum=$sum+$data;
-        //        echo $sum;
             } else {
 
             }
 
         }
+        //close connectio
         curl_close($ch);
 
         echo $sum;
