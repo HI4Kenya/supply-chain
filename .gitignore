@@ -5,3 +5,6 @@
 
 #System Config File
 #system/config.php
+
+#IDE
+.idea/
