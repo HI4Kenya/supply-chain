@@ -15,10 +15,8 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		//HTTP GET request -Using Curl -Response JSON
-		$dataset =$_GET['dataSet'];
-
-		$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataEntryForm";
+		// Url to get the organisation units from the API
+		$url="http://test.hiskenya.org/api/organisationUnits.jsonp?paging=false&callback=?";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -30,8 +28,8 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 		//execute
 		$result = curl_exec($ch);
 
@@ -39,11 +37,12 @@
 		curl_close($ch);
 
 
-		if ($result){
-
-		    echo $result;
+		if ($result)
+		{
+			echo $result;
 		}
-		else{
+		else
+		{
 
 		    echo -1;
 		}

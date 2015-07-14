@@ -48,6 +48,10 @@
                                                 Create
                                             </div>
                                             <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:dhisUsers()'>
+                                                Create from DHIS
+                                            </div>
+                                            <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"update\")'>
                                                 Update
                                             </div>

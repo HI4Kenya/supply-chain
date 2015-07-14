@@ -16,9 +16,9 @@
 		$password = $access_password;
 
 		//HTTP GET request -Using Curl -Response JSON
-		$dataset =$_GET['dataSet'];
+		$user_name = $_GET['name'];
 
-		$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataEntryForm";
+		$url="http://test.hiskenya.org/api/users?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -30,8 +30,8 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 		//execute
 		$result = curl_exec($ch);
 
@@ -39,12 +39,29 @@
 		curl_close($ch);
 
 
-		if ($result){
+		if ($result)
+		{
+			$data= json_decode($result,true);
+			$users = $data["users"];
+			$search_key = strtolower($user_name);
 
-		    echo $result;
+			$found = array();
+
+		    foreach ($users as $value) 
+		    {	
+		    	$search_data = strtolower($value["name"]);
+		    	$answer = strpos($search_data,$search_key);
+		    	if($answer!==false)
+		    	{
+		    		$found[] = $value;
+		    	}
+		    }
+		    $return = json_encode($found);
+		    echo $return;
 		}
-		else{
 
+		else
+		{
 		    echo -1;
 		}
 	}

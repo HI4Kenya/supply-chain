@@ -8,11 +8,10 @@
         <link href="assets/css/login.css" rel="stylesheet">
 
         <!-- jQuery v1.11.2 library-->
-        <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
         <!-- Login js -->
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
-        <script type="text/javascript" src="assets/js/loginjs/prefixfree.min.js"></script> 
     </head>
 
     <body style = "background-color:#1d5288">

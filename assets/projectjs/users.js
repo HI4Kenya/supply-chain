@@ -98,22 +98,22 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
+        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
                         "<table id= 'userdata' style = 'border-radius:5px'>"+
-                        "<thead>"+
-                            "<th style = 'font-weight:bold'>#</th>"+
-                            "<th style = 'font-weight:bold'>User</th>"+
-                            "<th style = 'font-weight:bold'>Gender</th>"+
-                            "<th style = 'font-weight:bold'>Email</th>"+
-                            "<th style = 'font-weight:bold'>phone</th>"+
-                            "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
-                            "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
-                            "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
-                            "<th style = 'font-weight:bold;color:blue'>Edit</th>"+ 
-                            // "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
-                        "</thead>"+
-                        "<tbody>"+
-                        "</tbody>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>#</th>"+
+                                "<th style = 'font-weight:bold'>User</th>"+
+                                "<th style = 'font-weight:bold'>Gender</th>"+
+                                "<th style = 'font-weight:bold'>Email</th>"+
+                                "<th style = 'font-weight:bold'>phone</th>"+
+                                "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
+                                "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
+                                "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
+                                "<th style = 'font-weight:bold;color:blue'>Edit</th>"+ 
+                                // "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
+                            "</thead>"+
+                            "<tbody id = 'tbody'>"+
+                            "</tbody>"+
                         "</table>"+
                     "</div>";
         // Append
@@ -148,7 +148,7 @@ function getUsers(display)
                                             // "</td>"+
                                         "</tr>";
                     $(dataToAppend).appendTo("#userdata tbody");
-                    
+
                     // Get user credentials
                     var credentials_url = "db/fetch/get_user_credentials.php";
                     $.getJSON
@@ -165,11 +165,6 @@ function getUsers(display)
                 }  
             }
         );
-        $(function()
-        {
-            //$("#programdata").dataTable();
-        })
-
     }
 
     // Data administration
@@ -321,6 +316,237 @@ function getUsers(display)
     }
 }
 // END FUNCTION
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function dhisUsers()
+function dhisUsers()
+{
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+
+    var data = "<div class='panel-headin' style = 'height:auto;width:100%;margin-right:10px;margin-bottom:5px;'>"+
+                    "<div class='form-inline'>"+
+                      "<div class='form-group' style = 'margin-bottom:10px;'>"+
+                        "<label class='sr-only' for='exampleInputEmail3'>Name</label>"+
+                        "<input id = 'search_name' class='form-control' placeholder='Type the user's name style ='width:120%' onkeyup = 'javascript:searchDHISUser();'>"+
+                      "</div>"+
+                      "<br>"+ 
+                      // Append the results
+                      "<div id = 'user_search_results' class = 'panel panel-default' style = 'height:300px;overflow:scroll;width:30%;padding:5px'>"+
+                      "</div>"+
+                      "<div id = 'add_button' class = 'pull-left' style = 'position:absolute;margin-top:320px;margin-left:240px'>"
+                      "</div>"+
+                "</div>";
+    // Append
+    $('div#facilities').html(data);
+}
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function searchDHISUser()
+function searchDHISUser()
+{
+    var itemToSearch = document.getElementById("search_name");
+    var searchKey = itemToSearch.value;
+
+    var dhisUsersUrl = "api/search_users.php";
+    $('#user_search_results').html("<img src='assets/img/loading.gif' style = 'height:300px:width:30%'>");
+    $.getJSON
+    (
+        dhisUsersUrl,
+        {name:searchKey},
+        function(found)
+        {
+            if(found.length>0)
+            {
+                $("#user_search_results").empty();
+                $("#add_button").empty();
+                for(var count=0; count<found.length;count++)
+                {
+                    var userToAppend = "<div id = '"+found[count].id+"'>"+found[count].name+"</div>"+
+                                        "<input id = 'add_checkbox' type = 'checkbox' style = 'margin-left:250px;margin-top:-10px' value = "+found[count].id+">"+
+                                        "</input>"+
+                                        "<br>";
+                    $(userToAppend).appendTo("#user_search_results");
+                }
+                var addButton = "<input type = 'button' class='btn btn-primary btn-sm' style = '' ONCLICK='addDHISUser();' value = 'Add'></input>";
+                $(addButton).appendTo("#add_button");
+            }
+            else
+            {
+                var userToAppend = "No results";
+                $("#user_search_results").html(userToAppend);
+            }
+        }
+    );
+}
+
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function searchDHISUser()
+function addDHISUser()
+{
+    var usersToAdd = [];
+    $("input:checkbox[id=add_checkbox]:checked").each
+    (
+        function()
+        {
+            usersToAdd.push($(this).val());
+        }
+    );
+
+    // Place requests for the data of that user
+    for(var i=0;i<usersToAdd.length;i++)
+    {
+        var userDetails = "api/get_user_details.php";
+        $.getJSON
+        (
+            userDetails,
+            {user_id:usersToAdd[i]},
+            function(data)
+            {
+                // User Details
+                var employeeID = data.id;
+                var userName = data.name;
+                var selectedUserGender = "NOT AVAILABLE";
+                var userEmail = data.email;
+                var phoneNO = data.phoneNumber;
+
+                // Account credentials
+                var loginUserName = data.userCredentials.code;
+                var loginPassword = data.userCredentials.code; 
+
+                if(data.access.write == "true")
+                {
+                    var selectedUserRole = "WRITE";
+                }
+                else
+                {
+                    var selectedUserRole = "READ";
+                }
+
+                // Place an insert request to the database side
+                $.post
+                (
+                    'db/insertion/insert_user_details.php',
+                    {employeeID:employeeID,user_name:userName,user_gender:selectedUserGender,user_email:userEmail,user_phone:phoneNO},
+                    function(statusMessage)
+                    {
+                        if(statusMessage == 0)
+                        {
+                            // Place user credentials insert request
+                            $.post
+                            (
+                                'db/insertion/insert_user_credentials.php',
+                                {user_id:employeeID,login_name:loginUserName,password:loginPassword,user_role:selectedUserRole},
+                                function(statusMessage)
+                                {
+                                    if(statusMessage == 0)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-check-square' style = 'color:white;'>"+userName+" has been saved</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                getUsers('report');
+                                                
+                                            },
+                                            1500
+                                        );
+                                    }
+
+                                    else if(statusMessage == 1)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-ok' style = 'color:white;'>"+createdUserID+" credentials exist</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                getUsers('report');
+                                            },
+                                            1500
+                                        );
+                                    }
+
+                                    else if(statusMessage == -1)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-ok' style = 'color:white;'> Error. Credentials not inserted</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+                                            },
+                                            1500
+                                        );
+                                    }
+                                }
+                            );
+                        }
+
+                        else if(statusMessage == 1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'>"+userName+" exists </span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == -1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'> Error. "+userName+" not inserted</span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    //createUsers('credentials');
+                                },
+                                1500
+                            );
+                        }
+                    }
+                );
+            }
+
+        );
+    }
+}
+
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // Function userOperations()
 function userOperations(operation,item,createdUserID,createdUserName)
@@ -581,7 +807,6 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                             }
                                         }
                                     );
-
                                 }
                             }
                         }
@@ -1634,6 +1859,14 @@ function editUsers(userID, userName)
             else if(userData[0].gender == "FEMALE")
             {
                 var genderOptions = "<option value = 'FEMALE'>FEMALE</option>"+
+                                    "<option value = 'MALE'>MALE</option>";
+                $('select#user_gender').append(genderOptions);
+            }
+
+            else
+            {
+                var genderOptions = "<option value = ''>NOT AVAILABLE</option>"+
+                                    "<option value = 'FEMALE'>FEMALE</option>"+
                                     "<option value = 'MALE'>MALE</option>";
                 $('select#user_gender').append(genderOptions);
             }
