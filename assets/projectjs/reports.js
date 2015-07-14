@@ -1156,7 +1156,7 @@ function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
                     var reportingPeriod=$('#reportingperiod');
                     var facility=response.name;
                     var facilityid=response.code;
-                    reportingPeriod.text(period);
+                    reportingPeriod.text(generateYearName(period));
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
 
@@ -1237,7 +1237,7 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                             var reportingPeriod=$('#reportingperiod');
                             tableItem.text(facility);
                             tablefacilityid.text(facilityid);
-                            reportingPeriod.text(period);
+                            reportingPeriod.text(generateYearName(period));
 
                         });
 
@@ -1510,7 +1510,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                     var reportingPeriod=$('#reportingperiod');
                     var facility=response.name;
                     var facilityid=response.code;
-                    reportingPeriod.text(period);
+                    reportingPeriod.text(generateYearName(period));
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
 
@@ -1749,7 +1749,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                     var reportingPeriod=$('#reportingperiod');
                     var facility=response.name;
                     var facilityid=response.code;
-                    reportingPeriod.text(period);
+                    reportingPeriod.text(generateYearName(period));
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
 
@@ -1759,5 +1759,57 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
             }
         }
     );
+}
+
+
+function generateYearName(date){
+    var str = date;
+    var res = str.slice(-2);
+    var year=str.substring(0, 4);
+
+    if(res=="01"){
+
+        return "January-"+year;
+    }
+    if(res=="02"){
+
+        return "February-"+year;
+    }
+    if(res=="03"){
+
+        return "March-"+year;
+    }
+    if(res=="04"){
+        return "April-"+year;
+    }
+    if(res=="05"){
+        return "May-"+year;
+    }
+    if(res=="06"){
+
+        return "June-"+year;
+    }
+    if(res=="07"){
+        return "July-"+year;
+    }
+    if(res=="08"){
+
+        return "August-"+year;
+    }
+    if(res=="09"){
+
+        return "September-"+year;
+    }
+    if(res=="10"){
+       return "October-"+year;
+    }
+    if(res=="11"){
+        return "November-"+year;
+    }
+    if(res=="12"){
+
+        return "December-"+year;
+    }
+
 }
 
