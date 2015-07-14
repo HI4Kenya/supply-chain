@@ -7,7 +7,7 @@
     // If not logged in, redirect to the log in page
     if(!isset($_SESSION['login_id']))
     {
-        header('Location:'.$base_path.'');
+        hheader('Location:'.$base_path.'');
     }
     else
     {
@@ -15,8 +15,10 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/organisationUnits.jsonp?paging=false&callback=?";
+		//HTTP GET request -Using Curl -Response JSON
+		$user_id = $_GET['user_id'];
+
+		$url="http://test.hiskenya.org/api/users/".$user_id;
 
 		// initailizing curl
 		$ch = curl_init();
@@ -39,11 +41,11 @@
 
 		if ($result)
 		{
-			echo $result;
+		    echo $result;
 		}
+
 		else
 		{
-
 		    echo -1;
 		}
 	}

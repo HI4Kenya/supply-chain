@@ -18,11 +18,17 @@
 
     # Base Path url
     # Path to the root of the project
+    $base_path = "http://localhost/mshTask/";
 
-    $base_path = "http://localhost/msh/";
+    # Database connection parameters
+    # Edit accordingly
+    $server = "localhost";
+    $user = "root";
+    $password = "wahome";
+    $database = "msh_task";
 
     # DHIS2 API login credentials
     # Edit accordingly
-    $user = 'kayeli';
+    $access_user = 'kayeli';
     $access_password = 'Kdenno25@gmail';
 ?>

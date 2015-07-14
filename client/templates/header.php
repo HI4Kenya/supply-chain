@@ -52,18 +52,19 @@
 
         <!-- bootstrap js library-->
         <script type="text/javascript" src="assets/Bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/Bootstrap/dist/js/jquery-ui.min.js"></script>
+
         <!--jspdf js-->
         <script type="text/javascript" src="assets/js/jspdf.js"></script>
 
         <!-- Data Tables -->
-        <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js">
-        </script>
+        <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js"></script>
         
         <!-- CSS -->
-        <link href="assets/Bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/Bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/Bootstrap/dist/css/jquery-ui.min.css" rel="stylesheet">
         <link href="assets/css/mshTask.css" rel="stylesheet" type="text/css">
-        <link href="assets/pagecss/page.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/tables.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" id="theme" href="assets/template/css/theme-light.css"/>
 
         <!-- Data Table CSS -->
@@ -76,6 +77,7 @@
         <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    
     </head>
 
     <body style = "background-color:;color:black">

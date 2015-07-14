@@ -1,61 +1,68 @@
 <?php
-	// Include system config file
-	//require 'system/config.php';
+	# Include system config file
+	require '../system/config.php';
 
-	//API login Credentials
-	$username = "kayeli";
-	$password = "Kdenno25@gmail";
+	session_start();
+    // Validate a user has logged in
+    // If not logged in, redirect to the log in page
+    if(!isset($_SESSION['login_id']))
+    {
+        header('Location:'.$base_path.'');
+    }
+    else
+    {
+		# API login Credentials
+		$username = $access_user;
+		$password = $access_password;
 
-	//HTTP GET request -Using Curl -Response JSON
-	$user_name =$_GET['name'];
+		//HTTP GET request -Using Curl -Response JSON
+		$user_name = $_GET['name'];
 
-	$url="http://test.hiskenya.org/api/users";
+		$url="http://test.hiskenya.org/api/users?paging=false";
 
-	// initailizing curl
-	$ch = curl_init();
-	//curl options
-	curl_setopt($ch, CURLOPT_POST, false);
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-	//execute
-	$result = curl_exec($ch);
+		// initailizing curl
+		$ch = curl_init();
+		//curl options
+		curl_setopt($ch, CURLOPT_POST, false);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+		//execute
+		$result = curl_exec($ch);
 
-	//close connection
-	curl_close($ch);
+		//close connection
+		curl_close($ch);
 
 
-	if ($result)
-	{
-		$user_name = "mohamed";
-		$data= json_decode($result,true);
-		$users = $data["users"];
+		if ($result)
+		{
+			$data= json_decode($result,true);
+			$users = $data["users"];
+			$search_key = strtolower($user_name);
 
-		$search_key = strtolower($user_name);
+			$found = array();
 
-	    foreach ($users as $key => $value) 
-	    {
-	    	$search_data = strtolower($value["name"]);
+		    foreach ($users as $value) 
+		    {	
+		    	$search_data = strtolower($value["name"]);
+		    	$answer = strpos($search_data,$search_key);
+		    	if($answer!==false)
+		    	{
+		    		$found[] = $value;
+		    	}
+		    }
+		    $return = json_encode($found);
+		    echo $return;
+		}
 
-	        if((stripos($search_data,$search_key))===true) 
-	        {
-	            echo "found".$key;
-	        }
-	        else
-	        {
-	        	echo "NONE".$key."<br>";
-	        }
-	    }
+		else
+		{
+		    echo -1;
+		}
 	}
-
-	else
-	{
-	    echo -1;
-	}
-
 ?>

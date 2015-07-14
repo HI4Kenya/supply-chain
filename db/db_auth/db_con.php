@@ -16,16 +16,19 @@
     **
     *..................................................................................*/
     
-    // Database connection parameters
-    $servername = "localhost";
-    $username = "root";
-    $password = "1234pass";
-    $dbname = "msh";
+    # System config script include
+    require '../../system/config.php';
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password,$dbname);
+    # Database connection parameters
+    $servername = $server;
+    $username = $user;
+    $authentication = $password;
+    $dbname = $database;
 
-    // Check connection
+    # Create connection
+    $conn = new mysqli($servername, $username, $authentication, $dbname);
+
+    # Check connection
     if ($conn->connect_error) 
     {
         die("Connection failed: " . $conn->connect_error);
