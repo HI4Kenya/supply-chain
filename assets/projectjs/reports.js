@@ -1570,7 +1570,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
 
                     var multiplier=3;
                     var prefix="";
-                    var prefix_replace="MOH 734A";
+                    var prefix_replace="MOH 734A ";
 
                     //730B
                     var totalConsumptionCombo="RWCHIdXizft";
@@ -1644,7 +1644,11 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                                         //Get an array of Objects with the same dataElement
                                         var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId; });
 
-                                        if (result.length > 1) {
+                                        if (result.length == 0) {
+                                            // not found
+                                        }else if (result.length == 1) {
+                                            // one object
+                                        } else {
 
                                             var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
                                             var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
@@ -1658,7 +1662,6 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                                                 var valueH=0;
                                                 var valueG=0;
                                                 var valueResupply=0;
-                                                var valueAggregatePhysicalStock=0;
 
                                                 if ('value' in columnH[0]){
                                                     valueH=parseInt(columnH[0].value);
