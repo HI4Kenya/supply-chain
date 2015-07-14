@@ -15,10 +15,8 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		//HTTP GET request -Using Curl -Response JSON
-		$user_id = $_GET['user_id'];
-
-		$url="http://test.hiskenya.org/api/currentUser";
+		// Url to get the organisation units from the API
+		$url="http://test.hiskenya.org/api/dataSets?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -30,28 +28,35 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
 		//execute
 		$result = curl_exec($ch);
 
 		//close connection
 		curl_close($ch);
 
+
 		if ($result)
 		{
 			$data= json_decode($result,true);
-			//var_dump($data);
-			foreach ($data as $value) 
-		    {	
-		    	echo $value["name"];
-		    }
-		    // /$email = $result
-		}
+			$dataSets = $data["dataSets"];
 
+			foreach ($dataSets as $value) 
+		    {	
+		    	$id= $value["id"];
+				$name = str_replace("'", "",$value["name"]);
+				$href = $value["href"];
+				$code = $value["code"];
+
+		    	// Require the insert script
+		    	require '../db/insertion/insert_datasets.php';
+		    }
+		    echo 0;
+		}
 		else
 		{
-		    echo "ERROR";
+		    echo -1;
 		}
 	}
 ?>

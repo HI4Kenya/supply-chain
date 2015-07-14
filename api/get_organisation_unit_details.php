@@ -15,10 +15,8 @@
 		$username = $access_user;
 		$password = $access_password;
 
-		//HTTP GET request -Using Curl -Response JSON
-		$user_id = $_GET['user_id'];
-
-		$url="http://test.hiskenya.org/api/currentUser";
+		// Url to get the organisation units from the API
+		$url=$href;
 
 		// initailizing curl
 		$ch = curl_init();
@@ -33,25 +31,46 @@
 		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 		//execute
-		$result = curl_exec($ch);
+		$response = curl_exec($ch);
 
 		//close connection
 		curl_close($ch);
 
-		if ($result)
-		{
-			$data= json_decode($result,true);
-			//var_dump($data);
-			foreach ($data as $value) 
-		    {	
-		    	echo $value["name"];
-		    }
-		    // /$email = $result
-		}
 
+		if ($response)
+		{
+			$details = json_decode($response,true);
+
+			# Details of Organisation Units
+			$id= $details['id'];
+			$name = str_replace("'", "",$details['name']);
+			$parent_id = $details['parent']['id'];
+			$mfl_code = $details['code'];
+
+			// Facilities level
+			if($details["level"] == $level)
+			{
+				# Require the facilities insert script
+				require '../db/insertion/insert_facilities.php';
+			}
+
+			// Sub-Counties Level
+			else if($details["level"] == $level)
+			{
+				# Require the sub-counties insert script
+				require '../db/insertion/insert_sub_counties.php';
+			}
+
+			// County Level
+			else if($details["level"] == $level)
+			{
+				# Require the counties insert script
+				require '../db/insertion/insert_counties.php';
+			}
+		}
 		else
 		{
-		    echo "ERROR";
+		    echo -1;
 		}
 	}
 ?>

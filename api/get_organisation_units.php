@@ -15,8 +15,11 @@
 		$username = $access_user;
 		$password = $access_password;
 
+		# GET THE LEVEL TO UPDATE
+		$level == $_GET['level'];
+
 		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/organisationUnits.jsonp?paging=false&callback=?";
+		$url="http://test.hiskenya.org/api/organisationUnits?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -39,11 +42,20 @@
 
 		if ($result)
 		{
-			echo $result;
+			$data= json_decode($result,true);
+			$organisationUnits = $data["organisationUnits"];
+
+			foreach ($organisationUnits as $value) 
+		    {	
+		    	$href = $value["href"];
+
+		    	// Require the get details script
+		    	require 'get_organisation_unit_details.php';
+		    };
+		    echo 0;
 		}
 		else
 		{
-
 		    echo -1;
 		}
 	}

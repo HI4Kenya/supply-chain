@@ -12,13 +12,12 @@
     else
     {
         // If user has logged in
-
 		require '../db_auth/db_con.php';
 
-		$id= $_POST['id'];
-		$name = str_replace("'", "",$_POST['name']);
-		$href = $_POST['href'];
-		$code = $_POST['code'];
+		// $id= $_POST['id'];
+		// $name = str_replace("'", "",$_POST['name']);
+		// $href = $_POST['href'];
+		// $code = $_POST['code'];
 
 		//Check if the facility exists
 		$exists = "SELECT * FROM dhis_datasets WHERE dataset_id = '$id'";

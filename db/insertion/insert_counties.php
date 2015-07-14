@@ -14,9 +14,9 @@
         // If user has logged in
 		require '../db_auth/db_con.php';
 
-		$id = $_POST['id'];
-		$name = str_replace("'", "",$_POST['name']);
-		$parent_id = $_POST['parent'];
+		// $id = $_POST['id'];
+		// $name = str_replace("'", "",$_POST['name']);
+		// $parent_id = $_POST['parent'];
 
 		//Check if the facility exists
 		$exists = "SELECT * FROM counties WHERE county_id = '$id'";
