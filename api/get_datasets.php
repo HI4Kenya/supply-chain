@@ -16,7 +16,7 @@
 		$password = $access_password;
 
 		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/dataSets?paging=false";
+		$url = $dhis_url."/api/dataSets?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -50,6 +50,7 @@
 				$code = $value["code"];
 
 		    	// Require the insert script
+		    	//require 'get_dataset_details.php';
 		    	require '../db/insertion/insert_datasets.php';
 		    }
 		    echo 0;

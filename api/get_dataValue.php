@@ -22,7 +22,7 @@
 		$categoryCombo=$_GET['co'];
 
 
-		$url="http://test.hiskenya.org/api/dataValues?";
+		$url = $dhis_url."/api/dataValues?";
 
 		$data = array("de" => "$dataElement", "pe" => "$period", "ou" => "$orgUnit","co" => "$categoryCombo");
 		$data_string = http_build_query($data);

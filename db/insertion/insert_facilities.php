@@ -1,6 +1,6 @@
 <?php
 	// Require system config file
-    require '../../system/config.php';
+    require '../system/config.php';
 
     session_start();
     // Validate a user has logged in
@@ -12,12 +12,21 @@
     else
     {
         // If user has logged in
-		require '../db_auth/db_con.php';
+		
+		# Database connection parameters
+	    $servername = $server;
+	    $username = $user;
+	    $authentication = $password;
+	    $dbname = $database;
 
-		// $id= $_POST['id'];
-		// $name = str_replace("'", "",$_POST['name']);
-		// $parent_id = $_POST['parent'];
-		// $mfl_code = $_POST['mfl_code'];
+	    # Create connection
+	    $conn = new mysqli($servername, $username, $authentication, $dbname);
+
+	    # Check connection
+	    if ($conn->connect_error) 
+	    {
+	        die("Connection failed: " . $conn->connect_error);
+	    }
 
 		//Check if the facility exists
 		$exists = "SELECT * FROM facilities WHERE facility_id = '$id'";

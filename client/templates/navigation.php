@@ -131,6 +131,42 @@
                                 </div>
                                 <!-- END CLASSIFY FACILITIES -->";
                     }
+
+                    // Reports visible to all roles
+                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
+                    {
+                        echo "<!-- REPORTS -->
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'>
+                                    <p>
+                                        <a data-toggle='collapse' data-parent='#accordion' href='#collapseReports' style = 'padding-left:5px'>REPORTS</a>
+                                        <a class='pull-left' data-toggle='collapse' data-parent='#accordion' href='#collapseReports'>
+                                            <span class='fa fa-newspaper-o' onclick='javascript:changeIcon()'></span>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div id='collapseReports' class='panel-collapse collapse'>
+                                    <div class='panel-body'>
+                                        <!-- <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
+                                            Users
+                                        </div>
+                                        <br> -->
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
+                                            Programs
+                                        </div>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
+                                            Supply Hierarchy
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getAnalytics()'>
+                                            Data Set Report
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END REPORTS -->";
+                    }
                     
                     // System UPDATES reserved to the ADMIN role
                     if(($_SESSION["user_role"]=="ADMIN"))
@@ -194,56 +230,6 @@
                                     </div>
                                 </div>
                                 <!-- END DATA ADMINISTRATION-->";
-                    }
-
-                    // Reports visible to all roles
-                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
-                    {
-                        echo "<!-- REPORTS -->
-                            <div class='panel panel-default'>
-                                <div class='panel-heading'>
-                                    <p>
-                                        <a data-toggle='collapse' data-parent='#accordion' href='#collapseReports' style = 'padding-left:5px'>REPORTS</a>
-                                        <a class='pull-left' data-toggle='collapse' data-parent='#accordion' href='#collapseReports'>
-                                            <span class='fa fa-newspaper-o' onclick='javascript:changeIcon()'></span>
-                                        </a>
-                                    </p>
-                                </div>
-                                <div id='collapseReports' class='panel-collapse collapse'>
-                                    <div class='panel-body'>
-                                        <!-- <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
-                                            Users
-                                        </div>
-                                        <br> -->
-                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
-                                            Programs
-                                        </div>
-                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
-                                            Supply Hierarchy
-                                        </div>
-                                        <br>
-                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getAnalytics()'>
-                                            Data Set Report
-                                        </div>
-                                        <br>";
-                    }
-
-                    // Posting data back to DHIS reserved for WRITE role
-                    if(($_SESSION["user_role"]=="WRITE"))
-                    {
-                        echo            "<div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick=''>
-                                            Update DHIS
-                                        </div>
-                                        <br>";
-                    }
-
-                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
-                    {
-                        echo        "</div>
-                                </div>
-                            </div>
-                            <!-- END REPORTS -->";
-
                     }
                 ?>
 

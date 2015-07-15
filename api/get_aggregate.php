@@ -26,7 +26,7 @@
         $sum=0;
 
         //Data Element ID
-        $url_dataElement="http://test.hiskenya.org/api/dataElements/"."$dataElement";
+        $url_dataElement = $dhis_url."/api/dataElements/"."$dataElement";
         // initailizing curl
         $ch = curl_init();
         //curl options

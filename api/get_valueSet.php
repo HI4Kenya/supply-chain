@@ -21,7 +21,7 @@
 		$orgUnit =$_GET['orgUnit'];
 
 
-		$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataValueSet?";
+		$url = $dhis_url."/api/dataSets/"."$dataset"."/dataValueSet?";
 
 		$data = array("period" => "$period", "orgUnit" => "$orgUnit");
 		$data_string = http_build_query($data);

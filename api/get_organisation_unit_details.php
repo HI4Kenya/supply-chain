@@ -16,7 +16,7 @@
 		$password = $access_password;
 
 		// Url to get the organisation units from the API
-		$url=$href;
+		$url = $href;
 
 		// initailizing curl
 		$ch = curl_init();

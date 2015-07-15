@@ -19,7 +19,7 @@
 		$data=$_POST['post'];
 		$data=json_encode($data);
 
-		$url="http://test.hiskenya.org/api/dataValueSets";
+		$url = $dhis_url."/api/dataValueSets";
 
 
 

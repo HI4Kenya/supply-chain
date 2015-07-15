@@ -16,7 +16,7 @@
         $password = $access_password;
         
     //    //Data Elements
-        $url_dataElements="http://test.hiskenya.org/api/dataElements?paging=false";
+        $url_dataElements = $dhis_url."/api/dataElements?paging=false";
     //    // initailizing curl
         $ch = curl_init();
         //curl options

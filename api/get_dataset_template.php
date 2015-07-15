@@ -18,7 +18,7 @@
 		//HTTP GET request -Using Curl -Response JSON
 		$dataset =$_GET['dataSet'];
 
-		$url="http://test.hiskenya.org/api/dataSets/"."$dataset"."/dataEntryForm";
+		$url = $dhis_url."/api/dataSets/"."$dataset"."/dataEntryForm";
 
 		// initailizing curl
 		$ch = curl_init();

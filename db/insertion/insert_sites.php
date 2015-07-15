@@ -1055,6 +1055,101 @@
 								// Its a sub-county store but not for this program
 								else
 								{
+									// Check if its a satellite site
+									$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+									$response = mysqli_query($conn,$check);
+									if(mysqli_num_rows($response)>0)
+									{
+										// Check if facility_program mapping exists from the facility_program_mapping table
+										// as a satelite site
+										$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+										AND program_id = '$program' AND classification = 'Satellite Site'";
+										$mappingResult = mysqli_query($conn,$checkMapping);
+										if(mysqli_num_rows($mappingResult)>0)
+										{
+											// Satellite site for this program
+											// Cannot be classified
+											echo 12;
+										}
+										else
+										{
+											// Exists a satellite site but not for this proram
+											/*CLASSIFY AS A STAND ALONE*/
+											$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+											created_on,created_by,comment)
+											VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+											if (mysqli_query($conn, $mappingQuery))
+											{
+												echo 11;
+												// Updated the mapping
+											}
+
+											else
+											{
+												echo -1;
+											}
+										}
+									}
+									// Not a satellite site
+									else
+									{
+										/*CLASSIFY AS A STAND ALONE*/
+										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+										if (mysqli_query($conn, $mappingQuery))
+										{
+											echo 11;
+											// Updated the mapping
+										}
+
+										else
+										{
+											echo -1;
+										}
+									}
+								}
+							}
+							else
+							{
+								// Check if its a satellite site
+								$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+								$response = mysqli_query($conn,$check);
+								if(mysqli_num_rows($response)>0)
+								{
+									// Check if facility_program mapping exists from the facility_program_mapping table
+									// as a satelite site
+									$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+									AND program_id = '$program' AND classification = 'Satellite Site'";
+									$mappingResult = mysqli_query($conn,$checkMapping);
+									if(mysqli_num_rows($mappingResult)>0)
+									{
+										// Satellite site for this program
+										// Cannot be classified
+										echo 12;
+									}
+									else
+									{
+										// Exists a satellite site but not for this proram
+										/*CLASSIFY AS A STAND ALONE*/
+										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+										if (mysqli_query($conn, $mappingQuery))
+										{
+											echo 11;
+											// Updated the mapping
+										}
+
+										else
+										{
+											echo -1;
+										}
+									}
+								}
+								// Not a satellite site
+								else
+								{
 									/*CLASSIFY AS A STAND ALONE*/
 									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
 									created_on,created_by,comment)
@@ -1069,23 +1164,6 @@
 									{
 										echo -1;
 									}
-								}
-							}
-							else
-							{
-								/*CLASSIFY AS A STAND ALONE*/
-								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by,comment)
-								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
-								if (mysqli_query($conn, $mappingQuery))
-								{
-									echo 11;
-									// Updated the mapping
-								}
-
-								else
-								{
-									echo -1;
 								}
 							}
 						}
@@ -1112,6 +1190,101 @@
 							// Its a sub-county store but not for this program
 							else
 							{
+								// Check if its a satellite site
+								$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+								$response = mysqli_query($conn,$check);
+								if(mysqli_num_rows($response)>0)
+								{
+									// Check if facility_program mapping exists from the facility_program_mapping table
+									// as a satelite site
+									$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+									AND program_id = '$program' AND classification = 'Satellite Site'";
+									$mappingResult = mysqli_query($conn,$checkMapping);
+									if(mysqli_num_rows($mappingResult)>0)
+									{
+										// Satellite site for this program
+										// Cannot be classified
+										echo 12;
+									}
+									else
+									{
+										// Exists a satellite site but not for this proram
+										/*CLASSIFY AS A STAND ALONE*/
+										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+										if (mysqli_query($conn, $mappingQuery))
+										{
+											echo 11;
+											// Updated the mapping
+										}
+
+										else
+										{
+											echo -1;
+										}
+									}
+								}
+								// Not a satellite site
+								else
+								{
+									/*CLASSIFY AS A STAND ALONE*/
+									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+									if (mysqli_query($conn, $mappingQuery))
+									{
+										echo 11;
+										// Updated the mapping
+									}
+
+									else
+									{
+										echo -1;
+									}
+								}
+							}
+						}
+						else
+						{
+							// Check if its a satellite site
+							$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+							$response = mysqli_query($conn,$check);
+							if(mysqli_num_rows($response)>0)
+							{
+								// Check if facility_program mapping exists from the facility_program_mapping table
+								// as a satelite site
+								$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+								AND program_id = '$program' AND classification = 'Satellite Site'";
+								$mappingResult = mysqli_query($conn,$checkMapping);
+								if(mysqli_num_rows($mappingResult)>0)
+								{
+									// Satellite site for this program
+									// Cannot be classified
+									echo 12;
+								}
+								else
+								{
+									// Exists a satellite site but not for this proram
+									/*CLASSIFY AS A STAND ALONE*/
+									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+									created_on,created_by,comment)
+									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+									if (mysqli_query($conn, $mappingQuery))
+									{
+										echo 11;
+										// Updated the mapping
+									}
+
+									else
+									{
+										echo -1;
+									}
+								}
+							}
+							// Not a satellite site
+							else
+							{
 								/*CLASSIFY AS A STAND ALONE*/
 								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
 								created_on,created_by,comment)
@@ -1126,24 +1299,6 @@
 								{
 									echo -1;
 								}
-							}
-						}
-						else
-						{
-							// Its not a sub-county store
-							/*CLASSIFY AS A STAND ALONE*/
-							$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-							created_on,created_by,comment)
-							VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
-							if (mysqli_query($conn, $mappingQuery))
-							{
-								echo 11;
-								// Updated the mapping
-							}
-
-							else
-							{
-								echo -1;
 							}
 						}
 					}
@@ -1186,6 +1341,167 @@
 							// Its a sub-county store but not for this program
 							else
 							{
+								// Check if its a satellite site
+								$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+								$response = mysqli_query($conn,$check);
+								if(mysqli_num_rows($response)>0)
+								{
+									// Check if facility_program mapping exists from the facility_program_mapping table
+									// as a satelite site
+									$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+									AND program_id = '$program' AND classification = 'Satellite Site'";
+									$mappingResult = mysqli_query($conn,$checkMapping);
+									if(mysqli_num_rows($mappingResult)>0)
+									{
+										// Satellite site for this program
+										// Cannot be classified
+										echo 12;
+									}
+									else
+									{
+										// Exists a satellite site but not for this proram
+										/*CLASSIFY AS A SUB_COUNTY STORE*/
+										$sql = "INSERT INTO standalone_site(standalone_id)
+										VALUES ('$id')";
+
+										if (mysqli_query($conn, $sql)) 
+										{
+											// Check if facility_program mapping exists from the facility_program_mapping table
+											$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+											AND program_id = '$program' AND classification = '$classification'";
+											$mappingResult = mysqli_query($conn,$checkMapping);
+											if(mysqli_num_rows($mappingResult)>0)
+											{
+												echo 11;
+											}
+
+											else
+											{
+												$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+												created_on,created_by,comment)
+												VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+												if (mysqli_query($conn, $mappingQuery))
+												{
+													echo 0;
+												}
+
+												else
+												{
+													echo -1;
+												}
+											}
+										} 
+										else 
+										{
+										    echo -1;
+										}
+									}
+								}
+								// Not a satellite site
+								else
+								{
+									/*CLASSIFY AS A STAND ALONE*/
+									/*CLASSIFY AS A SUB_COUNTY STORE*/
+									$sql = "INSERT INTO standalone_site(standalone_id)
+									VALUES ('$id')";
+
+									if (mysqli_query($conn, $sql)) 
+									{
+										// Check if facility_program mapping exists from the facility_program_mapping table
+										$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+										AND program_id = '$program' AND classification = '$classification'";
+										$mappingResult = mysqli_query($conn,$checkMapping);
+										if(mysqli_num_rows($mappingResult)>0)
+										{
+											echo 11;
+										}
+
+										else
+										{
+											$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+											created_on,created_by,comment)
+											VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+											if (mysqli_query($conn, $mappingQuery))
+											{
+												echo 0;
+											}
+
+											else
+											{
+												echo -1;
+											}
+										}
+									} 
+									else 
+									{
+									    echo -1;
+									}
+								}
+							}
+						}
+						// Its not a sub-county store
+						else
+						{
+							// Check if its a satellite site
+							$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+							$response = mysqli_query($conn,$check);
+							if(mysqli_num_rows($response)>0)
+							{
+								// Check if facility_program mapping exists from the facility_program_mapping table
+								// as a satelite site
+								$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+								AND program_id = '$program' AND classification = 'Satellite Site'";
+								$mappingResult = mysqli_query($conn,$checkMapping);
+								if(mysqli_num_rows($mappingResult)>0)
+								{
+									// Satellite site for this program
+									// Cannot be classified
+									echo 12;
+								}
+								else
+								{
+									// Exists a satellite site but not for this proram
+									/*CLASSIFY AS A SUB_COUNTY STORE*/
+									$sql = "INSERT INTO standalone_site(standalone_id)
+									VALUES ('$id')";
+
+									if (mysqli_query($conn, $sql)) 
+									{
+										// Check if facility_program mapping exists from the facility_program_mapping table
+										$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+										AND program_id = '$program' AND classification = '$classification'";
+										$mappingResult = mysqli_query($conn,$checkMapping);
+										if(mysqli_num_rows($mappingResult)>0)
+										{
+											echo 11;
+										}
+
+										else
+										{
+											$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+											created_on,created_by,comment)
+											VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+											if (mysqli_query($conn, $mappingQuery))
+											{
+												echo 0;
+											}
+
+											else
+											{
+												echo -1;
+											}
+										}
+									} 
+									else 
+									{
+									    echo -1;
+									}
+								}
+							}
+							// Not a satellite site
+							else
+							{
+								/*CLASSIFY AS A STAND ALONE*/
 								/*CLASSIFY AS A SUB_COUNTY STORE*/
 								$sql = "INSERT INTO standalone_site(standalone_id)
 								VALUES ('$id')";
@@ -1223,45 +1539,6 @@
 								}
 							}
 						}
-						// Its not a sub-county store
-						else
-						{
-							/*CLASSIFY AS A SUB_COUNTY STORE*/
-							$sql = "INSERT INTO standalone_site(standalone_id)
-							VALUES ('$id')";
-
-							if (mysqli_query($conn, $sql)) 
-							{
-								// Check if facility_program mapping exists from the facility_program_mapping table
-								$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
-								AND program_id = '$program' AND classification = '$classification'";
-								$mappingResult = mysqli_query($conn,$checkMapping);
-								if(mysqli_num_rows($mappingResult)>0)
-								{
-									echo 11;
-								}
-
-								else
-								{
-									$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-									created_on,created_by,comment)
-									VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
-									if (mysqli_query($conn, $mappingQuery))
-									{
-										echo 0;
-									}
-
-									else
-									{
-										echo -1;
-									}
-								}
-							} 
-							else 
-							{
-							    echo -1;
-							}
-						}
 					}
 				}
 
@@ -1286,6 +1563,167 @@
 						// Its a sub-county store but not for this program
 						else
 						{
+							// Check if its a satellite site
+							$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+							$response = mysqli_query($conn,$check);
+							if(mysqli_num_rows($response)>0)
+							{
+								// Check if facility_program mapping exists from the facility_program_mapping table
+								// as a satelite site
+								$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+								AND program_id = '$program' AND classification = 'Satellite Site'";
+								$mappingResult = mysqli_query($conn,$checkMapping);
+								if(mysqli_num_rows($mappingResult)>0)
+								{
+									// Satellite site for this program
+									// Cannot be classified
+									echo 12;
+								}
+								else
+								{
+									// Exists a satellite site but not for this proram
+									/*CLASSIFY AS A SUB_COUNTY STORE*/
+									$sql = "INSERT INTO standalone_site(standalone_id)
+									VALUES ('$id')";
+
+									if (mysqli_query($conn, $sql)) 
+									{
+										// Check if facility_program mapping exists from the facility_program_mapping table
+										$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+										AND program_id = '$program' AND classification = '$classification'";
+										$mappingResult = mysqli_query($conn,$checkMapping);
+										if(mysqli_num_rows($mappingResult)>0)
+										{
+											echo 11;
+										}
+
+										else
+										{
+											$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+											created_on,created_by,comment)
+											VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+											if (mysqli_query($conn, $mappingQuery))
+											{
+												echo 0;
+											}
+
+											else
+											{
+												echo -1;
+											}
+										}
+									} 
+									else 
+									{
+									    echo -1;
+									}
+								}
+							}
+							// Not a satellite site
+							else
+							{
+								/*CLASSIFY AS A STAND ALONE*/
+								/*CLASSIFY AS A SUB_COUNTY STORE*/
+								$sql = "INSERT INTO standalone_site(standalone_id)
+								VALUES ('$id')";
+
+								if (mysqli_query($conn, $sql)) 
+								{
+									// Check if facility_program mapping exists from the facility_program_mapping table
+									$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+									AND program_id = '$program' AND classification = '$classification'";
+									$mappingResult = mysqli_query($conn,$checkMapping);
+									if(mysqli_num_rows($mappingResult)>0)
+									{
+										echo 11;
+									}
+
+									else
+									{
+										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+										if (mysqli_query($conn, $mappingQuery))
+										{
+											echo 0;
+										}
+
+										else
+										{
+											echo -1;
+										}
+									}
+								} 
+								else 
+								{
+								    echo -1;
+								}
+							}
+						}
+					}
+					// Its not a sub-county store
+					else
+					{
+						// Check if its a satellite site
+						$check = "SELECT * FROM satelite_site WHERE satelite_id = '$id'";
+						$response = mysqli_query($conn,$check);
+						if(mysqli_num_rows($response)>0)
+						{
+							// Check if facility_program mapping exists from the facility_program_mapping table
+							// as a satelite site
+							$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+							AND program_id = '$program' AND classification = 'Satellite Site'";
+							$mappingResult = mysqli_query($conn,$checkMapping);
+							if(mysqli_num_rows($mappingResult)>0)
+							{
+								// Satellite site for this program
+								// Cannot be classified
+								echo 12;
+							}
+							else
+							{
+								// Exists a satellite site but not for this proram
+								/*CLASSIFY AS A SUB_COUNTY STORE*/
+								$sql = "INSERT INTO standalone_site(standalone_id)
+								VALUES ('$id')";
+
+								if (mysqli_query($conn, $sql)) 
+								{
+									// Check if facility_program mapping exists from the facility_program_mapping table
+									$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
+									AND program_id = '$program' AND classification = '$classification'";
+									$mappingResult = mysqli_query($conn,$checkMapping);
+									if(mysqli_num_rows($mappingResult)>0)
+									{
+										echo 11;
+									}
+
+									else
+									{
+										$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
+										created_on,created_by,comment)
+										VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
+										if (mysqli_query($conn, $mappingQuery))
+										{
+											echo 0;
+										}
+
+										else
+										{
+											echo -1;
+										}
+									}
+								} 
+								else 
+								{
+								    echo -1;
+								}
+							}
+						}
+						// Not a satellite site
+						else
+						{
+							/*CLASSIFY AS A STAND ALONE*/
 							/*CLASSIFY AS A SUB_COUNTY STORE*/
 							$sql = "INSERT INTO standalone_site(standalone_id)
 							VALUES ('$id')";
@@ -1321,45 +1759,6 @@
 							{
 							    echo -1;
 							}
-						}
-					}
-					// Its not a sub-county store
-					else
-					{
-						/*CLASSIFY AS A SUB_COUNTY STORE*/
-						$sql = "INSERT INTO standalone_site(standalone_id)
-						VALUES ('$id')";
-
-						if (mysqli_query($conn, $sql)) 
-						{
-							// Check if facility_program mapping exists from the facility_program_mapping table
-							$checkMapping = "SELECT * FROM facility_program_mapping WHERE facility_id = '$id'
-							AND program_id = '$program' AND classification = '$classification'";
-							$mappingResult = mysqli_query($conn,$checkMapping);
-							if(mysqli_num_rows($mappingResult)>0)
-							{
-								echo 11;
-							}
-
-							else
-							{
-								$mappingQuery = "INSERT INTO facility_program_mapping(facility_id,program_id,classification,
-								created_on,created_by,comment)
-								VALUES ('$id','$program','$classification','$date_created','$created_by','$comment')";
-								if (mysqli_query($conn, $mappingQuery))
-								{
-									echo 0;
-								}
-
-								else
-								{
-									echo -1;
-								}
-							}
-						} 
-						else 
-						{
-						    echo -1;
 						}
 					}
 				}

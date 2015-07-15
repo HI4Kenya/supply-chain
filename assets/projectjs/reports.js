@@ -1,7 +1,7 @@
 /*function hierarchyReport()*/
 function hierarchyReport()
 {
-    $('div#returned_messages').html("<span style = 'color:green;margin-left:0px'> Supply Pipeline Hierarchy</span></span>");
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> Supply Pipeline Hierarchy</span></span>");
                 //Central Stores 
     var data = "<div class='panel panel-default' style = 'width:40%'>"+
                     "<div class='panel-heading'> "+                               
