@@ -797,6 +797,8 @@ function reportData()
 // End function
 /* -------------------------------------------------------------------------------------------------------------------------------*/
 
+var server_url_api="http://test.hiskenya.org/api";
+
 function generateReport(selectedProgramID, dataSetOptions, periodOptions, periodOfTheReport, selectedFacilityID, selectedFacilityClassification)
 {
     var path="client/report_templates/";
@@ -828,7 +830,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 if(dataSetOptions=="rV6fPhufzlU"){
 
                     dataSetTemplate=path+"dataSetTemplate.php";
-                    reportTemplateCentral(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate730(dataSetTemplate,satellites, periodOfTheReport, selectedFacilityID, dataSetOptions);
 
                 }
                 else
@@ -918,259 +920,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
 }
 
 
-// Function for Processing and Generating Reports
-
-function reportTemplateCentral(templateUrl,satellites, period, orgUnit, dataSet)
-{
-    var urlDataSetTemplate="api/get_dataset_template.php";
-
-    $.get(templateUrl).then
-    (
-        function(responseData) 
-        {
-            $('div#facilities').empty();
-            $('div#facilities').append(responseData);
-
-            $("#formData").empty();
-            $("#formData").append('<img src="assets/img/ajax-loader-2.gif">');
-
-            $.getJSON
-            ( urlDataSetTemplate,
-                {dataSet:dataSet},
-                function(htmlForm) {
-                    if (htmlForm == -1) {
-                        $("#formData").empty();
-                        $("#formData").append("Try Again");
-                    }
-                    $("#formData").empty();
-                    $("#formData").append(htmlForm.dataEntryForm.htmlCode);
-                    $("#formName").append(htmlForm.dataEntryForm.name);
-                    $("input").prop('disabled', true);
-
-                    //url for getting datavalues and org unit details
-                    var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
-                    var urlAggregate="api/get_aggregate.php";
-                    var urlGetDataset="api/get_data.php";
-                    var urlPostToDHIS="api/post_datavalues.php";
-
-
-                    //Category Combinations -730A
-                    var aggregatedQuanityConsumed_Combo="w5mBD3FwKg3";
-                    var aggregatedPhysicalStock_Combo= "YO3e43lWky0";
-                    var PhysicalStock_Combo= "CrPXhlkjtxD";
-                    var quanityResupply_Combo="CCQF8AMSN7B";
-                    var categoryOptionCombos=[];
-
-                    categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
-                    categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
-                    categoryOptionCombos.push(quanityResupply_Combo);
-
-                    var multiplier=3;
-                    var prefix="MOH 730B";
-                    var prefix_replace="MOH 730A";
-
-                    //730B
-                    var totalConsumptionCombo="MQxdLLBfwIL";
-                    var totalPhysicalStockCombo="UIjvPBrmiNE";
-
-
-                    $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
-                    setTimeout(function(){
-                        $('#loading').html("");
-                    }, 60000);
-
-                    //Getting and Setting the facility Name
-                    getOrganisationUnitName(urlOrgUnit);
-
-                    $.getJSON
-                    ( urlGetDataset,
-                        {dataSet:dataSet,period:period,orgUnit:orgUnit},
-                        function(response) {
-
-                            var response_data=response;
-
-                            if(response==-1){
-                                $('#loading').html('<span>Error Loading Try Again</span>');
-                            }
-
-                            if ('dataValues' in response_data){
-
-                                var dataValues = response_data.dataValues;
-                            }
-                            else{
-
-                                $('#loading').html('<span>Loading Complete</span>');
-                            }
-
-
-                            //data to post to dhis2
-                            var post_data=response_data;
-                            post_data.dataValues=[];
-                            var dataElementsUpadated=[];
-
-                            $.each(dataValues, function (index, dataObj) {
-                                var dataElementId = dataObj.dataElement;
-                                var optionComboId = dataObj.categoryOptionCombo;
-                                dataObj.val= dataObj.value;
-                                dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
-
-                                    var categoryCombination = dataObj.categoryOptionCombo;
-                                    //physical stock
-                                    if (dataObj.categoryOptionCombo == aggregatedPhysicalStock_Combo) {
-
-                                        categoryCombination =totalPhysicalStockCombo ;
-                                    }
-
-                                    //Quantity consumed
-                                    if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
-
-                                        categoryCombination = totalConsumptionCombo;
-                                    }
-
-                                    var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
-                                        prefix_replace:prefix_replace};
-
-                                    $.getJSON(urlAggregate,dataSatelites,function (data){
-
-                                        dataObj.value = data;
-                                        var tableItem = $(dataObj.id);
-                                        //tableItem.text(dataObj.value);
-                                        tableItem.val(dataObj.value);
-
-                                        //Get an array of Objects with the same dataElement
-                                        var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId; });
-
-                                        if (result.length > 1) {
-
-                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
-                                            var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
-                                            var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
-
-                                            var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
-
-                                            //Calculating quantity required for resupply
-                                            if(columnH.length>0 && columnG.length>0 )
-                                            {
-                                                var valueH=0;
-                                                var valueG=0;
-                                                var valueResupply=0;
-                                                var valueAggregatePhysicalStock=0;
-
-                                                if ('value' in columnH[0]){
-                                                    valueH=parseInt(columnH[0].value);
-                                                    valueH=valueH*multiplier;
-                                                }
-
-                                                if ('value' in columnG[0]){
-                                                    valueG=parseInt(columnG[0].value);
-                                                }
-                                                valueResupply=valueH-valueG;
-
-                                                //Quantity to resupply Calculated is less than zero, intialize to zero
-                                                if(valueResupply<0){
-                                                    valueResupply=0;
-                                                }
-
-                                                //Appending Calculated Quantity Required for resupply
-                                                var tableItem=$(elementId);
-                                                tableItem.text(valueResupply);
-                                                tableItem.val(valueResupply);
-
-                                            }
-                                        }
-
-                                        //to show status message it has completed loading data
-                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
-                                            dataElementsUpadated.push(dataElementId);
-                                        }
-                                        if(dataElementsUpadated.length>53){
-
-                                            $('#loading').html('<span>Loading Complete</span>');
-                                        }
-
-
-                                        //Appending data to post to DHIS
-                                        if(dataObj.categoryOptionCombo==aggregatedQuanityConsumed_Combo)
-                                        {
-                                            var post_obj_Consumed= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
-                                            post_data.dataValues.push(post_obj_Consumed);
-                                        }
-
-                                        if(dataObj.categoryOptionCombo==aggregatedPhysicalStock_Combo)
-                                        {
-                                            var post_obj_PhysicalStock= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
-                                            post_data.dataValues.push(post_obj_PhysicalStock);
-
-                                        }
-
-
-                                    });
-                                }
-                                else {
-
-                                    dataObj.val = parseInt(dataObj.val);
-                                    var tableItem=$(dataObj.id);
-                                    tableItem.val(dataObj.val);
-                                }
-
-                                console.log(post_data);
-
-
-                            });
-
-                            //Method to post data values back to DHIS2
-                            $(".post-data").click(function(){
-
-                                console.log(post_data);
-                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
-                                $.post(urlPostToDHIS, {"post":post_data},
-                                    function(data, status){
-                                        $('#post-log').html("");
-                                        if(data==-1){
-                                            alert("Post was Unsuccessful"+status);
-                                        }
-
-                                        if(data==0){
-                                            alert("Post was successful"+status);
-                                        }
-                                    });
-
-                            });
-
-
-
-                        });
-
-
-                });
-
-
-
-            //function to get the name of the orgUnit
-            function getOrganisationUnitName(urlOrgUnit){
-                var jqxhr = $.getJSON(urlOrgUnit);
-                jqxhr.done(function (response) {
-                    var tableItem=$("#facility_detail");
-                    var tablefacilityid=$("#facility_id");
-                    var reportingPeriod=$('#reportingperiod');
-                    var facility=response.name;
-                    var facilityid=response.code;
-                    reportingPeriod.text(generateYearName(period));
-                    tableItem.text(facility);
-                    tablefacilityid.text(facilityid);
-
-
-                });
-
-            }
-        });
-}
-
-
-
-
-// Function reportTemplate
+// Function reportTemplate(Generic)- for loading individual facility reports
 function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
 {
     var urlDataSetTemplate="api/get_dataset_template.php";
@@ -1196,7 +946,7 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                     $("#formName").append(htmlForm.dataEntryForm.name);
                     $("input").prop('disabled', true);
 
-                    var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+                    var urlOrgUnit=server_url_api+"/organisationUnits/"+orgUnit+".jsonp?callback=?";
 
                     var urlGetDataset="api/get_data.php";
                     var urlPostToDHIS="api/post_datavalues.php";
@@ -1357,11 +1107,11 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                     function(data, status){
                                         $('#post-log').html("");
                                         if(data==-1){
-                                            alert("Post was Unsuccessful"+status);
+                                            alert("Posting was Unsuccessful.\nTry Posting Again");
                                         }
 
                                         if(data==0){
-                                            alert("Post was successful"+status);
+                                            alert("Data Posted Successfully");
                                         }
                                     });
 
@@ -1370,14 +1120,274 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                         });
 
 
+                }).error(function (jxqhr, status, errorThrown) {
+                    $("#formData").empty();
+                    $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
+                });;
+
+        });
+}
+
+// ReportTemplate730 -for generating Report for 730A
+function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
+{
+    var urlDataSetTemplate="api/get_dataset_template.php";
+
+    $.get(templateUrl).then
+    (
+        function(responseData)
+        {
+            $('div#facilities').empty();
+            $('div#facilities').append(responseData);
+
+            $("#formData").empty();
+            $("#formData").append('<img src="assets/img/ajax-loader-2.gif">');
+
+            $.getJSON
+            ( urlDataSetTemplate,
+                {dataSet:dataSet},
+                function(htmlForm) {
+
+                    if (htmlForm.toString() == "-1") {
+                        $("#formData").empty();
+                        $("#formData").append("Error-Try Loading Again");
+                    }
+
+                    $("#formData").empty();
+                    $("#formData").append(htmlForm.dataEntryForm.htmlCode);
+                    $("#formName").append(htmlForm.dataEntryForm.name);
+                    $("input").prop('disabled', true);
+
+                    //url for getting datavalues and org unit details
+                    var urlOrgUnit=server_url_api+"/organisationUnits/"+orgUnit+".jsonp?callback=?";
+                    var urlAggregate="api/get_aggregate.php";
+                    var urlGetDataset="api/get_data.php";
+                    var urlPostToDHIS="api/post_datavalues.php";
+
+
+                    //Category Combinations -730A
+                    var aggregatedQuanityConsumed_Combo="w5mBD3FwKg3";
+                    var aggregatedPhysicalStock_Combo= "YO3e43lWky0";
+                    var PhysicalStock_Combo= "CrPXhlkjtxD";
+                    var quanityResupply_Combo="CCQF8AMSN7B";
+                    var categoryOptionCombos=[];
+
+                    categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
+                    categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
+                    categoryOptionCombos.push(quanityResupply_Combo);
+
+                    var multiplier=3;
+                    var prefix="MOH 730B";
+                    var prefix_replace="MOH 730A";
+
+                    //730B
+                    var totalConsumptionCombo="MQxdLLBfwIL";
+                    var totalPhysicalStockCombo="UIjvPBrmiNE";
+
+
+                    $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
+                    setTimeout(function(){
+                        $('#loading').html("");
+                    }, 60000);
+
+                    //Getting and Setting the facility Name
+                    getOrganisationUnitName(urlOrgUnit);
+
+                    $.getJSON
+                    ( urlGetDataset,
+                        {dataSet:dataSet,period:period,orgUnit:orgUnit},
+                        function(response) {
+
+                            var response_data=response;
+
+                            if(response==-1){
+                                $('#loading').html('<span>Error Loading Try Again</span>');
+                            }
+
+                            if ('dataValues' in response_data){
+
+                                var dataValues = response_data.dataValues;
+                            }
+                            else{
+
+                                $('#loading').html('<span>Loading Complete</span>');
+                            }
+
+
+                            //data to post to dhis2
+                            var post_data=response_data;
+                            post_data.dataValues=[];
+                            var dataElementsUpadated=[];
+                            var dataElementsLoaded=[];
+
+                            $.each(dataValues, function (index, dataObj) {
+                                var dataElementId = dataObj.dataElement;
+                                var optionComboId = dataObj.categoryOptionCombo;
+                                dataObj.val= dataObj.value;
+                                dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
+
+                                    var categoryCombination = dataObj.categoryOptionCombo;
+                                    //physical stock
+                                    if (dataObj.categoryOptionCombo == aggregatedPhysicalStock_Combo) {
+
+                                        categoryCombination =totalPhysicalStockCombo ;
+                                    }
+
+                                    //Quantity consumed
+                                    if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
+
+                                        categoryCombination = totalConsumptionCombo;
+                                    }
+
+                                    var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                                        prefix_replace:prefix_replace};
+                                    //Loaded DataElements
+                                    dataElementsLoaded.push(dataElementId);
+
+                                    $.getJSON(urlAggregate,dataSatelites,function (data){
+
+                                        dataObj.value = data;
+                                        var tableItem = $(dataObj.id);
+                                        //tableItem.text(dataObj.value);
+                                        tableItem.val(dataObj.value);
+
+                                        //Get an array of Objects with the same dataElement
+                                        var result = $.grep(dataValues, function(e){ return e.dataElement ==dataElementId; });
+
+                                        if (result.length > 1) {
+
+                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
+                                            var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
+                                            var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
+
+                                            var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
+
+                                            //Calculating quantity required for resupply
+                                            if(columnH.length>0 && columnG.length>0 )
+                                            {
+                                                var valueH=0;
+                                                var valueG=0;
+                                                var valueResupply=0;
+                                                var valueAggregatePhysicalStock=0;
+
+                                                if ('value' in columnH[0]){
+                                                    valueH=parseInt(columnH[0].value);
+                                                    valueH=valueH*multiplier;
+                                                }
+
+                                                if ('value' in columnG[0]){
+                                                    valueG=parseInt(columnG[0].value);
+                                                }
+                                                valueResupply=valueH-valueG;
+
+                                                //Quantity to resupply Calculated is less than zero, intialize to zero
+                                                if(valueResupply<0){
+                                                    valueResupply=0;
+                                                }
+
+                                                //Appending Calculated Quantity Required for resupply
+                                                var tableItem=$(elementId);
+                                                tableItem.text(valueResupply);
+                                                tableItem.val(valueResupply);
+
+                                            }
+                                        }
+
+                                        //to show status message it has completed loading data
+                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
+                                            dataElementsUpadated.push(dataElementId);
+                                        }
+
+                                        if(dataElementsUpadated.length>=dataElementsLoaded.length){
+
+                                            $('#loading').html('<span>Loading Complete</span>');
+                                        }
+
+
+                                        //Appending data to post to DHIS
+                                        if(dataObj.categoryOptionCombo==aggregatedQuanityConsumed_Combo)
+                                        {
+                                            var post_obj_Consumed= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
+                                            post_data.dataValues.push(post_obj_Consumed);
+                                        }
+
+                                        if(dataObj.categoryOptionCombo==aggregatedPhysicalStock_Combo)
+                                        {
+                                            var post_obj_PhysicalStock= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
+                                            post_data.dataValues.push(post_obj_PhysicalStock);
+
+                                        }
+
+
+                                    });
+                                }
+                                else {
+
+                                    dataObj.val = parseInt(dataObj.val);
+                                    var tableItem=$(dataObj.id);
+                                    tableItem.val(dataObj.val);
+                                }
+                            });
+
+                            //Method to post data values back to DHIS2
+                            $(".post-data").click(function(){
+
+                                console.log(post_data);
+                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
+                                $.post(urlPostToDHIS, {"post":post_data},
+                                    function(data, status){
+                                        $('#post-log').html("");
+                                        if(data==-1){
+                                            alert("Posting was Unsuccessful.\nTry Posting Again");
+                                        }
+
+                                        if(data==0){
+                                            alert("Data Posted Successfully");
+                                        }
+                                    });
+
+                            });
+
+
+
+                        });
+
+
+                }).error(function (jxqhr, status, errorThrown) {
+                    $("#formData").empty();
+                    $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
                 });
 
+
+
+            //function to get the name of the orgUnit
+            function getOrganisationUnitName(urlOrgUnit){
+                var jqxhr = $.getJSON(urlOrgUnit);
+                jqxhr.done(function (response) {
+                    var tableItem=$("#facility_detail");
+                    var tablefacilityid=$("#facility_id");
+                    var reportingPeriod=$('#reportingperiod');
+                    var facility=response.name;
+                    var facilityid=response.code;
+                    reportingPeriod.text(generateYearName(period));
+                    tableItem.text(facility);
+                    tablefacilityid.text(facilityid);
+                });
+
+                jqxhr.error(function (jxqhr, status, errorThrown) {
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
+                    $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure you are logged in to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a></span>");
+
+                });
+
+            }
         });
 }
 
 
 
-
+// ReportTemplate -for generating Report for 729A
 function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
 {
     var urlDataSetTemplate="api/get_dataset_template.php";
@@ -1396,7 +1406,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
             ( urlDataSetTemplate,
                 {dataSet:dataSet},
                 function(htmlForm) {
-                    if (htmlForm == -1) {
+                    if (htmlForm.toString() == "-1") {
                         $("#formData").empty();
                         $("#formData").append("Try Again");
                     }
@@ -1406,7 +1416,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                     $("input").prop('disabled', true);
 
                     //url for getting datavalues and org unit details
-                    var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+                    var urlOrgUnit=server_url_api+"/organisationUnits/"+orgUnit+".jsonp?callback=?";
                     var urlAggregate="api/get_aggregate.php";
                     var urlGetDataset="api/get_data.php";
                     var urlPostToDHIS="api/post_datavalues.php";
@@ -1448,6 +1458,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                             var post_data=response_data;
                             post_data.dataValues=[];
                             var dataElementsUpadated=[];
+                            var dataElementsLoaded=[];
 
                             $.each(dataValues, function (index, dataObj) {
 
@@ -1458,6 +1469,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
 
                                 var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
                                     prefix_replace:prefix_replace};
+
 
                                 $.getJSON(urlAggregate,dataSatelites,function (data){
 
@@ -1487,18 +1499,19 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                                     function(data, status){
                                         $('#post-log').html('');
                                         if(data==-1){
-                                            alert("Post was Unsuccessful"+status);
+                                            alert("Posting was Unsuccessful.\nTry Posting Again");
                                         }
 
                                         if(data==0){
-                                            alert("Post was successful"+status);
+                                            alert("Data Posted Successfully");
                                         }
                                     });
-
                             });
                         });
 
-
+                }).error(function (jxqhr, status, errorThrown) {
+                    $("#formData").empty();
+                    $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
                 });
 
             //function to get the name of the orgUnit
@@ -1517,13 +1530,19 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
 
                 });
 
+                jqxhr.error(function (jxqhr, status, errorThrown) {
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
+                    $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure you are logged in to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a></span>");
+
+                });
+
             }
         }
     );
 }
 
 
-// Function reportTemplate-Central Stores
+//ReportTemplate -for generating Report for 734A
 function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataSet)
 {
     var urlDataSetTemplate="api/get_dataset_template.php";
@@ -1542,7 +1561,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
             ( urlDataSetTemplate,
                 {dataSet:dataSet},
                 function(htmlForm) {
-                    if (htmlForm == -1) {
+                    if (htmlForm.toString() == "-1") {
                         $("#formData").empty();
                         $("#formData").append("Try Again");
                     }
@@ -1552,7 +1571,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                     $("input").prop('disabled', true);
 
                     //url for getting datavalues and org unit details
-                    var urlOrgUnit="http://test.hiskenya.org/api/organisationUnits/"+orgUnit+".jsonp?callback=?";
+                    var urlOrgUnit=server_url_api+"/organisationUnits/"+orgUnit+".jsonp?callback=?";
                     var urlAggregate="api/get_aggregate.php";
                     var urlGetDataset="api/get_data.php";
                     var urlPostToDHIS="api/post_datavalues.php";
@@ -1610,6 +1629,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                             var post_data=response_data;
                             post_data.dataValues=[];
                             var dataElementsUpadated=[];
+                            var dataElementsLoaded=[];
 
                             $.each(dataValues, function (index, dataObj) {
                                 var dataElementId = dataObj.dataElement;
@@ -1633,6 +1653,8 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
 
                                     var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
                                         prefix_replace:prefix_replace};
+
+                                    dataElementsLoaded.push(dataElementId);
 
                                     $.getJSON(urlAggregate,dataSatelites,function (data){
 
@@ -1689,7 +1711,7 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                                             dataElementsUpadated.push(dataElementId);
                                         }
 
-                                        if(dataElementsUpadated.length>28){
+                                        if(dataElementsUpadated.length>=dataElementsLoaded.length){
 
                                             $('#loading').html('<span>Loading Complete</span>');
                                         }
@@ -1740,7 +1762,10 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                             });
 
                         });
-                });
+                }).error(function (jxqhr, status, errorThrown) {
+                    $("#formData").empty();
+                    $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
+                });;
 
 
             //function to get the name of the orgUnit
@@ -1755,7 +1780,11 @@ function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataS
                     reportingPeriod.text(generateYearName(period));
                     tableItem.text(facility);
                     tablefacilityid.text(facilityid);
+                });
 
+                jqxhr.error(function (jxqhr, status, errorThrown) {
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
+                    $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure you are logged in to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a></span>");
 
                 });
 
