@@ -1,8 +1,6 @@
 This is the database logic. It contains scripts for database authentication and connection 
 creation as well as those for inserting, fetching and updating items on the database.
 
-Edit the db_con (db_auth/db_con.php) file to reflect your local environment
-
 KEY NOTES:
 ----------
 	

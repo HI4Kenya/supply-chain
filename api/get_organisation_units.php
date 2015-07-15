@@ -19,7 +19,7 @@
 		$level == $_GET['level'];
 
 		// Url to get the organisation units from the API
-		$url="http://test.hiskenya.org/api/organisationUnits?paging=false";
+		$url = $dhis_url."/api/organisationUnits?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();

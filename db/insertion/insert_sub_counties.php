@@ -12,12 +12,22 @@
     else
     {
         // If user has logged in
-		require '../db_auth/db_con.php';
+        
+		# Database connection parameters
+	    $servername = $server;
+	    $username = $user;
+	    $authentication = $password;
+	    $dbname = $database;
 
-		// $id= $_POST['id'];
-		// $name = str_replace("'", "",$_POST['name']);
-		// $parent_id = $_POST['parent'];
+	    # Create connection
+	    $conn = new mysqli($servername, $username, $authentication, $dbname);
 
+	    # Check connection
+	    if ($conn->connect_error) 
+	    {
+	        die("Connection failed: " . $conn->connect_error);
+	    }
+	    
 		//Check if the facility exists
 		$exists = "SELECT * FROM sub_counties WHERE sub_county_id = '$id'";
 		$result = mysqli_query($conn,$exists);

@@ -13,6 +13,7 @@ function getData(level)
         ({
             type: 'GET',
             url: url,
+            data:{level:level},
             dataType: 'json',
             contentType: 'application/json',
             success: function(data) 
@@ -40,8 +41,10 @@ function getData(level)
                     $('div#facilities').empty();
                 }
             },
-            error:function()
+
+            error:function(err)
             {
+                console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
                 $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>");
                 $('div#facilities').html("<span class = 'fa fa-ok' style = 'color:brown;'>Ensure your connection to <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a> is working</span>");
             }
@@ -65,6 +68,7 @@ function getData(level)
         {
             itemUpdating = "Counties";
         }
+
         $('div#returned_messages').html("<span class = 'fa fa-exclamation-triangle' style = 'color:blue;'> Fetching "+itemUpdating+". This may take a while </span>");
         $('div#facilities').html("<img src='assets/img/loading.gif' style = 'height:500px:width:80%'>");
         $.ajax

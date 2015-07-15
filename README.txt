@@ -1,11 +1,10 @@
 /***********************************************************************************
 * HI4KENYA AFYAINFO BOOTCAMP 2015                                                  *
 * -------------------------------                                                  *
-* GROUP ONE                                                                        *
-* MSH SUPPLY CHAIN HIERARCHY PROJECT	                                           *
+* MSH SUPPLY PIPELINE HIERARCHY PROJECT	                                           *
 * JUNE 2015                                                                        *
 * ----------------------------------                                               *
-* MEMBERS                                                                          *
+* DEVELOPED BY:                                                                    *
 *                                                                                  *
 * 1. Kelvin Wahome                                                                 *
 *    Computer Science                                                              *
@@ -13,11 +12,9 @@
 * 	 The University of Nairobi                                                     *
 * 	 kevowahome@gmail.com                                                          *
 *                                                                                  *
-* 2. Dennis Kayeli                                                                 *
+* 2. Dennis Banga                                                                  *
 *                                                                                  *
-* 3. Beatrice Muthoni                                                              *
-*                                                                                  *
-* 4. Damaris Onyango                                                               *
+* 3. Dennis Kayeli                                                                 *
 * ---------------------------------------------------------------------------------*
 **
 * By Kelvin Wahome
@@ -31,10 +28,10 @@ PROJECT NOTES
 	1. OVERVIEW:
 	-----------------------------------------------------------------------------------
 
-	The purpose of this project is to establish an hierarchy of the drugs supply chain
+	The purpose of this project is to establish a hierarchy of the drugs supply chain
 	that is not captured in DHIS2 for purposes of analysis and report generation.
 
-	As things stand, the Kenya instance of DHIS2 only establishes a hierarchy based on 
+	Currently, the Kenya instance of DHIS2 only establishes a hierarchy based on 
 	the countries administrative units which while important, does not capture the
 	supply chain hierarchy.
 
@@ -42,40 +39,51 @@ PROJECT NOTES
 	showing the reporting chain ie what facilities report to what and what facilities
 	are children so to speak of what facilities.
 
-	Four types of facilities used of drugs supply exist:
-		1. CENTRAL STORES
-		2. CENTRAL STORE DISPENSING POINTS
-		3. SATELLITE STORES
-		4. STAND ALONE SITES
+	Five types of facilities used of drugs supply exist:
+		1. SUB-COUNTY STORES
+		2. CENTRAL SITES
+		3. CENTRAL SITE / SUB-COUNTY STORE DISPENSING POINTS
+		4. SATELLITE SITES
+		5. STAND ALONE SITES
 
-	Central Stores are at the top and own (in the reporting hierarchy) the central store
-	dispensing points and the satellite stores.
+	Sub-county stores are at the top and own (in the reporting hierarchy) the sub-county store
+	dispensing points and the sub-county store satellite sites.
 
-	Central store dispensing points are central points that act as dispensing points 
-	which means in essence, it is the same facility but acts as both a central store and
-	a dispensing point.
+	Central Sites are at the same level with the sub-county stores and own (in the reporting 
+	hierarchy) the central site dispensing points and the central site satellite sites.
 
-	Satellite stores are facilities that report to the central stores.
+	Central site dispensing points are central sites or sub-county stores that act as 
+	dispensing points which means in essence, it is the same facility but acts as both a central 
+	site or a sub-county store and a dispensing point.
+
+	Satellite sites are facilities that report to their parent sites (Central sites or sub-county
+	stores).
 
 	Stand alone sites as the name suggests do not have any affiliation in the reporting
 	hierarchy.
 
-	Existing facilities (Level 4) are used as stores for the purpose of drug dispensing.
-	These facilities are captures in DHIS2 as Level 4 Organization Units and thus no
+	Existing facilities (Level 4) are used as sites for the purpose of drug dispensing.
+	These facilities are captured in DHIS2 as Level 4 Organization Units and thus no
 	hierarchy exists between them.
 
-	The purpose of this project is to establish that hierarchy.
+	Each program has its own list of sites thus the hierarchy is determined by the program.
+
+	The purpose of this project is to establish that hierarchy, use it to generate reports
+	and post back data to DHIS2 as well
 
 	-----------------------------------------------------------------------------------
 	
 	2. APPROACH:
 	-----------------------------------------------------------------------------------
-	The project is developed as DHIS2 Web APP.
+	Thhis system is developed as a stand alone web application requiring 
+	user authentication before access.
 
 	The Web API is used to a great deal as a source of data for the backborne database
 	used. The API allows us to query for all organization units and sort them into
 	Counties (Level 2), SubCounties (Level 3) and facilities (Level 4). This data is
 	then used to populate the respective tables in the database.
+
+	In addition, users can be pulled from DHIS2 and registered to access this system.
 
 	Once all this data is inserted into the database, the process of establishing which
 	facilities lie under which category begins. This is left to the discretion of the
@@ -86,9 +94,9 @@ PROJECT NOTES
 	mechanism in which they can drill down to a smaller number of facilities as opposed
 	to being presented with all the facilities at once.
 
-	Once the Central stores, dispensing points, satellite sites and stand alone sites
-	are established and inserted into the database, DHIS2 Web API is queried for 
-	analytics based on the hierarchy established and the results displayed.
+	Once the sub-county stores, central sites, dispensing points, satellite sites and 
+	stand alone sites  are established and inserted into the database, DHIS2 Web API 
+	is queried for analytics based on the hierarchy established and the results displayed.
 
 	-----------------------------------------------------------------------------------
 	
@@ -99,9 +107,8 @@ PROJECT NOTES
 		
 		1. Database - MySQL
 
-		   A MySQL database is used to store data. 
-		   However, another database like PostgreSQL can also be used and the choice 
-		   was purely due to the rapid turn around time
+		   A MySQL database is used to store data. The sql dump file is attached 
+		   (msh_task.sql)
 
 		2. Server side - PHP and Apache2
 
@@ -109,10 +116,10 @@ PROJECT NOTES
 			side logic.
 			No PHP framework is used.
 
-		3. DHIS2 Web API Querying - JavaScript, AJAX, jQuery
+		3. DHIS2 Web API Querying - JavaScript, AJAX, jQuery, PHP CURL
 
-			To query the JSON API for data, JavaScript and jQuery were used.
-			AJAX asynchronous POST was used to send data to the PHP scripts to commit
+			To query the JSON API for data, JavaScript, jQuery and PHP CURL are used.
+			AJAX asynchronous POST is used to send data to the PHP scripts to commit
 			to the database
 
 		4. User Interface (Presentation) - HTML5, Bootstrap, Font-Awesome, 
@@ -130,26 +137,46 @@ PROJECT NOTES
 	   The project folder contains three sub-folders: assets, client, db
 	   Each of the sub-folders forms an important part of this project.
 
-	   		i. ASSETS - These are the resources needed in this project. It contains
+	   		i. api 	  - These are PHP5_CURL scripts that interact with the DHIS2 API.
+	   					Data querying from DHIS2 API and some level of processing is
+	   					done here
+
+	   	   ii. assets - These are the resources needed in this project. It contains
 	   					the JavaScript, CSS, Bootstrap, Font-Awesome scripts.
 
-	   	   ii. CLIENT - This is the presentation and user interface logic. It contains
+	   	  iii. client - This is the presentation and user interface logic. It contains
 	   	   				scripts that will display on the browser.
 
 	   	   				Inside, their is a templates sub-folder that contains header,
 	   	   				footer and navigation scripts which are uniform in all the
 	   	   				project pages.
 
-	   	  iii. DB 	  - This is the database logic. It contains scripts for database
+	   	  iv. db 	  - This is the database logic. It contains scripts for database
 	   	  				authentication and connection creation as well as those for
 	   	  				inserting, fetching and updating items on the database.
 
-	   	  				Edit the db_con (db_auth/db_con.php) file to reflect your local
+	   	   v. system  - This is the system environment variables. It contains parameters
+	   	   				that need to be set for the system to run once deployed. They
+	   	   				include the database authentication and connection creation 
+	   	   				parameters as well as DHIS2 authentication parameters.
+
+	   	  				Edit the config (config.php) file to reflect your local
 	   	  				environment
 
-	   	The projects landing page is index.php which is located at its root.
+	   	The projects landing page is index.php which is located at its root. It is the
+	   	login page
 
 	-----------------------------------------------------------------------------------
+	5. DEPLOYMENT PREREQUISITES:
+	-----------------------------------------------------------------------------------
+ 
+	   	You require the following when deploying this system
+
+	   		i. PHP_CURL
+	   	   ii. MySQL and MySQLI
+
+	-----------------------------------------------------------------------------------
+
 ***************************************************************************************
 
 USER GUIDE

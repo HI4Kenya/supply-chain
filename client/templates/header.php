@@ -54,9 +54,6 @@
         <script type="text/javascript" src="assets/Bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/Bootstrap/dist/js/jquery-ui.min.js"></script>
 
-        <!--jspdf js-->
-        <script type="text/javascript" src="assets/js/jspdf.js"></script>
-
         <!-- Data Tables -->
         <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js"></script>
         

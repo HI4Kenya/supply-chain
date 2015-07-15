@@ -326,7 +326,7 @@ function dhisUsers()
                     "<div class='form-inline'>"+
                       "<div class='form-group' style = 'margin-bottom:10px;'>"+
                         "<label class='sr-only' for='exampleInputEmail3'>Name</label>"+
-                        "<input id = 'search_name' class='form-control' placeholder='Type the user's name style ='width:120%' onkeyup = 'javascript:searchDHISUser();'>"+
+                        "<input id = 'search_name' class='form-control' placeholder='Type the user's name style ='width:140%' onkeyup = 'javascript:searchDHISUser();'>"+
                       "</div>"+
                       "<br>"+ 
                       // Append the results
@@ -370,8 +370,17 @@ function searchDHISUser()
             }
             else
             {
-                var userToAppend = "No results";
-                $("#user_search_results").html(userToAppend);
+                if(found == 0)
+                {
+                    var userToAppend = "No results";
+                    $("#user_search_results").html(userToAppend);
+                }
+                else
+                {
+                    var userToAppend = "<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>"+
+                                        "<span class = 'fa fa-ok' style = 'color:brown;'>Check your <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a> connection</span>";
+                    $("#user_search_results").html(userToAppend);
+                }
             }
         }
     );
@@ -1048,7 +1057,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                     function()
                                     {
                                         $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
+                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                     },
                                     2000
                                 );
@@ -1092,7 +1101,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                     function()
                                     {
                                         $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
+                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                     },
                                     2000
                                 );
@@ -1141,6 +1150,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                 },
                                 1500
                             );
@@ -1160,6 +1170,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                 },
                                 1500
                             );
@@ -1243,7 +1254,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                     function()
                                     {
                                         $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
+                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                     },
                                     2000
                                 );
@@ -1287,7 +1298,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                     function()
                                     {
                                         $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
+                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                     },
                                     2000
                                 );
@@ -1336,6 +1347,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                 },
                                 1500
                             );
@@ -1355,6 +1367,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                 },
                                 1500
                             );

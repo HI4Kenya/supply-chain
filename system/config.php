@@ -1,20 +1,4 @@
 <?php
-	/***********************************************************************************
-    * HI4KENYA AFYAINFO BOOTCAMP 2015                                                  *
-    * ................................                                                 *
-    * GROUP ONE                                                                        *
-    * MSH SUPPLY CHAIN HIERARCHY PROJECT                                               *
-    * JUNE 2015                                                                        *
-    * ...................................                                              *
-    * KELVIN WAHOME                                                                    *
-    * Computer Science                                                                 *
-    * School of Computing and Informatics                                              *
-    * The University of Nairobi                                                        *
-    * kevowahome@gmail.com                                                             *
-    * .................................................................................*
-    **
-    **
-    *..................................................................................*/
 
     # Base Path url
     # Path to the root of the project
@@ -27,7 +11,11 @@
     $password = "wahome";
     $database = "msh_task";
 
-    # DHIS2 API login credentials
+    # DHIS2 Deployed URL
+    # Instance of DHIS2 in use
+    $dhis_url = "http://test.hiskenya.org";
+
+    # DHIS2 login credentials
     # Edit accordingly
     $access_user = 'kayeli';
     $access_password = 'Kdenno25@gmail';

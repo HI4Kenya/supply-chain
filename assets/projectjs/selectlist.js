@@ -145,7 +145,7 @@ function submitIt(btn)
         $('div#programs_search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
         if (CSpickOLength < 1) 
         {
-            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;font-size:8pt'>No Central Store has been selected. \nPlease add facilities from the Available list by selecting the facility and clicking the [>] button</span>");
+            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;font-size:8pt'>No Central Site has been selected. \nPlease add facilities from the Available list by selecting the facility and clicking the [>] button</span>");
             //alert("No Selections in the Picklist\nPlease Select using the [->] button");
             return false;
         }
@@ -232,7 +232,7 @@ function submitIt(btn)
                         }
                         else if(result == 10)
                         {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a Stand Alone Site<br><br></span>");
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a StandAlone Site<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -277,7 +277,7 @@ function submitIt(btn)
                         }
                         else if(result == 0)
                         {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central stores inserted<br><br></span>");
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central Sites inserted<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -294,7 +294,7 @@ function submitIt(btn)
                         }
                         else if(result == 10)
                         {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a Stand Alone Site<br><br></span>");
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a StandAlone Site<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -358,7 +358,7 @@ function submitIt(btn)
                         }
                         else if(result == 10)
                         {
-                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Stand Alone Site<br><br></span>");
+                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a StandAlone Site<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -396,7 +396,7 @@ function submitIt(btn)
 
     }
 
-    /*Stand Alone Sites*/
+    /*StandAlone Sites*/
     else if(btn == 4)
     {
         $.ajax
@@ -414,7 +414,7 @@ function submitIt(btn)
                         }
                         else if(result == 0)
                         {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Stand alone site inserted<br><br></span>");
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>StandAlone site inserted<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -441,7 +441,7 @@ function submitIt(btn)
 
                         else if(result == 10)
                         {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a central store<br><br></span>");
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a Central Site<br><br></span>");
                             //Delete the item from the selected area
                             var idOfSelectList = "SelectList";
                             var idOfPickList = "PickList";
@@ -456,6 +456,16 @@ function submitIt(btn)
                             var idOfPickList = "PickList";
                             delIt(idOfSelectList,idOfPickList);
                         }
+
+                        else if(result == 12)
+                        {
+                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a satellite site<br><br></span>");
+                            //Delete the item from the selected area
+                            var idOfSelectList = "SelectList";
+                            var idOfPickList = "PickList";
+                            delIt(idOfSelectList,idOfPickList);
+                        }
+
 
                      }
             }

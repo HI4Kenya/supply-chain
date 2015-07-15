@@ -18,7 +18,7 @@
 		//HTTP GET request -Using Curl -Response JSON
 		$user_id = $_GET['user_id'];
 
-		$url="http://test.hiskenya.org/api/users/".$user_id;
+		$url = $dhis_url."/api/users/".$user_id;
 
 		// initailizing curl
 		$ch = curl_init();

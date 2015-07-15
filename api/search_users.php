@@ -18,7 +18,7 @@
 		//HTTP GET request -Using Curl -Response JSON
 		$user_name = $_GET['name'];
 
-		$url="http://test.hiskenya.org/api/users";
+		$url = $dhis_url."/api/users?paging=false";
 
 		// initailizing curl
 		$ch = curl_init();
@@ -62,7 +62,8 @@
 
 		else
 		{
-		    echo -1;
+			// Not found
+		    echo 0;
 		}
 	}
 ?>

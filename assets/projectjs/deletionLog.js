@@ -40,7 +40,7 @@ function getDeletionLog()
                                         "<td style = 'text-align:left'>"+response[counting].deleted_item_id+"</td>"+
                                         "<td style = 'text-align:left'>"+response[counting].deleted_item_name+"</td>"+
                                         "<td style = 'text-align:left'>"+response[counting].date_deleted+"</td>"+
-                                        "<td style = 'text-align:left' id = 'deleted_by_user_"+response[counting].deleted_by+"'>"+
+                                        "<td style = 'text-align:left' id = 'deleted_by_user_"+response[counting].id+response[counting].deleted_by+"'>"+
                                         	response[counting].deleted_by+
                                         "</td>"+
                                         
@@ -60,13 +60,13 @@ function getDeletionLog()
 	            ({
 	                type: 'GET',
 	                url: userDetailsUrl,
-	                data:{user:response[counting].deleted_by},
+	                data:{user:response[counting].deleted_by,itemID:response[counting].id},
 	                dataType: 'json',
 	                contentType: 'application/json',
 	                success: function (theUser) 
 	                {
 	                    var identifiedUser = "<span class = 'unclickedColor' onclick = 'detailedUserProfile(\""+theUser[0].user_identifier+"\",\""+theUser[0].name+"\")'>"+theUser[0].name+"</span>";
-	                    $("#deleted_by_user_"+theUser[0].user_identifier).html(identifiedUser);
+	                    $("#deleted_by_user_"+theUser[theUser.length-1]+theUser[0].user_identifier).html(identifiedUser);
 	                }
 	            });
             }  
