@@ -56,23 +56,31 @@
         <div id="footerArea" style = "margin-top:450px;text-align:left;border-top:1px solid white;font-family:LiberationSans, sans-serif;font-size:10pt">
             <div id="leftFooterArea" class="innerFooterArea" style = 'margin-left:50px;padding-top:10px'>
                 Powered by 
+                &nbsp
+                *
                 <span id="applicationFooter">
-                    <a href="http://www.twitter.com/kwahome_" class = "fa fa-twitter" style = 'color:silver;margin-left:5px' target="_blank">
+                    <a href="http://www.twitter.com/kwahome_" class = "fa fa-twitter" style = 'color:silver;' target="_blank">
                     </a>
                 </span>
-                &nbsp
+                *
                 <span id="applicationFooter">
                     <a href="https://ke.linkedin.com/in/kelvinwahome" class = "fa fa-linkedin" style = 'color:silver;' target="_blank">
                     </a>
                 </span>
-
+                *
                 <span id="applicationFooter">
-                    <a href="http://www.dhis2.org" style = 'color:white;margin-left:5px' target="_blank">DHIS 2</a>
+                    <a href="http://www.dhis2.org" style = 'color:white;' target="_blank">DHIS 2</a>
                 </span>
-
+                *
                 <span id="applicationFooter">
-                  <a href="http://servicedesk.health.go.ke" style = 'color:white;margin-left:5px' target="_blank">
+                  <a href="http://servicedesk.health.go.ke" style = 'color:white;' target="_blank">
                     Report ANY System Problem to the Service Desk
+                  </a>
+                </span>
+                *
+                <span id="applicationFooter">
+                  <a href="http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html" style = 'color:white;' target="_blank">
+                    Documentation
                   </a>
                 </span>
             </div>
