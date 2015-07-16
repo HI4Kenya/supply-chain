@@ -892,7 +892,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
         if(dataSetOptions=="uAxwIxtsn6u"){
             form="730B";
             dataSetTemplate=path+"dataSetTemplate.php";
-            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions.multiplier, form);
+            reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier, form);
         }
         else
         if(dataSetOptions=="KUCi7uw6YhR"){
