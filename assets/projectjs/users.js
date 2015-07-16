@@ -1580,7 +1580,7 @@ function updateUserPassword(user)
             function()
             {
                 $("div#returned_messages").empty();
-                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
             },
             1500
         );
@@ -1601,7 +1601,7 @@ function updateUserPassword(user)
                 function()
                 {
                     $("div#returned_messages").empty();
-                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
                 },
                 1500
             );
@@ -1612,7 +1612,7 @@ function updateUserPassword(user)
             {
                 var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
                                         "<span style ='margin-left:80px'>"+
-                                            "Password is too short"+
+                                            "Password is too short."+
                                         "</span>"+
                                     "</div>";
                 $("div#returned_messages").html(errorMessage);
@@ -1621,8 +1621,21 @@ function updateUserPassword(user)
                 (
                     function()
                     {
-                        $("div#returned_messages").empty();
-                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "Password should be atleast six characters."+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
+                            },
+                            1500
+                        );
                     },
                     1500
                 );
@@ -1694,6 +1707,7 @@ function updateUserPassword(user)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
                                 },
                                 1500
                             );

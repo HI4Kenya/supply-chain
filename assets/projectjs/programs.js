@@ -19,13 +19,13 @@ function createPrograms()
                             "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initDatasets();'>"+
                                 "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='createPrograms();'>Reset</button>"+
                                 "<span style = 'margin-left:30px'>Available Datasets</span>"+
-                                "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
-                                "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
+                                "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
+                                "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
                             "</div>"+
                            // Selected header
                            "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                                "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
-                                "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
+                                "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
+                                "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"available_program_datasets\",\"selected_program_datasets\");'></span>"+
                                 "<span style = 'margin-left:20px'>Selected Datasets</span>"+               
                             "</div>"+
 

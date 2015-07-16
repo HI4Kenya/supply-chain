@@ -11,8 +11,8 @@
                 session_start();
                 if(($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
                 {
-                    echo "<div class='col-md-offset-10'>
-                            <button class='btn btn-success post-data'>Post Data</button>
+                    echo "<div class='col-md-offset-9'>
+                            <button class='btn btn-success post-data'>Post Aggregated Values to DHIS</button>
                          </div>";
                 }
             ?>
