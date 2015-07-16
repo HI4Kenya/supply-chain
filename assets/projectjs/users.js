@@ -326,7 +326,7 @@ function dhisUsers()
                     "<div class='form-inline'>"+
                       "<div class='form-group' style = 'margin-bottom:10px;'>"+
                         "<label class='sr-only' for='exampleInputEmail3'>Name</label>"+
-                        "<input id = 'search_name' class='form-control' placeholder='Type the user's name style ='width:140%' onkeyup = 'javascript:searchDHISUser();'>"+
+                        "<input id = 'search_name' class='form-control' placeholder='Search a DHIS user by name' style ='width:140%' onkeyup = 'javascript:searchDHISUser();'>"+
                       "</div>"+
                       "<br>"+ 
                       // Append the results
@@ -1028,87 +1028,11 @@ function userOperations(operation,item,createdUserID,createdUserName)
                 {
                     userEmail = userData[0].email;
                 }
-                else
-                {
-                    if(!validateEmail(userEmail))
-                    {
-                        userEmail = userData[0].email;
 
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The email entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Email Format: example@domain.com"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );
-                    }
-                }
                 // Phone Number
                 if(phoneNO == "")
                 {
                     phoneNO = userData[0].mobile_no;
-                }
-                else
-                {
-                    // Phone number validation
-                    if(!validatePhoneNumber(phoneNO))
-                    {
-                        phoneNO = userData[0].mobile_no;
-
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The phone number entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Phone NO Format: 07XX123456"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );   
-                    }
                 }
 
                 // Post to DB side
@@ -1175,6 +1099,74 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 1500
                             );
                         }
+
+                        else if(statusMessage == 12)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The email entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Email Format: example@domain.com"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 13)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The phone number entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Phone NO Format: 07XX123456"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            ); 
+                        }
                     }
                 );
             }
@@ -1225,87 +1217,11 @@ function userOperations(operation,item,createdUserID,createdUserName)
                 {
                     userEmail = userData[0].email;
                 }
-                else
-                {
-                    if(!validateEmail(userEmail))
-                    {
-                        userEmail = userData[0].email;
 
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The email entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Email Format: example@domain.com"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );
-                    }
-                }
                 // Phone Number
                 if(phoneNO == "")
                 {
                     phoneNO = userData[0].mobile_no;
-                }
-                else
-                {
-                    // Phone number validation
-                    if(!validatePhoneNumber(phoneNO))
-                    {
-                        phoneNO = userData[0].mobile_no;
-
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The phone number entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Phone NO Format: 07XX123456"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );   
-                    }
                 }
 
                 //Post to DB side
@@ -1371,6 +1287,74 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 },
                                 1500
                             );
+                        }
+
+                        else if(statusMessage == 12)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The email entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Email Format: example@domain.com"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 13)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The phone number entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Phone NO Format: 07XX123456"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            ); 
                         }
                     }
                 );

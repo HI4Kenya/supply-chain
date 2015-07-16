@@ -58,44 +58,59 @@
 	        }
 	        else
 	        {
-	        	$updateProfile = "UPDATE users SET name = '$name', email = '$email', mobile_no = '$phone', 
-		        details_last_updated = '$date_updated ', details_updated_by = '$updated_by'
-		        WHERE user_identifier = '$user_id'";
-				if(mysqli_query($conn,$updateProfile))
+	        	if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) 
+	        	{
+				  	echo 12;
+				} 
+				else 
 				{
-					$updateUserName = "UPDATE login SET username = '$username', details_last_updated = '$date_updated',
-					details_last_updated_by = '$updated_by'	WHERE user_id = '$user_id'";
-					if(mysqli_query($conn,$updateUserName))
+					if(!(preg_match('/^0\d{9}$/', $test)))
 					{
-						// Reset user session
-						$query = "SELECT * FROM login WHERE user_id = '$user_id'";
-					    $result = mysqli_query($conn,$query);
-					    if(mysqli_num_rows($result)>0)
-					    {
-					        // Echo success message
-					        while($row = mysqli_fetch_assoc($result)) 
-					        {
-					            // Check if account is deactivated
-					            if($row['account_status']=="ACTIVE")
-					            {
-					                // Set session
-					                require '../user_auth/sess_set.php';
-					            }
-					        }
-					    }
-						echo 0;
+						echo 13;
 					}
-
 					else
 					{
-						echo -1;
-					}
+						$updateProfile = "UPDATE users SET name = '$name', email = '$email', mobile_no = '$phone', 
+				        details_last_updated = '$date_updated ', details_updated_by = '$updated_by'
+				        WHERE user_identifier = '$user_id'";
+						if(mysqli_query($conn,$updateProfile))
+						{
+							$updateUserName = "UPDATE login SET username = '$username', details_last_updated = '$date_updated',
+							details_last_updated_by = '$updated_by'	WHERE user_id = '$user_id'";
+							if(mysqli_query($conn,$updateUserName))
+							{
+								// Reset user session
+								$query = "SELECT * FROM login WHERE user_id = '$user_id'";
+							    $result = mysqli_query($conn,$query);
+							    if(mysqli_num_rows($result)>0)
+							    {
+							        // Echo success message
+							        while($row = mysqli_fetch_assoc($result)) 
+							        {
+							            // Check if account is deactivated
+							            if($row['account_status']=="ACTIVE")
+							            {
+							                // Set session
+							                require '../user_auth/sess_set.php';
+							            }
+							        }
+							    }
+								echo 0;
+							}
 
-				}
-				
-				else
-				{
-					echo -1;
+							else
+							{
+								echo -1;
+							}
+
+						}
+						
+						else
+						{
+							echo -1;
+						}
+					}
+				  
 				}
 	        }
 
@@ -147,29 +162,43 @@
 	        }
 	        else
 	        {
-	        	$updateProfile = "UPDATE users SET name = '$name', gender = '$gender', email = '$email', mobile_no = '$phone', 
-		        details_last_updated = '$date_updated ', details_updated_by = '$updated_by'
-		        WHERE user_identifier = '$user_id'";
-				if(mysqli_query($conn,$updateProfile))
+	        	if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) 
+	        	{
+				  	echo 12;
+				} 
+				else 
 				{
-					$updateUserName = "UPDATE login SET username = '$username', role = '$role', details_last_updated = '$date_updated',
-					details_last_updated_by = '$updated_by'	WHERE user_id = '$user_id'";
-					if(mysqli_query($conn,$updateUserName))
+					if(!(preg_match('/^0\d{9}$/', $test)))
 					{
-
-						echo 0;
+						echo 13;
 					}
-
 					else
 					{
-						echo -1;
-					}
+						$updateProfile = "UPDATE users SET name = '$name', gender = '$gender', email = '$email', mobile_no = '$phone', 
+				        details_last_updated = '$date_updated ', details_updated_by = '$updated_by'
+				        WHERE user_identifier = '$user_id'";
+						if(mysqli_query($conn,$updateProfile))
+						{
+							$updateUserName = "UPDATE login SET username = '$username', role = '$role', details_last_updated = '$date_updated',
+							details_last_updated_by = '$updated_by'	WHERE user_id = '$user_id'";
+							if(mysqli_query($conn,$updateUserName))
+							{
 
-				}
-				
-				else
-				{
-					echo -1;
+								echo 0;
+							}
+
+							else
+							{
+								echo -1;
+							}
+
+						}
+						
+						else
+						{
+							echo -1;
+						}
+					}
 				}
 	        }
 		}

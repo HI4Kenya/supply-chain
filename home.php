@@ -52,7 +52,13 @@
                         echo    "<div class='panel panel-default' style = 'background-color:white;min-height:600px'>";
 
                         echo    "<div class='panel-heading' style = 'width:100%;height:50px;margin-bottom:30px'>
-                                    <span>SUPPLY CHAIN HIERARCHY</span>                                                              
+                                    <span>SUPPLY CHAIN HIERARCHY</span>
+                                    <span class = 'pull-right' style = 'margin-right:10px;margin-top:0px;padding:5px'>
+                                        <span class = 'fa fa-external-link' style = 'color:blue'></span>   
+                                        <a href='http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html' style = 'color:blue;' target='_blank'>
+                                            Read the Documentation
+                                        </a>
+                                    </span>                                                         
                                 </div>";
 
                         echo    "<div class='panel-heading' id = 'returned_messages' style = 'height:50px;width:100%;margin-left:px;color:blue'>

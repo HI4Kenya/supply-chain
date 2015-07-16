@@ -100,11 +100,5 @@
                             <span class="fa fa-sign-out unclickedColor user_logout_button"></span>
                         </a>
                     </span>
-
-                    <!-- <span class = "pull-right" style = "margin-right:10px;margin-top:20px;">
-                      <a href="http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html" style = 'color:white;' target="_blank">
-                        Documentation
-                      </a>
-                    </span> -->
                 </div>
             </div>

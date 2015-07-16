@@ -23,8 +23,8 @@
                 <p class = 'lead text-justify' style = 'font-size:10pt'>
                     Create programs that will be used in determination of the supply chain hierarchy.
                     Programs have their own distinct classification of sites.
-                    Use <a href = 'collapsePrograms'>PROGRAMS</a> to create and edit programs then
-                    go to 
+                    Use <a data-toggle='collapse' data-parent='#accordion' href = '#collapsePrograms'>PROGRAMS</a>
+                    to create and edit programs then go to 
                     <a data-toggle='collapse' data-parent='#accordion' href='#collapseFacilities'>
                     CLASSIFY FACILITIES
                     </a>, to make classifications under that program. Follow the prompts
