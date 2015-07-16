@@ -531,7 +531,7 @@ function filterFacilities(selectID,inputID)
 function updateSelectList(level,unit_id)
 {
     var url = "db/fetch/get_facilities.php";
-    $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");       
+    $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");   
     $.getJSON
     (
         url,

@@ -58,13 +58,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px;' onLoad='initIt();'>"+
                             "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
                             "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(1)'>Submit</button>"+                 
                         "</div>"+
@@ -93,13 +93,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+                 
                         "</div>"+
                         // All facilities area
@@ -170,13 +170,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px;' onLoad='initIt();'>"+
                             "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(2)'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
                             "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(2)'>Submit</button>"+                 
                         "</div>"+
@@ -205,13 +205,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+                 
                         "</div>"+
                         // All facilities area
@@ -294,13 +294,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(3,\""+satelliteClassification+"\")'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
                             "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(3)'>Submit</button>"+                 
                         "</div>"+
@@ -327,13 +327,13 @@ function classifyFacilities(type, satelliteClassification)
                         // Available Header
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+               
                         "</div>"+
                         // All facilities area
@@ -362,13 +362,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(2)'>Reset</button>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+ 
                             "<button class ='btn btn-success btn-sm' style = 'margin-left:130px;width:20%' ONCLICK='submitIt(3)'>Submit</button>"+                 
                         "</div>"+
@@ -470,13 +470,13 @@ function classifyFacilities(type, satelliteClassification)
                         "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(4)'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
                             "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(4)'>Submit</button>"+                 
                         "</div>"+
@@ -504,13 +504,13 @@ function classifyFacilities(type, satelliteClassification)
                         "</span>"+
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+                
                         "</div>"+
                         // All facilities area
