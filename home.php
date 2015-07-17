@@ -64,7 +64,7 @@
                         echo    "<div class='panel panel-default' style = 'background-color:white;min-height:600px'>";
 
                         echo    "<div class='panel-heading' style = 'width:100%;height:50px;margin-bottom:30px'>
-                                    <span>SUPPLY CHAIN HIERARCHY
+                                    <span>SUPPLY PIPELINE HIERARCHY
                                         <span style ='color:black'>|</span>
                                         <span style = 'margin-right:10px;margin-top:0px;padding:5px'>
                                             <span class = 'fa fa-external-link' style = 'color:blue'></span>   
