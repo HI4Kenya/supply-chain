@@ -30,3 +30,15 @@
 	color:orange;
 	cursor: pointer;
 }
+
+.logoutButton
+{
+  color: white;
+  cursor: pointer;
+}
+
+.logoutButton:hover
+{
+  color: orange;
+  cursor: pointer;
+}
