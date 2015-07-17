@@ -1226,8 +1226,6 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                 dataObj.val= dataObj.value;
                                 dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
 
-                                console.log(dataObj.id);
-
                                 if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
 
                                     var categoryCombination = dataObj.categoryOptionCombo;
@@ -1245,6 +1243,7 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 
                                     var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
                                         prefix_replace:prefix_replace};
+
                                     //Loaded DataElements
                                     dataElementsLoaded.push(dataElementId);
 
@@ -1272,7 +1271,6 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                                 var valueH=0;
                                                 var valueG=0;
                                                 var valueResupply=0;
-                                                var valueAggregatePhysicalStock=0;
 
                                                 if ('value' in columnH[0]){
                                                     valueH=parseInt(columnH[0].value);
@@ -1283,7 +1281,6 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                                     valueG=parseInt(columnG[0].value);
                                                 }
                                                 valueResupply=valueH-valueG;
-
                                                 //Quantity to resupply Calculated is less than zero, intialize to zero
                                                 if(valueResupply<0){
                                                     valueResupply=0;
@@ -1358,6 +1355,7 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 
 
                 }).error(function (jxqhr, status, errorThrown) {
+
                     $("#formData").empty();
                     $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
                 });
