@@ -836,7 +836,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
                 else
                 if(dataSetOptions=="epnKYskZQGU"){
                     dataSetTemplate=path+"dataSetTemplate.php";
-                    reportTemplateCentral734(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
+                    reportTemplate(dataSetTemplate, satellites,periodOfTheReport, selectedFacilityID, dataSetOptions);
                 }
                 else
                 if(dataSetOptions=="VoCwF0LPGjb"){
@@ -1213,18 +1213,21 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                 $('#loading').html('<span>Loading Complete</span>');
                             }
 
-
                             //data to post to dhis2
                             var post_data=response_data;
                             post_data.dataValues=[];
                             var dataElementsUpadated=[];
                             var dataElementsLoaded=[];
 
+
                             $.each(dataValues, function (index, dataObj) {
                                 var dataElementId = dataObj.dataElement;
                                 var optionComboId = dataObj.categoryOptionCombo;
                                 dataObj.val= dataObj.value;
                                 dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
+
+                                console.log(dataObj.id);
+
                                 if ($.inArray(dataObj.categoryOptionCombo,categoryOptionCombos)!=-1){
 
                                     var categoryCombination = dataObj.categoryOptionCombo;
@@ -1543,7 +1546,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
 
 
 //ReportTemplate -for generating Report for 734A
-function reportTemplateCentral734(templateUrl,satellites, period, orgUnit, dataSet)
+function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
 {
     var urlDataSetTemplate="api/get_dataset_template.php";
 
