@@ -87,18 +87,19 @@
 
                     <a href="" class="navbar-brand" id = "logo">
                         <p style = "color:white;font-weight:bold;margin-left:10px;font-size:16pt">
-                            <img style ='width:10%;height:200%;margin-left:px;margin-top:-10px;margin-right:10px;float:left;border:1px solid white' src='assets/img/mshlogo.jpg'>
+                            <!-- <img style ='width:10%;height:200%;margin-left:px;margin-top:0px;margin-right:10px;float:left;border:1px solid white' src='assets/img/logos/HCSM Logo Color.png'> -->
                             <b style = "margin-left:120px">Supply Pipeline Hierarchy Tool
                         </p>
                     </a>
 
                     <span class = "pull-right" style = "margin-right:120px;margin-top:20px">
-                        <span style ="color:white;margin-right:10px">
+                        <span style ="color:white;margin-right:2px">
                             <?php echo $_SESSION["name"];?>
                         </span>
-                        <a class="mb-control" data-box="#mb-signout">
-                            <span class="fa fa-sign-out unclickedColor user_logout_button"></span>
-                        </a>
+                        <span style = "margin-left:">|</span>
+                        <span class = "fa fa-sign-out logoutButton user_logout_button" title = "Sign Out">
+                            Sign Out
+                        </span>
                     </span>
                 </div>
             </div>
