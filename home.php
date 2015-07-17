@@ -29,7 +29,7 @@
                 <?php
                     if($_SESSION["password_status"]=="NEW")
                     {
-                        echo    "<div class='panel panel-default' style = 'background-color:;min-height:600px;margin-left:200px'>";
+                        echo    "<div class='panel panel-default' style = 'background-color:;min-height:600px;margin-left:200px;width:100%'>";
 
                         echo    "<div class='panel-heading' id = 'returned_messages' style = 'height:50px;width:100%;color:blue'>
                                     <span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD<br>
@@ -45,6 +45,18 @@
 
                         echo    "</div>";
 
+                        echo    "<span style = 'margin-right:px;margin-left:30px;padding:5px'>
+                                    <span class = 'fa fa-external-link' style = 'color:blue'></span>   
+                                    <a href='".$user_guide."' class = 'unclickedColor' target='_blank'>
+                                        Help Center
+                                    </a>
+                                </span>
+                                <span style ='color:black'>|</span>
+                                <span class = 'fa fa-external-link' style = 'color:blue'></span>
+                                <a href='".$documentation_url."' class = 'unclickedColor' target='_blank'>
+                                    Read the Documentation
+                                </a>";
+
                         echo    "</div>";
                     }
                     else
@@ -56,7 +68,7 @@
                                         <span style ='color:black'>|</span>
                                         <span style = 'margin-right:10px;margin-top:0px;padding:5px'>
                                             <span class = 'fa fa-external-link' style = 'color:blue'></span>   
-                                            <a href='http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html' class = 'unclickedColor' target='_blank'>
+                                            <a href='".$documentation_url."' class = 'unclickedColor' target='_blank'>
                                                 Read the Documentation
                                             </a>
                                         </span>
@@ -67,7 +79,7 @@
                                     <span style ='margin-left:30px'>USER GUIDE</span>
                                     <span style = 'color:black'>|</span>
                                     <span class = 'fa fa-external-link' style = 'color:blue'></span>
-                                    <a href='http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/Userguide.html' class = 'unclickedColor' target='_blank'>
+                                    <a href='".$user_guide."' class = 'unclickedColor' target='_blank'>
                                         Read the User Guide
                                     </a>
                                 </div>";
