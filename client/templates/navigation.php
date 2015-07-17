@@ -15,12 +15,15 @@
                         <span style = "color:black">ACCESS:</span> <?php echo $_SESSION["user_role"];?>
                     </span>
                     <br>
-                    <span class="fa fa-edit unclickedColor" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')"></span>
-                    <span class = "unclickedColor"><a style ='color:red' onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')">(update profile!)</a></span>
+                    <span class="fa fa-edit unclickedColor" title = "Update Your Profile" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')"></span>
+                    <span class = "unclickedColor">
+                        <a style ='color:red' title = "Update Your Profile" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')">(update profile!)
+                        </a>
+                    </span>
                     <br>
                     <div style = "margin-top:5px">
-                        <span class="fa fa-cog unclickedColor" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
-                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px"></span>
+                        <span class="fa fa-cog unclickedColor" title = "Change Your Password" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
+                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px" title = "Sign Out"></span>
                     </div>            
                 </div>
             </div>

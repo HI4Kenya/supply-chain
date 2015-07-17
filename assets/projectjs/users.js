@@ -1562,7 +1562,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
 //END FUNCTION
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // Function updateUserPassword()
-function updateUserPassword(user)
+function updateUserPassword(user,userName, passwordStatus)
 {
     var loginPassword = document.getElementById("login_password").value;      
     var confirmLoginPassword = document.getElementById("confirm_login_password").value;
@@ -1662,12 +1662,12 @@ function updateUserPassword(user)
                             (
                                 function()
                                 {
-                                    if(user == "LOGGED IN USER")
+                                    if((user == "LOGGED IN USER")&&(passwordStatus == "NEW"))
                                     {
                                         $("div#returned_messages").empty();
                                         var message = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
                                                                 "<span style ='margin-left:70px'>"+
-                                                                    "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Use the new password to login</span>"+
+                                                                    "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Please login in with the new password</span>"+
                                                                 "</span>"+
                                                             "</div>";
                                         $("div#returned_messages").html(message);
@@ -1679,14 +1679,22 @@ function updateUserPassword(user)
                                         {
                                             if(user == "LOGGED IN USER")
                                             {
-                                                window.location.href="home.php";
+                                                // Update session, and redirect user
+                                                if(passwordStatus == "NEW")
+                                                {
+                                                    window.location.href="db/user_auth/sess_unset.php";
+                                                }
+                                                else
+                                                {
+                                                    window.location.href = "home.php";
+                                                }
                                             }
                                             else
                                             {
                                                 getUsers('administration');
                                             }
                                         },
-                                        1500
+                                        1000
                                     );
                                 },
                                 1500

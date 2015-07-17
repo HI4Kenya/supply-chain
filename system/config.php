@@ -17,6 +17,13 @@
 
     # DHIS2 login credentials
     # Edit accordingly
-    $access_user = 'kayeli';
-    $access_password = 'Kdenno25@gmail';
+    $access_user = "kayeli";
+    $access_password = "Kdenno25@gmail";
+
+    # Documentation URL
+    # User Guide URL
+    # The link to the documentation of the project
+    # Edit accordingly
+    $documentation_url = "http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html";
+    $user_guide = "http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/Userguide.html";
 ?>
