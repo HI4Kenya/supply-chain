@@ -1,29 +1,71 @@
 /*Function to change the icon in the collapsible menu*/
-function changeIcon(itemID)
+function changeIcon(itemID,folderIcon)
 {
     var icon=$("#"+itemID);
+    var folder=$("#"+folderIcon);
+
+    if (icon.hasClass("glyphicon-plus-sign"))
+    {
+        icon.removeClass("glyphicon-plus-sign unclickedColor").addClass("glyphicon-minus-sign clickedColor");
+
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o unclickedColor").addClass("fa fa-folder-open clickedColor");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open clicked").addClass("fa fa-folder-o unclickedColor");
+        } 
+    }
+    else if (icon.hasClass("glyphicon-minus-sign"))
+    {
+        icon.removeClass("glyphicon-minus-sign clickedColor").addClass("glyphicon-plus-sign unclickedColor");
+
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o unclickedColor").addClass("fa fa-folder-open clickedColor");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open clickedColor").addClass("fa fa-folder-o unclickedColor");
+        } 
+    }           
+
+}
+/*--------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Function to change the icon in the collapsible menu*/
+function removeIcon(itemID,folderIcon)
+{
+    var icon=$("#"+itemID);
+    var folder=$("#"+folderIcon);
 
     if (icon.hasClass("glyphicon-plus-sign"))
     {
         icon.removeClass("glyphicon-plus-sign").addClass("glyphicon-minus-sign");
 
-        // if(icon.hasClass("fa fa-folder-o"))
-        // {
-        //     icon.removeClass("fa fa-folder-o").addClass("fa fa-folder-open");
-        // }
-        // else
-        // {
-        //     icon.removeClass("fa fa-folder-open").addClass("fa fa-folder-o");
-        // } 
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o").addClass("fa fa-folder-open");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open clicked").addClass("fa fa-folder-o");
+        } 
     }
     else if (icon.hasClass("glyphicon-minus-sign"))
     {
         icon.removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
-    }
-    else
-    {
-        icon.removeClass("glyphicon-minus-sign").addClass("glyphicon-plus-sign");
-    }            
+
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o").addClass("fa fa-folder-open");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open").addClass("fa fa-folder-o");
+        } 
+    }           
 
 }
 /*--------------------------------------------------------------------------------------------------------------------------------*/
@@ -36,10 +78,10 @@ function selectFacility(facilityID)
 
     if (any.hasClass("clickedColor selectedFacility"))
     {
-        any.removeClass("clickedColor selectedFacility").addClass("unclickedColor");
 
         if (facility.hasClass("unclickedColor"))
         {
+            any.removeClass("clickedColor selectedFacility").addClass("unclickedColor");
             facility.removeClass("unclickedColor").addClass("clickedColor selectedFacility");
         }
         else

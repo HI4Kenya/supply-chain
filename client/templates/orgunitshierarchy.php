@@ -39,18 +39,18 @@
                     <p>
                         <span data-toggle="collapse" data-parent="#collapseOrgUnits" href="" style = "padding-left:5px">
                             <span class = "unclickedColor color" onclick="javascript:updateSelectList(1)">
-                                <span class ="fa fa-folder-o">
+                                <span id = "folder_kenya" class="fa fa-folder-o unclickedColor">
                                     Kenya
                                 </span>
                             </span>
                         </span>
                         <a class="pull-left" data-toggle="collapse" data-parent="#collapseOrgUnits" href="#counties">
-                            <span class="glyphicon glyphicon-plus-sign" onclick="javascript:changeIcon()"></span>
-                            <i class="icon-folder-close-al"></i>
+                            <span id = "closed_kenya" class="glyphicon glyphicon-plus-sign unclickedColor" onclick="javascript:changeIcon('closed_kenya','folder_kenya')">
+                            </span>
                         </a>
                     </p>
                     <div id="counties" class="panel-collapse collapse">
-                        <div class="panel-body">
+                        <div class="panel-body" style = 'margin-top:-15px'>
                             <?php
                                 require "../../db/db_auth/db_con.php";
 
@@ -66,15 +66,16 @@
                                         $c_id = $row['county_id'];
                                         echo "<p style = 'font:8pt'>
                                                 <span data-toggle='collapse' data-parent='#".$row['county_id']."' class = 'unclickedColor' style = 'padding-left:5px' onclick='javascript:updateSelectList(2,\"$c_id\")'>"
-                                                ."<span class = 'fa fa-folder-o'>"." ".$row["county_name"]."</span>".
+                                                ."<span id = 'closed_county_folder".$row['county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$row["county_name"]."</span>".
                                                 "</span>";
                                         echo "<a class='pull-left' data-toggle='collapse' data-parent='#".$row['county_id']."' href='#".$row['county_id']."'>
-                                                    <span class='glyphicon glyphicon-plus-sign' onclick='javascript:changeIcon()'></span>
+                                                    <span id = 'closed_county_".$row['county_id']."' class='glyphicon glyphicon-plus-sign unclickedColor' 
+                                                    onclick='javascript:changeIcon(\"closed_county_".$row['county_id']."\",\"closed_county_folder".$row['county_id']."\")'></span>
                                                 </a>
                                             </p>";
 
                                         echo "<div id='".$row['county_id']."' class='panel-collapse collapse'>
-                                                <div class='panel-body'>";
+                                                <div class='panel-body' style = 'margin-top:-15px'>";
 
                                                 /* LOGIC UNDER COUNTIES GOES IN HERE */
 
@@ -91,15 +92,16 @@
 
                                                             echo "<p>
                                                                     <span data-toggle='collapse' data-parent='#".$data['sub_county_id']."' class = 'unclickedColor' style = 'padding-left:5px' onclick='javascript:updateSelectList(3,\"$sc_id\")'>"
-                                                                    ."<span class = 'fa fa-folder-o'>"." ".$data["sub_county_name"]."</span>".
+                                                                    ."<span id = 'closed_sub_county_folder".$row['county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$data["sub_county_name"]."</span>".
                                                                     "</span>";
                                                             echo "<a class='pull-left' data-toggle='collapse' data-parent='#".$data['sub_county_id']."' href='#".$data['sub_county_id']."'>
-                                                                        <span class='glyphicon glyphicon-plus-sign' onclick='javascript:changeIcon()'></span>
+                                                                        <span id = 'closed_sub_county_".$row['county_id']."' class='glyphicon glyphicon-plus-sign unclickedColor' 
+                                                                        onclick='javascript:changeIcon(\"closed_sub_county_".$row['county_id']."\",\"closed_sub_county_folder".$row['county_id']."\")'></span>
                                                                     </a>
                                                                 </p>";
 
                                                             echo "<div id='".$data['sub_county_id']."' class='panel-collapse collapse'>
-                                                                    <div class='panel-body'>";
+                                                                    <div class='panel-body' style = 'margin-top:-15px'>";
 
                                                                     /* LOGIC UNDER SUB-COUNTIES GOES IN HERE */
                                                                     //Fetch facilities under the current sub county
