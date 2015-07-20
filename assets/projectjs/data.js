@@ -37,8 +37,9 @@ function getData(level)
                 }
                 else if(data == -1)
                 {
-                    $('div#returned_messages').html("<span class = 'fa fa-times' style = 'color:red;'> An error has occured. Refresh and try again</span>");
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> An error has occured. Refresh and try again</span>");
                     $('div#facilities').empty();
+                    $('div#facilities').html("<span class = 'fa fa-exclamation-triangle' style = 'color:blue;'> Check your internet connection.</span>");
                 }
             },
 
@@ -99,8 +100,9 @@ function getData(level)
                 }
                 else if(data == -1)
                 {
-                    $('div#returned_messages').html("<span class = 'fa fa-times' style = 'color:red;'> An error has occured. Refresh and try again</span>");
+                    $('div#returned_messages').html("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> An error has occured. Refresh and try again</span>");
                     $('div#facilities').empty();
+                    $('div#facilities').html("<span class = 'fa fa-exclamation-triangle' style = 'color:blue;'> Check your internet connection.</span>");
                 }
             },
             error:function()

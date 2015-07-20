@@ -36,7 +36,8 @@
         <!-- jQuery.confirm -->
         <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
 
-        <!-- PROJECT JS -->        
+        <!-- PROJECT JS -->  
+        <script type="text/javascript" src="assets/projectjs/artReports.js"></script>      
         <script type="text/javascript" src="assets/projectjs/classification.js"></script>
         <script type="text/javascript" src="assets/projectjs/common.js"></script>
         <script type="text/javascript" src="assets/projectjs/data.js"></script>
@@ -47,6 +48,7 @@
         <script type="text/javascript" src="assets/projectjs/programs.js"></script>
         <script type="text/javascript" src="assets/projectjs/reports.js"></script>
         <script type="text/javascript" src="assets/projectjs/selectlist.js"></script>
+        <script type="text/javascript" src="assets/projectjs/siteReports.js"></script>
         <script type="text/javascript" src="assets/projectjs/users.js"></script>
         <script type="text/javascript" src="assets/projectjs/validation.js"></script>
 

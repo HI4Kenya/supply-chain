@@ -78,7 +78,7 @@ function hierarchyReport()
                                                 "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#program"+received[received.length-1].program_id+received[j].facility_id+"'>"+
                                                     "<span class='glyphicon glyphicon-plus-sign'></span> "+
                                                 "</a>"+
-                                                "<span class = 'fa fa-folder-o unclickedColor' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
+                                                "<span class = 'fa fa-folder-o unclickedColor color' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
@@ -100,7 +100,7 @@ function hierarchyReport()
                                     */
                                     for(var k=0; k<values.length-2;k++)
                                     {                                  
-                                        var satellitesToAppend ="<div style='color:#23527C;font-size:8pt;margin-left:25px;' class = 'unclickedColor' onclick =''>"+
+                                        var satellitesToAppend ="<div style='color:#23527C;font-size:8pt;margin-left:25px;' class = 'unclickedColor color' onclick =''>"+
                                                                     values[k].facility_name+
                                                                     "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
                                                                 "</div>";
@@ -142,7 +142,7 @@ function hierarchyReport()
                                                 "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#program"+received[received.length-1].program_id+received[j].facility_id+"'>"+
                                                     "<span class='glyphicon glyphicon-plus-sign'></span> "+
                                                 "</a>"+
-                                                "<span class = 'fa fa-folder-o unclickedColor' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
+                                                "<span class = 'fa fa-folder-o unclickedColor color' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
@@ -164,7 +164,7 @@ function hierarchyReport()
                                     */
                                     for(var k=0; k<values.length-2;k++)
                                     {                                  
-                                        var satellitesToAppend ="<div style='color:#23527C;font-size:8pt;margin-left:25px;' class = 'unclickedColor' onclick =''>"+
+                                        var satellitesToAppend ="<div style='color:#23527C;font-size:8pt;margin-left:25px;' class = 'unclickedColor color' onclick =''>"+
                                                                     values[k].facility_name+
                                                                     "<span style = 'color:black' id = 'satellite_classification"+values[k].facility_id+"'></span>"+
                                                                 "</div>";
@@ -202,7 +202,7 @@ function hierarchyReport()
                     {
                         for(var j=0; j<received.length-1;j++)
                         {  
-                            var standalonesToAppend = "<div class = 'unclickedColor' style='color:#23527C;font-size:8pt;margin-left:25px;' onclick =''>"+
+                            var standalonesToAppend = "<div class = 'unclickedColor color' style='color:#23527C;font-size:8pt;margin-left:25px;' onclick =''>"+
                                                         received[j].facility_name+
                                                         "</div>";
                             $(standalonesToAppend).appendTo("div#supply_hierarchy_sa"+received[received.length-1].program_id);
