@@ -70,6 +70,41 @@ function removeIcon(itemID,folderIcon)
 }
 /*--------------------------------------------------------------------------------------------------------------------------------*/
 
+/*Function to change the icon in the collapsible menu*/
+function datasetReportIcon(itemID,folderIcon)
+{
+    var icon=$("#"+itemID);
+    var folder=$("#"+folderIcon);
+
+    if (icon.hasClass("fa fa-plus-square-o"))
+    {
+        icon.removeClass("fa fa-plus-square-o").addClass("fa fa-minus-square-o");
+
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o").addClass("fa fa-folder-open");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open clicked").addClass("fa fa-folder-o");
+        } 
+    }
+    else if (icon.hasClass("fa fa-minus-square-o"))
+    {
+        icon.removeClass("fa fa-minus-square-o").addClass("fa fa-plus-square-o");
+
+        if(folder.hasClass("fa fa-folder-o"))
+        {
+            folder.removeClass("fa fa-folder-o").addClass("fa fa-folder-open");
+        }
+        else
+        {
+            folder.removeClass("fa fa-folder-open").addClass("fa fa-folder-o");
+        } 
+    }           
+
+}
+/*--------------------------------------------------------------------------------------------------------------------------------*/
 /*Function to select a facility for analytics*/
 function selectFacility(facilityID)
 { 
