@@ -92,11 +92,11 @@
 
                                                             echo "<p>
                                                                     <span data-toggle='collapse' data-parent='#".$data['sub_county_id']."' class = 'unclickedColor' style = 'padding-left:5px' onclick='javascript:updateSelectList(3,\"$sc_id\")'>"
-                                                                    ."<span id = 'closed_sub_county_folder".$row['county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$data["sub_county_name"]."</span>".
+                                                                    ."<span id = 'closed_sub_county_folder_".$data['sub_county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$data["sub_county_name"]."</span>".
                                                                     "</span>";
                                                             echo "<a class='pull-left' data-toggle='collapse' data-parent='#".$data['sub_county_id']."' href='#".$data['sub_county_id']."'>
-                                                                        <span id = 'closed_sub_county_".$row['county_id']."' class='glyphicon glyphicon-plus-sign unclickedColor' 
-                                                                        onclick='javascript:changeIcon(\"closed_sub_county_".$row['county_id']."\",\"closed_sub_county_folder".$row['county_id']."\")'></span>
+                                                                        <span id = 'closed_sub_county_".$data['sub_county_id']."' class='glyphicon glyphicon-plus-sign unclickedColor' 
+                                                                        onclick='javascript:changeIcon(\"closed_sub_county_".$data['sub_county_id']."\",\"closed_sub_county_folder_".$data['sub_county_id']."\")'></span>
                                                                     </a>
                                                                 </p>";
 

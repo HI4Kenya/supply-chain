@@ -7,7 +7,7 @@ function hierarchyReport()
                     "<div class='panel-heading'> "+                               
                         "<h3 class='panel-title'>Programs <span style = 'color:blue;font-size:9pt'>[Showing the various site classifications]</span></h3> "+                             
                     "</div>"+
-                    "<div class='panel-body' id = 'central_stores'>"+
+                    "<div class='panel-body' id = 'central_stores' style = 'max-height:800px;overflow:scroll'>"+
                     "</div>"+
                 "</div>";
     // Append
@@ -24,39 +24,36 @@ function hierarchyReport()
             {  
                 var allProgramsToAppend = "<div style='color:#23527C;font-size:8pt' id='central_accordion'>"+
                                                 "<a data-toggle='collapse' data-parent='#"+responseData[no].program_id+"' href='#"+responseData[no].program_id+"'>"+
-                                                    "<span class='glyphicon glyphicon-plus-sign'></span> "+
+                                                    "<span id = 'programs_icon_"+responseData[no].program_id+"' class='glyphicon glyphicon-plus-sign' onclick = 'javascript:changeIcon(\"programs_icon_"+responseData[no].program_id+"\",\"programs_folder_"+responseData[no].program_id+"\")'></span> "+
                                                 "</a>"+
-                                                "<span class = 'fa fa-folder-o unclickedColor' onclick =''> "+responseData[no].program_name+"</span>"+                                            
+                                                "<span id = 'programs_folder_"+responseData[no].program_id+"' class = 'fa fa-folder-o unclickedColor'> "+responseData[no].program_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='"+responseData[no].program_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'program"+responseData[no].program_id+"'>"+
 
                                                     "<a data-toggle='collapse' data-parent='#supply_hierarchy_scs' href='#supply_hierarchy_scs"+responseData[no].program_id+"' style = 'margin-left:10px'>"+
-                                                        "<span class='fa fa-plus-square-o'></span> "+
-                                                        "<span class='fa fa-folder-o'></span> "+
+                                                        "<span id = 'scs_icon_"+responseData[no].program_id+"' class='glyphicon glyphicon-plus-sign' onclick = 'javascript:changeIcon(\"scs_icon_"+responseData[no].program_id+"\",\"scs_folder_"+responseData[no].program_id+"\")'></span> "+
                                                     "</a>"+
 
-                                                    "<span style = 'color:blue;font-size:10pt'>Sub-County Stores</span>"+
+                                                    "<span id = 'scs_folder_"+responseData[no].program_id+"' class = 'fa fa-folder-o unclickedColor color' style = 'font-size:10pt;'> Sub-County Stores</span>"+
                                                     "<div id = 'supply_hierarchy_scs"+responseData[no].program_id+"' class = 'panel-collapse collapse'>"+
                                                     "</div>"+
                                                     "<br>"+
 
                                                     "<a data-toggle='collapse' data-parent='#supply_hierarchy_cs' href='#supply_hierarchy_cs"+responseData[no].program_id+"' style = 'margin-left:10px'>"+
-                                                        "<span class='fa fa-plus-square-o'></span> "+
-                                                        "<span class='fa fa-folder-o'></span> "+
+                                                        "<span id = 'cs_icon_"+responseData[no].program_id+"' class='glyphicon glyphicon-plus-sign' onclick = 'javascript:changeIcon(\"cs_icon_"+responseData[no].program_id+"\",\"cs_folder_"+responseData[no].program_id+"\")'></span> "+
                                                     "</a>"+
 
-                                                    "<span style = 'color:blue;font-size:10pt'>Central Sites</span>"+
+                                                    "<span id = 'cs_folder_"+responseData[no].program_id+"' class='fa fa-folder-o unclickedColor' style = 'font-size:10pt'> Central Sites</span>"+
                                                     "<div id = 'supply_hierarchy_cs"+responseData[no].program_id+"' class = 'panel-collapse collapse'>"+
                                                     "</div>"+
                                                     "<br>"+
 
                                                     "<a data-toggle='collapse' data-parent='#supply_hierarchy_sa' href='#supply_hierarchy_sa"+responseData[no].program_id+"' style = 'margin-left:10px'>"+
-                                                        "<span class='fa fa-plus-square-o'></span> "+
-                                                        "<span class='fa fa-folder-o'></span> "+                                          
+                                                        "<span id = 'sa_icon_"+responseData[no].program_id+"' class='glyphicon glyphicon-plus-sign' onclick = 'javascript:changeIcon(\"sa_icon_"+responseData[no].program_id+"\",\"sa_folder_"+responseData[no].program_id+"\")'></span> "+                                         
                                                     "</a>"+
 
-                                                    "<span style = 'color:blue;font-size:10pt'>StandAlone Sites</span>"+
+                                                    "<span id = 'sa_folder_"+responseData[no].program_id+"' class='fa fa-folder-o unclickedColor' style = 'font-size:10pt'> StandAlone Sites</span>"+
                                                     "<div id = 'supply_hierarchy_sa"+responseData[no].program_id+"' class = 'panel-collapse collapse'>"+
                                                     "</div>"+
 
@@ -76,9 +73,9 @@ function hierarchyReport()
                         {
                             var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:25px;' id='central_accordion'>"+
                                                 "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#program"+received[received.length-1].program_id+received[j].facility_id+"'>"+
-                                                    "<span class='glyphicon glyphicon-plus-sign'></span> "+
+                                                    "<span id = 'scs_icon_"+received[j].facility_id+"' class='glyphicon glyphicon-plus-sign' onclick = 'javascript:changeIcon(\"scs_icon_"+received[j].facility_id+"\",\"scs_folder_"+received[j].facility_id+"\")'></span> "+
                                                 "</a>"+
-                                                "<span class = 'fa fa-folder-o unclickedColor color' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
+                                                "<span id = 'scs_folder_"+received[j].facility_id+"' class = 'fa fa-folder-o unclickedColor color' style = ''> "+received[j].facility_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
@@ -140,9 +137,9 @@ function hierarchyReport()
                         {
                             var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:25px;' id='central_accordion'>"+
                                                 "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#program"+received[received.length-1].program_id+received[j].facility_id+"'>"+
-                                                    "<span class='glyphicon glyphicon-plus-sign'></span> "+
+                                                    "<span id = 'cs_icon_"+received[j].facility_id+"' class='glyphicon glyphicon-plus-sign' onclick ='javascript:changeIcon(\"cs_icon_"+received[j].facility_id+"\",\"cs_folder_"+received[j].facility_id+"\")'></span> "+
                                                 "</a>"+
-                                                "<span class = 'fa fa-folder-o unclickedColor color' style = '' onclick =''> "+received[j].facility_name+"</span>"+                                            
+                                                "<span id = 'cs_folder_"+received[j].facility_id+"' class = 'fa fa-folder-o unclickedColor color' style = '' > "+received[j].facility_name+"</span>"+                                            
                                             "</div>"+
                                             "<div id='program"+received[received.length-1].program_id+received[j].facility_id+"' class='panel-collapse collapse'>"+
                                                 "<div class='panel-body' id = 'satellite"+received[received.length-1].program_id+received[j].facility_id+"'>"+
@@ -271,7 +268,7 @@ function getAnalytics()
                                     "<div id = 'report_org_unit' style = 'background-color:white;padding:px;height:200px;overflow:scroll'>"+
                                         
                                         "<a data-toggle='collapse' data-parent='#supply_hierarchy_scs' href='#supply_hierarchy_scs' style = 'margin-left:10px'>"+
-                                            "<span class='fa fa-plus-square-o'></span> "+
+                                            "<span id = 'scs_icon' class='fa fa-plus-square-o' onclick = 'javascript:datasetReportIcon(\"scs_icon\")'></span> "+
                                         "</a>"+
 
                                         "<span style = 'color:blue;font-size:10pt'>Sub-County Stores</span>"+
@@ -280,7 +277,7 @@ function getAnalytics()
                                         "<br>"+
 
                                         "<a data-toggle='collapse' data-parent='#supply_hierarchy_cs' href='#supply_hierarchy_cs' style = 'margin-left:10px'>"+
-                                            "<span class='fa fa-plus-square-o'></span> "+
+                                            "<span id = 'cs_icon' class='fa fa-plus-square-o' onclick = 'javascript:datasetReportIcon(\"cs_icon\")'></span> "+
                                         "</a>"+
 
                                         "<span style = 'color:blue;font-size:10pt'>Central Sites</span>"+
@@ -289,7 +286,7 @@ function getAnalytics()
                                         "<br>"+
 
                                         "<a data-toggle='collapse' data-parent='#supply_hierarchy_sa' href='#supply_hierarchy_sa' style = 'margin-left:10px'>"+
-                                            "<span class='fa fa-plus-square-o'></span> "+                                            
+                                            "<span id = 'sa_icon' class='fa fa-plus-square-o' onclick = 'javascript:datasetReportIcon(\"sa_icon\")'></span> "+                                            
                                         "</a>"+
 
                                         "<span style = 'color:blue;font-size:10pt'>StandAlone Sites</span>"+
@@ -365,7 +362,8 @@ function programDetails()
             {
                 var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:20px' id='central_accordion'>"+
                                     "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
-                                        "<span class='fa fa-plus-square-o'></span> "+
+                                        "<span id = 'scs_icon_"+received[j].facility_id+"' class='fa fa-plus-square-o'"+
+                                        "onclick = 'javascript:datasetReportIcon(\"scs_icon_"+received[j].facility_id+"\",\"facility_"+received[j].facility_id+"\")'></span> "+
                                     "</a>"+
                                     "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'sub-county-store'"+
                                         "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
@@ -436,7 +434,8 @@ function programDetails()
             {
                 var toAppend = "<div style='color:#23527C;font-size:8pt;margin-left:20px' id='central_accordion'>"+
                                     "<a data-toggle='collapse' data-parent='#"+received[j].facility_id+"' href='#"+received[j].facility_id+"'>"+
-                                        "<span class='fa fa-plus-square-o'></span> "+
+                                        "<span id = 'cs_icon_"+received[j].facility_id+"' class='fa fa-plus-square-o'"+ 
+                                        "onclick = 'javascript:datasetReportIcon(\"cs_icon_"+received[j].facility_id+"\",\"facility_"+received[j].facility_id+"\")'></span> "+
                                     "</a>"+
                                     "<span id = 'facility_"+received[j].facility_id+"' value = '"+received[j].facility_id+"' classification = 'central-site'"+
                                         "class = 'fa fa-folder-o unclickedColor color' onclick ='javascript:selectFacility(\"facility_"+received[j].facility_id+"\")'> "+
