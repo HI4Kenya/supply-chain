@@ -165,6 +165,13 @@
                                             Data Set Report
                                         </div>
                                         <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:siteAnalytics()'>
+                                            Sites Analytics
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:ARTAnalytics()'>
+                                            ART Reports
+                                        </div>
                                     </div>
                                 </div>
                             </div>
