@@ -2,7 +2,7 @@
 
     # Base Path url
     # Path to the root of the project
-    $base_path = "http://localhost/msh/";
+    $base_path = "http://localhost/msh-project/";
 
     # Database connection parameters
     # Edit accordingly
