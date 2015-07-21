@@ -17,8 +17,10 @@ else
 
     //HTTP GET request -Using Curl -Response JSON
     $period = $_GET['period'];
-    $orgUnit = $_GET['orgUnit'];
+    $orgUnits = $_GET['orgUnit'];
     $dataSet=$_GET['dataSet'];
+
+    $report=array();
 
     //Data Elements for categories in the fmaps
     $adult_art=["kPUVrR4hLjx","CvOEFjqdGh2","mh8BLhdNzdZ","UQk2hdsxir2","RneKH4t8Hzy","tDjLfAvYqYS","b33NtMTTcC4","EFDEUHkxzKB","TkEY0zNqaYo","snbVXDbpUF0","LJb2HSFIQuU","znYbpnCa6t3","lUS0kJXARKL","IZnj0MXr30T","Xqj87ejoK2r","nWMbhxjbknm","joELlaMQo7j","QFkkTIHbWrD","hDfkoAaboVw","VjmbzaSKx0q","MHuhCGyz7P3"];
@@ -31,94 +33,102 @@ else
     $diflucan_donation=["Orw6vLQQlNI","bYf0JZfBkoU","YdaFnP7rjcf","kz7vSNfh6xL","fiZfUd3ognF","NOUjq4bav6e"];
 
 
-    $sum_adult_art=0;
-    $sum_paediatric_art=0;
-    $sum_pep_adults=0;
-    $sum_diflucan_donation=0;
-    $sum_pmtct_women=0;
-    $sum_ipt=0;
-    $sum_pep_children=0;
-    $sum_universal_prophylaxis=0;
+    foreach($orgUnits as $orgUnit){
 
-    $url = $dhis_url."/api/dataValueSets?";
+        $sum_adult_art=0;
+        $sum_paediatric_art=0;
+        $sum_pep_adults=0;
+        $sum_diflucan_donation=0;
+        $sum_pmtct_women=0;
+        $sum_ipt=0;
+        $sum_pep_children=0;
+        $sum_universal_prophylaxis=0;
 
-    $data = array("dataSet" => "$dataSet", "period" => "$period", "orgUnit" => "$orgUnit");
-    $data_string = http_build_query($data);
-    $url.="$data_string";
+        $url = $dhis_url."/api/dataValueSets?";
 
-    // initailizing curl
-    $ch = curl_init();
-    //curl options
-    curl_setopt($ch, CURLOPT_POST, false);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-    //execute
-    $result = curl_exec($ch);
+        $data = array("dataSet" => "$dataSet", "period" => "$period", "orgUnit" => "$orgUnit");
+        $data_string = http_build_query($data);
+        $url.="$data_string";
 
-    //close connection
-    curl_close($ch);
+        // initailizing curl
+        $ch = curl_init();
+        //curl options
+        curl_setopt($ch, CURLOPT_POST, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        //execute
+        $result = curl_exec($ch);
 
-    if ($result){
+        //close connection
+        curl_close($ch);
 
-        $result=json_decode($result,true);
-        $data_values=$result["dataValues"];
+        if ($result){
 
-        foreach ($data_values as $data_value){
+            $result=json_decode($result,true);
+            $data_values=$result["dataValues"];
 
-            if (in_array($data_value["dataElement"], $adult_art)) {
-                $sum_adult_art=$sum_adult_art+intval($data_value["value"]);
+            foreach ($data_values as $data_value){
+
+                if (in_array($data_value["dataElement"], $adult_art)) {
+                    $sum_adult_art=$sum_adult_art+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $paediatric_art)) {
+                    $sum_paediatric_art=$sum_paediatric_art+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $pep_adults)) {
+                    $sum_pep_adults=$sum_pep_adults+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $pep_children)) {
+                    $sum_pep_children=$sum_pep_children+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $pmtct_women)) {
+                    $sum_pmtct_women=$sum_pmtct_women+intval($data_value["value"]);
+                }
+                if (in_array($data_value["dataElement"], $universal_prophylaxis)) {
+                    $sum_universal_prophylaxis=$sum_universal_prophylaxis+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $ipt)) {
+                    $sum_ipt=$sum_ipt+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $diflucan_donation)) {
+                    $sum_diflucan_donation=$sum_diflucan_donation+intval($data_value["value"]);
+                }
             }
 
-            if (in_array($data_value["dataElement"], $paediatric_art)) {
-                $sum_paediatric_art=$sum_paediatric_art+intval($data_value["value"]);
-            }
+        }
+        else{
 
-            if (in_array($data_value["dataElement"], $pep_adults)) {
-                $sum_pep_adults=$sum_pep_adults+intval($data_value["value"]);
-            }
-
-            if (in_array($data_value["dataElement"], $pep_children)) {
-                $sum_pep_children=$sum_pep_children+intval($data_value["value"]);
-            }
-
-            if (in_array($data_value["dataElement"], $pmtct_women)) {
-                $sum_pmtct_women=$sum_pmtct_women+intval($data_value["value"]);
-            }
-            if (in_array($data_value["dataElement"], $universal_prophylaxis)) {
-                $sum_universal_prophylaxis=$sum_universal_prophylaxis+intval($data_value["value"]);
-            }
-
-            if (in_array($data_value["dataElement"], $ipt)) {
-                $sum_ipt=$sum_ipt+intval($data_value["value"]);
-            }
-
-            if (in_array($data_value["dataElement"], $diflucan_donation)) {
-                $sum_diflucan_donation=$sum_diflucan_donation+intval($data_value["value"]);
-            }
+            echo -1;
         }
 
+        $data=array('orgUnit'=>$orgUnit,'data'=>array('adult_art'=>$sum_adult_art,
+            'paediatric_art'=>$sum_paediatric_art,
+            'pmtct_women'=>$sum_pmtct_women,
+            'pep_children'=>$sum_pep_children,
+            'pep_adults'=>$sum_pep_adults,
+            'universal_prophylaxis'=>$sum_universal_prophylaxis,
+            'ipt'=>$sum_ipt,
+            'diflucan_donation'=>$sum_diflucan_donation));
+
+
+        array_push($report,$data);
     }
-    else{
 
-        echo -1;
-    }
+    echo json_encode($report);
 
-    $data=array('adult_art'=>$sum_adult_art,
-        'paediatric_art'=>$sum_paediatric_art,
-        'pmtct_women'=>$sum_pmtct_women,
-        'pep_children'=>$sum_pep_children,
-        'pep_adults'=>$sum_pep_adults,
-        'universal_prophylaxis'=>$sum_universal_prophylaxis,
-        'ipt'=>$sum_ipt,
-        'diflucan_donation'=>$sum_diflucan_donation);
 
-    echo json_encode($data);
 
 }
 
