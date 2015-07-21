@@ -249,7 +249,8 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
     alert(period+""+orgUnitID+""+orgUnitLevel);
     //orgUnits for the Selected Level
-    var orgUnits=["AwVQ3uJftlj","DMF5wWYxVHg"];
+    var orgUnits=[];
+        //["AwVQ3uJftlj","DMF5wWYxVHg"];
     var dataSet="VOzBhzjvVcw";
     var mflCode="";
     var facilityName="";
@@ -266,41 +267,56 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
         $('#orgUnitLevel').append(orgUnitLevel);
         $('#period').append(generateYearName(period));
 
-        $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+        $.getJSON("db/fetch/list_ordering_points.php",
+            {program_id:1,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+            function(facilities){
 
-        $.getJSON(url_facility_fmaps,
-            {dataSet:dataSet,period:period,orgUnits:orgUnits},
-            function(response){
-                console.log(response);
-                $("#loading").empty();
-                $("#formData").empty();
-
-                $.each(response,function(index, obj){
-
-                    //var facility=$.grep(orgUnits, function(e){ return e.id ==obj.orgUnit;});
-                    mflCode="default"+obj.orgUnit;
-                    facilityName="defaultName"+obj.orgUnit;
-                    $("#formData").append("<tr>" +
-                    "<td>"+(index+1)+"</td>"+
-                    "<td>"+mflCode+"</td>"+
-                    "<td>"+facilityName+"</td>"+
-                    "<td>"+obj.data.adult_art+"</td>"+
-                    "<td>"+obj.data.pep_adults+"</td>"+
-                    "<td>"+obj.data.pmtct_women+"</td>"+
-                    "<td>"+obj.data.paediatric_art+"</td>"+
-                    "<td>"+obj.data.pep_children+"</td>"+
-                    "<td>"+obj.data.ipt+"</td>"+
-                    "<tr>");
+                $.each(facilities,function(key, facility){
+                    orgUnits.push(facility.facility_id);
                 });
-            });
 
+                if(orgUnits.length==0){
+
+                    $("#loading").empty();
+                    $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                }
+                else{
+
+                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+                    $.getJSON(url_facility_fmaps,
+                        {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                        function(response){
+                            console.log(response);
+                            $("#loading").empty();
+                            $("#formData").empty();
+
+                            $.each(response,function(index, obj){
+
+                                var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
+                                mflCode=facility[0].mfl_code;
+                                facilityName=facility[0].facility_name;
+
+                                $("#formData").append("<tr>" +
+                                "<td>"+(index+1)+"</td>"+
+                                "<td>"+mflCode+"</td>"+
+                                "<td>"+facilityName+"</td>"+
+                                "<td>"+obj.data.adult_art+"</td>"+
+                                "<td>"+obj.data.pep_adults+"</td>"+
+                                "<td>"+obj.data.pmtct_women+"</td>"+
+                                "<td>"+obj.data.paediatric_art+"</td>"+
+                                "<td>"+obj.data.pep_children+"</td>"+
+                                "<td>"+obj.data.ipt+"</td>"+
+                                "<tr>");
+                            });
+                        });
+                }
+        });
 
     });
 
 
 
 }
-
 
 //Function for formatting the date
 function generateYearName(date){

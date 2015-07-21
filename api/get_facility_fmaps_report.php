@@ -32,7 +32,6 @@ else
     $ipt=["NVoegMliKZ8","Y6jYqmO8xmN"];
     $diflucan_donation=["Orw6vLQQlNI","bYf0JZfBkoU","YdaFnP7rjcf","kz7vSNfh6xL","fiZfUd3ognF","NOUjq4bav6e"];
 
-
     foreach($orgUnits as $orgUnit){
 
         $sum_adult_art=0;

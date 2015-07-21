@@ -7,7 +7,7 @@
             <label style="color:black">Level:</label><span id="orgUnitLevel"></span>&nbsp;&nbsp;
             <label style="color:black">Period:</label><span id="period"></span>
             <div id="loading">Loading</div>
-            
+
         </div>
         <div class="panel-body" style="overflow: scroll">
             <table class="table table-responsive table-striped">
