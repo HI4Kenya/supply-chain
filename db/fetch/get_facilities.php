@@ -101,7 +101,7 @@
         {
             $data = array();
             //For testing purposes : WHERE parent_id = 'NHRktMsAkO1'
-            $facilities = "SELECT * FROM facilities ORDER BY facility_name";
+            $facilities = "SELECT * FROM facilities WHERE parent_id = 'NHRktMsAkO1' ORDER BY facility_name ";
             $result = mysqli_query($conn,$facilities);
             if(mysqli_num_rows($result)>0)
             {

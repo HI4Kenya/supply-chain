@@ -20,6 +20,12 @@
   cursor: pointer;
 }
 
+.clickedColorAlt
+{
+  color: orange;
+  cursor: pointer;
+}
+
 .facilitiestext
 {
 	color:#23527C;

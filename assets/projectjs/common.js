@@ -152,8 +152,6 @@ function changeColor(type)
     else if (color.hasClass("clickedColor"))
     {
         color.removeClass("clickedColor").addClass("unclickedColor");
-    }              
-             
-
+    }
 }
 /*--------------------------------------------------------------------------------------------------------------------------------*/
