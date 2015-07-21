@@ -313,7 +313,7 @@ function getUsers(display)
         $(function()
         {
             //$("#programdata").dataTable();
-        })
+        });
 
     }
 }
