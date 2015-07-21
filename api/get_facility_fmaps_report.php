@@ -17,7 +17,7 @@ else
 
     //HTTP GET request -Using Curl -Response JSON
     $period = $_GET['period'];
-    $orgUnits = $_GET['orgUnit'];
+    $orgUnits = $_GET['orgUnits'];
     $dataSet=$_GET['dataSet'];
 
     $report=array();
@@ -67,10 +67,10 @@ else
 
         //close connection
         curl_close($ch);
+        $result=json_decode($result,true);
 
-        if ($result){
+        if (array_key_exists('dataValues', $result)){
 
-            $result=json_decode($result,true);
             $data_values=$result["dataValues"];
 
             foreach ($data_values as $data_value){
@@ -109,19 +109,21 @@ else
 
         }
         else{
-
-            echo -1;
+            //Do Nothing
         }
 
-        $data=array('orgUnit'=>$orgUnit,'data'=>array('adult_art'=>$sum_adult_art,
-            'paediatric_art'=>$sum_paediatric_art,
-            'pmtct_women'=>$sum_pmtct_women,
-            'pep_children'=>$sum_pep_children,
-            'pep_adults'=>$sum_pep_adults,
-            'universal_prophylaxis'=>$sum_universal_prophylaxis,
-            'ipt'=>$sum_ipt,
-            'diflucan_donation'=>$sum_diflucan_donation));
-
+        $data=array(
+            'orgUnit'=>$orgUnit,
+            'data'=>array(
+                'adult_art'=>$sum_adult_art,
+                'paediatric_art'=>$sum_paediatric_art,
+                'pmtct_women'=>$sum_pmtct_women,
+                'pep_children'=>$sum_pep_children,
+                'pep_adults'=>$sum_pep_adults,
+                'universal_prophylaxis'=>$sum_universal_prophylaxis,
+                'ipt'=>$sum_ipt,
+                'diflucan_donation'=>$sum_diflucan_donation)
+            );
 
         array_push($report,$data);
     }
