@@ -1,4 +1,4 @@
-/*function siteAnalytics()*/
+// function siteAnalytics()
 function siteAnalytics()
 {
 	$('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SITES ANALYTICS (Generate ordering points or service points analysis)</span>");
@@ -7,12 +7,12 @@ function siteAnalytics()
                                 "<div class='panel-heading' style ='width:360px;background-color:#d0eBd0;font-weight:normal;font-size:10pt;border:1px solid #a4d2a3;padding:20px'>"+
                                     // Program
                                     "<span>Report Program</span><span style = 'color:red;margin-left:10px'>*</span><br>"+
-                                    "<select id = 'report_programs' style='width:100%;margin-bottom:10px' onchange='javascript:programDetails();'>"+
+                                    "<select id = 'report_programs' style='width:100%;margin-bottom:10px'>"+
                                         "<option value = 'none selected'>[Select Program Type]</option>"+
                                     "</select>"+
 
                                     "<span>Report</span><span style = 'color:red;margin-left:10px'>*</span><br>"+
-                                    "<select id = 'report_type' style = 'width:100%;margin-bottom:10px'>"+
+                                    "<select id = 'report_type' style = 'width:100%;margin-bottom:10px' onchange='javascript:reportDetails();'>"+
                                         "<option value = 'none selected'>[Select]</option>"+
                                         "<option value = 'List of Ordering Points'>List of Ordering Points</option>"+
                                         "<option value = 'Ordering Points Distribution'>Distribution of Ordering Points by County</option>"+
@@ -134,6 +134,7 @@ function getSiteAnalytics()
                     function()
                     {
                         $("div#returned_messages").empty();
+                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SITES ANALYTICS (Generate ordering points or service points analysis)</span>");
                     },
                     1500
                 );
@@ -144,26 +145,24 @@ function getSiteAnalytics()
                 var selectedOrgUnitID = selectedOrgUnit[the_number].getAttribute("value");
                 var selectedOrgUnitLevel = selectedOrgUnit[the_number].getAttribute("level");
 
-                alert(selectedProgramID + selectedReportID + selectedOrgUnitID + selectedOrgUnitLevel);
-
                 if(selectedReportID == "List of Ordering Points")
                 {
-                    listSites();
+                    listSites("Ordering Points", selectedProgramID, selectedOrgUnitID,  selectedOrgUnitLevel);
                 }
 
                 else if(selectedReportID == "List of Service Points")
                 {
-                    listSites();
+                    listSites("Service Points", selectedProgramID, selectedOrgUnitID,  selectedOrgUnitLevel);
                 }
 
                 else if(selectedReportID == "Ordering Points Distribution")
                 {
-                    sitesDistribution();
+                    sitesDistribution("Ordering Points", selectedProgramID, selectedOrgUnitID,  selectedOrgUnitLevel);
                 }
 
                 else if(selectedReportID == "Service Points Distribution")
                 {
-                    sitesDistribution();
+                    sitesDistribution("Service Points", selectedProgramID, selectedOrgUnitID,  selectedOrgUnitLevel);
                 }
             }
         }
@@ -171,18 +170,204 @@ function getSiteAnalytics()
     }
 }
 /* -------------------------------------------------------------------------------------------------------------------------- */
+// function reportDetails()
+function reportDetails()
+{
+    var reportSelectList = document.getElementById("report_type");
+    var reportSelectIndex = reportSelectList.selectedIndex; 
+    var reportSelectOptions = reportSelectList.options;
+    var selectedReportID = reportSelectOptions[reportSelectIndex].value;
+
+    if((selectedReportID == "Ordering Points Distribution")||(selectedReportID == "Service Points Distribution"))
+    {
+        var toAppend =  "<option value = 'By County' level = 'By County' class = 'fa fa-check-square clickedColor selectedFacility' style = 'padding:10px'>"+
+                            "<span style = 'margin-left:10px'> By County</span>"+
+                        "</option>";
+
+        $('div#report_org_unit').empty();
+        $('div#report_org_unit').append(toAppend);
+    }
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
 
 // function listSites
-function listSites(type,program)
+function listSites(type,program,orgUnit, orgUnitLevel)
 {
+    if(type == "Ordering Points")
+    {
+        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> List of Ordering Points</span>");
+
+        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
+                        "<table id= 'orderingpoints' style = 'border-radius:5px;width:95%'>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>#</th>"+
+                                "<th style = 'font-weight:bold'>MFL Code</th>"+
+                                "<th style = 'font-weight:bold'>Name of Facility</th>"+
+                                "<th style = 'font-weight:bold'>Ordering Point Type</th>"+
+                                "<th style = 'font-weight:bold'>County</th>"+
+                                "<th style = 'font-weight:bold'>Sub County</th>"+                            
+                            "</thead>"+
+                            "<tbody id = 'tbody'>"+
+                            "</tbody>"+
+                        "</table>"+
+                    "</div>";
+        // Append
+        $('div#facilities').html(data);
+
+        // Place a post request
+        var dataUrl = "db/fetch/list_ordering_points.php";
+        $.getJSON
+        (
+            dataUrl,
+            {program_id:program,org_unit:orgUnit,org_unit_level:orgUnitLevel},
+            function(results)
+            {
+                for(var counting=0; counting<results.length;counting++)
+                { 
+                    var itemNumber = counting+1;
+                    var dataToAppend = "<tr>"+
+                                            "<td>"+itemNumber+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].mfl_code+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].facility_name+"</td>"+
+                                            "<td style = 'text-align:left' id = 'op_type'>Central Site</td>"+
+                                            "<td style = 'text-align:left' id = 'county'>Nairobi</td>"+
+                                            "<td style = 'text-align:left' id = 'sub_county'>Nairobi East</td>"+
+                                        "</tr>";
+                    //$('#userdata tr:last').after(dataToAppend);
+                    $(dataToAppend).appendTo("#orderingpoints tbody");
+                }
+                $(function()
+                {
+                    $("#orderingpoints").dataTable();
+                });
+
+            }
+        );
+    }
+
+    else if(type == "Service Points")
+    {
+        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> List of Service Points</span>");
+
+        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
+                        "<table id= 'servicepoints' style = 'border-radius:5px;width:95%'>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>#</th>"+
+                                "<th style = 'font-weight:bold'>MFL Code</th>"+
+                                "<th style = 'font-weight:bold'>Name of Facility</th>"+
+                                "<th style = 'font-weight:bold'>Service Point Type</th>"+
+                                "<th style = 'font-weight:bold'>County</th>"+
+                                "<th style = 'font-weight:bold'>Sub County</th>"+                            
+                            "</thead>"+
+                            "<tbody id = 'tbody'>"+
+                            "</tbody>"+
+                        "</table>"+
+                    "</div>";
+        // Append
+        $('div#facilities').html(data);
+
+        // Place a post request
+        var dataUrl = "db/fetch/list_service_points.php";
+        $.getJSON
+        (
+            dataUrl,
+            {program_id:program,org_unit:orgUnit,org_unit_level:orgUnitLevel},
+            function(results)
+            {
+                for(var counting=0; counting<results.length;counting++)
+                { 
+                    var itemNumber = counting+1;
+                    var dataToAppend = "<tr>"+
+                                            "<td>"+itemNumber+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].mfl_code+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].facility_name+"</td>"+
+                                            "<td style = 'text-align:left' id = 'sp_type'>Satellite Site</td>"+
+                                            "<td style = 'text-align:left' id = 'county'>Nairobi</td>"+
+                                            "<td style = 'text-align:left' id = 'sub_county'>Nairobi East</td>"+
+                                        "</tr>";
+                    //$('#userdata tr:last').after(dataToAppend);
+                    $(dataToAppend).appendTo("#servicepoints tbody");
+                }
+                $(function()
+                {
+                    $("#orderingpoints").dataTable();
+                });
+
+            }
+        );
+    }
 
 }
 
 /* -------------------------------------------------------------------------------------------------------------------------- */
 
 // Function sitesDistribution
-function sitesDistribution()
+function sitesDistribution(type,program,orgUnit, orgUnitLevel)
 {
+    if(type == "Ordering Points")
+    {
+        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> Ordering Points Distribution by County</span>");
+
+        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
+                        "<table id= 'servicepoints' style = 'border-radius:5px;width:95%'>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>#</th>"+
+                                "<th style = 'font-weight:bold'>County</th>"+
+                                "<th style = 'font-weight:bold'>Type</th>"+
+                                "<th style = 'font-weight:bold'>Service Point Type</th>"+
+                                "<th style = 'font-weight:bold'>County</th>"+                           
+                            "</thead>"+
+                            "<tbody id = 'tbody'>"+
+                            "</tbody>"+
+                        "</table>"+
+                    "</div>";
+        // Append
+        $('div#facilities').html(data);
+
+        // Place a post request
+        var dataUrl = "db/fetch/ordering_points_distribution.php";
+        $.getJSON
+        (
+            dataUrl,
+            {program_id:program,org_unit:orgUnit,org_unit_level:orgUnitLevel},
+            function(results)
+            {
+                for(var counting=0; counting<results.length;counting++)
+                { 
+                    var itemNumber = counting+1;
+                    var dataToAppend = "<tr>"+
+                                            "<td>"+itemNumber+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].mfl_code+"</td>"+
+                                            "<td style = 'text-align:left'>"+results[counting].facility_name+"</td>"+
+                                            "<td style = 'text-align:left' id = 'sp_type'>Satellite Site</td>"+
+                                            "<td style = 'text-align:left' id = 'county'>Nairobi</td>"+
+                                        "</tr>";
+                    //$('#userdata tr:last').after(dataToAppend);
+                    $(dataToAppend).appendTo("#servicepoints tbody");
+                }
+                $(function()
+                {
+                    $("#orderingpoints").dataTable();
+                });
+
+            }
+        );
+    }
+
+    else if(type == "Service Points")
+    {
+        var dataUrl = "db/fetch/service_points_distribution.php";
+        $.post
+        (
+            dataUrl,
+            {program_id:program,org_unit:orgUnit,org_unit_level:orgUnitLevel},
+            function(response)
+            {
+                
+            }
+        );
+    }
 
 }
 

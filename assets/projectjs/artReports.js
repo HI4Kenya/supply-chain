@@ -215,9 +215,6 @@ function getARTAnalytics()
                     {
                         periodOfTheReport = yearOptions+reportPeriodOptions;
                     }
-                    
-
-	                alert(selectedReportID +periodOfTheReport+ selectedOrgUnitID + selectedOrgUnitLevel);
 	                
 	                if(selectedReportID == "Patients By Ordering Points")
 	                {
