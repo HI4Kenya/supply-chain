@@ -219,6 +219,7 @@ function getARTAnalytics()
 	                if(selectedReportID == "Patients By Ordering Points")
 	                {
 	                    // Patients By Ordering Points
+                        generateReportPatientsByOrderingPoints(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
 	                }
 
 	                else if(selectedReportID == "Patients By Regimen")
@@ -241,3 +242,132 @@ function getARTAnalytics()
         }
     }
 }
+
+
+//Function to Generate Report for ART Patients By Ordering Points
+function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
+
+    alert(period+""+orgUnitID+""+orgUnitLevel);
+    //orgUnits for the Selected Level
+    var orgUnits=[];
+        //["AwVQ3uJftlj","DMF5wWYxVHg"];
+    var dataSet="VOzBhzjvVcw";
+    var mflCode="";
+    var facilityName="";
+
+    var url_facility_fmaps="api/get_facility_fmaps_report.php";
+    var templateUrl="client/report_templates/art_report.php";
+
+    var urlDataSetTemplate="api/get_dataset_template.php";
+    $.get(templateUrl).then
+    (function(responseData) {
+        $('div#facilities').empty();
+        $('div#facilities').append(responseData);
+        $('#formName').append("List of ART Patients By Ordering Points");
+        $('#orgUnitLevel').append(orgUnitLevel);
+        $('#period').append(generateYearName(period));
+
+        $.getJSON("db/fetch/list_ordering_points.php",
+            {program_id:1,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+            function(facilities){
+
+                $.each(facilities,function(key, facility){
+                    orgUnits.push(facility.facility_id);
+                });
+
+                if(orgUnits.length==0){
+
+                    $("#loading").empty();
+                    $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                }
+                else{
+
+                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+                    $.getJSON(url_facility_fmaps,
+                        {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                        function(response){
+                            console.log(response);
+                            $("#loading").empty();
+                            $("#formData").empty();
+
+                            $.each(response,function(index, obj){
+
+                                var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
+                                mflCode=facility[0].mfl_code;
+                                facilityName=facility[0].facility_name;
+
+                                $("#formData").append("<tr>" +
+                                "<td>"+(index+1)+"</td>"+
+                                "<td>"+mflCode+"</td>"+
+                                "<td>"+facilityName+"</td>"+
+                                "<td>"+obj.data.adult_art+"</td>"+
+                                "<td>"+obj.data.pep_adults+"</td>"+
+                                "<td>"+obj.data.pmtct_women+"</td>"+
+                                "<td>"+obj.data.paediatric_art+"</td>"+
+                                "<td>"+obj.data.pep_children+"</td>"+
+                                "<td>"+obj.data.ipt+"</td>"+
+                                "<tr>");
+                            });
+                        });
+                }
+        });
+
+    });
+
+
+
+}
+
+//Function for formatting the date
+function generateYearName(date){
+    var str = date;
+    var res = str.slice(-2);
+    var year=str.substring(0, 4);
+
+    if(res=="01"){
+
+        return "January-"+year;
+    }
+    if(res=="02"){
+
+        return "February-"+year;
+    }
+    if(res=="03"){
+
+        return "March-"+year;
+    }
+    if(res=="04"){
+        return "April-"+year;
+    }
+    if(res=="05"){
+        return "May-"+year;
+    }
+    if(res=="06"){
+
+        return "June-"+year;
+    }
+    if(res=="07"){
+        return "July-"+year;
+    }
+    if(res=="08"){
+
+        return "August-"+year;
+    }
+    if(res=="09"){
+
+        return "September-"+year;
+    }
+    if(res=="10"){
+        return "October-"+year;
+    }
+    if(res=="11"){
+        return "November-"+year;
+    }
+    if(res=="12"){
+
+        return "December-"+year;
+    }
+
+}
+
+
