@@ -73,7 +73,7 @@
 
                                                         echo "<span>
                                                                 <span data-toggle='collapse' data-parent='#".$data['sub_county_id']."' class = 'unclickedColor color' id = 'sub_county_".$data['sub_county_id']."'
-                                                                    style = 'padding-left:5px' onclick='javascript:selectFacility(\"sub_county_".$data['sub_county_id']."\")' value = '".$row['county_id']."'
+                                                                    style = 'padding-left:5px' onclick='javascript:selectFacility(\"sub_county_".$data['sub_county_id']."\")' value = '".$data['sub_county_id']."'
                                                                     level= 'sub_county'>"
                                                                 ."<span>"." ".$data["sub_county_name"]."</span>".
                                                                 "</span>
