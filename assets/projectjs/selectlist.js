@@ -528,7 +528,7 @@ function filterFacilities(selectID,inputID)
 
 /*Function updateSelectList()*/
 //Use the DHIS2 Org Units to drill the list down
-function updateSelectList(level,unit_id)
+function updateSelectList(level,unit_id,icon,changeColor)
 {
     var url = "db/fetch/get_facilities.php";
     $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");   
@@ -547,6 +547,108 @@ function updateSelectList(level,unit_id)
             $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
         }
     );
+
+    var color = $("#"+changeColor);
+    var icon = $("#"+icon);
+    var any = $(".color");
+
+    if(any.hasClass("clickedColorAlt"))
+    {
+
+        if (color.hasClass("unclickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                any.removeClass("clickedColorAlt").addClass("clickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                any.removeClass("clickedColorAlt").addClass("clickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+
+        else if (color.hasClass("clickedColorAlt"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                color.removeClass("clickedColorAlt").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                color.removeClass("clickedColorAlt").addClass("clickedColor");
+            }
+        }
+    }
+    else if(any.hasClass("clickedColor"))
+    {
+        if (color.hasClass("unclickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+    }
+
+    else
+    {
+        if (color.hasClass("unclickedColor"))
+        {
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+    }
  
 }
 /*End Function*/
