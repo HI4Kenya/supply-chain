@@ -30,7 +30,7 @@
                 <p>
                     <span class = "unclickedColor" data-toggle="collapse" data-parent="#" href="#collapseOrgUnits" style = "padding-left:5px">ORGANIZATION UNITS</span>
                     <a class="pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapseOrgUnits">
-                        <span class="fa fa-sitemap" onclick="javascript:changeIcon()"></span>
+                        <span class="fa fa-sitemap"></span>
                     </a>
                 </p>
             </div>
@@ -38,7 +38,7 @@
                 <div class="panel-body">
                     <p>
                         <span data-toggle="collapse" data-parent="#collapseOrgUnits" href="" style = "padding-left:5px">
-                            <span class = "unclickedColor color" onclick="javascript:updateSelectList(1)">
+                            <span class = "unclickedColor color" onclick="javascript:updateSelectList(1,'','closed_kenya','folder_kenya')">
                                 <span id = "folder_kenya" class="fa fa-folder-o unclickedColor">
                                     Kenya
                                 </span>
@@ -65,7 +65,8 @@
                                         //class = 'unclickedColor color' onclick='javascript:changeColor()'
                                         $c_id = $row['county_id'];
                                         echo "<p style = 'font:8pt'>
-                                                <span data-toggle='collapse' data-parent='#".$row['county_id']."' class = 'unclickedColor' style = 'padding-left:5px' onclick='javascript:updateSelectList(2,\"$c_id\")'>"
+                                                <span data-toggle='collapse' data-parent='#".$row['county_id']."' class = 'unclickedColor' style = 'padding-left:5px'
+                                                    onclick='javascript:updateSelectList(2,\"$c_id\",\"closed_county_".$row['county_id']."\",\"closed_county_folder".$row['county_id']."\")'>"
                                                 ."<span id = 'closed_county_folder".$row['county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$row["county_name"]."</span>".
                                                 "</span>";
                                         echo "<a class='pull-left' data-toggle='collapse' data-parent='#".$row['county_id']."' href='#".$row['county_id']."'>
@@ -91,7 +92,8 @@
                                                             $sc_id = $data['sub_county_id'];
 
                                                             echo "<p>
-                                                                    <span data-toggle='collapse' data-parent='#".$data['sub_county_id']."' class = 'unclickedColor' style = 'padding-left:5px' onclick='javascript:updateSelectList(3,\"$sc_id\")'>"
+                                                                    <span data-toggle='collapse' data-parent='#".$data['sub_county_id']."' class = 'unclickedColor' style = 'padding-left:5px' 
+                                                                        onclick='javascript:updateSelectList(3,\"$sc_id\",\"closed_sub_county_".$data['sub_county_id']."\",\"closed_sub_county_folder_".$data['sub_county_id']."\")'>"
                                                                     ."<span id = 'closed_sub_county_folder_".$data['sub_county_id']."' class = 'fa fa-folder-o unclickedColor'>"." ".$data["sub_county_name"]."</span>".
                                                                     "</span>";
                                                             echo "<a class='pull-left' data-toggle='collapse' data-parent='#".$data['sub_county_id']."' href='#".$data['sub_county_id']."'>
@@ -113,8 +115,8 @@
                                                                         while ($facilities = mysqli_fetch_assoc($return))
                                                                         {
                                                                             $f_id = $facilities['facility_id'];
-                                                                            echo "<span onclick='javascript:updateSelectList(4,\"$f_id\")' class = 'unclickedColor color'>";
-                                                                            echo "<span class = 'fa fa-university' style = 'margin-bottom:5px'>"." ".$facilities['facility_name']."</span>";
+                                                                            echo "<span onclick='javascript:updateSelectList(4,\"$f_id\",\"closed_facility_".$f_id."\",\"closed_facility_".$f_id."\")' class = 'unclickedColor color'>";
+                                                                            echo "<span id = 'closed_facility_".$f_id."' class = 'fa fa-university unclickedColor' style = 'margin-bottom:5px'>"." ".$facilities['facility_name']."</span>";
                                                                             echo "<br>";
                                                                             echo "</span>";
                                                                         }

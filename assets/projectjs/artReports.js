@@ -176,8 +176,8 @@ function getARTAnalytics()
             else
             {
             	var orgUnitsDiv = document.getElementById("report_org_unit");
-	            var selectedFacility = orgUnitsDiv.getElementsByClassName("selectedFacility");
-	            if(selectedFacility.length < 1)
+	            var selectedOrgUnit = orgUnitsDiv.getElementsByClassName("selectedFacility");
+	            if(selectedOrgUnit.length < 1)
 	            {
 	                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
 	                                        "<span style ='margin-left:70px'>"+
@@ -199,8 +199,8 @@ function getARTAnalytics()
 	            else
 	            {
 	                var the_number = 0;
-	                var selectedFacilityID = selectedFacility[the_number].getAttribute("value");
-	                var selectedFacilityLevel = selectedFacility[the_number].getAttribute("level");
+	                var selectedOrgUnitID = selectedOrgUnit[the_number].getAttribute("value");
+	                var selectedOrgUnitLevel = selectedOrgUnit[the_number].getAttribute("level");
 
 	                // Year of the report
                     var year= document.getElementById("year");
@@ -217,7 +217,7 @@ function getARTAnalytics()
                     }
                     
 
-	                alert(selectedReportID +periodOfTheReport+ selectedFacilityID + selectedFacilityLevel);
+	                alert(selectedReportID +periodOfTheReport+ selectedOrgUnitID + selectedOrgUnitLevel);
 	                
 	                if(selectedReportID == "Patients By Ordering Points")
 	                {

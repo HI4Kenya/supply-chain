@@ -14,8 +14,10 @@ function siteAnalytics()
                                     "<span>Report</span><span style = 'color:red;margin-left:10px'>*</span><br>"+
                                     "<select id = 'report_type' style = 'width:100%;margin-bottom:10px'>"+
                                         "<option value = 'none selected'>[Select]</option>"+
-                                        "<option value = 'Ordering Points'>Ordering Points</option>"+
-                                        "<option value = 'Service Points'>Service Points</option>"+
+                                        "<option value = 'List of Ordering Points'>List of Ordering Points</option>"+
+                                        "<option value = 'Ordering Points Distribution'>Distribution of Ordering Points by County</option>"+
+                                        "<option value = 'List of Service Points'>List of Service Points</option>"+
+                                        "<option value = 'Service Points Distribution'>Distribution of Service Points by County</option>"+
                                     "</select>"+
                                     "<br>"+
 
@@ -117,8 +119,8 @@ function getSiteAnalytics()
         else
         {
             var orgUnitsDiv = document.getElementById("report_org_unit");
-            var selectedFacility = orgUnitsDiv.getElementsByClassName("selectedFacility");
-            if(selectedFacility.length < 1)
+            var selectedOrgUnit = orgUnitsDiv.getElementsByClassName("selectedFacility");
+            if(selectedOrgUnit.length < 1)
             {
                 var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
                                         "<span style ='margin-left:70px'>"+
@@ -139,21 +141,57 @@ function getSiteAnalytics()
             else
             {
                 var the_number = 0;
-                var selectedFacilityID = selectedFacility[the_number].getAttribute("value");
-                var selectedFacilityLevel = selectedFacility[the_number].getAttribute("level");
+                var selectedOrgUnitID = selectedOrgUnit[the_number].getAttribute("value");
+                var selectedOrgUnitLevel = selectedOrgUnit[the_number].getAttribute("level");
 
-                alert(selectedProgramID + selectedReportID + selectedFacilityID + selectedFacilityLevel);
-                if(selectedReportID == "Ordering Points")
+                alert(selectedProgramID + selectedReportID + selectedOrgUnitID + selectedOrgUnitLevel);
+
+                if(selectedReportID == "List of Ordering Points")
                 {
-                    // Ordering Points
+                    listSites();
                 }
 
-                else if(selectedReportID == "Service Points")
+                else if(selectedReportID == "List of Service Points")
                 {
-                    // Service points
+                    listSites();
+                }
+
+                else if(selectedReportID == "Ordering Points Distribution")
+                {
+                    sitesDistribution();
+                }
+
+                else if(selectedReportID == "Service Points Distribution")
+                {
+                    sitesDistribution();
                 }
             }
         }
 
     }
 }
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+// function listSites
+function listSites(type,program)
+{
+
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+// Function sitesDistribution
+function sitesDistribution()
+{
+
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+// Function sitesVisualizer()
+function sitesVisualizer()
+{
+
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */

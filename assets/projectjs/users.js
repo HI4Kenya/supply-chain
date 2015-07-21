@@ -99,7 +99,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
+                        "<table id= 'userdata' class = 'table' style = 'border-radius:5px'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>User</th>"+
@@ -109,8 +109,7 @@ function getUsers(display)
                                 "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
                                 "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
                                 "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
-                                "<th style = 'font-weight:bold;color:blue'>Edit</th>"+ 
-                                // "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
+                                "<th style = 'font-weight:bold;color:blue'>Edit</th>"+                            
                             "</thead>"+
                             "<tbody id = 'tbody'>"+
                             "</tbody>"+
@@ -143,10 +142,8 @@ function getUsers(display)
                                             "<td class = 'fa fa-edit' style = 'color:blue;cursor: pointer;'"+
                                                 "onclick='editUsers(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
                                             "</td>"+
-                                            // "<td class = 'fa fa-cog' style = 'color:red;cursor: pointer;'"+
-                                            //     "onclick='javascript:adminEditPassword(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
-                                            // "</td>"+
                                         "</tr>";
+                    //$('#userdata tr:last').after(dataToAppend);
                     $(dataToAppend).appendTo("#userdata tbody");
 
                     // Get user credentials
@@ -162,7 +159,12 @@ function getUsers(display)
                             $("#account_status_"+receivedData[0].user_id).html("<span style ='color:green'>"+receivedData[0].account_status+"</span>")
                         }
                     );
-                }  
+                }
+                // dataTable();
+                $(function()
+                {
+                    $("#userdata").dataTable();
+                });
             }
         );
     }
