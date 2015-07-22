@@ -201,7 +201,7 @@ function getARTAnalytics()
 	                var the_number = 0;
 	                var selectedOrgUnitID = selectedOrgUnit[the_number].getAttribute("value");
 	                var selectedOrgUnitLevel = selectedOrgUnit[the_number].getAttribute("level");
-
+                    var periodOfTheReport="";
 	                // Year of the report
                     var year= document.getElementById("year");
                     var yearOptions = year.options[year.selectedIndex].value;
@@ -220,7 +220,8 @@ function getARTAnalytics()
 	                {
 	                    // Patients By Ordering Points
                         generateReportPatientsByOrderingPoints(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
-	                }
+
+                    }
 
 	                else if(selectedReportID == "Patients By Regimen")
 	                {
@@ -254,6 +255,7 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     var dataSet="VOzBhzjvVcw";
     var mflCode="";
     var facilityName="";
+    var programId=1;
 
     var url_facility_fmaps="api/get_facility_fmaps_report.php";
     var templateUrl="client/report_templates/art_report.php";
@@ -261,57 +263,64 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     var urlDataSetTemplate="api/get_dataset_template.php";
     $.get(templateUrl).then
     (function(responseData) {
-        $('div#facilities').empty();
-        $('div#facilities').append(responseData);
-        $('#formName').append("List of ART Patients By Ordering Points");
-        $('#orgUnitLevel').append(orgUnitLevel);
-        $('#period').append(generateYearName(period));
+        $.get("db/fetch/get_orgunit_level_by_name.php",
+            {org_unit:orgUnitID,org_unit_level:orgUnitLevel},
+            function(orgUnitName){
+                //alert(orgUnitName);
+                $('div#facilities').empty();
+                $('div#facilities').append(responseData);
+                $('#formName').append("List of ART Patients By Ordering Points");
+                $('#orgUnitName').append(orgUnitName.toUpperCase());
+                $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
+                $('#period').append(generateYearName(period));
 
-        $.getJSON("db/fetch/list_ordering_points.php",
-            {program_id:1,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
-            function(facilities){
+                $.getJSON("db/fetch/list_ordering_points.php",
+                    {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                    function(facilities){
 
-                $.each(facilities,function(key, facility){
-                    orgUnits.push(facility.facility_id);
-                });
-
-                if(orgUnits.length==0){
-
-                    $("#loading").empty();
-                    $("#loading").append("No Ordering Points for the Organisation Level Selected");
-                }
-                else{
-
-                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
-                    $.getJSON(url_facility_fmaps,
-                        {dataSet:dataSet,period:period,orgUnits:orgUnits},
-                        function(response){
-                            console.log(response);
-                            $("#loading").empty();
-                            $("#formData").empty();
-
-                            $.each(response,function(index, obj){
-
-                                var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
-                                mflCode=facility[0].mfl_code;
-                                facilityName=facility[0].facility_name;
-
-                                $("#formData").append("<tr>" +
-                                "<td>"+(index+1)+"</td>"+
-                                "<td>"+mflCode+"</td>"+
-                                "<td>"+facilityName+"</td>"+
-                                "<td>"+obj.data.adult_art+"</td>"+
-                                "<td>"+obj.data.pep_adults+"</td>"+
-                                "<td>"+obj.data.pmtct_women+"</td>"+
-                                "<td>"+obj.data.paediatric_art+"</td>"+
-                                "<td>"+obj.data.pep_children+"</td>"+
-                                "<td>"+obj.data.ipt+"</td>"+
-                                "<tr>");
-                            });
+                        $.each(facilities,function(key, facility){
+                            orgUnits.push(facility.facility_id);
                         });
-                }
-        });
 
+                        if(orgUnits.length==0){
+
+                            $("#loading").empty();
+                            $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                        }
+                        else{
+
+                            $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+                            $.getJSON(url_facility_fmaps,
+                                {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                function(response){
+                                    //console.log(response);
+                                    $("#loading").empty();
+                                    $("#formData").empty();
+
+                                    $.each(response,function(index, obj){
+
+                                        var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
+                                        mflCode=facility[0].mfl_code;
+                                        facilityName=facility[0].facility_name;
+
+                                        $("#formData").append("<tr>" +
+                                        "<td>"+(index+1)+"</td>"+
+                                        "<td>"+mflCode+"</td>"+
+                                        "<td>"+facilityName+"</td>"+
+                                        "<td>"+obj.data.adult_art+"</td>"+
+                                        "<td>"+obj.data.pep_adults+"</td>"+
+                                        "<td>"+obj.data.pmtct_women+"</td>"+
+                                        "<td>"+obj.data.paediatric_art+"</td>"+
+                                        "<td>"+obj.data.pep_children+"</td>"+
+                                        "<td>"+obj.data.ipt+"</td>"+
+                                        "<tr>");
+                                    });
+                                });
+                        }
+                    });
+
+
+            });
     });
 
 
