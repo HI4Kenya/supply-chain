@@ -36,6 +36,12 @@
         <!-- jQuery.confirm -->
         <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
 
+        <!-- Morris JS -->
+        <script type="text/javascript" src="assets/template/js/plugins/morris/morris.min.js"></script>
+
+        <!-- Morris JS -->
+        <script type="text/javascript" src="assets/template/js/plugins/morris/raphael-min.js"></script>
+
         <!-- PROJECT JS -->  
         <script type="text/javascript" src="assets/projectjs/artReports.js"></script>      
         <script type="text/javascript" src="assets/projectjs/classification.js"></script>
