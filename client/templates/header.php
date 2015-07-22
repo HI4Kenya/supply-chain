@@ -35,7 +35,8 @@
 
         <!-- jQuery.confirm -->
         <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
-
+<!--        Excel Export js-->
+        <script type="text/javascript" src="assets/js/excellentexport.js"></script>
         <!-- PROJECT JS -->  
         <script type="text/javascript" src="assets/projectjs/artReports.js"></script>      
         <script type="text/javascript" src="assets/projectjs/classification.js"></script>
