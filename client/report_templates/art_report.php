@@ -34,8 +34,10 @@
                 <th>Paed PMTCT</th>
                 </thead>
                 <tbody id="formData">
-
                 </tbody>
+                <tfoot class="text-success" id="grandTotal">
+
+                </tfoot>
 
             </table>
         </div>
