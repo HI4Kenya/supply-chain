@@ -247,7 +247,7 @@ function getARTAnalytics()
 //Function to Generate Report for ART Patients By Ordering Points
 function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
-    alert(period+""+orgUnitID+""+orgUnitLevel);
+    //alert(period+""+orgUnitID+""+orgUnitLevel);
     //orgUnits for the Selected Level
     var orgUnits=[];
         //["AwVQ3uJftlj","DMF5wWYxVHg"];
