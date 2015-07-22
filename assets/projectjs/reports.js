@@ -1389,7 +1389,6 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
 {
     var urlDataSetTemplate="api/get_dataset_template.php";
-    console.log(satellites);
     $.get(templateUrl).then
     (
         function(responseData)
@@ -1739,7 +1738,7 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
 
                             //Method to post data values back to DHIS2
                             $(".post-data").click(function(){
-                                console.log(post_data);
+                                //console.log(post_data);
                                 $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
                                 $.post(urlPostToDHIS, {"post":post_data},
                                     function(data, status){
