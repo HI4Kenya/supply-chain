@@ -15,8 +15,8 @@
         require '../db_auth/db_con.php';
 
         $data = array();
-        $programs = "SELECT * FROM counties ORDER BY county_name";
-        $result = mysqli_query($conn,$programs);
+        $counties = "SELECT * FROM counties ORDER BY county_name";
+        $result = mysqli_query($conn,$counties);
         if(mysqli_num_rows($result)>0)
         {
             while($row = mysqli_fetch_assoc($result)) 

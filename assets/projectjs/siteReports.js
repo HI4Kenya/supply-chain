@@ -581,21 +581,6 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
 
         $('div#facilities').html(chartToAppend);
 
-        Morris.Bar
-        (
-            {
-                element: 'orderingpoints-bar-chart',
-                data: 
-                [
-                    { y: 'County',a: 0},
-                ],
-                xkey: 'y',
-                ykeys: ['a'],
-                labels: ['County'],
-                barColors: ['#33414E']
-            }
-        );
-
         // Place a post request
         /*NOTES:
             At positions
@@ -605,8 +590,6 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                 3 - Total Ordering Points
                 4 - County ID
         */
-        var countyDetails = [];
-        var countyData = [];
 
         var countiesUrl = "db/fetch/get_counties.php";
         $.getJSON
@@ -614,36 +597,36 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
             countiesUrl,
             function(counties)
             {
-                for(var counting=0; counting<counties.length;counting++)
-                {
-                    countyDetails.push(counties[counting].county_name);
+                var countyData = [];
+
+                $.each(counties, function(index, county){
 
                     var dataUrl = "db/fetch/ordering_points_distribution.php";
                     $.getJSON
                     (
                         dataUrl,
-                        {program_id:program,org_unit:counties[counting].county_id,org_unit_level:orgUnitLevel},
+                        {program_id:program,org_unit:county.county_id,org_unit_level:orgUnitLevel},
                         function(results)
                         {
-                            countyData.push(results[3]);
+                            countyData.push({y:county.county_name,a:results[3]});
+                            //console.log(countyData);
                         }
                     );
-                }
+                });
+
+                console.log(countyData);
+                
+                Morris.Bar({
+                    element: 'orderingpoints-bar-chart',
+                    data: countyData,
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['Series A'],
+                    barColors: ['#B64645']
+                });
             }
         );
-        //alert(countyDetails.length);
-        // var parsedCountyDetails = $.parseJSON(countyDetails);
-        // var parsedCountyData = $.parseJSON(countyData);
-
-        // alert(parsedCountyDetails.length);
-
-        // for(var i = 0; i<47; i++)
-        // {
-        //     alert(countyDetails.length);
-        // }
-
-        console.log(countyDetails);
-        // console.log(countyData);
+    
     }
 
     else if((selectedview == "Bar Chart")&&(type == "Service Points"))
