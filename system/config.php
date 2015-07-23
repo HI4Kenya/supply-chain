@@ -8,7 +8,7 @@
     # Edit accordingly
     $server = "localhost";
     $user = "root";
-    $password = "1234pass";
+    $password = "root";
     $database = "msh";
 
     # DHIS2 Deployed URL
