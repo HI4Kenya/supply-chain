@@ -16,18 +16,21 @@
 
     <body style = "background-color:#1d5288">
 
-        <div style = "background-color:;width:30%;height:10em;text-align:left;margin-left:530px">
-            
-            <img style ='width:50%;height:70%;margin-left:50px;margin-top:10px;margin-right:10px;float:left;border-radius:1px' 
-            src='assets/img/logos/MOH.jpg'>
+        <div style = "background-color:;width:100%;height:10em;text-align:left;">
+            <img style ='width:10%;height:50%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
+              src='assets/img/logos/MOH.jpg'>
+            <h3>
+                <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome'>
+                    Supply Pipeline Hierarchy Tool
+                </p>
+            </h3>
 
-            <div style = "margin-top:90px;position:absolute;margin-left:10px">
-                <h3>
-                    <p style = 'color:white;padding-top:20px;font-family:FontAwesome'>
-                      Supply Pipeline Hierarchy Tool
-                    </p>
-                </h3>
-            </div>
+            <h4>
+                <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal'>
+                    Welcome to the Kenya Health <br>
+                    Information System
+                </p>
+            </h4>
         </div>
 
         <!-- Login panel -->
@@ -53,7 +56,7 @@
 
         <!-- Logos -->
 
-        <div style = "background-color:white;width:17%;height:12%;position:absolute;margin-left:570px;margin-top:380px;border-radius:5px">            
+        <div style = "background-color:;width:40%;height:15%;position:absolute;margin-left:50px;margin-top:370px;border-radius:5px">            
             <img style ='width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
             src='assets/img/logos/usaid_logo.png'>
 
