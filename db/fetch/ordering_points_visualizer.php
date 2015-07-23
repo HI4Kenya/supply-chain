@@ -25,7 +25,6 @@
             while($the_row = mysqli_fetch_assoc($result)) 
             {
                 $org_unit = $the_row['county_id'];
-                $facility_data [] = $the_row['county_name'];
 
                 // Fetch all sub counties whose parent are the current county
                 $sub_counties_query = "SELECT * FROM sub_counties WHERE parent_id = '$org_unit'";
@@ -118,7 +117,9 @@
                 }
                 // Total
                 $Total = $scs_count+$cs_count+$sa_count;
-                $facility_data[] = $Total;
+
+                $data= array('y' => $the_row['county_name'],'a'=>$Total);
+                array_push($facility_data, $data);
             }
             
             $return = json_encode($facility_data);
