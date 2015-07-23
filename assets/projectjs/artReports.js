@@ -255,7 +255,7 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     var dataSet="VoCwF0LPGjb";//"VOzBhzjvVcw";
     var mflCode="";
     var facilityName="";
-    var programId=1;
+    var programId=3;
 
     var url_facility_fmaps="api/get_facility_fmaps_report.php";
     var templateUrl="client/report_templates/art_report.php";
@@ -295,6 +295,17 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
                                 $('#loading').html("Try Loading Again");
                             }, 60000);
 
+                            setTimeout(function(){
+                                $('#loading').html("");
+                            }, 70000);
+
+                            //$('#artReport').dataTable({
+                            //    "paging":   false,
+                            //    "ordering": true,
+                            //    "info":     false,
+                            //    "searching":false
+                            //});
+
                             $.getJSON(url_facility_fmaps,
                                 {dataSet:dataSet,period:period,orgUnits:orgUnits},
                                 function(response){
@@ -322,7 +333,7 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
                                             mflCode=facility[0].mfl_code;
                                             facilityName=facility[0].facility_name;
 
-                                            $("#formData").append("<tr>" +
+                                           $('#formData').append("<tr>" +
                                             "<td>"+(index+1)+"</td>"+
                                             "<td>"+mflCode+"</td>"+
                                             "<td>"+facilityName+"</td>"+
@@ -342,9 +353,6 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
             });
     });
-
-
-
 }
 
 //Function for formatting the date

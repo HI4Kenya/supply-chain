@@ -129,6 +129,7 @@ else
 
         array_push($report,$data);
     }
+
     $grand_data=array(
         'orgUnit'=>'grand_total',
         'data'=>array(
