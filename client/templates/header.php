@@ -36,16 +36,17 @@
         <!-- jQuery.confirm -->
         <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
 
-
         <!-- Morris JS -->
         <script type="text/javascript" src="assets/template/js/plugins/morris/morris.min.js"></script>
 
         <!-- Morris JS -->
         <script type="text/javascript" src="assets/template/js/plugins/morris/raphael-min.js"></script>
 
-
-<!--        Excel Export js-->
+        <!-- Excel Export js-->
         <script type="text/javascript" src="assets/js/excellentexport.js"></script>
+
+        <!-- Google Charts API -->
+        <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
 
         <!-- PROJECT JS -->  
         <script type="text/javascript" src="assets/projectjs/artReports.js"></script>      
