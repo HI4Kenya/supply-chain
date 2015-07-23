@@ -214,13 +214,22 @@ function listSites(type,program,orgUnit, orgUnitLevel)
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
                         "<div class='panel-heading'>"+
-                            "<h3 class='panel-title'>"+
+                            "<h3 class='panel-title' id='reportTitle'>"+
                                 "<span>Program: ART</span><br>"+
                                 "<span>Pipeline: KEMSA</span><br>"+
                                 "<span>Date Generated: <span style = 'color:green'>"+dateGenerated+"</span></span><br>"+
-                            "</h3>"+                                
+                            "</h3>"+
+                            "<div class='col-md-offset-10'>"+
+                                "<span>"+
+                                    "<a  class='btn btn-default' download='list_of_ordering_points_"+orgUnitLevel+".xls' href='#'"+
+                                        "onclick='return ExcellentExport.excel(this, \"orderingpoints\", \"reportTitle\");'>"+
+                                        "<i class='fa fa-file-excel-o'></i>Export"+
+                                    "</a>"+
+                                "</span>"+
+                            "</div>"+                              
                         "</div>"+
-                        "<table id= 'orderingpoints' style = 'border-radius:5px;width:95%;margin-top:5px'>"+
+
+                        "<table id= 'orderingpoints' class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>MFL Code</th>"+
@@ -294,7 +303,22 @@ function listSites(type,program,orgUnit, orgUnitLevel)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> List of Service Points</span>");
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
-                        "<table id= 'servicepoints' style = 'border-radius:5px;width:95%'>"+
+                        "<div class='panel-heading'>"+
+                            "<h3 class='panel-title' id='reportTitle'>"+
+                                "<span>Program: ART</span><br>"+
+                                "<span>Pipeline: KEMSA</span><br>"+
+                                "<span>Date Generated: <span style = 'color:green'>"+dateGenerated+"</span></span><br>"+
+                            "</h3>"+
+                            "<div class='col-md-offset-10'>"+
+                                "<span>"+
+                                    "<a  class='btn btn-default' download='list_of_service_points_"+orgUnitLevel+".xls' href='#'"+
+                                        "onclick='return ExcellentExport.excel(this, \"servicepoints\", \"reportTitle\");'>"+
+                                        "<i class='fa fa-file-excel-o'></i>Export"+
+                                    "</a>"+
+                                "</span>"+
+                            "</div>"+                              
+                        "</div>"+
+                        "<table id= 'servicepoints' class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>MFL Code</th>"+
@@ -356,17 +380,17 @@ function listSites(type,program,orgUnit, orgUnitLevel)
 
                             if(receivedDetails[0] == "Dispensing Point")
                             {
-                                $("#dispensing_point_"+receivedDetails[3]).html("<span class = 'fa fa-times' style = 'margin-left:40px'></span>");
+                                $("#dispensing_point_"+receivedDetails[3]).html("<span style = 'text-align:center'>x</span>");
                             }
 
                             else if(receivedDetails[0] == "Satellite Site")
                             {
-                                $("#satellite_site_"+receivedDetails[3]).html("<span class = 'fa fa-times' style = 'margin-left:40px'></span>");
+                                $("#satellite_site_"+receivedDetails[3]).html("<span style = 'text-align:center'>x</span>");
                             }
 
                             else if(receivedDetails[0] == "StandAlone")
                             {
-                                $("#standalone_site_"+receivedDetails[3]).html("<span class = 'fa fa-times' style = 'margin-left:40px'></span>");
+                                $("#standalone_site_"+receivedDetails[3]).html("<span style = 'text-align:center'>x</span>");
                             }
                         }
 
@@ -405,7 +429,7 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                                 "</select>"+
                             "</h3>"+                                
                         "</div>"+
-                        "<table id= 'orderingpointsdistribution' style = 'border-radius:5px;width:95%'>"+
+                        "<table id= 'orderingpointsdistribution' class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>County</th>"+
@@ -414,7 +438,7 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                                 "<th style = 'font-weight:bold'>Standalone sites</th>"+
                                 "<th style = 'font-weight:bold'>Total of Ordering Points</th>"+                           
                             "</thead>"+
-                            "<tbody id = 'tbody'>"+
+                            "<tbody id = 'tbody' style = 'text-align:center'>"+
                             "</tbody>"+
                         "</table>"+
                     "</div>";
@@ -481,7 +505,7 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> Service Points Distribution by County</span>");
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
-                        "<table id= 'servicepointsdistribution' style = 'border-radius:5px;width:95%'>"+
+                        "<table id= 'servicepointsdistribution' class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>County</th>"+
@@ -591,42 +615,58 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                 4 - County ID
         */
 
-        var countiesUrl = "db/fetch/get_counties.php";
-        $.getJSON
-        (
-            countiesUrl,
-            function(counties)
+        var dataUrl = "db/fetch/ordering_points_visualizer.php";
+        $.ajax
+        ({
+            type: 'GET',
+            url: dataUrl,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function(values) 
             {
-                var countyData = [];
+                Morris.Bar
+                (
+                    {
+                        element: 'orderingpoints-bar-chart',
+                        data: 
+                        [
+                            { y: values[0],a:values[1]},
+                            { y: values[2],a:values[3]},
+                            { y: values[4],a:values[5]},
+                            { y: values[6],a:values[7]},
+                            { y: values[8],a:values[9]},
+                            { y: values[10],a:values[11]},
+                            { y: values[12],a:values[13 ]},
+                            { y: values[14],a:values[15]},
+                            { y: values[16],a:values[17]},
+                            { y: values[18],a:values[19]},
+                            { y: values[20],a:values[21]},
+                            { y: values[22],a:values[23]},
+                            { y: values[24],a:values[25]},
+                            { y: values[26],a:values[27]},
+                            { y: values[28],a:values[29]},
+                            { y: values[30],a:values[31]},
+                            { y: values[32],a:values[33]},
+                            { y: values[34],a:values[35]},
+                            { y: values[36],a:values[37]},
+                            { y: values[38],a:values[39]},
+                            { y: values[40],a:values[41]},
+                            { y: values[42],a:values[43]},
+                            { y: values[44],a:values[45]},
+                            { y: values[46],a:values[47]}
+                        ],
+                        xkey: ['y'],
+                        ykeys: ['a'],
+                        labels: ['County'],
+                        barColors: ['#33414E']
+                    }
+                );
+            },
+            error:function(error)
+            {
 
-                $.each(counties, function(index, county){
-
-                    var dataUrl = "db/fetch/ordering_points_distribution.php";
-                    $.getJSON
-                    (
-                        dataUrl,
-                        {program_id:program,org_unit:county.county_id,org_unit_level:orgUnitLevel},
-                        function(results)
-                        {
-                            countyData.push({y:county.county_name,a:results[3]});
-                            //console.log(countyData);
-                        }
-                    );
-                });
-
-                console.log(countyData);
-                
-                Morris.Bar({
-                    element: 'orderingpoints-bar-chart',
-                    data: countyData,
-                    xkey: 'y',
-                    ykeys: ['a'],
-                    labels: ['Series A'],
-                    barColors: ['#B64645']
-                });
             }
-        );
-    
+        });    
     }
 
     else if((selectedview == "Bar Chart")&&(type == "Service Points"))

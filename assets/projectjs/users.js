@@ -99,7 +99,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
-                        "<table id= 'userdata' class = 'table' style = 'border-radius:5px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped datatable' style = 'border-radius:5px;width:95%'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>User</th>"+
@@ -108,7 +108,7 @@ function getUsers(display)
                                 "<th style = 'font-weight:bold'>phone</th>"+
                                 "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
                                 "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
-                                "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
+                                "<th style = 'font-weight:bold;color:green'>Account</th>"+
                                 "<th style = 'font-weight:bold;color:blue'>Edit</th>"+                            
                             "</thead>"+
                             "<tbody id = 'tbody'>"+
@@ -161,10 +161,10 @@ function getUsers(display)
                     );
                 }
                 // dataTable();
-                $(function()
-                {
-                    $("#userdata").dataTable();
-                });
+                // $(function()
+                // {
+                //     $("#userdata").dataTable();
+                // });
             }
         );
     }
@@ -175,7 +175,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>DEACTIVATE USERS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             // "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -242,7 +242,12 @@ function getUsers(display)
                             }
                         }
                     );
-                } 
+                }
+                // dataTable();
+                $(function()
+                {
+                    $("#userdata").dataTable();
+                });
             }
         );
     }
@@ -253,7 +258,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> LIST OF CREATED USERS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -307,7 +312,12 @@ function getUsers(display)
                             $("#role_"+receivedData[0].user_id).html("<span style ='color:green'>"+receivedData[0].role+"</span>");
                         }
                     );
-                }  
+                }
+                // dataTable();
+                $(function()
+                {
+                    $("#userdata").dataTable();
+                }); 
             }
         );
         $(function()
