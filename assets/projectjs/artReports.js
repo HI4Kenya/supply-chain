@@ -224,7 +224,7 @@ function getARTAnalytics()
 
 	                else if(selectedReportID == "Patients By Regimen")
 	                {
-	                    // Patients By Regimen
+	                  generateReportPatientsByRegimen(periodOfTheReport,selectedOrgUnitID);
 	                }
 
 	                else if(selectedReportID == "Stock Status")
@@ -317,7 +317,49 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
 
 }
+// function to generate report by Regimen
+function generateReportPatientsByRegimen(period,orgUnitID){
 
+    // alert(period+""+orgUnitID+);
+    //orgUnits for the Selected Level
+    var dataSet="VOzBhzjvVcw";
+    var  id="Js2jIKhWf6P";
+    var url_regimen_report="api/valuesets.php";
+    var templateUrl="client/report_templates/patients_regimen_report.php";
+
+    var urlDataSetTemplate="api/get_dataset_template.php";
+    $.get(templateUrl).then
+    (function(responseData) {
+        $('div#facilities').empty();
+        $('div#facilities').append(responseData);
+        $('#formName').append("Summary report patients by Regimen");
+        $('#period').append(generateYearName(period));
+                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+                    $.getJSON(url_regimen_report,
+                        {dataSet:dataSet,period:period,orgUnit:id},
+                        function(obj){
+                            console.log(obj);
+                            // console.log(response);
+                            $("#loading").empty();
+                            $("#formData").empty();
+
+                                $("#formData").append("<tr>" +
+                                "<td>"+obj.data.adult_art+"</td>"+
+                                "<td>"+obj.data.pep_adults+"</td>"+
+                                "<td>"+obj.data.pmtct_women+"</td>"+
+                                "<td>"+obj.data.paediatric_art+"</td>"+
+                                "<td>"+obj.data.pep_children+"</td>"+
+                                "<td>"+obj.data.ipt+"</td>"+
+                                "<tr>");
+                            });
+                
+        });
+
+    
+
+
+
+}
 //Function for formatting the date
 function generateYearName(date){
     var str = date;
