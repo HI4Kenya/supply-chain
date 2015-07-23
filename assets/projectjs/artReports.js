@@ -230,7 +230,7 @@ function getARTAnalytics()
 
 	                else if(selectedReportID == "Stock Status")
 	                {
-	                    // Stock Status
+                        generateStockStatusReport(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
 	                }
 
 	                else if(selectedReportID == "Reporting Rate")
@@ -354,48 +354,137 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
             });
     });
 }
+
+
 // function to generate report by Regimen
-function generateReportPatientsByRegimen(period,orgUnitID){
+function generateReportPatientsByRegimen(period,orgUnitID) {
 
     // alert(period+""+orgUnitID+);
     //orgUnits for the Selected Level
-    var dataSet="VOzBhzjvVcw";
-    var  id="Js2jIKhWf6P";
-    var url_regimen_report="api/valuesets.php";
-    var templateUrl="client/report_templates/patients_regimen_report.php";
+    var dataSet = "VOzBhzjvVcw";
+    var id = "Js2jIKhWf6P";
+    var url_regimen_report = "api/valuesets.php";
+    var templateUrl = "client/report_templates/patients_regimen_report.php";
 
-    var urlDataSetTemplate="api/get_dataset_template.php";
+    var urlDataSetTemplate = "api/get_dataset_template.php";
     $.get(templateUrl).then
-    (function(responseData) {
+    (function (responseData) {
         $('div#facilities').empty();
         $('div#facilities').append(responseData);
         $('#formName').append("Summary report patients by Regimen");
         $('#period').append(generateYearName(period));
-                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
-                    $.getJSON(url_regimen_report,
-                        {dataSet:dataSet,period:period,orgUnit:id},
-                        function(obj){
-                            console.log(obj);
-                            // console.log(response);
-                            $("#loading").empty();
-                            $("#formData").empty();
+        $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+        $.getJSON(url_regimen_report,
+            {dataSet: dataSet, period: period, orgUnit: id},
+            function (obj) {
+                console.log(obj);
+                // console.log(response);
+                $("#loading").empty();
+                $("#formData").empty();
 
-                                $("#formData").append("<tr>" +
-                                "<td>"+obj.data.adult_art+"</td>"+
-                                "<td>"+obj.data.pep_adults+"</td>"+
-                                "<td>"+obj.data.pmtct_women+"</td>"+
-                                "<td>"+obj.data.paediatric_art+"</td>"+
-                                "<td>"+obj.data.pep_children+"</td>"+
-                                "<td>"+obj.data.ipt+"</td>"+
-                                "<tr>");
+                $("#formData").append("<tr>" +
+                "<td>" + obj.data.adult_art + "</td>" +
+                "<td>" + obj.data.pep_adults + "</td>" +
+                "<td>" + obj.data.pmtct_women + "</td>" +
+                "<td>" + obj.data.paediatric_art + "</td>" +
+                "<td>" + obj.data.pep_children + "</td>" +
+                "<td>" + obj.data.ipt + "</td>" +
+                "<tr>");
+            });
+
+    });
+
+}
+
+//Function to Generate Stock Status Report
+function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
+
+    var dataElements=null;
+    $.getJSON("api/dataElements.json", function (response) {
+        dataElements=response.dataElements;
+
+        console.log(dataElements);
+        //orgUnits for the Selected Level
+        var orgUnits=[];//["AwVQ3uJftlj","Js2jIKhWf6P"];
+        var dataSet="rV6fPhufzlU";  //"VOzBhzjvVcw";
+        var dataElementName="";
+        var facilityName="";
+        var programId=3;
+
+        var url_facility_fmaps="api/get_stock_status.php";
+        var templateUrl="client/report_templates/stock_status_report.php";
+
+        $.get(templateUrl).then
+        (function(responseData) {
+            $.get("db/fetch/get_orgunit_level_by_name.php",
+                {org_unit:orgUnitID,org_unit_level:orgUnitLevel},
+                function(orgUnitName){
+                    //alert(orgUnitName);
+                    $('div#facilities').empty();
+                    $('div#facilities').append(responseData);
+                    $('#formName').append("List of ART Service Points");
+                    $('#orgUnitName').append(orgUnitName.toUpperCase());
+                    $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
+                    $('#period').append(generateYearName(period));
+
+                    $.getJSON("db/fetch/list_service_points.php",
+                        {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                        function(facilities){
+
+                            $.each(facilities,function(key, facility){
+                                orgUnits.push(facility.facility_id);
                             });
-                
+
+                            if(orgUnits.length==0){
+
+                                $("#loading").empty();
+                                $("#loading").append("No DataElements available");
+                            }
+                            else{
+
+                                $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+
+                                setTimeout(function(){
+                                    $('#loading').html("Try Loading Again");
+                                }, 60000);
+
+                                setTimeout(function(){
+                                    $('#loading').html("");
+                                }, 61000);
+
+
+                                $.getJSON(url_facility_fmaps,
+                                    {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                    function(response){
+                                        //console.log(response);
+                                        $("#loading").empty();
+                                        $("#formData").empty();
+
+                                        $.each(response,function(index, obj){
+
+                                            var objData=$.grep(dataElements, function(e){ return e.id==obj.dataElement;});
+                                            console.log(objData);
+                                            dataElementName=objData[0].name;
+
+                                            $('#formData').append("<tr>" +
+                                            "<td>"+(index+1)+"</td>"+
+                                            "<td>"+dataElementName+"</td>"+
+                                            "<td>"+obj.consumption+"</td>"+
+                                            "<td>"+obj.stock_at_hand+"</td>"+
+                                            "<td>"+obj.resupply_quantity+"</td>"+
+                                            "<td>"+obj.months_stock+"</td>"+
+                                            "<tr>");
+                                        });
+                                    });
+                            }
+                        });
+
+
+                });
         });
 
-    
 
-
-
+    });
 }
 //Function for formatting the date
 function generateYearName(date){
