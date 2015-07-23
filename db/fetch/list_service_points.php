@@ -24,8 +24,8 @@
         /*KENYA LEVEL*/
         if($org_unit_level == "national")
         {
-            $sites = "SELECT * FROM facility_program_mapping WHERE classification = 'Satellite Site' 
-            OR classification = 'StandAlone' AND program_id = '$program'";
+            $sites = "SELECT * FROM facility_program_mapping WHERE (classification = 'Satellite Site' 
+            OR classification = 'StandAlone') AND program_id = '$program'";
             $sites_response = mysqli_query($conn,$sites);
             if(mysqli_num_rows($sites_response)>0)
             {
@@ -69,8 +69,8 @@
                 for($i=0;$i<$count;$i++)
                 {
                     $parent_id = $sc_id[$i];
-                    $sites = "SELECT * FROM facility_program_mapping WHERE classification = 'Satellite Site' 
-                    OR classification = 'StandAlone' AND program_id = '$program'";
+                    $sites = "SELECT * FROM facility_program_mapping WHERE (classification = 'Satellite Site' 
+                    OR classification = 'StandAlone') AND program_id = '$program'";
                     $sites_response = mysqli_query($conn,$sites);
                     if(mysqli_num_rows($sites_response)>0)
                     {
@@ -99,8 +99,8 @@
         /*SUB COUNTY LEVEL*/
         else if($org_unit_level == "sub_county")
         {
-            $sites = "SELECT * FROM facility_program_mapping WHERE classification = 'Satellite Site' 
-            OR classification = 'StandAlone' AND program_id = '$program'";
+            $sites = "SELECT * FROM facility_program_mapping WHERE (classification = 'Satellite Site' 
+            OR classification = 'StandAlone') AND program_id = '$program'";
             $sites_response = mysqli_query($conn,$sites);
             if(mysqli_num_rows($sites_response)>0)
             {
