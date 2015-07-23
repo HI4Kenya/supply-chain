@@ -17,6 +17,7 @@
 
     //HTTP GET request -Using Curl -Response JSON
    $period = "201501";
+    $orgUnits = $_GET['orgUnits'];
    $dataSet=$_GET['dataSet'];
     $orgUnit =$_GET['orgUnit'];
     $report=array();
@@ -40,6 +41,19 @@
         $sum_pep_children=0;
         $sum_universal_prophylaxis=0;
 
+       foreach($orgUnits as $orgUnit){
+
+        $sum_adult_art=0;
+        $sum_adult_pep=0;
+        $sum_adult_pmtct=0;
+        $sum_paediatric_art=0;
+        $sum_paediatric_pmtct=0;
+        $sum_paediatric_pep=0;
+
+//        $sum_universal_prophylaxis=0;
+//        $sum_diflucan_donation=0;
+//        $sum_pmtct_women=0;
+
         $url = $dhis_url."/api/dataValueSets?";
 
         $data = array("dataSet" => "$dataSet", "period" => "$period", "orgUnit" => "$orgUnit");
@@ -59,7 +73,7 @@
         curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
         //execute
-       $result = curl_exec($ch);
+        $result = curl_exec($ch);
 
         //close connection
         curl_close($ch);
@@ -75,60 +89,64 @@
                     $sum_adult_art=$sum_adult_art+intval($data_value["value"]);
                 }
 
+                if (in_array($data_value["dataElement"], $adult_pep)) {
+                    $sum_adult_pep=$sum_adult_pep+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $adult_pmtct)) {
+                    $sum_adult_pmtct=$sum_adult_pmtct+intval($data_value["value"]);
+                }
+
                 if (in_array($data_value["dataElement"], $paediatric_art)) {
                     $sum_paediatric_art=$sum_paediatric_art+intval($data_value["value"]);
                 }
 
-                if (in_array($data_value["dataElement"], $pep_adults)) {
-                    $sum_pep_adults=$sum_pep_adults+intval($data_value["value"]);
+                if (in_array($data_value["dataElement"], $paediatric_pep)) {
+                    $sum_paediatric_pep=$sum_paediatric_pep+intval($data_value["value"]);
                 }
-
-                if (in_array($data_value["dataElement"], $pep_children)) {
-                    $sum_pep_children=$sum_pep_children+intval($data_value["value"]);
-                }
-
-                if (in_array($data_value["dataElement"], $pmtct_women)) {
-                    $sum_pmtct_women=$sum_pmtct_women+intval($data_value["value"]);
-                }
-                if (in_array($data_value["dataElement"], $universal_prophylaxis)) {
-                    $sum_universal_prophylaxis=$sum_universal_prophylaxis+intval($data_value["value"]);
-                }
-
-                if (in_array($data_value["dataElement"], $ipt)) {
-                    $sum_ipt=$sum_ipt+intval($data_value["value"]);
-                }
-
-                if (in_array($data_value["dataElement"], $diflucan_donation)) {
-                    $sum_diflucan_donation=$sum_diflucan_donation+intval($data_value["value"]);
+                if (in_array($data_value["dataElement"], $paediatric_pmtct)) {
+                    $sum_paediatric_pmtct=$sum_paediatric_pmtct+intval($data_value["value"]);
                 }
             }
 
-             $data=array(
-            'orgUnit'=>$orgUnit,
-            'data'=>array(
-                'adult_art'=>$sum_adult_art,
-                'paediatric_art'=>$sum_paediatric_art,
-                'pmtct_women'=>$sum_pmtct_women,
-                'pep_children'=>$sum_pep_children,
-                'pep_adults'=>$sum_pep_adults,
-                'universal_prophylaxis'=>$sum_universal_prophylaxis,
-                'ipt'=>$sum_ipt,
-                'diflucan_donation'=>$sum_diflucan_donation)
-            );
-
-          echo json_encode($data);
         }
         else{
             //Do Nothing
-          
         }
 
-       
+        $data=array(
+            'orgUnit'=>$orgUnit,
+            'data'=>array(
+                'adult_art'=>$sum_adult_art,
+                'adult_pep'=>$sum_adult_pep,
+                'adult_pmtct'=>$sum_adult_pmtct,
+                'paediatric_art'=>$sum_paediatric_art,
+                'paediatric_pep'=>$sum_paediatric_pep,
+                'paediatric_pmtct'=>$sum_paediatric_pmtct)
+            );
 
-      
+        $grand_adult_art=$grand_adult_art+$sum_adult_art;
+        $grand_adult_pep=$grand_adult_pep+$sum_adult_pep;
+        $grand_adult_pmtct=$grand_adult_pmtct+$sum_adult_pmtct;
+        $grand_paediatric_art= $grand_paediatric_art+$sum_paediatric_art;
+        $grand_paediatric_pmtct=$grand_paediatric_pmtct+$sum_paediatric_pmtct;
+        $grand_paediatric_pep=$grand_paediatric_pep+$sum_paediatric_pep;
 
+        array_push($report,$data);
+    }
+$grand_data=array(
+        'orgUnit'=>'grand_total',
+        'data'=>array(
+            'adult_art'=>$grand_adult_art,
+            'adult_pep'=>$grand_adult_pep,
+            'adult_pmtct'=>$grand_adult_pmtct,
+            'paediatric_art'=>$grand_paediatric_art,
+            'paediatric_pep'=>$grand_paediatric_pep,
+            'paediatric_pmtct'=>$grand_paediatric_pmtct)
+    );
 
-
+    array_push($report,$grand_data);
+    echo json_encode($report);
 }
 
 ?>
