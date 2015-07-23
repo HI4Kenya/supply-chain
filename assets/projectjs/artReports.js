@@ -401,6 +401,7 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
 
     var dataElements=null;
     $.getJSON("api/dataElements.json", function (response) {
+
         dataElements=response.dataElements;
 
         console.log(dataElements);
@@ -446,11 +447,11 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
 
                                 setTimeout(function(){
                                     $('#loading').html("Try Loading Again");
-                                }, 60000);
+                                }, 50000);
 
                                 setTimeout(function(){
                                     $('#loading').html("");
-                                }, 61000);
+                                }, 50000);
 
 
                                 $.getJSON(url_facility_fmaps,

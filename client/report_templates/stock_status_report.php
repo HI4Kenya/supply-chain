@@ -12,7 +12,7 @@
 
             <div class="col-md-offset-10">
                 <span>
-                     <a  class="btn btn-success" download="list_of_patients_by_ordering_points.xls" href="#"
+                     <a  class="btn btn-success" download="stock_status_report.xls" href="#"
                          onclick="return ExcellentExport.excel(this, 'artReport', 'reportTitle');">
                          <i class="fa fa-file-excel-o"></i>Download as Excel
                      </a>
@@ -24,10 +24,10 @@
             <table class="table table-responsive table-striped dataTable" id="artReport">
                 <thead>
                 <th>#</th>
-                <th>Name Commodity</th>
+                <th>Name of Commodity</th>
                 <th>Aggregated Consumption</th>
-                <th>Aggregated Facility SOH</th>
-                <th>Aggregated Qty Requested for Resupply</th>
+                <th>Aggregated Facility Stock at Hand</th>
+                <th>Aggregated Quantity Requested for Resupply</th>
                 <th>Months of Stock</th>
                 </thead>
                 <tbody id="formData">
