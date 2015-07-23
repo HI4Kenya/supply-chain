@@ -1407,6 +1407,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                         $("#formData").empty();
                         $("#formData").append("Try Again");
                     }
+
                     $("#formData").empty();
                     $("#formData").append(htmlForm.dataEntryForm.htmlCode);
                     $("#formName").append(htmlForm.dataEntryForm.name);
