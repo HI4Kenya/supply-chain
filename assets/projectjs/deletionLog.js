@@ -4,7 +4,7 @@ function getDeletionLog()
 	$('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> DELETED DATA</span>");
 
     var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                    "<table id= 'deleteddata' style = 'border-radius:5px'>"+
+                    "<table id= 'deleteddata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                     "<thead>"+
                         "<th style = 'font-weight:bold'>#</th>"+
                         "<th style = 'font-weight:bold'>NO Deleted</th>"+
@@ -69,13 +69,14 @@ function getDeletionLog()
 	                    $("#deleted_by_user_"+theUser[theUser.length-1]+theUser[0].user_identifier).html(identifiedUser);
 	                }
 	            });
-            }  
+            }
+            // dataTable();
+            $(function()
+            {
+                $("#deleteddata").dataTable();
+            });  
         }
     );
-    // $(function()
-    // {
-    //     $("#deleteddata").dataTable();
-    // })
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------ */
