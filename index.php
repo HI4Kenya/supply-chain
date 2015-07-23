@@ -8,33 +8,33 @@
         <link href="assets/css/login.css" rel="stylesheet">
 
         <!-- jQuery v1.11.2 library-->
-        <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
         <!-- Login js -->
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
-        <script type="text/javascript" src="assets/js/loginjs/prefixfree.min.js"></script> 
     </head>
 
     <body style = "background-color:#1d5288">
 
         <div style = "background-color:;width:100%;height:10em;text-align:left;">
-          <img style ='width:10%;height:50%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
-          src='assets/img/KenyaFlagImage1.png'>
-          <h3>
-            <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome'>
-              Supply Pipeline Hierarchy Tool
-            </p>
-          </h3>
+            <img style ='width:10%;height:50%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
+              src='assets/img/logos/MOH.jpg'>
+            <h3>
+                <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome'>
+                    Supply Pipeline Hierarchy Tool
+                </p>
+            </h3>
 
-          <h4>
-            <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal'>
-              Welcome to the Kenya Health <br>
-              Information System
-            </p>
-          </h4>
+            <h4>
+                <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal'>
+                    Welcome to the Kenya Health <br>
+                    Information System
+                </p>
+            </h4>
         </div>
 
-        <div class="login" style = "width:">
+        <!-- Login panel -->
+        <div class="login">
             <!-- Messages -->
             <div id = "login_messages"></div>
 
@@ -54,19 +54,49 @@
             </div>
         </div>
 
-        <div id="footerArea" style = "margin-top:450px;text-align:left;border-top:1px solid white;font-family:LiberationSans, sans-serif;font-size:10pt">
+        <!-- Logos -->
+
+        <div style = "background-color:;width:40%;height:15%;position:absolute;margin-left:50px;margin-top:370px;border-radius:5px">            
+            <img style ='width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
+            src='assets/img/logos/usaid_logo.png'>
+
+            <img style ='width:25%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
+            src='assets/img/logos/Kenya-PEPFAR-Logo.png'>
+
+            <img style ='width:25%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
+            src='assets/img/logos/HCSM Logo Color.png'>
+        </div>
+
+        <!-- Footer -->
+
+        <div id="footerArea" style = "margin-top:470px;text-align:left;border-top:1px solid white;font-family:LiberationSans, sans-serif;font-size:10pt">
             <div id="leftFooterArea" class="innerFooterArea" style = 'margin-left:50px;padding-top:10px'>
                 Powered by 
-                <a href="http://www.twitter.com/kwahome_" style = 'color:white;margin-left:5px' target="_blank">
-                    <span class = "fa fa-twitter" style ="color:;"></span>
-                </a>
-                <a href="https://ke.linkedin.com/in/kelvinwahome" style = 'color:white;margin-left:5px' target="_blank">
-                    <span class = "fa fa-linkedin" style ="color:;"></span>
-                </a>
-                <a href="http://www.dhis2.org" style = 'color:white;margin-left:5px' target="_blank">DHIS 2</a>
+                &nbsp
+                *
                 <span id="applicationFooter">
-                  <a href="http://servicedesk.health.go.ke" style = 'color:white;margin-left:5px' target="_blank">
+                    <a href="http://www.twitter.com/kwahome_" class = "fa fa-twitter" style = 'color:silver;' target="_blank">
+                    </a>
+                </span>
+                *
+                <span id="applicationFooter">
+                    <a href="https://ke.linkedin.com/in/kelvinwahome" class = "fa fa-linkedin" style = 'color:silver;' target="_blank">
+                    </a>
+                </span>
+                *
+                <span id="applicationFooter">
+                    <a href="http://www.dhis2.org" style = 'color:white;' target="_blank">DHIS 2</a>
+                </span>
+                *
+                <span id="applicationFooter">
+                  <a href="http://servicedesk.health.go.ke" style = 'color:white;' target="_blank">
                     Report ANY System Problem to the Service Desk
+                  </a>
+                </span>
+                *
+                <span id="applicationFooter">
+                  <a href="http://dhis2-supply-chain-documentation.readthedocs.org/en/latest/index.html" style = 'color:white;' target="_blank">
+                    Documentation
                   </a>
                 </span>
             </div>

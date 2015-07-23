@@ -6,11 +6,13 @@ $(document).ready(function(){
 	    $(".user_logout_button").confirm({
 		    text: "Are you sure you want to logout?",
 		    title: "CONFIRM LOGOUT",
-		    confirm: function(button) {
+		    confirm: function(button) 
+		    {
 		        window.location.href="db/user_auth/sess_unset.php";
 		    },
 
-		    cancel: function(button) {
+		    cancel: function(button) 
+		    {
 		        // nothing to do
 		    },
 

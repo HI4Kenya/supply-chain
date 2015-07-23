@@ -126,7 +126,7 @@ function submitIt(btn)
   var programPickOLength = programPickOptions.length;
   var programPickIndex = 0;//programPickList.selectedIndex;
 
-  if(btn==2)
+  if(btn==3)
   {
     // Central Site picklist
     var CSpickList = document.getElementById("CSPickList");
@@ -145,7 +145,7 @@ function submitIt(btn)
         $('div#programs_search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
         if (CSpickOLength < 1) 
         {
-            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;font-size:8pt'>No Central Store has been selected. \nPlease add facilities from the Available list by selecting the facility and clicking the [>] button</span>");
+            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;font-size:8pt'>No Central Site has been selected. \nPlease add facilities from the Available list by selecting the facility and clicking the [>] button</span>");
             //alert("No Selections in the Picklist\nPlease Select using the [->] button");
             return false;
         }
@@ -197,172 +197,275 @@ function submitIt(btn)
     pickOptions[i].selected = true;
     //programPickOptions[i].selected = true;
 
-    /* Central Site */
+    /*Sub-County Stores*/
     if(btn == 1)
     {
         $.ajax
         (
             { 
                 type: "POST",   
-                     url: "db/insertion/insert_sites.php",   
-                     async: false,
-                     data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,type:"Central Site"},
-                     success:function(result)
-                     {
-                        if(result == -1)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
-                        }
-                        else if(result == 0)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central stores inserted<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                 url: "db/insertion/insert_sites.php",   
+                 async: false,
+                 data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,type:"Sub-County Store"},
+                 success:function(result)
+                 {
+                    if(result == -1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
+                    }
+                    else if(result == 0)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Sub-County Store inserted<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-                        else if(result == 1)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
-                        else if(result == 10)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a Stand Alone Site<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
-                        else if(result == 11)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                    else if(result == 1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 10)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a StandAlone Site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 11)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 12)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a central site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-                     }
+                 }
             }
         );
-
     }
-
-    /* Satellite Site */
+    /* Central Site */
     else if(btn == 2)
     {
         $.ajax
         (
             { 
                 type: "POST",   
-                     url: "db/insertion/insert_sites.php",   
-                     async: false,
-                     data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,central:CSpickOptions[CSPickIndex].value,type:"Satellite Site"},
-                     success:function(result)
-                     {
-                        if(result == -1)
-                        {
-                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
-                        }
-                        else if(result == 0)
-                        {
-                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Satellite Sites inserted<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                 url: "db/insertion/insert_sites.php",   
+                 async: false,
+                 data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,type:"Central Site"},
+                 success:function(result)
+                 {
+                    if(result == -1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
+                    }
+                    else if(result == 0)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central Sites inserted<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-                        else if(result == 1)
-                        {
-                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Satelite Site exists<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
-                        else if(result == 10)
-                        {
-                            $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Stand Alone Site<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
-                        else if(result == 11)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                    else if(result == 1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 10)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a StandAlone Site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 11)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 12)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a sub-county store<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-
-                     }
+                 }
             }
         );
 
     }
 
-    /*Stand Alone Sites*/
+    /* Satellite Site */
     else if(btn == 3)
     {
         $.ajax
         (
             { 
                 type: "POST",   
-                     url: "db/insertion/insert_sites.php",   
-                     async: false,
-                     data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,type:"StandAlone"},
-                     success:function(result)
-                     {
-                        if(result == -1)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
-                        }
-                        else if(result == 0)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Stand alone site inserted<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                 url: "db/insertion/insert_sites.php",   
+                 async: false,
+                 data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,parent:CSpickOptions[CSPickIndex].value,type:"Satellite Site"},
+                 success:function(result)
+                 {
+                    if(result == -1)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
+                    }
+                    else if(result == 0)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Satellite Sites inserted<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-                        else if(result == 1)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
+                    else if(result == 1)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Satelite Site exists<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 10)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a StandAlone Site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 11)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 12)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Sub-County Store<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                    else if(result == 13)
+                    {
+                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Central Site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
 
-                        else if(result == 10)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a central store<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
-                        else if(result == 11)
-                        {
-                            $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
-                            //Delete the item from the selected area
-                            var idOfSelectList = "SelectList";
-                            var idOfPickList = "PickList";
-                            delIt(idOfSelectList,idOfPickList);
-                        }
 
+                 }
+            }
+        );
 
-                     }
+    }
+
+    /*StandAlone Sites*/
+    else if(btn == 4)
+    {
+        $.ajax
+        (
+            { 
+                type: "POST",   
+                url: "db/insertion/insert_sites.php",   
+                async: false,
+                data:{program:programPickOptions[programPickIndex].value,data:pickOptions[i].value,type:"StandAlone"},
+                success:function(result)
+                {
+                    if(result == -1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
+                    }
+                    else if(result == 0)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>StandAlone site inserted<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+
+                    else if(result == 1)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+
+                    else if(result == 9)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a sub-county store<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+
+                    else if(result == 10)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a Central Site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+
+                    else if(result == 11)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+
+                    else if(result == 12)
+                    {
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Facility exists as a satellite site<br><br></span>");
+                        //Delete the item from the selected area
+                        var idOfSelectList = "SelectList";
+                        var idOfPickList = "PickList";
+                        delIt(idOfSelectList,idOfPickList);
+                    }
+                }
             }
         );
 
@@ -423,10 +526,10 @@ function filterFacilities(selectID,inputID)
 
 /*Function updateSelectList()*/
 //Use the DHIS2 Org Units to drill the list down
-function updateSelectList(level,unit_id)
+function updateSelectList(level,unit_id,icon,changeColor)
 {
     var url = "db/fetch/get_facilities.php";
-    $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");       
+    $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");   
     $.getJSON
     (
         url,
@@ -442,6 +545,108 @@ function updateSelectList(level,unit_id)
             $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
         }
     );
+
+    var color = $("#"+changeColor);
+    var icon = $("#"+icon);
+    var any = $(".color");
+
+    if(any.hasClass("clickedColorAlt"))
+    {
+
+        if (color.hasClass("unclickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                any.removeClass("clickedColorAlt").addClass("clickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                any.removeClass("clickedColorAlt color").addClass("clickedColor color");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColorAlt").addClass("unclickedColor");
+            }
+
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+
+        else if (color.hasClass("clickedColorAlt"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                color.removeClass("clickedColorAlt").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("glyphicon-minus-sign"))
+            {
+                color.removeClass("clickedColorAlt").addClass("clickedColor");
+            }
+        }
+    }
+    else if(any.hasClass("clickedColor"))
+    {
+        if (color.hasClass("unclickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            if(icon.hasClass("glyphicon-plus-sign"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            else if(icon.hasClass("fa fa-university"))
+            {
+                any.removeClass("clickedColor color").addClass("unclickedColor");
+            }
+            
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+    }
+
+    else
+    {
+        if (color.hasClass("unclickedColor"))
+        {
+            color.removeClass("unclickedColor").addClass("clickedColorAlt color");
+        } 
+
+        else if (color.hasClass("clickedColor"))
+        {
+            color.removeClass("clickedColor").addClass("clickedColorAlt color");
+        }
+
+    }
  
 }
 /*End Function*/

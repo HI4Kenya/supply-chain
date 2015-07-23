@@ -17,7 +17,7 @@
 **
 * ---------------------------------------------------------------------------------*/
 
-$( document ).ready
+$(document).ready
 (
   function() 
   {
@@ -126,7 +126,9 @@ function userAuthentication()
                     if(statusMessage == 0)
                     {
                         var status_message =   "<div style ='color:white;background-color:green;padding:5px;border-radius:3px;font-size:8pt"+
-                                                    "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Loading</span>"+
+                                                    "<span style = 'color:white;'>"+
+                                                        "<span class = 'fa fa-check-square' style = 'color:gold'></span> Loading"+
+                                                    "</span>"+
                                                 "</div>";
                         $('div#login_messages').empty();
                         $('div#login_messages').html(status_message);

@@ -15,6 +15,7 @@
         require '../db_auth/db_con.php';
 
         $user = $_GET['user'];
+        $deleted_item = $_GET['itemID'];
         $data = array();
         $users = "SELECT * FROM users WHERE user_identifier = '$user'";
         $result = mysqli_query($conn,$users);
@@ -34,6 +35,7 @@
                     $data[] = $the_row;
                 }
             }
+            $data[] = $deleted_item;
             
             $return = json_encode($data);
             echo $return;

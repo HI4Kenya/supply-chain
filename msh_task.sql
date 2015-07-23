@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 06, 2015 at 01:06 PM
+-- Generation Time: Jul 15, 2015 at 04:59 PM
 -- Server version: 5.5.43-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.9
+-- PHP Version: 5.5.9-1ubuntu4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,18 +36,14 @@ CREATE TABLE IF NOT EXISTS `central_site` (
 --
 
 INSERT INTO `central_site` (`central_id`) VALUES
-('A1BCmizFgwx'),
-('D5VHnJ2vect'),
+('CTyQmRgaaLX'),
+('d53GHglMyJQ'),
 ('Js2jIKhWf6P'),
 ('JXcyxGXlL9O'),
-('Lt4qYE1GCBQ'),
-('NcCkDlIqJuM'),
-('Pjcbi0XJi3f'),
-('pZEtdfLJ2CX'),
-('q7a1TH1APLe'),
 ('QWZ7Qd8Jex1'),
 ('qZqNL79w8Zg'),
-('ukwgBmzwpbF');
+('w4qbg4Eh8Ea'),
+('wPsUQXK6ynT');
 
 -- --------------------------------------------------------
 
@@ -126,22 +122,68 @@ CREATE TABLE IF NOT EXISTS `datasets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dataset_id` varchar(255) NOT NULL,
   `program_id` int(11) NOT NULL,
+  `created_on` varchar(255) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `comment` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `dataset_id` (`dataset_id`),
-  KEY `program_id` (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  KEY `program_id` (`program_id`),
+  KEY `created_by` (`created_by`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `datasets`
 --
 
-INSERT INTO `datasets` (`id`, `dataset_id`, `program_id`) VALUES
-(1, 'CcrrIEt35vP', 1),
-(2, 'rV6fPhufzlU', 1),
-(3, 'KUCi7uw6YhR', 2),
-(4, 'epnKYskZQGU', 2),
-(5, 'a8MrJ8DRaWC', 3),
-(6, 'a8Gz5XBpIt4', 3);
+INSERT INTO `datasets` (`id`, `dataset_id`, `program_id`, `created_on`, `created_by`, `comment`) VALUES
+(1, 'HAcToQkdUS1', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(2, 'rV6fPhufzlU', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(3, 'uAxwIxtsn6u', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `db_updates_log`
+--
+
+CREATE TABLE IF NOT EXISTS `db_updates_log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `updated_item` varchar(255) NOT NULL,
+  `date_updated` varchar(255) NOT NULL,
+  `updated_by` varchar(255) NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `updated_by` (`updated_by`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deletion_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `deletion_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number_deleted` varchar(255) NOT NULL,
+  `deleted_item_id` varchar(255) NOT NULL,
+  `deleted_item_name` varchar(255) NOT NULL,
+  `deleted_item_description` varchar(5000) NOT NULL,
+  `date_deleted` varchar(255) NOT NULL,
+  `deleted_by` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deleted_by` (`deleted_by`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `deletion_logs`
+--
+
+INSERT INTO `deletion_logs` (`id`, `number_deleted`, `deleted_item_id`, `deleted_item_name`, `deleted_item_description`, `date_deleted`, `deleted_by`) VALUES
+(1, '5', 'program:2', 'DEFAULT program', 'Program ID:2.Program Name:DEFAULT.DATASETS=2/DSD1zl3RhDG/dSxnXM3ISYe.CLASSIFICATIONS=2/Js2jIKhWf6P#StandAlone/pTlrkLDOyAx#StandAlone', 'Tuesday 2015-07-14 06:19:02pm', 'EK001'),
+(2, '1', 'All StandAlone Sites program:1', 'All StandAlone Sites in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.StandAlone Sites:IDS=1,ZkbTg8ryBSo.StandAlone', 'Wednesday 2015-07-15 02:50:34pm', 'EK001'),
+(3, '1', 'StandAlone:ZkbTg8ryBSo', 'StandAlone:Chesongo Dispensary', 'Program ID:1.Program Name:NASCOP - ART.StandAlone:ZkbTg8ryBSo', 'Wednesday 2015-07-15 02:51:25pm', 'EK001'),
+(4, '1', 'StandAlone:ZkbTg8ryBSo', 'StandAlone:Chesongo Dispensary', 'Program ID:1.Program Name:NASCOP - ART.StandAlone:ZkbTg8ryBSo', 'Wednesday 2015-07-15 03:02:09pm', 'EK001'),
+(5, '1', 'All StandAlone Sites program:1', 'All StandAlone Sites in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.StandAlone Sites:IDS=1,d53GHglMyJQ.StandAlone', 'Wednesday 2015-07-15 03:07:52pm', 'EK001'),
+(6, '1', 'All SubCounty Stores program:1', 'All SubCounty Stores in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.Sub-County Stores:IDS=1,A1BCmizFgwx.Sub-County Store', 'Wednesday 2015-07-15 03:07:58pm', 'EK001');
 
 -- --------------------------------------------------------
 
@@ -165,10 +207,11 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('a8Gz5XBpIt4', 'AWP 1.1.4 Health Leadership - Management Support', 'http://test.hiskenya.org/api/dataSets/a8Gz5XBpIt4', ''),
 ('a8MrJ8DRaWC', 'Inpatient activities', 'http://test.hiskenya.org/api/dataSets/a8MrJ8DRaWC', 'Inpatient activities'),
 ('AB83v1v0nQw', 'Division of Occupational Therapy', 'http://test.hiskenya.org/api/dataSets/AB83v1v0nQw', 'Division of OT'),
+('abDWNn9G6lK', 'Community Based Program Activity Reporting (COBPAR) Form -(A)  Prevention', 'http://test.hiskenya.org/api/dataSets/abDWNn9G6lK', ''),
 ('b8k5cUrvVqr', 'MOH 718 Inpatient Morbidity and Mortality', 'http://test.hiskenya.org/api/dataSets/b8k5cUrvVqr', 'ICD10'),
 ('bMYwkHm7OJg', 'MOH 710 Vacccines and Immunization Ver2 ', 'http://test.hiskenya.org/api/dataSets/bMYwkHm7OJg', ''),
 ('bQGw3uL9Iw2', 'MOH 105 Service Delivery Population, Baseline & Targets', 'http://test.hiskenya.org/api/dataSets/bQGw3uL9Iw2', 'MOH 105'),
-('CcrrIEt35vP', 'MoH 730B', 'http://test.hiskenya.org/api/dataSets/CcrrIEt35vP', ''),
+('CcrrIEt35vP', 'MoH 730B Error', 'http://test.hiskenya.org/api/dataSets/CcrrIEt35vP', ''),
 ('cI26WSTQKBg', 'HSSF summary', 'http://test.hiskenya.org/api/dataSets/cI26WSTQKBg', 'HSSF summary'),
 ('cRgH88czvTS', 'cancer', 'http://test.hiskenya.org/api/dataSets/cRgH88czvTS', ''),
 ('cvyzaRp8OlE', 'MOH 717 Service Workload ', 'http://test.hiskenya.org/api/dataSets/cvyzaRp8OlE', 'Service Workload '),
@@ -180,8 +223,10 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('DWKwKC6dnoB', 'MOH 713 Nutrition Monthly Reporting', 'http://test.hiskenya.org/api/dataSets/DWKwKC6dnoB', ''),
 ('El1WmR2hMKu', 'HSSF Monthly Expenditure', 'http://test.hiskenya.org/api/dataSets/El1WmR2hMKu', ''),
 ('elijTB4URyZ', 'wew', 'http://test.hiskenya.org/api/dataSets/elijTB4URyZ', 'wew'),
-('epnKYskZQGU', 'MoH 734A', 'http://test.hiskenya.org/api/dataSets/epnKYskZQGU', ''),
+('epnKYskZQGU', 'MoH734A â€“ CS-CDRR for Nutrition commodities â€“ Central sites', 'http://test.hiskenya.org/api/dataSets/epnKYskZQGU', ''),
+('EqIsSBmFDr8', 'Community Based Program Activity Reporting (COBPAR) Form- (B) Care and Tratment support', 'http://test.hiskenya.org/api/dataSets/EqIsSBmFDr8', ''),
 ('EsVgkUS3Szp', 're', 'http://test.hiskenya.org/api/dataSets/EsVgkUS3Szp', ''),
+('EUyYDgbYWu1', 'Community Based Program Activity Reporting (COBPAR) Form-(D) Capacity building and support', 'http://test.hiskenya.org/api/dataSets/EUyYDgbYWu1', ''),
 ('eV5NlFkpmtp', 'AWP 1.1.1 Health Expenditures (previous year) ', 'http://test.hiskenya.org/api/dataSets/eV5NlFkpmtp', ''),
 ('EVGb3LjJIEM', 'AWP 1.4.5-7 Health Information Leadership and Service delivery', 'http://test.hiskenya.org/api/dataSets/EVGb3LjJIEM', ''),
 ('EWFGYFD6hnX', 'Support Supervision Checklist Tool', 'http://test.hiskenya.org/api/dataSets/EWFGYFD6hnX', ''),
@@ -190,14 +235,16 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('G2cGXVjNZE4', 'Commodity Parameter Setup - Nutrition', 'http://test.hiskenya.org/api/dataSets/G2cGXVjNZE4', ''),
 ('g3nt1niNo6d', 'Kenya Mentor Mother Program', 'http://test.hiskenya.org/api/dataSets/g3nt1niNo6d', ''),
 ('g3RQRuh8ikd', 'Facility Contraceptives Consumption Report and Request Form', 'http://test.hiskenya.org/api/dataSets/g3RQRuh8ikd', ''),
+('G5SnAqFTBPo', 'Inventory - Central Stores - Lab Reagents', 'http://test.hiskenya.org/api/dataSets/G5SnAqFTBPo', ''),
 ('G70Mui2mPN4', 'Commodity Forecast Consumption - FP', 'http://test.hiskenya.org/api/dataSets/G70Mui2mPN4', ''),
 ('GGgrU5QkjVs', 'MOH 731-3 Care and Treatment', 'http://test.hiskenya.org/api/dataSets/GGgrU5QkjVs', 'HV03'),
 ('GVGt4o7VkHk', 'MOH 705 B Outpatient summary > 5 years', 'http://test.hiskenya.org/api/dataSets/GVGt4o7VkHk', 'MOH705B'),
 ('gzQcCAn9Kuh', 'Form D: School Deworming', 'http://test.hiskenya.org/api/dataSets/gzQcCAn9Kuh', ''),
-('HAcToQkdUS1', 'MOH 730B', 'http://test.hiskenya.org/api/dataSets/HAcToQkdUS1', ''),
+('HAcToQkdUS1', 'MoH730Ba â€“ F-CDRR for ARV and OI medicines â€“ Satellite sites', 'http://test.hiskenya.org/api/dataSets/HAcToQkdUS1', ''),
 ('hBH6ZUcQjuu', 'District Contraceptives Consumption and Requests', 'http://test.hiskenya.org/api/dataSets/hBH6ZUcQjuu', ' District Contraceptive'),
 ('hJ27UZBpq8G', 'Commodity Forecast Consumption - Malaria', 'http://test.hiskenya.org/api/dataSets/hJ27UZBpq8G', ''),
 ('hMToZIrf0PC', 'Commodity Forecast Consumption - ART', 'http://test.hiskenya.org/api/dataSets/hMToZIrf0PC', ''),
+('HRPT4UVxgIc', 'Community Based Program Activity Reporting (COBPAR) Form - (C) Social Protection ', 'http://test.hiskenya.org/api/dataSets/HRPT4UVxgIc', ''),
 ('HxBsF1zp5Vq', 'Commodity Forecast Consumption - Lab Reagents', 'http://test.hiskenya.org/api/dataSets/HxBsF1zp5Vq', ''),
 ('IBuMhG05AWA', 'Commodity Parameter Setup - Lab Commodities', 'http://test.hiskenya.org/api/dataSets/IBuMhG05AWA', ''),
 ('IH4pYzRqTSE', 'MOH 731-6 Blood Safety', 'http://test.hiskenya.org/api/dataSets/IH4pYzRqTSE', 'HV06'),
@@ -212,7 +259,8 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('kAofV66isvC', 'MOH 731-1 HIV Counselling And Testing', 'http://test.hiskenya.org/api/dataSets/kAofV66isvC', 'HV01'),
 ('KbrFbt3w4bp', 'MOH 711 TB Control data (Report)', 'http://test.hiskenya.org/api/dataSets/KbrFbt3w4bp', ''),
 ('kLx5eU2tD3B', 'AWP 1.4 Community Health Investmets', 'http://test.hiskenya.org/api/dataSets/kLx5eU2tD3B', ''),
-('KUCi7uw6YhR', 'MOH 734 F-CDRR for HIV Nutrition Commodities.', 'http://test.hiskenya.org/api/dataSets/KUCi7uw6YhR', ''),
+('KoAUVRcQcX3', 'MOH729Bb - F-MAPS for ART Standalone sites', 'http://test.hiskenya.org/api/dataSets/KoAUVRcQcX3', ''),
+('KUCi7uw6YhR', 'MoH734 â€“ F-CDRR for Nutrition commodities â€“ Standalone sites', 'http://test.hiskenya.org/api/dataSets/KUCi7uw6YhR', ''),
 ('lPykYxJeLKM', 'MOH 105 Service Delivery Report', 'http://test.hiskenya.org/api/dataSets/lPykYxJeLKM', 'MOH 105 SDR'),
 ('M22xDDBXnZT', 'Commodity Parameter Setup - Lab Reagents', 'http://test.hiskenya.org/api/dataSets/M22xDDBXnZT', ''),
 ('m4yvDRpjCE5', 'Form D', 'http://test.hiskenya.org/api/dataSets/m4yvDRpjCE5', ''),
@@ -241,10 +289,11 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('paEuzcGT9ao', 'Commodity Forecast Consumption - Lab Commodities', 'http://test.hiskenya.org/api/dataSets/paEuzcGT9ao', ''),
 ('pWVSI0T7XuW', 'Trying this out', 'http://test.hiskenya.org/api/dataSets/pWVSI0T7XuW', ''),
 ('PY42CQJtxSf', 'TB Cohort Report', 'http://test.hiskenya.org/api/dataSets/PY42CQJtxSf', ''),
+('q1Or1k6pQAC', 'MoH734B â€“ F-CDRR for Nutrition commodities â€“ Satellite sites', 'http://test.hiskenya.org/api/dataSets/q1Or1k6pQAC', ''),
 ('q5286LFwE7e', 'AWP 3.3 Community Unit Targeted Improvements In Outcomes', 'http://test.hiskenya.org/api/dataSets/q5286LFwE7e', ''),
 ('Rm4ckuMJENv', 'MOH 643 F-CDRR for Lab commodities', 'http://test.hiskenya.org/api/dataSets/Rm4ckuMJENv', ''),
-('rV6fPhufzlU', 'MoH 730A  ', 'http://test.hiskenya.org/api/dataSets/rV6fPhufzlU', ''),
-('rwveOLJqgkq', 'MOH 643B F-CDRR for ART lab monitoring reagents', 'http://test.hiskenya.org/api/dataSets/rwveOLJqgkq', ''),
+('rV6fPhufzlU', 'MoH 730A- CENTRAL SITE /DISTRICT STORE CONSUMPTION DATA REPORT AND REQUEST   ', 'http://test.hiskenya.org/api/dataSets/rV6fPhufzlU', ''),
+('rwveOLJqgkq', 'MOH 643B F-CDRR for ART lab monitoring reagents (VeR Oct 2014)', 'http://test.hiskenya.org/api/dataSets/rwveOLJqgkq', ''),
 ('s9N9Da4Lqns', 'FACILITY LEPROSY, TUBERCULOSIS COMMODITIES CONSUMPTION DATA REPORT & REQUEST FORM', 'http://test.hiskenya.org/api/dataSets/s9N9Da4Lqns', ''),
 ('sBe1eNbARq4', 'Non-Pharmaceutical', 'http://test.hiskenya.org/api/dataSets/sBe1eNbARq4', 'Non-Pharmaceutical'),
 ('sfiNZ7atsK8', 'MOH 706 Laboratory Summary Report', 'http://test.hiskenya.org/api/dataSets/sfiNZ7atsK8', 'MOH 706'),
@@ -254,7 +303,9 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('TiQ9LVKc2lz', 'MDR-TB COHORT REPORT ', 'http://test.hiskenya.org/api/dataSets/TiQ9LVKc2lz', ''),
 ('TJXftyfrI71', 'AWP 3.1	Annual performance targets ', 'http://test.hiskenya.org/api/dataSets/TJXftyfrI71', ''),
 ('TWcqDhrcYmQ', 'Inventory - Central Stores - Lab Commodities', 'http://test.hiskenya.org/api/dataSets/TWcqDhrcYmQ', ''),
+('TXmr8u5rabj', 'MOH 515 Community Health Extension Worker Summary', 'http://test.hiskenya.org/api/dataSets/TXmr8u5rabj', 'CHIS'),
 ('u6fYUU4lnia', 'Quarterly report on Tuberculosis Case-finding', 'http://test.hiskenya.org/api/dataSets/u6fYUU4lnia', ''),
+('uAxwIxtsn6u', 'MoH730Bb â€“ F-CDRR for ARV and OI medicines â€“ Standalone sites', 'http://test.hiskenya.org/api/dataSets/uAxwIxtsn6u', ''),
 ('ud6MEHHWLZ8', 'MDR-TB Case Finding', 'http://test.hiskenya.org/api/dataSets/ud6MEHHWLZ8', ''),
 ('UeBJcYEoHeA', 'MOH 731-5 Post-Exposure Prophylaxis', 'http://test.hiskenya.org/api/dataSets/UeBJcYEoHeA', 'HV05'),
 ('UHo6NemmdOS', 'Financial Information System - Monthly Payment and Commitment Summary', 'http://test.hiskenya.org/api/dataSets/UHo6NemmdOS', 'FIS03G'),
@@ -262,8 +313,8 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('UpS2bTVcClZ', 'MOH 711 Integrated RH, HIVAIDS, Malaria, TB & Nutrition', 'http://test.hiskenya.org/api/dataSets/UpS2bTVcClZ', 'MOH 711 '),
 ('VDL2P8EDKZE', 'AWP 1.4.3 Health Products', 'http://test.hiskenya.org/api/dataSets/VDL2P8EDKZE', ''),
 ('VkjrgmNke7w', 'ART Annual Cumulative  ', 'http://test.hiskenya.org/api/dataSets/VkjrgmNke7w', 'ART Annual Cumulative  '),
-('VoCwF0LPGjb', 'MOH 729A', 'http://test.hiskenya.org/api/dataSets/VoCwF0LPGjb', ''),
-('VOzBhzjvVcw', 'MOH 729B', 'http://test.hiskenya.org/api/dataSets/VOzBhzjvVcw', ''),
+('VoCwF0LPGjb', 'MoH729A â€“ D-MAPS for ARV and OI medicines â€“ Central sites/Sub-county stores', 'http://test.hiskenya.org/api/dataSets/VoCwF0LPGjb', ''),
+('VOzBhzjvVcw', 'MOH729Ba - F-MAPS for ART Satellite sites ', 'http://test.hiskenya.org/api/dataSets/VOzBhzjvVcw', ''),
 ('WpIdiJvyf0l', 'new chis tool', 'http://test.hiskenya.org/api/dataSets/WpIdiJvyf0l', ''),
 ('Wt2AtRYvMZb', 'IMAM Consumption and Requests', 'http://test.hiskenya.org/api/dataSets/Wt2AtRYvMZb', ''),
 ('WtgleFiaJqO', 'MOH 710 Vaccines and Immunisation Ver 1', 'http://test.hiskenya.org/api/dataSets/WtgleFiaJqO', 'DVI and OPTH'),
@@ -9795,23 +9846,27 @@ CREATE TABLE IF NOT EXISTS `facility_program_mapping` (
   `facility_id` varchar(255) NOT NULL,
   `program_id` int(11) NOT NULL,
   `classification` varchar(255) NOT NULL,
+  `created_on` varchar(255) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `comment` varchar(255) NOT NULL,
   PRIMARY KEY (`mapping_id`),
   KEY `facility_id` (`facility_id`),
-  KEY `program_id` (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+  KEY `program_id` (`program_id`),
+  KEY `created_by` (`created_by`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `facility_program_mapping`
 --
 
-INSERT INTO `facility_program_mapping` (`mapping_id`, `facility_id`, `program_id`, `classification`) VALUES
-(1, 'Js2jIKhWf6P', 1, 'Central Site'),
-(3, 'c6HYkOftQuG', 1, 'StandAlone'),
-(4, 'Lt4qYE1GCBQ', 1, 'Central Site'),
-(5, 'QWZ7Qd8Jex1', 1, 'Satellite Site'),
-(6, 'Js2jIKhWf6P', 2, 'Central Site'),
-(7, 'ih3vU3AXadk', 1, 'Satellite Site'),
-(8, 'qZqNL79w8Zg', 1, 'Satellite Site');
+INSERT INTO `facility_program_mapping` (`mapping_id`, `facility_id`, `program_id`, `classification`, `created_on`, `created_by`, `comment`) VALUES
+(2, 'Js2jIKhWf6P', 1, 'Central Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(3, 'AwVQ3uJftlj', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(4, 'NcCkDlIqJuM', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(6, 'DMF5wWYxVHg', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(7, 'pTlrkLDOyAx', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(8, 'Yh9TiSUTbrT', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
+(9, 'ZkbTg8ryBSo', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:20:03pm', 'EK001', 'RESTORED');
 
 -- --------------------------------------------------------
 
@@ -9843,15 +9898,25 @@ CREATE TABLE IF NOT EXISTS `login` (
   KEY `password_last_updated_by` (`password_last_updated_by`),
   KEY `details_last_updated_by` (`details_last_updated_by`),
   KEY `account_created_by` (`account_created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`login_id`, `username`, `password`, `role`, `user_id`, `account_created`, `account_created_by`, `details_last_updated`, `details_last_updated_by`, `password_expiry`, `password_status`, `password_last_updated`, `password_last_updated_by`, `account_status`, `account_status_last_updated`, `account_status_updated_by`, `last_login`) VALUES
-(1, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Friday 2015-07-03 10:45:56am', 'EK001', '2015-09-03', 'UPDATED', 'Friday 2015-07-03 10:46:10am', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Monday 2015-07-06 12:07:08pm'),
-(8, 'john', '6579e96f76baa00787a28653876c6127', 'USER', 'E001', 'Friday 2015-07-03 01:34:25pm', 'EK001', 'Friday 2015-07-03 01:35:34pm', 'E001', '2015-09-03', 'UPDATED', 'Friday 2015-07-03 01:34:42pm', 'E001', 'ACTIVE', 'Monday 2015-07-06 11:15:46am', 'EK001', 'Monday 2015-07-06 12:01:13pm');
+(1, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-15 04:10:57pm', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 10:28:20am', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-15 04:44:21pm'),
+(2, 'dkayeli', '4bcdf088e69b1887a25068a2c41c95d9', 'WRITE', 'E001', 'Friday 2015-07-03 01:34:25pm', 'EK001', 'Friday 2015-07-10 10:06:25am', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 11:16:46am', 'E001', 'ACTIVE', 'Saturday 2015-07-11 04:18:09pm', 'EK001', 'Wednesday 2015-07-15 04:31:52pm'),
+(3, 'dbanga', '5136d97857ec3afb8178982675515ad1', 'READ', 'E002', 'Monday 2015-07-06 01:48:58pm', 'EK001', 'Tuesday 2015-07-14 11:42:22am', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 11:19:39am', 'E002', 'ACTIVE', 'Tuesday 2015-07-14 11:42:31am', 'EK001', 'Wednesday 2015-07-15 04:39:39pm'),
+(4, 'evakinyi', 'c80745018b69c746ca0d6bdefa2db8e1', 'READ', 'fmZWStQBhIu', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', 'Tuesday 2015-07-14 03:24:50pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', ''),
+(5, 'sioportlab', '9e2777802ec9ee723b05d7b30782e346', 'READ', 'ZYvVGdkCRKC', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', ''),
+(6, 'Bootcamp', 'cd9ebb2f72e2df6798ff82ab98c6cb2e', 'READ', 'XdJxPxfNwoj', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 04:02:48pm'),
+(7, 'drjey86', 'b0c2446c5919bb4f1c1a55f6ad379f55', 'READ', 'bU7EzZE9M2N', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'Wednesday 2015-07-15 03:54:55pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', ''),
+(8, 'kemunto', '886ea99329feb4b8f73dd17409195dd9', 'READ', 'w7A1dgdDHx5', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', ''),
+(9, 'irene.adema', 'b66c3bc51716635dbd8b102ce69d6f5c', 'READ', 'X4Ck3q5Nnob', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', ''),
+(10, 'abucheri', '9db01bea97958569dca16a845d5811ac', 'READ', 'T3zSYdGI3Mf', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', ''),
+(11, 'charles100', '5dc7203297f49efcd69666c7fce1408c', 'READ', 'rI8cxcNwbgX', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', ''),
+(12, 'Ainashow', 'a4fc6fd186dba8e7ba2801188656aa18', 'READ', 'LjdvaWEU3eb', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', '');
 
 -- --------------------------------------------------------
 
@@ -9862,17 +9927,23 @@ INSERT INTO `login` (`login_id`, `username`, `password`, `role`, `user_id`, `acc
 CREATE TABLE IF NOT EXISTS `programs` (
   `program_id` int(255) NOT NULL AUTO_INCREMENT,
   `program_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `date_created` varchar(255) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
+  `date_updated` varchar(255) NOT NULL,
+  `updated_by` varchar(255) NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  PRIMARY KEY (`program_id`),
+  KEY `created_by` (`created_by`),
+  KEY `updated_by` (`updated_by`),
+  KEY `updated_by_2` (`updated_by`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `programs`
 --
 
-INSERT INTO `programs` (`program_id`, `program_name`) VALUES
-(1, 'ART'),
-(2, 'NUTRITION'),
-(3, 'A TEST');
+INSERT INTO `programs` (`program_id`, `program_name`, `date_created`, `created_by`, `date_updated`, `updated_by`, `comment`) VALUES
+(1, 'NASCOP - ART', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED');
 
 -- --------------------------------------------------------
 
@@ -9894,20 +9965,19 @@ CREATE TABLE IF NOT EXISTS `satelite_site` (
 
 INSERT INTO `satelite_site` (`satelite_id`, `central_id`) VALUES
 ('A1BCmizFgwx', 'A1BCmizFgwx'),
-('CTyQmRgaaLX', 'A1BCmizFgwx'),
-('d53GHglMyJQ', 'A1BCmizFgwx'),
-('eDnVQzkzc3B', 'A1BCmizFgwx'),
-('cYsHeMRPZ1M', 'D5VHnJ2vect'),
-('D5VHnJ2vect', 'D5VHnJ2vect'),
-('DL3UTgdk39w', 'D5VHnJ2vect'),
-('DztZfGTsNd9', 'D5VHnJ2vect'),
-('Gl7SdQYuaiN', 'D5VHnJ2vect'),
-('aNvmypL0Xft', 'Js2jIKhWf6P'),
-('aOcXhIAdIu9', 'Js2jIKhWf6P'),
-('ih3vU3AXadk', 'Js2jIKhWf6P'),
-('Js2jIKhWf6P', 'Js2jIKhWf6P'),
-('qZqNL79w8Zg', 'Js2jIKhWf6P'),
-('QWZ7Qd8Jex1', 'Lt4qYE1GCBQ');
+('CTyQmRgaaLX', 'CTyQmRgaaLX'),
+('d53GHglMyJQ', 'd53GHglMyJQ'),
+('AwVQ3uJftlj', 'Js2jIKhWf6P'),
+('DMF5wWYxVHg', 'Js2jIKhWf6P'),
+('NcCkDlIqJuM', 'Js2jIKhWf6P'),
+('pTlrkLDOyAx', 'Js2jIKhWf6P'),
+('Yh9TiSUTbrT', 'Js2jIKhWf6P'),
+('ZkbTg8ryBSo', 'Js2jIKhWf6P'),
+('QWZ7Qd8Jex1', 'QWZ7Qd8Jex1'),
+('qZqNL79w8Zg', 'qZqNL79w8Zg'),
+('w4qbg4Eh8Ea', 'w4qbg4Eh8Ea'),
+('pZEtdfLJ2CX', 'wPsUQXK6ynT'),
+('wPsUQXK6ynT', 'wPsUQXK6ynT');
 
 -- --------------------------------------------------------
 
@@ -9925,10 +9995,8 @@ CREATE TABLE IF NOT EXISTS `standalone_site` (
 --
 
 INSERT INTO `standalone_site` (`standalone_id`) VALUES
-('c6HYkOftQuG'),
-('vpcUN6fhhfX'),
-('w4qbg4Eh8Ea'),
-('wPsUQXK6ynT');
+('d53GHglMyJQ'),
+('ZkbTg8ryBSo');
 
 -- --------------------------------------------------------
 
@@ -10258,6 +10326,38 @@ INSERT INTO `sub_counties` (`sub_county_id`, `sub_county_name`, `parent_id`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sub_county_stores`
+--
+
+CREATE TABLE IF NOT EXISTS `sub_county_stores` (
+  `sub_county_store_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`sub_county_store_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sub_county_stores`
+--
+
+INSERT INTO `sub_county_stores` (`sub_county_store_id`) VALUES
+('A1BCmizFgwx'),
+('CTyQmRgaaLX'),
+('eDnVQzkzc3B'),
+('EGS0saGNDoS'),
+('G8avY4Gzra8'),
+('ih3vU3AXadk'),
+('Pjcbi0XJi3f'),
+('pZEtdfLJ2CX'),
+('q7a1TH1APLe'),
+('QWZ7Qd8Jex1'),
+('qZqNL79w8Zg'),
+('ukwgBmzwpbF'),
+('vpcUN6fhhfX'),
+('w4qbg4Eh8Ea'),
+('wPsUQXK6ynT');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `top_level`
 --
 
@@ -10299,8 +10399,18 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_identifier`, `name`, `gender`, `email`, `mobile_no`, `date_created`, `created_by`, `details_last_updated`, `details_updated_by`) VALUES
-('E001', 'JOHN DOE', 'FEMALE', 'johndoe@gmail.com', '0722277332', 'Friday 2015-07-03 01:34:14pm', 'EK001', 'Friday 2015-07-03 01:35:34pm ', 'E001'),
-('EK001', 'Wahome Macharia', 'MALE', 'kevowahome@gmail.com', '0710502654', 'Wednesday 2015-07-01 11:53:06am', 'EK001', 'Friday 2015-07-03 10:45:56am ', 'EK001');
+('bU7EzZE9M2N', 'ABDIJABAR YUSSUF', '', 'hajiabdijabar@hotmail.com', '0721726920', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'Wednesday 2015-07-15 03:54:55pm ', 'EK001'),
+('E001', 'Dennis Kayeli', 'MALE', 'kdennoz@gmail.com', '0722277332', 'Friday 2015-07-03 01:34:14pm', 'EK001', 'Friday 2015-07-10 10:06:25am ', 'EK001'),
+('E002', 'Dennis Banga', 'MALE', 'dennisbanga@gmail.com', '0712345678', 'Monday 2015-07-06 01:48:44pm', 'EK001', 'Tuesday 2015-07-14 11:42:22am ', 'EK001'),
+('EK001', 'Kelvin Wahome', 'MALE', 'kevowahome@gmail.com', '0710502654', 'Wednesday 2015-07-01 11:53:06am', 'EK001', 'Wednesday 2015-07-15 04:10:57pm ', 'EK001'),
+('fmZWStQBhIu', 'Elizabeth 0nyango', 'FEMALE', 'evakiny@yahoo.com', '0727065163', 'Tuesday 2015-07-14 03:18:34pm', 'EK001', 'Tuesday 2015-07-14 03:24:50pm ', 'EK001'),
+('LjdvaWEU3eb', 'Abdikadir Abdalla', 'NOT AVAILABLE', 'abdikadirmoha07-10@hotmail.com', '0712086931', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'Tuesday 2015-07-14 04:21:11pm', 'EK001'),
+('rI8cxcNwbgX', 'charles abanyi', 'NOT AVAILABLE', 'charloabanyi@yahoo.com', '0721884418', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'Tuesday 2015-07-14 04:18:05pm', 'EK001'),
+('T3zSYdGI3Mf', 'irene abucheri', 'NOT AVAILABLE', 'abucheriochieng@yahoo.com', '0722431015', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
+('w7A1dgdDHx5', 'irene 0mbaire', 'NOT AVAILABLE', 'ombaireirene@yahoo.com', '0716967397', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
+('X4Ck3q5Nnob', 'Irene Adema', 'NOT AVAILABLE', 'irene.adema@ihpmr.org', '0724241008', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
+('XdJxPxfNwoj', 'Bootcamp  2015', 'NOT AVAILABLE', '', '', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 03:35:10pm', 'EK001'),
+('ZYvVGdkCRKC', 'vincent 0mondi', 'NOT AVAILABLE', 'vomondi88@gmail.com', '0714234042', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'Tuesday 2015-07-14 03:22:46pm', 'EK001');
 
 --
 -- Constraints for dumped tables
@@ -10323,7 +10433,20 @@ ALTER TABLE `counties`
 --
 ALTER TABLE `datasets`
   ADD CONSTRAINT `datasets_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
-  ADD CONSTRAINT `datasets_ibfk_2` FOREIGN KEY (`dataset_id`) REFERENCES `dhis_datasets` (`dataset_id`);
+  ADD CONSTRAINT `datasets_ibfk_2` FOREIGN KEY (`dataset_id`) REFERENCES `dhis_datasets` (`dataset_id`),
+  ADD CONSTRAINT `datasets_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_identifier`);
+
+--
+-- Constraints for table `db_updates_log`
+--
+ALTER TABLE `db_updates_log`
+  ADD CONSTRAINT `db_updates_log_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `users` (`user_identifier`);
+
+--
+-- Constraints for table `deletion_logs`
+--
+ALTER TABLE `deletion_logs`
+  ADD CONSTRAINT `deletion_logs_ibfk_1` FOREIGN KEY (`deleted_by`) REFERENCES `users` (`user_identifier`);
 
 --
 -- Constraints for table `facilities`
@@ -10336,7 +10459,8 @@ ALTER TABLE `facilities`
 --
 ALTER TABLE `facility_program_mapping`
   ADD CONSTRAINT `facility_program_mapping_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
-  ADD CONSTRAINT `facility_program_mapping_ibfk_2` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`facility_id`);
+  ADD CONSTRAINT `facility_program_mapping_ibfk_2` FOREIGN KEY (`facility_id`) REFERENCES `facilities` (`facility_id`),
+  ADD CONSTRAINT `facility_program_mapping_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_identifier`);
 
 --
 -- Constraints for table `login`
@@ -10349,11 +10473,17 @@ ALTER TABLE `login`
   ADD CONSTRAINT `login_ibfk_5` FOREIGN KEY (`account_created_by`) REFERENCES `users` (`user_identifier`);
 
 --
+-- Constraints for table `programs`
+--
+ALTER TABLE `programs`
+  ADD CONSTRAINT `programs_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_identifier`),
+  ADD CONSTRAINT `programs_ibfk_2` FOREIGN KEY (`updated_by`) REFERENCES `users` (`user_identifier`);
+
+--
 -- Constraints for table `satelite_site`
 --
 ALTER TABLE `satelite_site`
-  ADD CONSTRAINT `satelite_site_ibfk_2` FOREIGN KEY (`satelite_id`) REFERENCES `facilities` (`facility_id`),
-  ADD CONSTRAINT `satelite_site_ibfk_3` FOREIGN KEY (`central_id`) REFERENCES `central_site` (`central_id`);
+  ADD CONSTRAINT `satelite_site_ibfk_2` FOREIGN KEY (`satelite_id`) REFERENCES `facilities` (`facility_id`);
 
 --
 -- Constraints for table `standalone_site`
@@ -10366,6 +10496,12 @@ ALTER TABLE `standalone_site`
 --
 ALTER TABLE `sub_counties`
   ADD CONSTRAINT `sub_counties_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `counties` (`county_id`);
+
+--
+-- Constraints for table `sub_county_stores`
+--
+ALTER TABLE `sub_county_stores`
+  ADD CONSTRAINT `sub_county_stores_ibfk_1` FOREIGN KEY (`sub_county_store_id`) REFERENCES `facilities` (`facility_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

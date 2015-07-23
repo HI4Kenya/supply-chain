@@ -1,6 +1,6 @@
 <?php
 	// Require system config file
-    require '../../system/config.php';
+    require '../system/config.php';
 
     session_start();
     // Validate a user has logged in
@@ -12,13 +12,21 @@
     else
     {
         // If user has logged in
+        
+		# Database connection parameters
+	    $servername = $server;
+	    $username = $user;
+	    $authentication = $password;
+	    $dbname = $database;
 
-		require '../db_auth/db_con.php';
+	    # Create connection
+	    $conn = new mysqli($servername, $username, $authentication, $dbname);
 
-		$id= $_POST['id'];
-		$name = str_replace("'", "",$_POST['name']);
-		$href = $_POST['href'];
-		$code = $_POST['code'];
+	    # Check connection
+	    if ($conn->connect_error) 
+	    {
+	        die("Connection failed: " . $conn->connect_error);
+	    }
 
 		//Check if the facility exists
 		$exists = "SELECT * FROM dhis_datasets WHERE dataset_id = '$id'";
@@ -30,7 +38,7 @@
 			{
 				if($row['dataset_name'] == $name)
 				{
-					echo 1;
+					//echo 1;
 				}
 				else
 				{
@@ -39,7 +47,7 @@
 					WHERE dataset_id = '$id'";
 					if(mysqli_query($conn,$update_name))
 					{
-						echo 10;
+						//echo 10;
 					}
 				}
 
@@ -53,11 +61,11 @@
 
 			if (mysqli_query($conn, $sql)) 
 			{
-			    echo 0;
+			   // echo 0;
 			} 
 			else 
 			{
-			    echo -1;
+			    //echo -1;
 			}
 
 		}

@@ -17,16 +17,147 @@
 * ---------------------------------------------------------------------------------*/
 
 /*
+ function satelliteClassificationType()
+*/
+function satelliteClassificationType()
+{
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SATELLITE SITES (Have Central Sites or Sub-County Stores as their parent)</span>");
+
+        var data =  // Select Program under which these satellite sites are classified
+                    "<div style ='width:90%'>"+
+                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;margin-top:-10px;background-color:white;'>"+
+                            "How do you want to classify satellites?"+
+                        "</span>"+
+                        "<button class ='btn btn-info btn-md' style = 'margin-left:0px;margin-top:20px;width:25%;font-weight:bold' ONCLICK='classifyFacilities(3,\"sub-county satellites\")'>Sub-County Store Satellites</button>"+
+                        "<button class ='btn btn-success btn-md' style = 'margin-left:30px;margin-top:20px;width:25%;font-weight:bold' ONCLICK='classifyFacilities(3,\"central site satellites\")'>Central Site Satellites</button>"+                        
+                    //Organization units hierarchy area
+                    "<div id = 'org_units_area' style = 'width:100%;margin-top:25px'></div>";
+        // Append
+        $('div#facilities').html(data);
+}
+/*
     Function classifyFacilities()
     1 - Central Sites
     2 - Satellite Sites
     3 - Stand Alone Sites
 */
 
-function classifyFacilities(type)
+function classifyFacilities(type, satelliteClassification)
 {
-    /* CENTRAL STORES */
+    /* SUB-COUNTY STORES */
     if(type == 1)
+    {
+        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SUB-COUNTY STORES<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
+
+        var data = // Select Program under which these central sites are classified
+                    "<div style ='width:90%'>"+
+                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:blue;'>"+
+                            "Program: The program selected will have these central sites attributed to it"+
+                        "</span>"+
+                        // Available Header
+                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px;' onLoad='initIt();'>"+
+                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
+                            "<span style = 'margin-left:70px'>Available Programs</span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                        "</div>"+
+                       // Selected header
+                       "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
+                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(1)'>Submit</button>"+                 
+                        "</div>"+
+                        // All facilities area
+                        "<div id = 'all_programs' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
+                            "<input placeholder = 'Search' id = 'programs_available_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"ProgramsSelectList\",\"programs_available_filter_search\")'></input><br>"+
+                            "<select NAME='ProgramsSelectList' ID='ProgramsSelectList' SIZE='5' multiple='multiple' style = 'width:100%;min-height:100px'>"+
+                            "</select>"+
+                        "</div>"+                    
+                        // selected area
+                        "<div id = 'selected_programs' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
+                            "<div id = 'programs_search_field'>"+
+                                "<input placeholder = 'Search' id= 'programs_selected_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"ProgramsPickList\",\"programs_selected_filter_search\")'></input>"+
+                                "</div>"+
+                            "<select NAME='ProgramsPickList' ID='ProgramsPickList' SIZE='5' multiple='multiple' style = 'width:100%;min-height:100px'>"+
+                            "</select>"+
+                        "</div>"+
+                        /*End Programs*/
+
+                        /*CENTRAL SITES FOR THE ABOVE PROGRAM*/
+                        // Available Header
+                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:brown;'>"+
+                            "Sub-County Stores: Have the program above attributed to them"+
+                        "</span>"+
+
+                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
+                            // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
+                            "<span style = 'margin-left:100px'>Available</span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                        "</div>"+
+                       // Selected header
+                       "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span style = 'margin-left:30px'>Selected</span>"+                 
+                        "</div>"+
+                        // All facilities area
+                        "<div id = 'all_facilities' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
+                            //border:2px solid #2A6496
+                            // Search for filtering purposes
+                            "<input placeholder = 'Search' id = 'available_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"SelectList\",\"available_filter_search\")'></input><br>"+
+                            "<select NAME='SelectList' ID='SelectList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'>"+
+                            "</select>"+
+                        "</div>"+
+                        
+                        // selected area
+                        "<form id = 'facilities_to_insert'>"+
+                        "<div id = 'selected_facilities' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
+                            "<div id = 'search_field'>"+
+                                "<input placeholder = 'Search' id = 'selected_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"PickList\",\"selected_filter_search\")'></input>"+
+                            "</div>"+
+                            "<select NAME='PickList' ID='PickList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'>"+
+                            "</select>"+
+                        "</div>"+
+                        "</form>"+
+                    "</div>"+
+                    //Organization units hierarchy area
+                    "<div id = 'org_units_area' style = 'width:100%;margin-top:25px'></div>";
+        // Append
+        $('div#facilities').html(data);
+
+        // Fetch facilities and display in the picklist
+        var url = "db/fetch/get_facilities.php";
+        $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");      
+        $.getJSON
+        (
+            url,
+            {id:"",type:1},
+            function(received)
+            {
+                for(var j=0; j<received.length;j++)
+                {
+                    $('span#note').html("Loading <img src='assets/img/ajax-loader-3.gif'>");    
+                    $("<option VALUE='"+received[j].facility_id+"'>"+received[j].facility_name+"</option>").appendTo("select#SelectList");
+                }
+                $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
+            }
+        );
+
+        // DHIS2 Org Units Hierarchy
+        $.get("client/templates/orgunitshierarchy.php").then
+        (
+            function(responseData) 
+            {
+                $('div#org_units_area').empty();
+                $('div#org_units_area').append(responseData);
+            }
+        );
+
+    }
+    /* CENTRAL STORES */
+    else if(type == 2)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CENTRAL SITES<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
 
@@ -36,18 +167,18 @@ function classifyFacilities(type)
                             "Program: The program selected will have these central sites attributed to it"+
                         "</span>"+
                         // Available Header
-                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
-                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
+                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px;' onLoad='initIt();'>"+
+                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(2)'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
-                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(1)'>Submit</button>"+                 
+                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(2)'>Submit</button>"+                 
                         "</div>"+
                         // All facilities area
                         "<div id = 'all_programs' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
@@ -74,13 +205,13 @@ function classifyFacilities(type)
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(1)'>Reset</button>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+                 
                         "</div>"+
                         // All facilities area
@@ -140,34 +271,43 @@ function classifyFacilities(type)
     /*-------------------------------------------------------------------------------------------------------------------------*/
 
     /*SATELLITE SITES*/
-    else if(type == 2)
+    else if(type == 3)
     {
-        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SATELLITE SITES (Have Central Sites as their parent)<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
-                    
-                    
+        if(satelliteClassification == "central site satellites")
+        {
+            $('div#returned_messages').empty();
+            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CENTRAL SITE SATELLITES (Have Central Sites as their parent)<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
+        }
+
+        else if (satelliteClassification == "sub-county satellites")
+        {
+            $('div#returned_messages').empty();
+            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> SUB-COUNTY STORE SATELLITES (Have Sub-County Stores as their parent)<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
+        }
+
         var data =  // Select Program under which these satellite sites are classified
                     "<div style ='width:90%'>"+
                         "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:blue;'>"+
                             "Program: The program selected will have these central sites attributed to it"+
                         "</span>"+
                         // Available Header
-                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
-                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(2)'>Reset</button>"+
+                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
+                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(3,\""+satelliteClassification+"\")'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
-                       "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                       "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
-                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(2)'>Submit</button>"+                 
+                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(3)'>Submit</button>"+                 
                         "</div>"+
                         // All facilities area
                         "<div id = 'all_programs' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
                             "<input placeholder = 'Search' id = 'programs_available_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"ProgramsSelectList\",\"programs_available_filter_search\")'></input><br>"+
-                            "<select NAME='ProgramsSelectList' ID='ProgramsSelectList' SIZE='3' multiple='multiple' style = 'width:100%;min-height:70px' onchange='javascript:programCentralSites();'>"+
+                            "<select NAME='ProgramsSelectList' ID='ProgramsSelectList' SIZE='3' multiple='multiple' style = 'width:100%;min-height:70px' onchange='javascript:programCentralSites(\""+satelliteClassification+"\");'>"+
                             "</select>"+
                         "</div>"+                    
                         // selected area
@@ -182,19 +322,18 @@ function classifyFacilities(type)
                         /*End Programs*/
 
                         // Select Central Site which ones the satellites
-                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:blue;'>"+
-                            "Central Site: The site selected is the parent to the satellite sites"+
+                        "<span id = 'parent_site_type' class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:blue;'>"+
                         "</span>"+
                         // Available Header
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"CSSelectList\",\"CSPickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"CSSelectList\",\"CSPickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+               
                         "</div>"+
                         // All facilities area
@@ -218,21 +357,20 @@ function classifyFacilities(type)
 
                         /*SATELLITE SITES FOR THE ABOVE CENTRAL SITE*/
                         // Available Header
-                        "<span class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:brown;'>"+
-                            "Satellite Sites: Have the Central Site above as their parent"+
+                        "<span id = 'satellites_area' class='panel-heading' style = 'height:5%;width:81%;margin-bottom:5px;color:brown;'>"+
                         "</span>"+
-                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
+                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             // "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(2)'>Reset</button>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
-                       "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                       "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+ 
-                            "<button class ='btn btn-success btn-sm' style = 'margin-left:130px;width:20%' ONCLICK='submitIt(2)'>Submit</button>"+                 
+                            "<button class ='btn btn-success btn-sm' style = 'margin-left:130px;width:20%' ONCLICK='submitIt(3)'>Submit</button>"+                 
                         "</div>"+
                         // All facilities area
                         "<div id = 'all_facilities' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
@@ -253,9 +391,23 @@ function classifyFacilities(type)
                         "</div>"+
                     "</div>"+
                     //Organization units hierarchy area
-                    "<div id = 'org_units_area' style = 'width:120%;margin-top:25px'></div>";
+                    "<div id = 'org_units_area' style = 'width:100%;margin-top:25px'></div>";
         // Append
         $('div#facilities').html(data);
+
+        if(satelliteClassification == "central site satellites")
+        {
+            $('span#parent_site_type').html("Central Site: The site selected is the parent to the satellite sites");
+            $('span#satellites_area').html("Satellite Sites: Have the Central Site above as their parent");
+        }
+
+        else if (satelliteClassification == "sub-county satellites")
+        {
+            $('span#parent_site_type').html("Sub-County Store: The site selected is the parent to the satellite sites");
+            $('span#satellites_area').html("Satellite Sites: Have the Sub-County Store above as their parent");
+        }
+
+        
         // Fetch Central Sites and display in the Central Sites picklist
         var cs_url = "db/fetch/get_central_sites.php";
         $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");         
@@ -305,7 +457,7 @@ function classifyFacilities(type)
     /*--------------------------------------------------------------------------------------------------------------------------------*/
 
     /*STAND ALONES*/
-    else if(type == 3)
+    else if(type == 4)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> STANDALONE SITES<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>NOTE: Use DHIS2 Organization Units to sort and drill down</span></span>");
 
@@ -315,18 +467,18 @@ function classifyFacilities(type)
                             "Program: The program selected will have these standalone sites attributed to it"+
                         "</span>"+
                         // Available Header
-                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
-                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(3)'>Reset</button>"+
+                        "<div class='panel-heading' style = 'height:6%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
+                            "<button class ='btn btn-info btn-sm' style = 'margin-left:px;width:20%' onclick='javascript:classifyFacilities(4)'>Reset</button>"+
                             "<span style = 'margin-left:70px'>Available Programs</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:;margin-top:3px' ONCLICK='addIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                         "</div>"+
                        // Selected header
-                       "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                       "<div class='panel-heading' style = 'height:6%;width:40%;margin-bottom:5px'>"+                           
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:;margin-top:3px' ONCLICK='delIt(\"ProgramsSelectList\",\"ProgramsPickList\");'></span>"+
                             "<span style = 'margin-left:10px'>Selected Programs</span>"+ 
-                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(3)'>Submit</button>"+                 
+                            "<button class ='btn btn-success btn-sm' style = 'margin-left:70px;width:20%' ONCLICK='submitIt(4)'>Submit</button>"+                 
                         "</div>"+
                         // All facilities area
                         "<div id = 'all_programs' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
@@ -352,13 +504,13 @@ function classifyFacilities(type)
                         "</span>"+
                         "<div class='panel-heading' style = 'height:5%;width:40%;margin-right:10px;margin-bottom:5px' onLoad='initIt();'>"+
                             "<span style = 'margin-left:100px'>Available</span>"+
-                            "<span class = 'glyphicon glyphicon-forward pull-right' style = 'color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-right pull-right' style = 'margin-right:10px;color:#2A6496' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-forward pull-right unclickedColor' style = 'color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-right pull-right unclickedColor' style = 'margin-right:10px;color:' ONCLICK='addIt(\"SelectList\",\"PickList\");'></span>"+
                         "</div>"+
                        // Selected header
                        "<div class='panel-heading' style = 'height:5%;width:40%;margin-bottom:5px'>"+                           
-                            "<span class = 'glyphicon glyphicon-backward pull-left' style = 'color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
-                            "<span class = 'glyphicon glyphicon-chevron-left pull-left' style = 'margin-left:10px;color:#2A6496' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-backward pull-left unclickedColor' style = 'color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
+                            "<span class = 'glyphicon glyphicon-chevron-left pull-left unclickedColor' style = 'margin-left:10px;color:' ONCLICK='delIt(\"SelectList\",\"PickList\");'></span>"+
                             "<span style = 'margin-left:30px'>Selected</span>"+                
                         "</div>"+
                         // All facilities area
@@ -439,7 +591,7 @@ function classifyFacilities(type)
 
 //Function programCentralSites()
 //Update the central sites select list according to the selected program
-function programCentralSites()
+function programCentralSites(satelliteClassification)
 {
     //Programs
     var programSelectList = document.getElementById("ProgramsSelectList");
@@ -448,12 +600,25 @@ function programCentralSites()
     var selectedProgramID = programSelectOptions[programSelectIndex].value;
 
     // Fetch Central Sites and display in the Central Sites picklist
-    var program_central_sites_url = "db/fetch/get_program_central_sites.php";
+    var program_central_sites_url;
+    var theClassification;
+    if(satelliteClassification == "central site satellites")
+    {
+        program_central_sites_url = "db/fetch/get_program_central_sites.php";
+        theClassification = "Central Site";
+    }
+
+    else if (satelliteClassification == "sub-county satellites")
+    {
+        program_central_sites_url = "db/fetch/get_program_subcounty_stores.php";
+        theClassification = "Sub-County Store"
+    }
+
     $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");         
     $.getJSON
     (
         program_central_sites_url,
-        {program_id:selectedProgramID,classification:'Central Site'},
+        {program_id:selectedProgramID,classification:theClassification},
         function(returnedData)
         {
             $("select#CSSelectList").empty();

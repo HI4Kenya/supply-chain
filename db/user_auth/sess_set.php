@@ -3,6 +3,7 @@
     session_start();
 
     $_SESSION["login_id"] = $row['login_id'];
+    $_SESSION["username"] = $row['username'];
     $_SESSION["user_role"] = $row['role'];
     $_SESSION["user_id"] = $row['user_id'];
     $_SESSION["password_status"] = $row['password_status'];
@@ -15,7 +16,7 @@
     {
         while($the_user_row = mysqli_fetch_assoc($response))
         {
-            $_SESSION["name"]=$the_user_row['name'];
+            $_SESSION["name"] = $the_user_row['name'];
         }
     }
 

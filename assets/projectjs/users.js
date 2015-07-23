@@ -75,9 +75,10 @@ function createUsers(load,createdUserID,createdUserName)
                     "<div class='form-group' style = 'width:40%'>"+
                         "<span style = 'color;padding:5px'>User Role:</span>"+
                         "<select id = 'user_role' class='form-control' style = 'margin-top:-25px;margin-left:150px'>"+
-                             "<option value = ''>[Select]</option>"+
-                            "<option value = 'ADMIN'>ADMINISTRATOR</option>"+
-                            "<option value = 'USER'>USER</option>"+
+                            "<option value = ''>[Select]</option>"+
+                            "<option value = 'READ'>READ</option>"+
+                            "<option value = 'WRITE'>WRITE</option>"+
+                            "<option value = 'ADMIN'>ADMIN</option>"+
                         "</select>"+
                     "</div>"+
                     "<button type='submit' class='btn btn-success' style = 'margin-left:280px' onclick='javascript:userOperations(\"add\",\"credentials\",\""+createdUserID+"\");'>Submit</button>"+
@@ -97,22 +98,21 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
-                        "<thead>"+
-                            "<th style = 'font-weight:bold'>#</th>"+
-                            "<th style = 'font-weight:bold'>User</th>"+
-                            "<th style = 'font-weight:bold'>Gender</th>"+
-                            "<th style = 'font-weight:bold'>Email</th>"+
-                            "<th style = 'font-weight:bold'>phone</th>"+
-                            "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
-                            "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
-                            "<th style = 'font-weight:bold;color:green'>Account Status</th>"+
-                            "<th style = 'font-weight:bold;color:blue'>Edit</th>"+ 
-                            "<th style = 'font-weight:bold;color:red'>Change Password</th>"+                            
-                        "</thead>"+
-                        "<tbody>"+
-                        "</tbody>"+
+        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped datatable' style = 'border-radius:5px;width:95%'>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>#</th>"+
+                                "<th style = 'font-weight:bold'>User</th>"+
+                                "<th style = 'font-weight:bold'>Gender</th>"+
+                                "<th style = 'font-weight:bold'>Email</th>"+
+                                "<th style = 'font-weight:bold'>phone</th>"+
+                                "<th style = 'font-weight:bold;color:purple'>Login Name</th>"+ 
+                                "<th style = 'font-weight:bold;color:magenta'>Role</th>"+ 
+                                "<th style = 'font-weight:bold;color:green'>Account</th>"+
+                                "<th style = 'font-weight:bold;color:blue'>Edit</th>"+                            
+                            "</thead>"+
+                            "<tbody id = 'tbody'>"+
+                            "</tbody>"+
                         "</table>"+
                     "</div>";
         // Append
@@ -142,12 +142,10 @@ function getUsers(display)
                                             "<td class = 'fa fa-edit' style = 'color:blue;cursor: pointer;'"+
                                                 "onclick='editUsers(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
                                             "</td>"+
-                                            "<td class = 'fa fa-cog' style = 'color:red;cursor: pointer;'"+
-                                                "onclick='javascript:adminEditPassword(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
-                                            "</td>"+
                                         "</tr>";
+                    //$('#userdata tr:last').after(dataToAppend);
                     $(dataToAppend).appendTo("#userdata tbody");
-                    
+
                     // Get user credentials
                     var credentials_url = "db/fetch/get_user_credentials.php";
                     $.getJSON
@@ -161,14 +159,14 @@ function getUsers(display)
                             $("#account_status_"+receivedData[0].user_id).html("<span style ='color:green'>"+receivedData[0].account_status+"</span>")
                         }
                     );
-                }  
+                }
+                // dataTable();
+                // $(function()
+                // {
+                //     $("#userdata").dataTable();
+                // });
             }
         );
-        $(function()
-        {
-            //$("#programdata").dataTable();
-        })
-
     }
 
     // Data administration
@@ -176,8 +174,8 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>DEACTIVATE USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
+        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             // "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -244,14 +242,14 @@ function getUsers(display)
                             }
                         }
                     );
-                }  
+                }
+                // dataTable();
+                $(function()
+                {
+                    $("#userdata").dataTable();
+                });
             }
         );
-        $(function()
-        {
-            //$("#programdata").dataTable();
-        })
-
     }
 
     // Display purposes
@@ -259,8 +257,8 @@ function getUsers(display)
     {
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> LIST OF CREATED USERS</span>");
 
-        var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
-                        "<table id= 'userdata' style = 'border-radius:5px'>"+
+        var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
+                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -314,17 +312,263 @@ function getUsers(display)
                             $("#role_"+receivedData[0].user_id).html("<span style ='color:green'>"+receivedData[0].role+"</span>");
                         }
                     );
-                }  
+                }
+                // dataTable();
+                $(function()
+                {
+                    $("#userdata").dataTable();
+                }); 
             }
         );
         $(function()
         {
             //$("#programdata").dataTable();
-        })
+        });
 
     }
 }
 // END FUNCTION
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function dhisUsers()
+function dhisUsers()
+{
+    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+
+    var data = "<div class='panel-headin' style = 'height:auto;width:100%;margin-right:10px;margin-bottom:5px;'>"+
+                    "<div class='form-inline'>"+
+                      "<div class='form-group' style = 'margin-bottom:10px;'>"+
+                        "<label class='sr-only' for='exampleInputEmail3'>Name</label>"+
+                        "<input id = 'search_name' class='form-control' placeholder='Search a DHIS user by name' style ='width:140%' onkeyup = 'javascript:searchDHISUser();'>"+
+                      "</div>"+
+                      "<br>"+ 
+                      // Append the results
+                      "<div id = 'user_search_results' class = 'panel panel-default' style = 'height:300px;overflow:scroll;width:30%;padding:5px'>"+
+                      "</div>"+
+                      "<div id = 'add_button' class = 'pull-left' style = 'position:absolute;margin-top:320px;margin-left:240px'>"
+                      "</div>"+
+                "</div>";
+    // Append
+    $('div#facilities').html(data);
+}
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function searchDHISUser()
+function searchDHISUser()
+{
+    var itemToSearch = document.getElementById("search_name");
+    var searchKey = itemToSearch.value;
+
+    var dhisUsersUrl = "api/search_users.php";
+    $('#user_search_results').html("<img src='assets/img/loading.gif' style = 'height:300px:width:30%'>");
+    $.getJSON
+    (
+        dhisUsersUrl,
+        {name:searchKey},
+        function(found)
+        {
+            if(found.length>0)
+            {
+                $("#user_search_results").empty();
+                $("#add_button").empty();
+                for(var count=0; count<found.length;count++)
+                {
+                    var userToAppend = "<div id = '"+found[count].id+"'>"+found[count].name+"</div>"+
+                                        "<input id = 'add_checkbox' type = 'checkbox' style = 'margin-left:250px;margin-top:-10px' value = "+found[count].id+">"+
+                                        "</input>"+
+                                        "<br>";
+                    $(userToAppend).appendTo("#user_search_results");
+                }
+                var addButton = "<input type = 'button' class='btn btn-primary btn-sm' style = '' ONCLICK='addDHISUser();' value = 'Add'></input>";
+                $(addButton).appendTo("#add_button");
+            }
+            else
+            {
+                if(found == 0)
+                {
+                    var userToAppend = "No results";
+                    $("#user_search_results").html(userToAppend);
+                }
+                else
+                {
+                    var userToAppend = "<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> CONNECTION ERROR</span>"+
+                                        "<span class = 'fa fa-ok' style = 'color:brown;'>Check your <a href = 'http://test.hiskenya.org' target='_blank'>DHIS2</a> connection</span>";
+                    $("#user_search_results").html(userToAppend);
+                }
+            }
+        }
+    );
+}
+
+/*------------------------------------------------------------------------------------------------------------------------------*/
+// Function searchDHISUser()
+function addDHISUser()
+{
+    var usersToAdd = [];
+    $("input:checkbox[id=add_checkbox]:checked").each
+    (
+        function()
+        {
+            usersToAdd.push($(this).val());
+        }
+    );
+
+    // Place requests for the data of that user
+    for(var i=0;i<usersToAdd.length;i++)
+    {
+        var userDetails = "api/get_user_details.php";
+        $.getJSON
+        (
+            userDetails,
+            {user_id:usersToAdd[i]},
+            function(data)
+            {
+                // User Details
+                var employeeID = data.id;
+                var userName = data.name;
+                var selectedUserGender = "NOT AVAILABLE";
+                var userEmail = data.email;
+                var phoneNO = data.phoneNumber;
+
+                // Account credentials
+                var loginUserName = data.userCredentials.code;
+                var loginPassword = data.userCredentials.code;
+                var selectedUserRole;
+                
+                if(data.access.write == 'true')
+                {
+                    selectedUserRole = "WRITE";
+                }
+                else
+                {
+                    selectedUserRole = "READ";
+                }
+
+                // Place an insert request to the database side
+                $.post
+                (
+                    'db/insertion/insert_user_details.php',
+                    {employeeID:employeeID,user_name:userName,user_gender:selectedUserGender,user_email:userEmail,user_phone:phoneNO},
+                    function(statusMessage)
+                    {
+                        if(statusMessage == 0)
+                        {
+                            // Place user credentials insert request
+                            $.post
+                            (
+                                'db/insertion/insert_user_credentials.php',
+                                {user_id:employeeID,login_name:loginUserName,password:loginPassword,user_role:selectedUserRole},
+                                function(statusMessage)
+                                {
+                                    if(statusMessage == 0)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:green;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-check-square' style = 'color:white;'>"+userName+" has been saved</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                getUsers('report');
+                                                
+                                            },
+                                            1500
+                                        );
+                                    }
+
+                                    else if(statusMessage == 1)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-ok' style = 'color:white;'>"+createdUserID+" credentials exist</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                getUsers('report');
+                                            },
+                                            1500
+                                        );
+                                    }
+
+                                    else if(statusMessage == -1)
+                                    {
+                                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-ok' style = 'color:white;'> Error. Credentials not inserted</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(errorMessage);
+                                        //Clear the error message after 1500 ms
+                                        setTimeout
+                                        (
+                                            function()
+                                            {
+                                                $("div#returned_messages").empty();
+                                                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+                                            },
+                                            1500
+                                        );
+                                    }
+                                }
+                            );
+                        }
+
+                        else if(statusMessage == 1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'>"+userName+" exists </span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CREATE USERS FROM DHIS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Add a user from DHIS</span></span>");
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == -1)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:red;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:70px'>"+
+                                                        "<span class = 'fa fa-ok' style = 'color:white;'> Error. "+userName+" not inserted</span>"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    $("div#returned_messages").empty();
+                                    //createUsers('credentials');
+                                },
+                                1500
+                            );
+                        }
+                    }
+                );
+            }
+
+        );
+    }
+}
+
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // Function userOperations()
 function userOperations(operation,item,createdUserID,createdUserName)
@@ -585,7 +829,6 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                             }
                                         }
                                     );
-
                                 }
                             }
                         }
@@ -797,87 +1040,11 @@ function userOperations(operation,item,createdUserID,createdUserName)
                 {
                     userEmail = userData[0].email;
                 }
-                else
-                {
-                    if(!validateEmail(userEmail))
-                    {
-                        userEmail = userData[0].email;
 
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The email entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Email Format: example@domain.com"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );
-                    }
-                }
                 // Phone Number
                 if(phoneNO == "")
                 {
                     phoneNO = userData[0].mobile_no;
-                }
-                else
-                {
-                    // Phone number validation
-                    if(!validatePhoneNumber(phoneNO))
-                    {
-                        phoneNO = userData[0].mobile_no;
-
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The phone number entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Phone NO Format: 07XX123456"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );   
-                    }
                 }
 
                 // Post to DB side
@@ -919,6 +1086,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                 },
                                 1500
                             );
@@ -938,9 +1106,78 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
                                 },
                                 1500
                             );
+                        }
+
+                        else if(statusMessage == 12)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The email entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Email Format: example@domain.com"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 13)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The phone number entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Phone NO Format: 07XX123456"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            ); 
                         }
                     }
                 );
@@ -992,87 +1229,11 @@ function userOperations(operation,item,createdUserID,createdUserName)
                 {
                     userEmail = userData[0].email;
                 }
-                else
-                {
-                    if(!validateEmail(userEmail))
-                    {
-                        userEmail = userData[0].email;
 
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The email entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Email Format: example@domain.com"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );
-                    }
-                }
                 // Phone Number
                 if(phoneNO == "")
                 {
                     phoneNO = userData[0].mobile_no;
-                }
-                else
-                {
-                    // Phone number validation
-                    if(!validatePhoneNumber(phoneNO))
-                    {
-                        phoneNO = userData[0].mobile_no;
-
-                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                "<span style ='margin-left:80px'>"+
-                                                    "The phone number entered is invalid"+
-                                                "</span>"+
-                                            "</div>";
-                        $("div#returned_messages").html(errorMessage);
-                        //Clear the error message after 1500 ms
-                        setTimeout
-                        (
-                            function()
-                            {
-                                var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
-                                                        "<span style ='margin-left:80px'>"+
-                                                            "Phone NO Format: 07XX123456"+
-                                                        "</span>"+
-                                                    "</div>";
-                                $("div#returned_messages").html(errorMessage);
-                                //Clear the error message after 1500 ms
-                                setTimeout
-                                (
-                                    function()
-                                    {
-                                        $("div#returned_messages").empty();
-                                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USERS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Create a new user below</span></span>");
-                                    },
-                                    2000
-                                );
-                            },
-                            1500
-                        );   
-                    }
                 }
 
                 //Post to DB side
@@ -1095,7 +1256,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                             (
                                 function()
                                 {
-                                    window.location.href="home.php";
+                                    getUsers('administration');
                                 },
                                 1500
                             );
@@ -1114,6 +1275,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                 },
                                 1500
                             );
@@ -1133,9 +1295,78 @@ function userOperations(operation,item,createdUserID,createdUserName)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> EDIT USER DETAILS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit "+userName+"'s profile</span></span>");
                                 },
                                 1500
                             );
+                        }
+
+                        else if(statusMessage == 12)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The email entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Email Format: example@domain.com"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            );
+                        }
+
+                        else if(statusMessage == 13)
+                        {
+                            var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                    "<span style ='margin-left:80px'>"+
+                                                        "The phone number entered is invalid"+
+                                                    "</span>"+
+                                                "</div>";
+                            $("div#returned_messages").html(errorMessage);
+                            //Clear the error message after 1500 ms
+                            setTimeout
+                            (
+                                function()
+                                {
+                                    var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                            "<span style ='margin-left:80px'>"+
+                                                                "Phone NO Format: 07XX123456"+
+                                                            "</span>"+
+                                                        "</div>";
+                                    $("div#returned_messages").html(errorMessage);
+                                    //Clear the error message after 1500 ms
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("div#returned_messages").empty();
+                                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> UPDATE YOUR PROFILE<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Edit your profile information</span></span>");
+                                        },
+                                        2000
+                                    );
+                                },
+                                1500
+                            ); 
                         }
                     }
                 );
@@ -1343,7 +1574,7 @@ function userOperations(operation,item,createdUserID,createdUserName)
 //END FUNCTION
 /*------------------------------------------------------------------------------------------------------------------------------*/
 // Function updateUserPassword()
-function updateUserPassword(user)
+function updateUserPassword(user,userName, passwordStatus)
 {
     var loginPassword = document.getElementById("login_password").value;      
     var confirmLoginPassword = document.getElementById("confirm_login_password").value;
@@ -1361,7 +1592,7 @@ function updateUserPassword(user)
             function()
             {
                 $("div#returned_messages").empty();
-                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
             },
             1500
         );
@@ -1382,7 +1613,7 @@ function updateUserPassword(user)
                 function()
                 {
                     $("div#returned_messages").empty();
-                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
                 },
                 1500
             );
@@ -1393,7 +1624,7 @@ function updateUserPassword(user)
             {
                 var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
                                         "<span style ='margin-left:80px'>"+
-                                            "Password is too short"+
+                                            "Password is too short."+
                                         "</span>"+
                                     "</div>";
                 $("div#returned_messages").html(errorMessage);
@@ -1402,8 +1633,21 @@ function updateUserPassword(user)
                 (
                     function()
                     {
-                        $("div#returned_messages").empty();
-                        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> USER LOGIN CREDENTIALS<br><span id = 'note' style ='color:blue;font-weight:normal;font-size:10pt;margin-left:30px'>Assign a created user authentication credentials and a role</span></span>");
+                        var errorMessage = "<div style ='color:white;margin-left:40px;background-color:#b64645;padding:5px;border-radius:3px;width:40%'>"+
+                                                "<span style ='margin-left:80px'>"+
+                                                    "Password should be atleast six characters."+
+                                                "</span>"+
+                                            "</div>";
+                        $("div#returned_messages").html(errorMessage);
+                        setTimeout
+                        (
+                            function()
+                            {
+                                $("div#returned_messages").empty();
+                                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
+                            },
+                            1500
+                        );
                     },
                     1500
                 );
@@ -1430,13 +1674,16 @@ function updateUserPassword(user)
                             (
                                 function()
                                 {
-                                    $("div#returned_messages").empty();
-                                    var message = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
-                                                            "<span style ='margin-left:70px'>"+
-                                                                "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Use the new password to login</span>"+
-                                                            "</span>"+
-                                                        "</div>";
-                                    $("div#returned_messages").html(message);
+                                    if((user == "LOGGED IN USER")&&(passwordStatus == "NEW"))
+                                    {
+                                        $("div#returned_messages").empty();
+                                        var message = "<div style ='color:white;margin-left:40px;background-color:blue;padding:5px;border-radius:3px;width:40%'>"+
+                                                                "<span style ='margin-left:70px'>"+
+                                                                    "<span class = 'fa fa-exclamation-triangle' style = 'color:white;'> Please login in with the new password</span>"+
+                                                                "</span>"+
+                                                            "</div>";
+                                        $("div#returned_messages").html(message);
+                                    }
 
                                     setTimeout
                                     (
@@ -1444,14 +1691,22 @@ function updateUserPassword(user)
                                         {
                                             if(user == "LOGGED IN USER")
                                             {
-                                                window.location.href="db/user_auth/sess_unset.php";
+                                                // Update session, and redirect user
+                                                if(passwordStatus == "NEW")
+                                                {
+                                                    window.location.href="db/user_auth/sess_unset.php";
+                                                }
+                                                else
+                                                {
+                                                    window.location.href = "home.php";
+                                                }
                                             }
                                             else
                                             {
-                                                getUsers('update');
+                                                getUsers('administration');
                                             }
                                         },
-                                        1500
+                                        1000
                                     );
                                 },
                                 1500
@@ -1472,6 +1727,7 @@ function updateUserPassword(user)
                                 function()
                                 {
                                     $("div#returned_messages").empty();
+                                    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> CHANGE YOUR PASSWORD");
                                 },
                                 1500
                             );
@@ -1639,18 +1895,36 @@ function editUsers(userID, userName)
                 $('select#user_gender').append(genderOptions);
             }
 
+            else
+            {
+                var genderOptions = "<option value = ''>NOT AVAILABLE</option>"+
+                                    "<option value = 'FEMALE'>FEMALE</option>"+
+                                    "<option value = 'MALE'>MALE</option>";
+                $('select#user_gender').append(genderOptions);
+            }
+
             //User role
             if(userData[1].role == "ADMIN")
             {
-                var roleOptions =   "<option value = 'ADMIN'>ADMINISTRATOR</option>"+
-                                    "<option value = 'USER'>USER</option>";
+                var roleOptions =   "<option value = 'ADMIN'>ADMIN</option>"+
+                                    "<option value = 'READ'>READ</option>"+
+                                    "<option value = 'WRITE'>WRITE</option>";
                 $('select#user_role').append(roleOptions);
             }
 
-            else if(userData[1].role == "USER")
+            else if(userData[1].role == "WRITE")
             {
-                var roleOptions =   "<option value = 'USER'>USER</option>"+
-                                    "<option value = 'ADMIN'>ADMINISTRATOR</option>";
+                var roleOptions =   "<option value = 'WRITE'>WRITE</option>"+
+                                    "<option value = 'ADMIN'>ADMIN</option>"+
+                                    "<option value = 'READ'>READ</option>";
+                $('select#user_role').append(roleOptions);
+            }
+
+            else if(userData[1].role == "READ")
+            {
+                var roleOptions =   "<option value = 'READ'>READ</option>"+
+                                    "<option value = 'WRITE'>WRITE</option>"+
+                                    "<option value = 'ADMIN'>ADMIN</option>";
                 $('select#user_role').append(roleOptions);
             }
         }
@@ -1853,7 +2127,7 @@ function detailedUserProfile(userID, userName)
                                             userData[1].password_last_updated_by+
                                             "</div>"+
                                         "</div>"+
-                                        "<button class = 'pull-right btn btn-warning btn-sm' onclick='adminEditPassword(\""+userData[0].user_identifier+"\",\""+userData[0].name+"\")'>Change Password</button>"+
+                                        "<button class = 'pull-right btn btn-success btn-sm' onclick='adminEditPassword(\""+userData[0].user_identifier+"\",\""+userData[0].name+"\")'>Change Password</button>"+
                                     "</div>"+
                                 "</div>";  
             $('div#facilities').append(userDetails);

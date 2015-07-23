@@ -11,16 +11,19 @@
                         <?php echo $_SESSION["name"]."";?>
                     </span> 
                     <br>
-                    <span style ="color:;margin-right:10px;">
-                        <?php echo $_SESSION["user_role"];?>
+                    <span style ="color:green;margin-right:10px;">
+                        <span style = "color:black">ACCESS:</span> <?php echo $_SESSION["user_role"];?>
                     </span>
                     <br>
-                    <span class="fa fa-edit unclickedColor" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')"></span>
-                    <span class = "unclickedColor"><a style ='color:red' onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')">(update profile!)</a></span>
+                    <span class="fa fa-edit unclickedColor" title = "Update Your Profile" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')"></span>
+                    <span class = "unclickedColor">
+                        <a style ='color:red' title = "Update Your Profile" onclick="javascript:updateUserProfile('<?php echo $_SESSION["user_id"];?>','<?php echo $_SESSION["name"];?>')">(update profile!)
+                        </a>
+                    </span>
                     <br>
                     <div style = "margin-top:5px">
-                        <span class="fa fa-cog unclickedColor" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
-                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px"></span>
+                        <span class="fa fa-cog unclickedColor" title = "Change Your Password" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
+                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px" title = "Sign Out"></span>
                     </div>            
                 </div>
             </div>
@@ -29,6 +32,7 @@
 
             <div class="panel-group" id="accordion" style = "cursor:auto">               
                 <?php
+                    // User creation and editing reserved to the ADMIN role
                     if($_SESSION["user_role"]=="ADMIN")
                     {
                         echo "<!--USERS -->
@@ -47,14 +51,26 @@
                                                 Create
                                             </div>
                                             <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:dhisUsers()'>
+                                                Create from DHIS
+                                            </div>
+                                            <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"update\")'>
                                                 Update
-                                            </div>                            
+                                            </div>
+                                            <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"administration\")'>
+                                                Administration
+                                            </div>                           
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END USERS -->";
+                    }
 
+                    // Creating and editing programs done by ADMIN role
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!--PROGRAMS -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -73,12 +89,19 @@
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"update\")'>
                                                 Update
+                                            </div>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"administration\");'>
+                                                Administration
                                             </div>                            
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END PROGRAMS -->";
+                    }
 
+                    // Classification of facilities in the hierarchy done by ADMIN
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!-- CLASSIFY FACILITIES -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -92,21 +115,72 @@
                                     <div id='collapseFacilities' class='panel-collapse collapse'>
                                         <div class='panel-body'>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(1)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
-                                                Central Sites
+                                                Sub-County Stores
                                             </div>
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(2)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
+                                                Central Sites
+                                            </div>
+                                            <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:satelliteClassificationType()' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
                                                 Satellite Sites
                                             </div>
                                             <br>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(3)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(4)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
                                                 Stand Alones
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END CLASSIFY FACILITIES -->";
+                    }
 
+                    // Reports visible to all roles
+                    if(($_SESSION["user_role"]=="READ")||($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
+                    {
+                        echo "<!-- REPORTS -->
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'>
+                                    <p>
+                                        <a data-toggle='collapse' data-parent='#accordion' href='#collapseReports' style = 'padding-left:5px'>REPORTS</a>
+                                        <a class='pull-left' data-toggle='collapse' data-parent='#accordion' href='#collapseReports'>
+                                            <span class='fa fa-newspaper-o' onclick='javascript:changeIcon()'></span>
+                                        </a>
+                                    </p>
+                                </div>
+                                <div id='collapseReports' class='panel-collapse collapse'>
+                                    <div class='panel-body'>
+                                        <!-- <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
+                                            Users
+                                        </div>
+                                        <br> -->
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
+                                            Programs
+                                        </div>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
+                                            Supply Hierarchy
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getAnalytics()'>
+                                            Data Set Report
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:siteAnalytics()'>
+                                            Sites Analytics
+                                        </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:ARTAnalytics()'>
+                                            ART Reports
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END REPORTS -->";
+                    }
+                    
+                    // System UPDATES reserved to the ADMIN role
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
                         echo "<!-- UPDATES -->
                                 <div class='panel panel-default'>
                                     <div class='panel-heading'>
@@ -137,6 +211,11 @@
                                     </div>
                                 </div>
                                 <!-- END UPDATES -->";
+                    }
+
+                    // Data Administration reserved to the ADMIN
+                    if(($_SESSION["user_role"]=="ADMIN"))
+                    {
 
                         echo "<!-- DATA ADMINISTRATION -->
                                 <div class='panel panel-default'>
@@ -150,55 +229,19 @@
                                     </div>
                                     <div id='collapseDataAdministration' class='panel-collapse collapse'>
                                         <div class='panel-body'>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"administration\")'>
-                                                Users
-                                            </div>
-                                            <br>
-                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"administration\");'>
-                                                Programs
-                                            </div> 
-                                            <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getSupplyHierarchy();'>
                                                 Supply Hierarchy
                                             </div> 
                                             <br>
+                                            <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getDeletionLog();'>
+                                                Deleted Data
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END DATA ADMINISTRATION-->";
                     }
                 ?>
-
-                <!-- REPORTS -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <p>
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseReports" style = "padding-left:5px">REPORTS</a>
-                            <a class="pull-left" data-toggle="collapse" data-parent="#accordion" href="#collapseReports">
-                                <span class="fa fa-newspaper-o" onclick="javascript:changeIcon()"></span>
-                            </a>
-                        </p>
-                    </div>
-                    <div id="collapseReports" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getUsers('report')">
-                                Users
-                            </div>
-                            <br>
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getPrograms('report')">
-                                Programs
-                            </div>
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:hierarchyReport()">
-                                Supply Hierarchy
-                            </div>
-                            <br>
-                            <div class = "btn btn-default btn-md" style = "margin-bottom:5px; width:100%" onclick="javascript:getAnalytics()">
-                                Data Set Report
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END REPORTS -->
 
             </div>
         </div>   

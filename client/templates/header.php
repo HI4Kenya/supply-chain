@@ -27,7 +27,7 @@
 
         <!-- NOTE: jQuery before JavaScript -->
         <!-- jQuery v1.11.2 library-->
-        <script type="text/javascript" src="assets/projectjs/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
         <!-- jQuery v2.1.4 library-->
         <!-- $.ajax() method uses this js -->
@@ -36,31 +36,45 @@
         <!-- jQuery.confirm -->
         <script type="text/javascript" src="assets/js/jquery.confirm.min.js"></script>
 
-        <!-- PROJECT JS -->        
+
+        <!-- Morris JS -->
+        <script type="text/javascript" src="assets/template/js/plugins/morris/morris.min.js"></script>
+
+        <!-- Morris JS -->
+        <script type="text/javascript" src="assets/template/js/plugins/morris/raphael-min.js"></script>
+
+
+<!--        Excel Export js-->
+        <script type="text/javascript" src="assets/js/excellentexport.js"></script>
+
+        <!-- PROJECT JS -->  
+        <script type="text/javascript" src="assets/projectjs/artReports.js"></script>      
         <script type="text/javascript" src="assets/projectjs/classification.js"></script>
         <script type="text/javascript" src="assets/projectjs/common.js"></script>
         <script type="text/javascript" src="assets/projectjs/data.js"></script>
         <script type="text/javascript" src="assets/projectjs/dataAdministration.js"></script>
+        <script type="text/javascript" src="assets/projectjs/deletionLog.js"></script>
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
         <script type="text/javascript" src="assets/projectjs/logout.js"></script>
         <script type="text/javascript" src="assets/projectjs/programs.js"></script>
         <script type="text/javascript" src="assets/projectjs/reports.js"></script>
         <script type="text/javascript" src="assets/projectjs/selectlist.js"></script>
+        <script type="text/javascript" src="assets/projectjs/siteReports.js"></script>
         <script type="text/javascript" src="assets/projectjs/users.js"></script>
         <script type="text/javascript" src="assets/projectjs/validation.js"></script>
 
         <!-- bootstrap js library-->
         <script type="text/javascript" src="assets/Bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/Bootstrap/dist/js/jquery-ui.min.js"></script>
 
         <!-- Data Tables -->
-        <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js">
-        </script>
+        <script type="text/javascript" src="assets/template/js/plugins/datatables/jquery.dataTables.min.js"></script>
         
         <!-- CSS -->
-        <link href="assets/Bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/Bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/Bootstrap/dist/css/jquery-ui.min.css" rel="stylesheet">
         <link href="assets/css/mshTask.css" rel="stylesheet" type="text/css">
-        <link href="assets/pagecss/page.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/tables.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" id="theme" href="assets/template/css/theme-light.css"/>
 
         <!-- Data Table CSS -->
@@ -73,6 +87,7 @@
         <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    
     </head>
 
     <body style = "background-color:;color:black">
@@ -84,16 +99,20 @@
                 <div class = "header_container" id = "container-fluid">
 
                     <a href="" class="navbar-brand" id = "logo">
-                        <p style = "color:white;font-weight:bold;margin-left:40px;font-size:16pt">dhis<b style = "color:#7ec0ee;font-size:18pt">2</b><b style = "margin-left:100px">Supply Pipeline Hierarchy Tool</p>
+                        <p style = "color:white;font-weight:bold;margin-left:10px;font-size:16pt">
+                            <!-- <img style ='width:10%;height:200%;margin-left:px;margin-top:0px;margin-right:10px;float:left;border:1px solid white' src='assets/img/logos/HCSM Logo Color.png'> -->
+                            <b style = "margin-left:120px">Supply Pipeline Hierarchy Tool
+                        </p>
                     </a>
 
-                    <span class = "pull-right" style = "margin-right:100px;margin-top:20px">
-                        <span style ="color:white;margin-right:10px">
+                    <span class = "pull-right" style = "margin-right:120px;margin-top:20px">
+                        <span style ="color:white;margin-right:2px">
                             <?php echo $_SESSION["name"];?>
                         </span>
-                        <a class="mb-control" data-box="#mb-signout">
-                            <span class="fa fa-sign-out unclickedColor user_logout_button"></span>
-                        </a>
+                        <span style = "margin-left:">|</span>
+                        <span class = "fa fa-sign-out logoutButton user_logout_button" title = "Sign Out">
+                            Sign Out
+                        </span>
                     </span>
                 </div>
             </div>

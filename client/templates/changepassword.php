@@ -19,5 +19,5 @@
             <!-- <span class = 'fa fa-envelope-o' style = 'color:red;margin-left:10px'></span> -->
         <input id = 'confirm_login_password' type='password' class='form-control' placeholder='Confirm Password' style = 'margin-top:-25px;margin-left:150px'>
     </div>
-    <button id = 'update_password' type='submit' class='btn btn-success' style = 'margin-left:300px' onclick='javascript:updateUserPassword("LOGGED IN USER");'>Submit</button>
+    <button id = 'update_password' type='submit' class='btn btn-success' style = 'margin-left:300px' onclick='javascript:updateUserPassword("LOGGED IN USER","<?php echo $_SESSION["username"];?>","<?php echo $_SESSION["password_status"];?>");'>Submit</button>
 </div>
