@@ -21,7 +21,7 @@
 
         </div>
         <div class="panel-body" style="overflow: scroll;height:500px">
-            <table class="table table-responsive table-striped" id="artReport">
+            <table class="table table-responsive table-striped dataTable" id="artReport">
                 <thead>
                 <th>#</th>
                 <th>MFL Code</th>
