@@ -81,7 +81,7 @@ function getPrograms(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED PROGRAMS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'programdata' style = 'border-radius:5px'>"+
+                        "<table id= 'programdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
@@ -161,7 +161,7 @@ function getPrograms(display)
         $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'> DELETE EXISTING PROGRAMS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'programdata' style = 'border-radius:5px'>"+
+                        "<table id= 'programdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
@@ -241,7 +241,7 @@ function getPrograms(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED PROGRAMS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px'>"+
-                        "<table id= 'programdata' style = 'border-radius:5px'>"+
+                        "<table id= 'programdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>Program</th>"+
