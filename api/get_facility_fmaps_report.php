@@ -74,7 +74,7 @@ else
         curl_close($ch);
         $result=json_decode($result,true);
 
-        if (array_key_exists('dataValues', $result)){
+        if (isset($result["dataValues"])){
 
             $data_values=$result["dataValues"];
 
