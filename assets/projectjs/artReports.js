@@ -235,7 +235,7 @@ function getARTAnalytics()
 
 	                else if(selectedReportID == "Reporting Rate")
 	                {
-	                    // Reporting Rate
+                        generateReportingRateReport(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
 	                }
 	            }
 
@@ -260,7 +260,6 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     var url_facility_fmaps="api/get_facility_fmaps_report.php";
     var templateUrl="client/report_templates/art_report.php";
 
-    var urlDataSetTemplate="api/get_dataset_template.php";
     $.get(templateUrl).then
     (function(responseData) {
         $.get("db/fetch/get_orgunit_level_by_name.php",
@@ -291,20 +290,14 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
                             $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
 
-                            setTimeout(function(){
-                                $('#loading').html("Try Loading Again");
-                            }, 60000);
+                            //setTimeout(function(){
+                            //    $('#loading').html("Try Loading Again");
+                            //}, 60000);
 
                             setTimeout(function(){
                                 $('#loading').html("");
-                            }, 70000);
+                            }, 100000);
 
-                            //$('#artReport').dataTable({
-                            //    "paging":   false,
-                            //    "ordering": true,
-                            //    "info":     false,
-                            //    "searching":false
-                            //});
 
                             $.getJSON(url_facility_fmaps,
                                 {dataSet:dataSet,period:period,orgUnits:orgUnits},
@@ -445,13 +438,13 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
 
                                 $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
 
-                                setTimeout(function(){
-                                    $('#loading').html("Try Loading Again");
-                                }, 50000);
+                                //setTimeout(function(){
+                                //    $('#loading').html("Try Loading Again");
+                                //}, 50000);
 
                                 setTimeout(function(){
                                     $('#loading').html("");
-                                }, 50000);
+                                }, 100000);
 
 
                                 $.getJSON(url_facility_fmaps,
@@ -487,6 +480,97 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
 
     });
 }
+
+//Function to Generate Reporting Rate Report for Ordering Points
+function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
+
+    //alert(period+""+orgUnitID+""+orgUnitLevel);
+    //orgUnits for the Selected Level
+    var orgUnits=[];
+    var dataSet="HAcToQkdUS1";
+    var mflCode="";
+    var facilityName="";
+    var programId=3;
+
+    var url_reporting_rate="api/get_reporting_rate.php";
+    var templateUrl="client/report_templates/reporting_rate_report.php";
+
+    $.get(templateUrl).then
+    (function(responseData) {
+        $.get("db/fetch/get_orgunit_level_by_name.php",
+            {org_unit:orgUnitID,org_unit_level:orgUnitLevel},
+            function(orgUnitName){
+                //alert(orgUnitName);
+                $('div#facilities').empty();
+                $('div#facilities').append(responseData);
+                $('#formName').append("Reporting Rate For Central Sites And Sub-County Stores");
+                $('#orgUnitName').append(orgUnitName.toUpperCase());
+                $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
+                $('#period').append(generateYearName(period));
+
+                $.getJSON("db/fetch/get_ordering_points.php",
+                    {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                    function(facilities){
+
+                        $.each(facilities,function(key, facility){
+                            orgUnits.push(facility.facility_id);
+                        });
+
+                        if(orgUnits.length==0){
+
+                            $("#loading").empty();
+                            $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                        }
+                        else{
+
+                            $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+
+                            //setTimeout(function(){
+                            //    $('#loading').html("Try Loading Again");
+                            //}, 60000);
+
+                            setTimeout(function(){
+                                $('#loading').html("");
+                            }, 100000);
+
+
+                            $.getJSON(url_reporting_rate,
+                                {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                function(response){
+                                    //console.log(response);
+                                    $("#loading").empty();
+                                    $("#formData").empty();
+
+                                    $.each(response,function(index, obj){
+
+                                        $.get("db/fetch/get_ordering_point_type.php",
+                                            {program_id:programId,facility_id:obj.orgUnit}, function (type) {
+
+                                                var orderingPointType=type;
+                                                var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
+                                                mflCode=facility[0].mfl_code;
+                                                facilityName=facility[0].facility_name;
+
+                                                $('#formData').append("<tr>" +
+                                                "<td>"+(index+1)+"</td>"+
+                                                "<td>"+mflCode+"</td>"+
+                                                "<td>"+facilityName+"</td>"+
+                                                "<td>"+orderingPointType+"</td>"+
+                                                "<td>"+obj.reports+"</td>"+
+                                                "<td>"+obj.reported+"</td>"+
+                                                "<td>"+obj.reporting_rate+"</td>"+
+                                                "<tr>");
+
+                                            });
+                                    });
+                                });
+                        }
+                    });
+
+            });
+    });
+}
+
 //Function for formatting the date
 function generateYearName(date){
     var str = date;
