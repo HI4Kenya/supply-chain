@@ -16,12 +16,12 @@ else
     $password = $access_password;
 
     //HTTP GET request -Using Curl -Response JSON
-    if(isset($_GET['dataSet'])&&isset($_GET['period'])&&isset($_GET['orgUnits'])){
+    if(isset($_GET['dataSet'])&&isset($_GET['period'])&&isset($_GET['orgUnits'])&&isset($_GET['programId'])){
 
         $dataset =$_GET['dataSet'];
         $period = $_GET['period'];
         $orgUnits =$_GET['orgUnits'];
-        $program_id=3;
+        $program_id=$_GET['programId'];
         $reporting_report=array();
 
         foreach($orgUnits as $orgUnit){
