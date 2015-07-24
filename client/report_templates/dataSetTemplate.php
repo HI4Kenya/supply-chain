@@ -12,7 +12,9 @@
                 if(($_SESSION["user_role"]=="WRITE")||($_SESSION["user_role"]=="ADMIN"))
                 {
                     echo "<div class='col-md-offset-9'>
-                            <button class='btn btn-success post-data'>Post Aggregated Values to DHIS</button>
+                            <button class='btn btn-success' type = 'button' data-toggle = 'modal' data-target = '#dhis_credentials'>
+                                Post Aggregated Values to DHIS
+                            </button>
                          </div>";
                 }
             ?>
@@ -24,6 +26,44 @@
         </div>
     </div>
 
+    <!-- Post back credentials modal -->
+    <div id = 'dhis_credentials' class = 'modal fade' role = 'dialog'>
+        <div class = 'modal-dialog'>
+            <!-- Content -->
+            <div class = 'modal-content'>
+                <!-- Header -->
+                <div class = 'modal-header'>
+                    <button type = 'button' class ='close' data-dismiss = 'modal'>&times;</button>
+                    <h5 class = 'modal-title' id = 'dhis_credentials_header'>Enter your DHIS2 Credentials</h5>
+                </div>
+
+                <!-- Body -->
+                <div class = 'modal-body'>
+                    <form name = 'dhis_user_credentials' onsubmit = 'return false;'>
+                        <div class=''>
+                            <div class='form-group' style = 'width:40%'>
+                                <span style = 'color;padding:5px'>DHIS Username:</span>
+                                <input id = 'dhis_username' type='text' class='form-control' placeholder='DHIS Username' style = 'margin-top:-25px;margin-left:150px'>
+                                </input>
+                            </div>
+                            <div class='form-group' style = 'width:40%'>
+                                <span style = 'color;padding:5px'>DHIS Password:</span>
+                                <input id = 'dhis_password' type='password' class='form-control' placeholder='DHIS Password' style = 'margin-top:-25px;margin-left:150px'>
+                            </div>
+                        </div>
+                        <button class='btn btn-success post-data' type = 'submit' style = 'margin-top:5px;margin-left:300px'>
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class = 'modal-footer'>
+                    <button type = 'submit' class ='btn btn-danger' data-dismiss = 'modal'>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <p>&nbsp;</p>
 
 </div>
