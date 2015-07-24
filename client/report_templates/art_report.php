@@ -14,7 +14,7 @@
                 <span>
                      <a  class="btn btn-success" download="list_of_patients_by_ordering_points.xls" href="#"
                         onclick="return ExcellentExport.excel(this, 'artReport', 'reportTitle');">
-                         <i class="fa fa-file-excel-o"></i>Download as Excel
+                         <i class="fa fa-file-excel-o"></i>Export
                      </a>
                 </span>
             </div>
