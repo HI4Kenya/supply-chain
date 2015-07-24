@@ -150,17 +150,6 @@
                                 </div>
                                 <div id='collapseReports' class='panel-collapse collapse'>
                                     <div class='panel-body'>
-                                        <!-- <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
-                                            Users
-                                        </div>
-                                        <br> -->
-                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
-                                            Programs
-                                        </div>
-                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
-                                            Supply Hierarchy
-                                        </div>
-                                        <br>
                                         <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getAnalytics()'>
                                             Data Set Report
                                         </div>
@@ -172,6 +161,18 @@
                                         <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:ARTAnalytics()'>
                                             ART Reports
                                         </div>
+                                        <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getPrograms(\"report\")'>
+                                            Programs
+                                        </div>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:hierarchyReport()'>
+                                            Supply Hierarchy
+                                        </div>
+
+                                        <!-- <br>
+                                        <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:getUsers(\"report\")'>
+                                            Users
+                                        </div> -->                                     
                                     </div>
                                 </div>
                             </div>

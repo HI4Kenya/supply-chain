@@ -12,8 +12,11 @@
     else
     {
 		# API login Credentials
-		$username = $access_user;
-		$password = $access_password;
+		// $username = $access_user;
+		// $password = $access_password;
+		# User posting back data credentials
+		$username = $_POST['dhis_user'];
+		$password = $_POST['dhis_password'];
 
 		//HTTP GET request -Using Curl -Response JSON
 		if(isset($_POST['post'])){
