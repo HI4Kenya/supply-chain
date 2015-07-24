@@ -535,7 +535,7 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
 
 
                             $.getJSON(url_reporting_rate,
-                                {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                {dataSet:dataSet,period:period,orgUnits:orgUnits,programId:programId},
                                 function(response){
                                     //console.log(response);
                                     $("#loading").empty();
