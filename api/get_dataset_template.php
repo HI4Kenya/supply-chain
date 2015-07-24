@@ -16,36 +16,42 @@
 		$password = $access_password;
 
 		//HTTP GET request -Using Curl -Response JSON
-		$dataset =$_GET['dataSet'];
+		if(isset($_GET['dataSet'])){
 
-		$url = $dhis_url."/api/dataSets/"."$dataset"."/dataEntryForm";
+			$dataset =$_GET['dataSet'];
 
-		// initailizing curl
-		$ch = curl_init();
-		//curl options
-		curl_setopt($ch, CURLOPT_POST, false);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
-		//execute
-		$result = curl_exec($ch);
+			$url = $dhis_url."/api/dataSets/"."$dataset"."/dataEntryForm";
 
-		//close connection
-		curl_close($ch);
+			// initailizing curl
+			$ch = curl_init();
+			//curl options
+			curl_setopt($ch, CURLOPT_POST, false);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+			curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+			//execute
+			$result = curl_exec($ch);
+
+			//close connection
+			curl_close($ch);
 
 
-		if ($result){
+			if ($result){
 
-		    echo $result;
+				echo $result;
+			}
+			else{
+
+				echo -1;
+			}
 		}
 		else{
-
-		    echo -1;
+			echo -1;
 		}
 	}
 ?>
