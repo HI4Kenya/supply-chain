@@ -735,6 +735,7 @@ function reportData()
                         function()
                         {
                             $("div#returned_messages").empty();
+                            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
                         },
                         1500
                     );
@@ -757,6 +758,7 @@ function reportData()
                             function()
                             {
                                 $("div#returned_messages").empty();
+                                $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>DATA CRITERIA</span> ");
                             },
                             1500
                         );
@@ -1097,21 +1099,71 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                 }
                             });
 
-
+                            $("input#dhis_username").prop('disabled', false);
+                            $("input#dhis_password").prop('disabled', false);
                             //Method to post data values back to DHIS2
                             $(".post-data").click(function(){
-                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
-                                $.post(urlPostToDHIS, {"post":post_data},
-                                    function(data, status){
-                                        $('#post-log').html("");
-                                        if(data==-1){
-                                            alert("Posting was Unsuccessful.\nTry Posting Again");
-                                        }
+                                // Get DHIS user credentials
+                                var dhisUser = document.getElementById("dhis_username").value;
+                                var dhisPassword = document.getElementById("dhis_password").value;
+                                if(dhisUser == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS username</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                        if(data==0){
-                                            alert("Data Posted Successfully");
-                                        }
-                                    });
+                                }
+                                else if (dhisPassword == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS password</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
+
+                                }
+                                else
+                                {
+                                    //Hide the modal 
+                                    $("#dhis_credentials").modal('hide');
+
+                                    console.log(post_data);
+                                    console.log(dhisUser);
+                                    $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
+                                    $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
+                                        function(data, status){
+                                            $('#post-log').html("");
+                                            if(data==-1){
+                                                alert("Posting was Unsuccessful.\nTry Posting Again");
+                                            }
+
+                                            if(data==0){
+                                                alert("Data Posted Successfully");
+                                            }
+                                        });
+                                }
 
                             });
 
@@ -1327,22 +1379,71 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                 }
                             });
 
+                            $("input#dhis_username").prop('disabled', false);
+                            $("input#dhis_password").prop('disabled', false);
                             //Method to post data values back to DHIS2
                             $(".post-data").click(function(){
+                                // Get DHIS user credentials
+                                var dhisUser = document.getElementById("dhis_username").value;
+                                var dhisPassword = document.getElementById("dhis_password").value;
+                                if(dhisUser == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS username</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                console.log(post_data);
-                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
-                                $.post(urlPostToDHIS, {"post":post_data},
-                                    function(data, status){
-                                        $('#post-log').html("");
-                                        if(data==-1){
-                                            alert("Posting was Unsuccessful.\nTry Posting Again");
-                                        }
+                                }
+                                else if (dhisPassword == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS password</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                        if(data==0){
-                                            alert("Data Posted Successfully");
-                                        }
-                                    });
+                                }
+                                else
+                                {
+                                    //Hide the modal 
+                                    $("#dhis_credentials").modal('hide');
+
+                                    console.log(post_data);
+                                    console.log(dhisUser);
+                                    $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
+                                    $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
+                                        function(data, status){
+                                            $('#post-log').html("");
+                                            if(data==-1){
+                                                alert("Posting was Unsuccessful.\nTry Posting Again");
+                                            }
+
+                                            if(data==0){
+                                                alert("Data Posted Successfully");
+                                            }
+                                        });
+                                }
 
                             });
 
@@ -1486,22 +1587,72 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                                 });
                             });
 
+                            $("input#dhis_username").prop('disabled', false);
+                            $("input#dhis_password").prop('disabled', false);
                             //Method to post data values back to DHIS2
                             $(".post-data").click(function(){
+                                // Get DHIS user credentials
+                                var dhisUser = document.getElementById("dhis_username").value;
+                                var dhisPassword = document.getElementById("dhis_password").value;
+                                if(dhisUser == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS username</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                console.log(post_data);
-                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
-                                $.post(urlPostToDHIS, {"post":post_data},
-                                    function(data, status){
-                                        $('#post-log').html('');
-                                        if(data==-1){
-                                            alert("Posting was Unsuccessful.\nTry Posting Again");
-                                        }
+                                }
+                                else if (dhisPassword == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS password</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                        if(data==0){
-                                            alert("Data Posted Successfully");
-                                        }
-                                    });
+                                }
+                                else
+                                {
+                                    //Hide the modal 
+                                    $("#dhis_credentials").modal('hide');
+
+                                    console.log(post_data);
+                                    console.log(dhisUser);
+                                    $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
+                                    $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
+                                        function(data, status){
+                                            $('#post-log').html("");
+                                            if(data==-1){
+                                                alert("Posting was Unsuccessful.\nTry Posting Again");
+                                            }
+
+                                            if(data==0){
+                                                alert("Data Posted Successfully");
+                                            }
+                                        });
+                                }
+
                             });
                         });
 
@@ -1736,21 +1887,71 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
 
                             });
 
+                            $("input#dhis_username").prop('disabled', false);
+                            $("input#dhis_password").prop('disabled', false);
                             //Method to post data values back to DHIS2
                             $(".post-data").click(function(){
-                                //console.log(post_data);
-                                $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
-                                $.post(urlPostToDHIS, {"post":post_data},
-                                    function(data, status){
-                                        $('#post-log').html("");
-                                        if(data==-1){
-                                            alert("Post was Unsuccessful"+status);
-                                        }
+                                // Get DHIS user credentials
+                                var dhisUser = document.getElementById("dhis_username").value;
+                                var dhisPassword = document.getElementById("dhis_password").value;
+                                if(dhisUser == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS username</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
 
-                                        if(data==0){
-                                            alert("Post was successful"+status);
-                                        }
-                                    });
+                                }
+                                else if (dhisPassword == "")
+                                {
+                                    var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
+                                                        "<span style ='margin-left:70px'>"+
+                                                            "<span class = 'fa fa-ok' style = 'color:white;'> Please enter your DHIS password</span>"+
+                                                        "</span>"+
+                                                    "</div>";
+                                    $("#dhis_credentials_header").html(message);
+                                    setTimeout
+                                    (
+                                        function()
+                                        {
+                                            $("#dhis_credentials_header").empty();
+                                            $("#dhis_credentials_header").html("Enter your DHIS2 Credentials");
+                                        },
+                                        1500
+                                    );
+
+                                }
+                                else
+                                {
+                                    //Hide the modal 
+                                    $("#dhis_credentials").modal('hide');
+
+                                    console.log(post_data);
+                                    console.log(dhisUser);
+                                    $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
+                                    $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
+                                        function(data, status){
+                                            $('#post-log').html("");
+                                            if(data==-1){
+                                                alert("Posting was Unsuccessful.\nTry Posting Again");
+                                            }
+
+                                            if(data==0){
+                                                alert("Data Posted Successfully");
+                                            }
+                                        });
+                                }
 
                             });
 

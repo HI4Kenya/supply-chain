@@ -374,9 +374,9 @@ function listSites(type,program,orgUnit, orgUnitLevel)
                                             "<td style = 'text-align:left'>"+results[counting].facility_name+"</td>"+
                                             "<td style = 'text-align:left' id = 'county_"+results[counting].facility_id+"'></td>"+
                                             "<td style = 'text-align:left' id = 'sub_county_"+results[counting].facility_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'dispensing_point_"+results[counting].facility_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'satellite_site_"+results[counting].facility_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'standalone_site_"+results[counting].facility_id+"'></td>"+
+                                            "<td style = '' id = 'dispensing_point_"+results[counting].facility_id+"'></td>"+
+                                            "<td style = '' id = 'satellite_site_"+results[counting].facility_id+"'></td>"+
+                                            "<td style = '' id = 'standalone_site_"+results[counting].facility_id+"'></td>"+
                                         "</tr>";
 
                     $(dataToAppend).appendTo("#servicepoints tbody");
@@ -527,20 +527,39 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
             countiesUrl,
             function(counties)
             {
-                //alert(counties.length);
+                var scsTotal = 0;
+                var csTotal = 0;
+                var sasTotal = 0;
+                var grandTotal = 0;
+
                 for(var counting=0; counting<counties.length;counting++)
                 {
                     var itemNumber = counting+1;
                     var dataToAppend = "<tr>"+
                                             "<td>"+itemNumber+"</td>"+
                                             "<td style = 'text-align:left'>"+counties[counting].county_name+"</td>"+
-                                            "<td style = 'text-align:left' id = 'subcounty_stores_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'central_sites_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'standalone_sites_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'total_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = 'text-align:' id = 'subcounty_stores_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = 'text-align:' id = 'central_sites_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = 'text-align:' id = 'standalone_sites_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = 'text-align:' id = 'total_"+counties[counting].county_id+"'></td>"+
                                         "</tr>";
                     //$('#userdata tr:last').after(dataToAppend);
                     $(dataToAppend).appendTo("#orderingpointsdistribution tbody");
+
+                    // Append the total row after the last county
+                    if(itemNumber == counties.length)
+                    {
+                        var totalColumn =   "<tr style = 'background-color:green;'>"+
+                                                        "<td id = ''>#</td>"+
+                                                        "<td id = '' style = 'text-align:left'>Total</td>"+
+                                                        "<td id = 'scs_total'></td>"+
+                                                        "<td id = 'cs_total'></td>"+
+                                                        "<td id = 'sas_total'></td>"+
+                                                        "<td id = 'grand_total'></td>"+
+                                                    "</tr>";
+
+                        $(totalColumn).appendTo("#orderingpointsdistribution tbody");
+                    }
 
                     var dataUrl = "db/fetch/ordering_points_distribution.php";
                     $.getJSON
@@ -549,13 +568,20 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                         {program_id:program,org_unit:counties[counting].county_id,org_unit_level:orgUnitLevel},
                         function(results)
                         {
-                            for(var counting=0; counting<results.length;counting++)
-                            { 
-                                $("#subcounty_stores_"+results[4]).html("<span style ='color:'>"+results[0]+"</span>");
-                                $("#central_sites_"+results[4]).html("<span style ='color:'>"+results[1]+"</span>");
-                                $("#standalone_sites_"+results[4]).html("<span style ='color:'>"+results[2]+"</span>");
-                                $("#total_"+results[4]).html("<span style ='color:'>"+results[3]+"</span>");
-                            }
+                            $("#subcounty_stores_"+results[4]).html("<span style ='color:'>"+results[0]+"</span>");
+                            $("#central_sites_"+results[4]).html("<span style ='color:'>"+results[1]+"</span>");
+                            $("#standalone_sites_"+results[4]).html("<span style ='color:'>"+results[2]+"</span>");
+                            $("#total_"+results[4]).html("<span style ='color:'>"+results[3]+"</span>");
+                            
+                            scsTotal = scsTotal + results[0];
+                            csTotal = csTotal + results[1];
+                            sasTotal = sasTotal + results[2];
+                            grandTotal = grandTotal + results[3];
+
+                            $("#scs_total").html("<span style ='color:'>"+scsTotal+"</span>");
+                            $("#cs_total").html("<span style ='color:'>"+csTotal+"</span>");
+                            $("#sas_total").html("<span style ='color:'>"+sasTotal+"</span>");
+                            $("#grand_total").html("<span style ='color:'>"+grandTotal+"</span>");
                         }
                     );
                 }
@@ -637,20 +663,39 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
             countiesUrl,
             function(counties)
             {
-                //alert(counties.length);
+                var dpTotal = 0;
+                var ssTotal = 0;
+                var sasTotal = 0;
+                var grandTotal = 0;
+
                 for(var counting=0; counting<counties.length;counting++)
                 {
                     var itemNumber = counting+1;
                     var dataToAppend = "<tr>"+
                                             "<td>"+itemNumber+"</td>"+
                                             "<td style = 'text-align:left'>"+counties[counting].county_name+"</td>"+
-                                            "<td style = 'text-align:left' id = 'dispensing_points_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'satellite_sites_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'standalone_sites_"+counties[counting].county_id+"'></td>"+
-                                            "<td style = 'text-align:left' id = 'total_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = '' id = 'dispensing_points_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = '' id = 'satellite_sites_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = '' id = 'standalone_sites_"+counties[counting].county_id+"'></td>"+
+                                            "<td style = '' id = 'total_"+counties[counting].county_id+"'></td>"+
                                         "</tr>";
                     //$('#userdata tr:last').after(dataToAppend);
                     $(dataToAppend).appendTo("#servicepointsdistribution tbody");
+
+                    // Append the total row after the last county
+                    if(itemNumber == counties.length)
+                    {
+                        var totalColumn =   "<tr style = 'background-color:green;'>"+
+                                                        "<td id = ''>#</td>"+
+                                                        "<td id = '' style = 'text-align:left'>Total</td>"+
+                                                        "<td id = 'dp_total'></td>"+
+                                                        "<td id = 'ss_total'></td>"+
+                                                        "<td id = 'sas_total'></td>"+
+                                                        "<td id = 'grand_total'></td>"+
+                                                    "</tr>";
+
+                        $(totalColumn).appendTo("#servicepointsdistribution tbody");
+                    }
 
                     var dataUrl = "db/fetch/service_points_distribution.php";
                     $.getJSON
@@ -659,17 +704,20 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                         {program_id:program,org_unit:counties[counting].county_id,org_unit_level:orgUnitLevel},
                         function(results)
                         {
-                            for(var counting=0; counting<results.length;counting++)
-                            { 
-                                $("#dispensing_points_"+results[4]).html("<span style ='color:'>"+results[0]+"</span>");
-                                $("#satellite_sites_"+results[4]).html("<span style ='color:'>"+results[1]+"</span>");
-                                $("#standalone_sites_"+results[4]).html("<span style ='color:'>"+results[2]+"</span>");
-                                $("#total_"+results[4]).html("<span style ='color:'>"+results[3]+"</span>");
-                            }
-                            // $(function()
-                            // {
-                            //     $("#orderingpoints").dataTable();
-                            // });
+                            $("#dispensing_points_"+results[4]).html("<span style ='color:'>"+results[0]+"</span>");
+                            $("#satellite_sites_"+results[4]).html("<span style ='color:'>"+results[1]+"</span>");
+                            $("#standalone_sites_"+results[4]).html("<span style ='color:'>"+results[2]+"</span>");
+                            $("#total_"+results[4]).html("<span style ='color:'>"+results[3]+"</span>");
+
+                            dpTotal = dpTotal + results[0];
+                            ssTotal = ssTotal + results[1];
+                            sasTotal = sasTotal + results[2];
+                            grandTotal = grandTotal + results[3];
+
+                            $("#dp_total").html("<span style ='color:'>"+dpTotal+"</span>");
+                            $("#ss_total").html("<span style ='color:'>"+ssTotal+"</span>");
+                            $("#sas_total").html("<span style ='color:'>"+sasTotal+"</span>");
+                            $("#grand_total").html("<span style ='color:'>"+grandTotal+"</span>");
 
                         }
                     );
@@ -736,7 +784,7 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                                     "</span>"+                             
                                 "</div>"+
                                 "<div class='panel-body'>"+
-                                    "<div id='orderingpoints-bar-chart' style='height: 300px;width:auto;overflow:scroll'></div>"+
+                                    "<div id='orderingpoints-bar-chart' style='height:400px;width:auto;overflow:scroll'></div>"+
                                 "</div>"+
                             "</div>"+
                             "<!-- END BAR CHART -->";
