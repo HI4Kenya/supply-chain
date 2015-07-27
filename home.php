@@ -24,7 +24,7 @@
             }
         ?>
 
-        <div class = "col-md-9" id = "col_body" style = "margin-left:2px;margin-top:-10px;border-radius:5px;width:;">
+        <div class = "col-md-9" id = "col_body" style = "margin-left:2px;margin-top:-10px;border-radius:5px;width:;" id = 'content_div'>
             
                 <?php
                     if($_SESSION["password_status"]=="NEW")
@@ -63,7 +63,7 @@
                     {
                         echo    "<div class='panel panel-default' style = 'background-color:white;min-height:600px'>";
 
-                        echo    "<div class='panel-heading' style = 'width:100%;height:50px;margin-bottom:30px'>
+                        echo    "<div id = 'supply_pipeline_heading' class='panel-heading' style = 'width:100%;height:50px;margin-bottom:30px'>
                                     <span>SUPPLY PIPELINE HIERARCHY
                                         <span style ='color:black'>|</span>
                                         <span style = 'margin-right:10px;margin-top:0px;padding:5px'>

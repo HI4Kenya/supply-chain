@@ -1,7 +1,12 @@
 // Function getDeletionLog()
 function getDeletionLog()
 {
-	$('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> DELETED DATA</span>");
+	$('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                                "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                " DELETED DATA</span>");
 
     var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
                     "<table id= 'deleteddata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+

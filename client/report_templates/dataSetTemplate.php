@@ -27,7 +27,7 @@
     </div>
 
     <!-- Post back credentials modal -->
-    <div id = 'dhis_credentials' class = 'modal fade' role = 'dialog'>
+    <div id = 'dhis_credentials' class = 'modal fade' role = 'dialog' data-backdrop="static" data-keyboard="false" >
         <div class = 'modal-dialog'>
             <!-- Content -->
             <div class = 'modal-content'>
