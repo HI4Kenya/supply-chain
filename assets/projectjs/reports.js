@@ -908,7 +908,7 @@ function generateReport(selectedProgramID, dataSetOptions, periodOptions, period
             reportTemplate(dataSetTemplate, periodOfTheReport, selectedFacilityID, dataSetOptions,multiplier,form);
         }
         else{
-            alert("Dataset Not found");
+            alert("DataSet Not found");
         }
 
     }
@@ -942,6 +942,7 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                         $("#formData").empty();
                         $("#formData").append("Try Again/No DataSet Assigned");
                     }
+
                     $("#formData").empty();
                     $("#formData").append(htmlForm.dataEntryForm.htmlCode);
                     $("#formName").append(htmlForm.dataEntryForm.name);
@@ -953,26 +954,26 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
 
                     var totalConsumptionCombo=null;
                     var totalPhysicalStockCombo=null;
-                    var quanityResupply_Combo=null;
+                    var quantityResupply_Combo=null;
 
                     //734 Category Combinations -used for aggregation
                     if(form=="734B"){
                         totalConsumptionCombo="RWCHIdXizft";
                         totalPhysicalStockCombo="OmTneOE9mMF";
-                        quanityResupply_Combo="xPj1IPoxoHH";
+                        quantityResupply_Combo="xPj1IPoxoHH";
 
                     }else{
                         //730B
                         totalConsumptionCombo="MQxdLLBfwIL";
                         totalPhysicalStockCombo="UIjvPBrmiNE";
-                        quanityResupply_Combo="SxfihIxpyin";
+                        quantityResupply_Combo="SxfihIxpyin";
                     }
 
 
                     $('#loading').html('loading..<img src="assets/img/ajax-loader.gif">');
                     setTimeout(function(){
-                        $('#loading').html("Try Again.");
-                    }, 60000);
+                        $('#loading').html("");
+                    }, 100000);
                     //Get the orgUnit details
                     getOrganisationUnitName(orgUnit);
 
@@ -1025,10 +1026,11 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                             //data to post to dhis2
                             var post_data=response_data;
                             post_data.dataValues=[];
-                            var dataElementsUpadated=[];
+                            var dataElementsUpdated=[];
 
                             var post_obj=null;
                             $.each(dataValues, function (index, dataObj) {
+
                                 var dataElementId = dataObj.dataElement;
                                 var optionComboId = dataObj.categoryOptionCombo;
                                 dataObj.val= dataObj.value;
@@ -1045,9 +1047,10 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                 } else if (result.length == 1) {
                                     // one object
                                 } else {
+
                                     var columnC=$.grep(result, function(e){ return e.categoryOptionCombo ==totalConsumptionCombo;});
                                     var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==totalPhysicalStockCombo;});
-                                    var quanityResupplyElement=quanityResupply_Combo;
+                                    var quanityResupplyElement=quantityResupply_Combo;
 
                                     var elementId="#"+dataElementId+"-"+quanityResupplyElement+"-val";
 
@@ -1077,15 +1080,15 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                         tableItem.val(valueResupply);
 
                                         //post data
-                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
+                                        if ($.inArray(dataElementId,dataElementsUpdated)==-1){
 
                                             var post_obj= { "dataElement": dataElementId, "categoryOptionCombo": quanityResupplyElement, "value": valueResupply.toString()};
                                             post_data.dataValues.push(post_obj);
 
-                                            dataElementsUpadated.push(dataElementId);
+                                            dataElementsUpdated.push(dataElementId);
                                         }
 
-                                        if(dataElementsUpadated.length>50)
+                                        if(dataElementsUpdated.length>50)
                                         {
                                             $('#loading').html('<span>loading complete</span>');
                                         }
@@ -1106,6 +1109,7 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                 // Get DHIS user credentials
                                 var dhisUser = document.getElementById("dhis_username").value;
                                 var dhisPassword = document.getElementById("dhis_password").value;
+
                                 if(dhisUser == "")
                                 {
                                     var message = "<div style ='color:white;margin-left:40px;background-color:brown;padding:5px;border-radius:3px;width:80%'>"+
@@ -1149,12 +1153,15 @@ function reportTemplate(templateUrl, period, orgUnit, dataSet,multiplier, form)
                                     //Hide the modal 
                                     $("#dhis_credentials").modal('hide');
 
-                                    console.log(post_data);
-                                    console.log(dhisUser);
                                     $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
                                     $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
                                         function(data, status){
                                             $('#post-log').html("");
+
+                                            if(data==1){
+                                                alert("Wrong DHIS2 Credentials.\n");
+                                            }
+
                                             if(data==-1){
                                                 alert("Posting was Unsuccessful.\nTry Posting Again");
                                             }
@@ -1215,15 +1222,15 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 
 
                     //Category Combinations -730A
-                    var aggregatedQuanityConsumed_Combo="w5mBD3FwKg3";
+                    var aggregatedQuantityConsumed_Combo="w5mBD3FwKg3";
                     var aggregatedPhysicalStock_Combo= "YO3e43lWky0";
                     var PhysicalStock_Combo= "CrPXhlkjtxD";
-                    var quanityResupply_Combo="CCQF8AMSN7B";
+                    var quantityResupply_Combo="CCQF8AMSN7B";
                     var categoryOptionCombos=[];
 
-                    categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
+                    categoryOptionCombos.push(aggregatedQuantityConsumed_Combo);
                     categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
-                    categoryOptionCombos.push(quanityResupply_Combo);
+                    categoryOptionCombos.push(quantityResupply_Combo);
 
                     var multiplier=3;
                     var prefix="MOH 730B";
@@ -1265,7 +1272,7 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                             //data to post to dhis2
                             var post_data=response_data;
                             post_data.dataValues=[];
-                            var dataElementsUpadated=[];
+                            var dataElementsUpdated=[];
                             var dataElementsLoaded=[];
 
 
@@ -1285,18 +1292,18 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                     }
 
                                     //Quantity consumed
-                                    if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
+                                    if (dataObj.categoryOptionCombo == aggregatedQuantityConsumed_Combo) {
 
                                         categoryCombination = totalConsumptionCombo;
                                     }
 
-                                    var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                                    var dataSatellites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
                                         prefix_replace:prefix_replace};
 
                                     //Loaded DataElements
                                     dataElementsLoaded.push(dataElementId);
 
-                                    $.getJSON(urlAggregate,dataSatelites,function (data){
+                                    $.getJSON(urlAggregate,dataSatellites,function (data){
 
                                         dataObj.value = data;
                                         var tableItem = $(dataObj.id);
@@ -1308,11 +1315,11 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 
                                         if (result.length > 1) {
 
-                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
+                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuantityConsumed_Combo;});
                                             var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
                                             var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
 
-                                            var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
+                                            var elementId="#"+dataElementId+"-"+quantityResupply_Combo+"-val";
 
                                             //Calculating quantity required for resupply
                                             if(columnH.length>0 && columnG.length>0 )
@@ -1344,18 +1351,18 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                         }
 
                                         //to show status message it has completed loading data
-                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
-                                            dataElementsUpadated.push(dataElementId);
+                                        if ($.inArray(dataElementId,dataElementsUpdated)==-1){
+                                            dataElementsUpdated.push(dataElementId);
                                         }
 
-                                        if(dataElementsUpadated.length>=dataElementsLoaded.length){
+                                        if(dataElementsUpdated.length>=dataElementsLoaded.length){
 
                                             $('#loading').html('<span>Loading Complete</span>');
                                         }
 
 
                                         //Appending data to post to DHIS
-                                        if(dataObj.categoryOptionCombo==aggregatedQuanityConsumed_Combo)
+                                        if(dataObj.categoryOptionCombo==aggregatedQuantityConsumed_Combo)
                                         {
                                             var post_obj_Consumed= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
                                             post_data.dataValues.push(post_obj_Consumed);
@@ -1429,12 +1436,15 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
                                     //Hide the modal 
                                     $("#dhis_credentials").modal('hide');
 
-                                    console.log(post_data);
-                                    console.log(dhisUser);
                                     $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
                                     $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
                                         function(data, status){
                                             $('#post-log').html("");
+
+                                            if(data==1){
+                                                alert("Wrong DHIS2 Credentials.\n");
+                                            }
+
                                             if(data==-1){
                                                 alert("Posting was Unsuccessful.\nTry Posting Again");
                                             }
@@ -1456,8 +1466,8 @@ function reportTemplate730(templateUrl,satellites, period, orgUnit, dataSet)
 
                     $("#formData").empty();
                     $("#formData").append("<span class = 'fa fa-chain-broken' style = 'color:red;margin-left:30px'> No Data Found</span>");
-                });
 
+                });
 
 
             //function to get the name of the orgUnit
@@ -1555,7 +1565,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                             //data to post to dhis2
                             var post_data=response_data;
                             post_data.dataValues=[];
-                            var dataElementsUpadated=[];
+                            var dataElementsUpdated=[];
                             var dataElementsLoaded=[];
 
                             $.each(dataValues, function (index, dataObj) {
@@ -1565,22 +1575,22 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                                 dataObj.val= dataObj.value;
                                 dataObj.id = "#" + dataElementId + "-" + optionComboId + "-val";
 
-                                var dataSatelites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
+                                var dataSatellites = {orgUnits:satellites,de:dataObj.dataElement,pe:dataObj.period,co:categoryCombination,prefix:prefix,
                                     prefix_replace:prefix_replace};
 
 
-                                $.getJSON(urlAggregate,dataSatelites,function (data){
+                                $.getJSON(urlAggregate,dataSatellites,function (data){
 
                                     dataObj.value = data;
                                     var tableItem = $(dataObj.id);
                                     //tableItem.text(dataObj.value);
                                     tableItem.val(dataObj.value);
 
-                                    dataElementsUpadated.push(dataElementId);
+                                    dataElementsUpdated.push(dataElementId);
                                     var post_obj= { "dataElement": dataElementId, "categoryOptionCombo": optionComboId, "value":dataObj.value.toString()};
                                     post_data.dataValues.push(post_obj);
 
-                                    if(dataElementsUpadated.length>=(dataValues.length)-1){
+                                    if(dataElementsUpdated.length>=(dataValues.length)-1){
 
                                         $('#loading').html('<span>Loading Complete</span>');
                                     }
@@ -1588,6 +1598,7 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                                 });
                             });
 
+                            
                             $("input#dhis_username").prop('disabled', false);
                             $("input#dhis_password").prop('disabled', false);
                             //Method to post data values back to DHIS2
@@ -1638,12 +1649,15 @@ function reportTemplate729(templateUrl,satellites, period, orgUnit, dataSet)
                                     //Hide the modal 
                                     $("#dhis_credentials").modal('hide');
 
-                                    console.log(post_data);
-                                    console.log(dhisUser);
                                     $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
                                     $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
                                         function(data, status){
                                             $('#post-log').html("");
+
+                                            if(data==1){
+                                                alert("Wrong DHIS2 Credentials.\n");
+                                            }
+
                                             if(data==-1){
                                                 alert("Posting was Unsuccessful.\nTry Posting Again");
                                             }
@@ -1722,15 +1736,15 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                     var urlPostToDHIS="api/post_datavalues.php";
 
                     //Category Combinations -730A
-                    var aggregatedQuanityConsumed_Combo="x14wq0sboVv";
+                    var aggregatedQuantityConsumed_Combo="x14wq0sboVv";
                     var aggregatedPhysicalStock_Combo= "uWnMa5aRgda";
                     var PhysicalStock_Combo= "AmqP2wmFOz7";
-                    var quanityResupply_Combo="lkr4fyQv3w5";
+                    var quantityResupply_Combo="lkr4fyQv3w5";
                     var categoryOptionCombos=[];
 
-                    categoryOptionCombos.push(aggregatedQuanityConsumed_Combo);
+                    categoryOptionCombos.push(aggregatedQuantityConsumed_Combo);
                     categoryOptionCombos.push(aggregatedPhysicalStock_Combo);
-                    categoryOptionCombos.push(quanityResupply_Combo);
+                    categoryOptionCombos.push(quantityResupply_Combo);
 
                     var multiplier=3;
                     var prefix="";
@@ -1773,7 +1787,7 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                             //data to post to dhis2
                             var post_data=response_data;
                             post_data.dataValues=[];
-                            var dataElementsUpadated=[];
+                            var dataElementsUpdated=[];
                             var dataElementsLoaded=[];
 
                             $.each(dataValues, function (index, dataObj) {
@@ -1791,7 +1805,7 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                                     }
 
                                     //Quantity consumed
-                                    if (dataObj.categoryOptionCombo == aggregatedQuanityConsumed_Combo) {
+                                    if (dataObj.categoryOptionCombo == aggregatedQuantityConsumed_Combo) {
 
                                         categoryCombination = totalConsumptionCombo;
                                     }
@@ -1817,11 +1831,11 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                                             // one object
                                         } else {
 
-                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuanityConsumed_Combo;});
+                                            var columnH=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedQuantityConsumed_Combo;});
                                             var columnG=$.grep(result, function(e){ return e.categoryOptionCombo ==PhysicalStock_Combo;});
                                             var aggregatePhysicalStock=$.grep(result, function(e){ return e.categoryOptionCombo ==aggregatedPhysicalStock_Combo;});
 
-                                            var elementId="#"+dataElementId+"-"+quanityResupply_Combo+"-val";
+                                            var elementId="#"+dataElementId+"-"+quantityResupply_Combo+"-val";
 
                                             //Calculating quantity required for resupply
                                             if(columnH.length>0 && columnG.length>0 )
@@ -1850,19 +1864,20 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
 
                                             }
                                         }
-                                        //to show status message when data loading is complete
-                                        if ($.inArray(dataElementId,dataElementsUpadated)==-1){
 
-                                            dataElementsUpadated.push(dataElementId);
+                                        //to show status message when data loading is complete
+                                        if ($.inArray(dataElementId,dataElementsUpdated)==-1){
+
+                                            dataElementsUpdated.push(dataElementId);
                                         }
 
-                                        if(dataElementsUpadated.length>=dataElementsLoaded.length){
+                                        if(dataElementsUpdated.length>=dataElementsLoaded.length){
 
                                             $('#loading').html('<span>Loading Complete</span>');
                                         }
 
                                         //Appending data to post to DHIS
-                                        if(dataObj.categoryOptionCombo==aggregatedQuanityConsumed_Combo)
+                                        if(dataObj.categoryOptionCombo==aggregatedQuantityConsumed_Combo)
                                         {
                                             var post_obj_Consumed= { "dataElement": dataObj.dataElement, "categoryOptionCombo": dataObj.categoryOptionCombo, "value": dataObj.value.toString()};
                                             post_data.dataValues.push(post_obj_Consumed);
@@ -1874,12 +1889,9 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                                             post_data.dataValues.push(post_obj_PhysicalStock);
 
                                         }
-
-
                                     });
                                 }
                                 else {
-
                                     dataObj.val = parseInt(dataObj.val);
                                     var tableItem=$(dataObj.id);
                                     //tableItem.text(dataObj.val);
@@ -1938,12 +1950,14 @@ function reportTemplate734(templateUrl,satellites, period, orgUnit, dataSet)
                                     //Hide the modal 
                                     $("#dhis_credentials").modal('hide');
 
-                                    console.log(post_data);
-                                    console.log(dhisUser);
                                     $('#post-log').html('Posting <img src="assets/img/ajax-loader.gif">');
                                     $.post(urlPostToDHIS, {"post":post_data,"dhis_user":dhisUser,"dhis_password":dhisPassword},
                                         function(data, status){
                                             $('#post-log').html("");
+                                            if(data==1){
+                                                alert("Wrong DHIS2 Credentials.\n");
+                                            }
+
                                             if(data==-1){
                                                 alert("Posting was Unsuccessful.\nTry Posting Again");
                                             }
