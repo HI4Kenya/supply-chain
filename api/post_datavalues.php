@@ -14,12 +14,13 @@
 		# API login Credentials
 		// $username = $access_user;
 		// $password = $access_password;
-		# User posting back data credentials
-		$username = $_POST['dhis_user'];
-		$password = $_POST['dhis_password'];
 
 		//HTTP GET request -Using Curl -Response JSON
-		if(isset($_POST['post'])){
+		if(isset($_POST['post'])&&isset($_POST['dhis_user'])&&isset($_POST['dhis_password'])){
+
+			# User posting back data credentials
+			$username = $_POST['dhis_user'];
+			$password = $_POST['dhis_password'];
 
 			$data=$_POST['post'];
 			$data=json_encode($data);
@@ -41,18 +42,23 @@
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
 			//execute
 			$result = curl_exec($ch);
-
 			//close connection
 			curl_close($ch);
+			
+			$result=json_decode($result,true);
+			if (isset($result["status"])){
 
+				if($result["status"]=="SUCCESS"){
+					echo 0;
+				}
+				else{
 
-			if ($result){
-
-				echo 0;
+					echo -1;
+				}
 			}
 			else{
 
-				echo -1;
+				echo 1;
 			}
 		}
 	}
