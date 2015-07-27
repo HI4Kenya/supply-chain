@@ -797,6 +797,7 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
         ({
             type: 'GET',
             url: dataUrl,
+            data:{program_id:program},
             dataType: 'json',
             contentType: 'application/json',
             success: function(values) 
@@ -874,6 +875,7 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
         ({
             type: 'GET',
             url: dataUrl,
+            data:{program_id:program},
             dataType: 'json',
             contentType: 'application/json',
             success: function(values) 
