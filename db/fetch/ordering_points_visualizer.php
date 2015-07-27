@@ -14,7 +14,7 @@
         // If user has logged in
         require '../db_auth/db_con.php';
 
-        $program = 1;
+        $program = $_GET['program_id'];
 
         $facility_data = array();
 
