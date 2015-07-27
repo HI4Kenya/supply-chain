@@ -52,7 +52,7 @@ function classifyFacilities(type, satelliteClassification)
     /* SUB-COUNTY STORES */
     if(type == 1)
     {
-        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+
+        $('div#returned_messages').html("<span id = 'classification_desc' style = 'color:green;margin-left:30px'>"+
                                 "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
                                 "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
@@ -169,7 +169,7 @@ function classifyFacilities(type, satelliteClassification)
     /* CENTRAL STORES */
     else if(type == 2)
     {
-        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+
+        $('div#returned_messages').html("<span id = 'classification_desc' style = 'color:green;margin-left:30px'>"+
                                 "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
                                 "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
@@ -291,7 +291,7 @@ function classifyFacilities(type, satelliteClassification)
         if(satelliteClassification == "central site satellites")
         {
             $('div#returned_messages').empty();
-            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+
+            $('div#returned_messages').html("<span id = 'classification_desc' style = 'color:green;margin-left:30px'>"+
                                 "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
                                 "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
@@ -302,7 +302,7 @@ function classifyFacilities(type, satelliteClassification)
         else if (satelliteClassification == "sub-county satellites")
         {
             $('div#returned_messages').empty();
-            $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+
+            $('div#returned_messages').html("<span id = 'classification_desc' style = 'color:green;margin-left:30px'>"+
                                 "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
                                 "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
@@ -484,7 +484,7 @@ function classifyFacilities(type, satelliteClassification)
     /*STAND ALONES*/
     else if(type == 4)
     {
-        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+
+        $('div#returned_messages').html("<span id = 'classification_desc' style = 'color:green;margin-left:30px'>"+
                                 "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
                                 "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
