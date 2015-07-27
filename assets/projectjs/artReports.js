@@ -490,7 +490,7 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
     var dataSet="HAcToQkdUS1";
     var mflCode="";
     var facilityName="";
-    var programId=3;
+    var programId=1;
 
     var url_reporting_rate="api/get_reporting_rate.php";
     var templateUrl="client/report_templates/reporting_rate_report.php";
