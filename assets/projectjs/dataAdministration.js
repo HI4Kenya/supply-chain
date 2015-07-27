@@ -2,7 +2,12 @@
 // This function displays all classification in the data administration area
 function getSupplyHierarchy()
 {
-    $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>DELETE SUPPLY PIPELINE HIERARCHY </span></span>");
+    $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                                "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                " DELETE SUPPLY PIPELINE HIERARCHY </span></span>");
                 //Central Stores 
     var data = "<div class='panel panel-default' style = 'width:50%'>"+
                     "<div class='panel-heading'> "+                               

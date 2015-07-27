@@ -96,10 +96,10 @@ function getUsers(display)
     // Edit purposes
     if(display == 'update')
     {
-        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'> LIST OF CREATED USERS</span>");
+        $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>LIST OF CREATED USERS</span>");
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
-                        "<table id= 'userdata' class = 'table table-responsive table-striped datatable' style = 'border-radius:5px;width:95%'>"+
+                        "<table id= 'userdataupdate' class = 'table table-responsive table-striped datatable' style = 'border-radius:5px;width:95%'>"+
                             "<thead>"+
                                 "<th style = 'font-weight:bold'>#</th>"+
                                 "<th style = 'font-weight:bold'>User</th>"+
@@ -144,7 +144,7 @@ function getUsers(display)
                                             "</td>"+
                                         "</tr>";
                     //$('#userdata tr:last').after(dataToAppend);
-                    $(dataToAppend).appendTo("#userdata tbody");
+                    $(dataToAppend).appendTo("#userdataupdate tbody");
 
                     // Get user credentials
                     var credentials_url = "db/fetch/get_user_credentials.php";
@@ -161,10 +161,10 @@ function getUsers(display)
                     );
                 }
                 // dataTable();
-                // $(function()
-                // {
-                //     $("#userdata").dataTable();
-                // });
+                $(function()
+                {
+                    $("#userdataupdate").dataTable();
+                });
             }
         );
     }
@@ -175,7 +175,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:red;margin-left:30px'>DEACTIVATE USERS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
+                        "<table id= 'userdataadministration' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             // "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -223,7 +223,7 @@ function getUsers(display)
                                                 "onclick='detailedUserProfile(\""+receivedUsers[counting].user_identifier+"\",\""+receivedUsers[counting].name+"\")'>"+
                                             "</td>"+
                                         "</tr>";
-                    $(dataToAppend).appendTo("#userdata tbody");
+                    $(dataToAppend).appendTo("#userdataadministration tbody");
                     
                     // Get user credentials
                     var credentials_url = "db/fetch/get_user_credentials.php";
@@ -246,7 +246,7 @@ function getUsers(display)
                 // dataTable();
                 $(function()
                 {
-                    $("#userdata").dataTable();
+                    $("#userdataadministration").dataTable();
                 });
             }
         );
@@ -258,7 +258,7 @@ function getUsers(display)
         $('div#returned_messages').html("<span style = 'color:green;margin-left:30px;'> LIST OF CREATED USERS</span>");
 
         var data =  "<div class='panel-body' style = 'margin-left:-30px;margin-top:-30px'>"+
-                        "<table id= 'userdata' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
+                        "<table id= 'userdatareport' class = 'table table-responsive table-striped' style = 'border-radius:5px'>"+
                         "<thead>"+
                             "<th style = 'font-weight:bold'>#</th>"+
                             "<th style = 'font-weight:bold'>User Identifier</th>"+
@@ -316,13 +316,13 @@ function getUsers(display)
                 // dataTable();
                 $(function()
                 {
-                    $("#userdata").dataTable();
+                    $("#userdatareport").dataTable();
                 }); 
             }
         );
         $(function()
         {
-            //$("#programdata").dataTable();
+            $("#userdatareport").dataTable();
         });
 
     }

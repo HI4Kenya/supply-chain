@@ -211,8 +211,13 @@ function listSites(type,program,orgUnit, orgUnitLevel)
 
     if(type == "Ordering Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> List of Ordering Points"+
-                            "<div class='col-md-offset-10' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "List of Ordering Points"+
+                            "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default' download='list_of_ordering_points_"+orgUnitLevel+".xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"orderingpoints\", \"reportTitle\");'>"+
@@ -310,8 +315,13 @@ function listSites(type,program,orgUnit, orgUnitLevel)
 
     else if(type == "Service Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> List of Service Points"+
-                            "<div class='col-md-offset-10' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "List of Service Points"+
+                            "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default' download='list_of_service_points_"+orgUnitLevel+".xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"servicepoints\", \"reportTitle\");'>"+
@@ -459,8 +469,13 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
 {
     if(type == "Ordering Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> Ordering Points Distribution by County"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "Ordering Points Distribution by County"+
+                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default btn' download='ordering_points_by_county.xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"orderingpointsdistribution\", \"reportTitle\");'>"+
@@ -595,8 +610,13 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
 
     else if(type == "Service Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> Service Points Distribution by County"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "Service Points Distribution by County"+
+                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default btn' download='service_points_by_county.xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"servicepointsdistribution\", \"reportTitle\");'>"+
@@ -746,8 +766,13 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
 {
     if(type == "Ordering Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> Ordering Points Distribution By County Bar Chart"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "Ordering Points Distribution By County Bar Chart"+
+                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default btn' download='ordering_points_by_county_bar_chart.xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"orderingpoints-bar-chart\", \"reportTitle\");'>"+
@@ -823,8 +848,13 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
 
     else if(type == "Service Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'> Service Points Distribution By County Bar Chart"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-20px'>"+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "Service Points Distribution By County Bar Chart"+
+                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default btn' download='service_points_by_county_bar_chart.xls' href='#'"+
                                         "onclick='return ExcellentExport.excel(this, \"servicepoints-bar-chart\", \"reportTitle\");'>"+

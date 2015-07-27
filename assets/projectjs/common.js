@@ -1,4 +1,4 @@
-/*Function to change the icon in the collapsible menu*/
+/* Function to change the icon in the collapsible menu*/
 function changeIcon(itemID,folderIcon)
 {
     var icon=$("#"+itemID);
@@ -155,3 +155,35 @@ function changeColor(type)
     }
 }
 /*--------------------------------------------------------------------------------------------------------------------------------*/
+
+// Function maximizeView()
+function maximizeView()
+{
+    var contentDiv = $("div#col_body");
+    var maximizeIcon = "<span id = 'maximize_icon' class = 'unclickedColor' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                            "<img src='assets/img/full-screen.png' style = 'height:;width:;'>"+
+                        "</span>";
+    var minimizeIcon = "<span id = 'maximize_icon' class = 'unclickedColor' title = 'Normal View' onclick = 'javascript:maximizeView();'>"+
+                            "<img src='assets/img/icon-restore.png' style = 'height:100%;width:3%;'>"+
+                        "</span>";
+    ;
+
+
+    if (contentDiv.hasClass("col-md-9"))
+    {
+        $("div#navigation_div").hide();
+        $("div#supply_pipeline_heading").hide();
+        $("span#maximize_icon").replaceWith(minimizeIcon);
+        contentDiv.removeClass("col-md-9").addClass("col-md-12");
+    } 
+
+    else if (contentDiv.hasClass("col-md-12"))
+    {
+        $("div#navigation_div").show();
+        $("div#supply_pipeline_heading").show();
+        $("span#maximize_icon").replaceWith(maximizeIcon);
+        contentDiv.removeClass("col-md-12").addClass("col-md-9");
+    }
+
+}
+/*-------------------------------------------------------------------------------------------------------------------------------- */
