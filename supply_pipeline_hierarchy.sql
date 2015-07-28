@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2015 at 04:59 PM
--- Server version: 5.5.43-0ubuntu0.14.04.1
+-- Generation Time: Jul 28, 2015 at 01:20 PM
+-- Server version: 5.5.44-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `msh_task`
+-- Database: `supply_pipeline_hierarchy`
 --
 
 -- --------------------------------------------------------
@@ -30,20 +30,6 @@ CREATE TABLE IF NOT EXISTS `central_site` (
   `central_id` varchar(255) NOT NULL,
   PRIMARY KEY (`central_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `central_site`
---
-
-INSERT INTO `central_site` (`central_id`) VALUES
-('CTyQmRgaaLX'),
-('d53GHglMyJQ'),
-('Js2jIKhWf6P'),
-('JXcyxGXlL9O'),
-('QWZ7Qd8Jex1'),
-('qZqNL79w8Zg'),
-('w4qbg4Eh8Ea'),
-('wPsUQXK6ynT');
 
 -- --------------------------------------------------------
 
@@ -129,31 +115,7 @@ CREATE TABLE IF NOT EXISTS `datasets` (
   KEY `dataset_id` (`dataset_id`),
   KEY `program_id` (`program_id`),
   KEY `created_by` (`created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `datasets`
---
-
-INSERT INTO `datasets` (`id`, `dataset_id`, `program_id`, `created_on`, `created_by`, `comment`) VALUES
-(1, 'HAcToQkdUS1', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(2, 'rV6fPhufzlU', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(3, 'uAxwIxtsn6u', 1, 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `db_updates_log`
---
-
-CREATE TABLE IF NOT EXISTS `db_updates_log` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `updated_item` varchar(255) NOT NULL,
-  `date_updated` varchar(255) NOT NULL,
-  `updated_by` varchar(255) NOT NULL,
-  PRIMARY KEY (`log_id`),
-  KEY `updated_by` (`updated_by`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -171,19 +133,7 @@ CREATE TABLE IF NOT EXISTS `deletion_logs` (
   `deleted_by` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `deleted_by` (`deleted_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `deletion_logs`
---
-
-INSERT INTO `deletion_logs` (`id`, `number_deleted`, `deleted_item_id`, `deleted_item_name`, `deleted_item_description`, `date_deleted`, `deleted_by`) VALUES
-(1, '5', 'program:2', 'DEFAULT program', 'Program ID:2.Program Name:DEFAULT.DATASETS=2/DSD1zl3RhDG/dSxnXM3ISYe.CLASSIFICATIONS=2/Js2jIKhWf6P#StandAlone/pTlrkLDOyAx#StandAlone', 'Tuesday 2015-07-14 06:19:02pm', 'EK001'),
-(2, '1', 'All StandAlone Sites program:1', 'All StandAlone Sites in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.StandAlone Sites:IDS=1,ZkbTg8ryBSo.StandAlone', 'Wednesday 2015-07-15 02:50:34pm', 'EK001'),
-(3, '1', 'StandAlone:ZkbTg8ryBSo', 'StandAlone:Chesongo Dispensary', 'Program ID:1.Program Name:NASCOP - ART.StandAlone:ZkbTg8ryBSo', 'Wednesday 2015-07-15 02:51:25pm', 'EK001'),
-(4, '1', 'StandAlone:ZkbTg8ryBSo', 'StandAlone:Chesongo Dispensary', 'Program ID:1.Program Name:NASCOP - ART.StandAlone:ZkbTg8ryBSo', 'Wednesday 2015-07-15 03:02:09pm', 'EK001'),
-(5, '1', 'All StandAlone Sites program:1', 'All StandAlone Sites in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.StandAlone Sites:IDS=1,d53GHglMyJQ.StandAlone', 'Wednesday 2015-07-15 03:07:52pm', 'EK001'),
-(6, '1', 'All SubCounty Stores program:1', 'All SubCounty Stores in the NASCOP - ART program', 'Program ID:1.Program Name:NASCOP - ART.Sub-County Stores:IDS=1,A1BCmizFgwx.Sub-County Store', 'Wednesday 2015-07-15 03:07:58pm', 'EK001');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -292,8 +242,8 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('q1Or1k6pQAC', 'MoH734B â€“ F-CDRR for Nutrition commodities â€“ Satellite sites', 'http://test.hiskenya.org/api/dataSets/q1Or1k6pQAC', ''),
 ('q5286LFwE7e', 'AWP 3.3 Community Unit Targeted Improvements In Outcomes', 'http://test.hiskenya.org/api/dataSets/q5286LFwE7e', ''),
 ('Rm4ckuMJENv', 'MOH 643 F-CDRR for Lab commodities', 'http://test.hiskenya.org/api/dataSets/Rm4ckuMJENv', ''),
-('rV6fPhufzlU', 'MoH 730A- CENTRAL SITE /DISTRICT STORE CONSUMPTION DATA REPORT AND REQUEST   ', 'http://test.hiskenya.org/api/dataSets/rV6fPhufzlU', ''),
-('rwveOLJqgkq', 'MOH 643B F-CDRR for ART lab monitoring reagents (VeR Oct 2014)', 'http://test.hiskenya.org/api/dataSets/rwveOLJqgkq', ''),
+('rV6fPhufzlU', 'MoH 730A- Central Site /District Store Consumption Data Report AND Request   ', 'http://test.hiskenya.org/api/dataSets/rV6fPhufzlU', ''),
+('rwveOLJqgkq', 'XXXX', 'http://test.hiskenya.org/api/dataSets/rwveOLJqgkq', ''),
 ('s9N9Da4Lqns', 'FACILITY LEPROSY, TUBERCULOSIS COMMODITIES CONSUMPTION DATA REPORT & REQUEST FORM', 'http://test.hiskenya.org/api/dataSets/s9N9Da4Lqns', ''),
 ('sBe1eNbARq4', 'Non-Pharmaceutical', 'http://test.hiskenya.org/api/dataSets/sBe1eNbARq4', 'Non-Pharmaceutical'),
 ('sfiNZ7atsK8', 'MOH 706 Laboratory Summary Report', 'http://test.hiskenya.org/api/dataSets/sfiNZ7atsK8', 'MOH 706'),
@@ -302,6 +252,7 @@ INSERT INTO `dhis_datasets` (`dataset_id`, `dataset_name`, `dataset_href`, `data
 ('tDYANcLeSc4', 'Inventory - Central Stores - Malaria', 'http://test.hiskenya.org/api/dataSets/tDYANcLeSc4', ''),
 ('TiQ9LVKc2lz', 'MDR-TB COHORT REPORT ', 'http://test.hiskenya.org/api/dataSets/TiQ9LVKc2lz', ''),
 ('TJXftyfrI71', 'AWP 3.1	Annual performance targets ', 'http://test.hiskenya.org/api/dataSets/TJXftyfrI71', ''),
+('TpUtInb1VFf', 'MOH 643B F-CDRR for ART lab reagents Monitoring (Version Oct 2014)', 'http://test.hiskenya.org/api/dataSets/TpUtInb1VFf', ''),
 ('TWcqDhrcYmQ', 'Inventory - Central Stores - Lab Commodities', 'http://test.hiskenya.org/api/dataSets/TWcqDhrcYmQ', ''),
 ('TXmr8u5rabj', 'MOH 515 Community Health Extension Worker Summary', 'http://test.hiskenya.org/api/dataSets/TXmr8u5rabj', 'CHIS'),
 ('u6fYUU4lnia', 'Quarterly report on Tuberculosis Case-finding', 'http://test.hiskenya.org/api/dataSets/u6fYUU4lnia', ''),
@@ -9853,20 +9804,7 @@ CREATE TABLE IF NOT EXISTS `facility_program_mapping` (
   KEY `facility_id` (`facility_id`),
   KEY `program_id` (`program_id`),
   KEY `created_by` (`created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Dumping data for table `facility_program_mapping`
---
-
-INSERT INTO `facility_program_mapping` (`mapping_id`, `facility_id`, `program_id`, `classification`, `created_on`, `created_by`, `comment`) VALUES
-(2, 'Js2jIKhWf6P', 1, 'Central Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(3, 'AwVQ3uJftlj', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(4, 'NcCkDlIqJuM', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(6, 'DMF5wWYxVHg', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(7, 'pTlrkLDOyAx', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(8, 'Yh9TiSUTbrT', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED'),
-(9, 'ZkbTg8ryBSo', 1, 'Satellite Site', 'Tuesday 2015-07-14 06:20:03pm', 'EK001', 'RESTORED');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -9898,25 +9836,16 @@ CREATE TABLE IF NOT EXISTS `login` (
   KEY `password_last_updated_by` (`password_last_updated_by`),
   KEY `details_last_updated_by` (`details_last_updated_by`),
   KEY `account_created_by` (`account_created_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `login`
 --
 
 INSERT INTO `login` (`login_id`, `username`, `password`, `role`, `user_id`, `account_created`, `account_created_by`, `details_last_updated`, `details_last_updated_by`, `password_expiry`, `password_status`, `password_last_updated`, `password_last_updated_by`, `account_status`, `account_status_last_updated`, `account_status_updated_by`, `last_login`) VALUES
-(1, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-15 04:10:57pm', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 10:28:20am', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-15 04:44:21pm'),
-(2, 'dkayeli', '4bcdf088e69b1887a25068a2c41c95d9', 'WRITE', 'E001', 'Friday 2015-07-03 01:34:25pm', 'EK001', 'Friday 2015-07-10 10:06:25am', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 11:16:46am', 'E001', 'ACTIVE', 'Saturday 2015-07-11 04:18:09pm', 'EK001', 'Wednesday 2015-07-15 04:31:52pm'),
-(3, 'dbanga', '5136d97857ec3afb8178982675515ad1', 'READ', 'E002', 'Monday 2015-07-06 01:48:58pm', 'EK001', 'Tuesday 2015-07-14 11:42:22am', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 11:19:39am', 'E002', 'ACTIVE', 'Tuesday 2015-07-14 11:42:31am', 'EK001', 'Wednesday 2015-07-15 04:39:39pm'),
-(4, 'evakinyi', 'c80745018b69c746ca0d6bdefa2db8e1', 'READ', 'fmZWStQBhIu', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', 'Tuesday 2015-07-14 03:24:50pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:18:35pm', 'EK001', ''),
-(5, 'sioportlab', '9e2777802ec9ee723b05d7b30782e346', 'READ', 'ZYvVGdkCRKC', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', ''),
-(6, 'Bootcamp', 'cd9ebb2f72e2df6798ff82ab98c6cb2e', 'READ', 'XdJxPxfNwoj', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 04:02:48pm'),
-(7, 'drjey86', 'b0c2446c5919bb4f1c1a55f6ad379f55', 'READ', 'bU7EzZE9M2N', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'Wednesday 2015-07-15 03:54:55pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', ''),
-(8, 'kemunto', '886ea99329feb4b8f73dd17409195dd9', 'READ', 'w7A1dgdDHx5', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', ''),
-(9, 'irene.adema', 'b66c3bc51716635dbd8b102ce69d6f5c', 'READ', 'X4Ck3q5Nnob', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', ''),
-(10, 'abucheri', '9db01bea97958569dca16a845d5811ac', 'READ', 'T3zSYdGI3Mf', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:16:41pm', 'EK001', ''),
-(11, 'charles100', '5dc7203297f49efcd69666c7fce1408c', 'READ', 'rI8cxcNwbgX', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', ''),
-(12, 'Ainashow', 'a4fc6fd186dba8e7ba2801188656aa18', 'READ', 'LjdvaWEU3eb', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', '2015-09-14', 'NEW', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'ACTIVE', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', '');
+(1, 'Admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'ADMIN', 'EK001', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Wednesday 2015-07-15 04:10:57pm', 'EK001', '2015-09-17', 'UPDATED', 'Friday 2015-07-17 12:11:17pm', 'EK001', 'ACTIVE', 'Wednesday 2015-07-01 12:02:33pm', 'EK001', 'Tuesday 2015-07-28 11:24:12am'),
+(2, 'dkayeli', '4bcdf088e69b1887a25068a2c41c95d9', 'WRITE', 'E001', 'Friday 2015-07-03 01:34:25pm', 'EK001', 'Friday 2015-07-10 10:06:25am', 'EK001', '2015-09-27', 'UPDATED', 'Monday 2015-07-27 12:26:46pm', 'E001', 'ACTIVE', 'Saturday 2015-07-11 04:18:09pm', 'EK001', 'Monday 2015-07-27 12:26:59pm'),
+(3, 'dbanga', '5136d97857ec3afb8178982675515ad1', 'READ', 'E002', 'Monday 2015-07-06 01:48:58pm', 'EK001', 'Tuesday 2015-07-14 11:42:22am', 'EK001', '2015-09-09', 'UPDATED', 'Thursday 2015-07-09 11:19:39am', 'E002', 'ACTIVE', 'Tuesday 2015-07-14 11:42:31am', 'EK001', 'Thursday 2015-07-16 02:04:34pm');
 
 -- --------------------------------------------------------
 
@@ -9936,14 +9865,7 @@ CREATE TABLE IF NOT EXISTS `programs` (
   KEY `created_by` (`created_by`),
   KEY `updated_by` (`updated_by`),
   KEY `updated_by_2` (`updated_by`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `programs`
---
-
-INSERT INTO `programs` (`program_id`, `program_name`, `date_created`, `created_by`, `date_updated`, `updated_by`, `comment`) VALUES
-(1, 'NASCOP - ART', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'Tuesday 2015-07-14 06:19:20pm', 'EK001', 'RESTORED');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -9959,26 +9881,6 @@ CREATE TABLE IF NOT EXISTS `satelite_site` (
   KEY `central_id_4` (`central_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `satelite_site`
---
-
-INSERT INTO `satelite_site` (`satelite_id`, `central_id`) VALUES
-('A1BCmizFgwx', 'A1BCmizFgwx'),
-('CTyQmRgaaLX', 'CTyQmRgaaLX'),
-('d53GHglMyJQ', 'd53GHglMyJQ'),
-('AwVQ3uJftlj', 'Js2jIKhWf6P'),
-('DMF5wWYxVHg', 'Js2jIKhWf6P'),
-('NcCkDlIqJuM', 'Js2jIKhWf6P'),
-('pTlrkLDOyAx', 'Js2jIKhWf6P'),
-('Yh9TiSUTbrT', 'Js2jIKhWf6P'),
-('ZkbTg8ryBSo', 'Js2jIKhWf6P'),
-('QWZ7Qd8Jex1', 'QWZ7Qd8Jex1'),
-('qZqNL79w8Zg', 'qZqNL79w8Zg'),
-('w4qbg4Eh8Ea', 'w4qbg4Eh8Ea'),
-('pZEtdfLJ2CX', 'wPsUQXK6ynT'),
-('wPsUQXK6ynT', 'wPsUQXK6ynT');
-
 -- --------------------------------------------------------
 
 --
@@ -9989,14 +9891,6 @@ CREATE TABLE IF NOT EXISTS `standalone_site` (
   `standalone_id` varchar(255) NOT NULL,
   PRIMARY KEY (`standalone_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `standalone_site`
---
-
-INSERT INTO `standalone_site` (`standalone_id`) VALUES
-('d53GHglMyJQ'),
-('ZkbTg8ryBSo');
 
 -- --------------------------------------------------------
 
@@ -10334,27 +10228,6 @@ CREATE TABLE IF NOT EXISTS `sub_county_stores` (
   PRIMARY KEY (`sub_county_store_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `sub_county_stores`
---
-
-INSERT INTO `sub_county_stores` (`sub_county_store_id`) VALUES
-('A1BCmizFgwx'),
-('CTyQmRgaaLX'),
-('eDnVQzkzc3B'),
-('EGS0saGNDoS'),
-('G8avY4Gzra8'),
-('ih3vU3AXadk'),
-('Pjcbi0XJi3f'),
-('pZEtdfLJ2CX'),
-('q7a1TH1APLe'),
-('QWZ7Qd8Jex1'),
-('qZqNL79w8Zg'),
-('ukwgBmzwpbF'),
-('vpcUN6fhhfX'),
-('w4qbg4Eh8Ea'),
-('wPsUQXK6ynT');
-
 -- --------------------------------------------------------
 
 --
@@ -10399,18 +10272,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_identifier`, `name`, `gender`, `email`, `mobile_no`, `date_created`, `created_by`, `details_last_updated`, `details_updated_by`) VALUES
-('bU7EzZE9M2N', 'ABDIJABAR YUSSUF', '', 'hajiabdijabar@hotmail.com', '0721726920', 'Tuesday 2015-07-14 04:02:11pm', 'EK001', 'Wednesday 2015-07-15 03:54:55pm ', 'EK001'),
 ('E001', 'Dennis Kayeli', 'MALE', 'kdennoz@gmail.com', '0722277332', 'Friday 2015-07-03 01:34:14pm', 'EK001', 'Friday 2015-07-10 10:06:25am ', 'EK001'),
 ('E002', 'Dennis Banga', 'MALE', 'dennisbanga@gmail.com', '0712345678', 'Monday 2015-07-06 01:48:44pm', 'EK001', 'Tuesday 2015-07-14 11:42:22am ', 'EK001'),
-('EK001', 'Kelvin Wahome', 'MALE', 'kevowahome@gmail.com', '0710502654', 'Wednesday 2015-07-01 11:53:06am', 'EK001', 'Wednesday 2015-07-15 04:10:57pm ', 'EK001'),
-('fmZWStQBhIu', 'Elizabeth 0nyango', 'FEMALE', 'evakiny@yahoo.com', '0727065163', 'Tuesday 2015-07-14 03:18:34pm', 'EK001', 'Tuesday 2015-07-14 03:24:50pm ', 'EK001'),
-('LjdvaWEU3eb', 'Abdikadir Abdalla', 'NOT AVAILABLE', 'abdikadirmoha07-10@hotmail.com', '0712086931', 'Tuesday 2015-07-14 04:21:11pm', 'EK001', 'Tuesday 2015-07-14 04:21:11pm', 'EK001'),
-('rI8cxcNwbgX', 'charles abanyi', 'NOT AVAILABLE', 'charloabanyi@yahoo.com', '0721884418', 'Tuesday 2015-07-14 04:18:05pm', 'EK001', 'Tuesday 2015-07-14 04:18:05pm', 'EK001'),
-('T3zSYdGI3Mf', 'irene abucheri', 'NOT AVAILABLE', 'abucheriochieng@yahoo.com', '0722431015', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
-('w7A1dgdDHx5', 'irene 0mbaire', 'NOT AVAILABLE', 'ombaireirene@yahoo.com', '0716967397', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
-('X4Ck3q5Nnob', 'Irene Adema', 'NOT AVAILABLE', 'irene.adema@ihpmr.org', '0724241008', 'Tuesday 2015-07-14 04:16:40pm', 'EK001', 'Tuesday 2015-07-14 04:16:40pm', 'EK001'),
-('XdJxPxfNwoj', 'Bootcamp  2015', 'NOT AVAILABLE', '', '', 'Tuesday 2015-07-14 03:35:10pm', 'EK001', 'Tuesday 2015-07-14 03:35:10pm', 'EK001'),
-('ZYvVGdkCRKC', 'vincent 0mondi', 'NOT AVAILABLE', 'vomondi88@gmail.com', '0714234042', 'Tuesday 2015-07-14 03:22:46pm', 'EK001', 'Tuesday 2015-07-14 03:22:46pm', 'EK001');
+('EK001', 'Kelvin Wahome', 'MALE', 'kevowahome@gmail.com', '0710502654', 'Wednesday 2015-07-01 11:53:06am', 'EK001', 'Wednesday 2015-07-15 04:10:57pm ', 'EK001');
 
 --
 -- Constraints for dumped tables
@@ -10435,12 +10299,6 @@ ALTER TABLE `datasets`
   ADD CONSTRAINT `datasets_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
   ADD CONSTRAINT `datasets_ibfk_2` FOREIGN KEY (`dataset_id`) REFERENCES `dhis_datasets` (`dataset_id`),
   ADD CONSTRAINT `datasets_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`user_identifier`);
-
---
--- Constraints for table `db_updates_log`
---
-ALTER TABLE `db_updates_log`
-  ADD CONSTRAINT `db_updates_log_ibfk_1` FOREIGN KEY (`updated_by`) REFERENCES `users` (`user_identifier`);
 
 --
 -- Constraints for table `deletion_logs`
