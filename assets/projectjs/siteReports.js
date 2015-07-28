@@ -764,31 +764,64 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
 // Function sitesVisualizer()
 function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
 {
+    var contentDiv = $("div#col_body");
     if(type == "Ordering Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'>"+
-                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
-                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
-                            "</span>"+
-                            "&nbsp <span style = 'color:black'>|</span>"+
-                            "Ordering Points Distribution By County Bar Chart"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
-                                "<span>"+
-                                    "<a  class='btn btn-default btn' download='ordering_points_by_county_bar_chart.xls' href='#'"+
-                                        "onclick='return ExcellentExport.excel(this, \"orderingpoints-bar-chart\", \"reportTitle\");'>"+
-                                        "<i class='fa fa-file-excel-o'></i>Export"+
-                                    "</a>"+
+        if (contentDiv.hasClass("col-md-9"))
+        {
+            var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                    "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                "Ordering Points Distribution By County Bar Chart"+
+                                "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
+                                    "<span>"+
+                                        "<a  class='btn btn-default btn' download='ordering_points_by_county_bar_chart.xls' href='#'"+
+                                            "onclick='return ExcellentExport.excel(this, \"orderingpoints-bar-chart\", \"reportTitle\");'>"+
+                                            "<i class='fa fa-file-excel-o'></i>Export"+
+                                        "</a>"+
+                                    "</span>"+
 
-                                "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
-                                    "<i class='fa fa-list' style = 'font-size:10pt'"+
-                                        "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
-                                        " List"+
-                                    "</i>"+
+                                    "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
+                                        "<i class='fa fa-list' style = 'font-size:10pt'"+
+                                            "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
+                                            " List"+
+                                        "</i>"+
+                                    "</span>"+
+
+                                "</div>"+
+                            "</span>";
+
+        } 
+
+        else if (contentDiv.hasClass("col-md-12"))
+        {
+            var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                    "<img src='assets/img/icon-restore.png' class = 'unclickedColor' style = 'height:100%;width:3%;'>"+
                                 "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                "Ordering Points Distribution By County Bar Chart"+
+                                "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
+                                    "<span>"+
+                                        "<a  class='btn btn-default btn' download='ordering_points_by_county_bar_chart.xls' href='#'"+
+                                            "onclick='return ExcellentExport.excel(this, \"orderingpoints-bar-chart\", \"reportTitle\");'>"+
+                                            "<i class='fa fa-file-excel-o'></i>Export"+
+                                        "</a>"+
+                                    "</span>"+
 
-                            "</div>"+
-                        "</span>";
+                                    "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
+                                        "<i class='fa fa-list' style = 'font-size:10pt'"+
+                                            "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
+                                            " List"+
+                                        "</i>"+
+                                    "</span>"+
+
+                                "</div>"+
+                            "</span>";
+
+        }
 
         $('div#returned_messages').html(heading);
 
@@ -848,29 +881,61 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
 
     else if(type == "Service Points")
     {
-        var heading =  "<span style = 'color:green;margin-left:30px'>"+
-                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
-                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
-                            "</span>"+
-                            "&nbsp <span style = 'color:black'>|</span>"+
-                            "Service Points Distribution By County Bar Chart"+
-                            "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
-                                "<span>"+
-                                    "<a  class='btn btn-default btn' download='service_points_by_county_bar_chart.xls' href='#'"+
-                                        "onclick='return ExcellentExport.excel(this, \"servicepoints-bar-chart\", \"reportTitle\");'>"+
-                                        "<i class='fa fa-file-excel-o'></i>Export"+
-                                    "</a>"+
+        if (contentDiv.hasClass("col-md-9"))
+        {
+            var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                    "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
                                 "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                "Service Points Distribution By County Bar Chart"+
+                                "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
+                                    "<span>"+
+                                        "<a  class='btn btn-default btn' download='service_points_by_county_bar_chart.xls' href='#'"+
+                                            "onclick='return ExcellentExport.excel(this, \"servicepoints-bar-chart\", \"reportTitle\");'>"+
+                                            "<i class='fa fa-file-excel-o'></i>Export"+
+                                        "</a>"+
+                                    "</span>"+
 
-                                "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
-                                    "<i class='fa fa-list' style = 'font-size:10pt'"+
-                                        "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
-                                        " List"+
-                                    "</i>"+
+                                    "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
+                                        "<i class='fa fa-list' style = 'font-size:10pt'"+
+                                            "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
+                                            " List"+
+                                        "</i>"+
+                                    "</span>"+
+
+                                "</div>"+
+                            "</span>";
+
+        } 
+
+        else if (contentDiv.hasClass("col-md-12"))
+        {
+            var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                    "<img src='assets/img/icon-restore.png' class = 'unclickedColor' style = 'height:100%;width:3%;'>"+
                                 "</span>"+
+                                "&nbsp <span style = 'color:black'>|</span>"+
+                                "Service Points Distribution By County Bar Chart"+
+                                "<div class='col-md-offset-9' style = 'margin-top:-30px'>"+
+                                    "<span>"+
+                                        "<a  class='btn btn-default btn' download='service_points_by_county_bar_chart.xls' href='#'"+
+                                            "onclick='return ExcellentExport.excel(this, \"servicepoints-bar-chart\", \"reportTitle\");'>"+
+                                            "<i class='fa fa-file-excel-o'></i>Export"+
+                                        "</a>"+
+                                    "</span>"+
 
-                            "</div>"+
-                        "</span>";
+                                    "<span style = 'margin-left:10px' class = 'btn btn-info btn'>"+
+                                        "<i class='fa fa-list' style = 'font-size:10pt'"+
+                                            "onclick='javascript:sitesDistribution(\""+type+"\",\""+program+"\",\""+orgUnit+"\",\""+orgUnitLevel+"\");'>"+
+                                            " List"+
+                                        "</i>"+
+                                    "</span>"+
+
+                                "</div>"+
+                            "</span>";
+
+        }
 
         $('div#returned_messages').html(heading);
 
