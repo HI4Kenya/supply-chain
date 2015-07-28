@@ -573,7 +573,7 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                     // Append the total row after the last county
                     if(itemNumber == counties.length)
                     {
-                        var totalColumn =   "<tr style = 'background-color:green;'>"+
+                        var totalColumn =   "<tr style = 'background-color:green;color:green;font-weight:bold'>"+
                                                         "<td id = ''>#</td>"+
                                                         "<td id = '' style = 'text-align:left'>Total</td>"+
                                                         "<td id = 'scs_total'></td>"+
@@ -717,7 +717,7 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                     // Append the total row after the last county
                     if(itemNumber == counties.length)
                     {
-                        var totalColumn =   "<tr style = 'background-color:green;'>"+
+                        var totalColumn =   "<tr style = 'background-color:green;color:green;font-weight:bold'>"+
                                                         "<td id = ''>#</td>"+
                                                         "<td id = '' style = 'text-align:left'>Total</td>"+
                                                         "<td id = 'dp_total'></td>"+
