@@ -25,7 +25,7 @@
         ?>
 
         <div class = "col-md-9" id = "col_body" style = "margin-left:2px;margin-top:-10px;border-radius:5px;width:;" id = 'content_div'>
-            
+
                 <?php
                     if($_SESSION["password_status"]=="NEW")
                     {

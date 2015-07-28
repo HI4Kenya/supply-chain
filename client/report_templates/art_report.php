@@ -10,14 +10,14 @@
             </div>
             <div id="loading">Loading...</div>
 
-            <!-- <div class="col-md-offset-10">
-                <span>
-                     <a  class="btn btn-success" download="list_of_patients_by_ordering_points.xls" href="#"
-                        onclick="return ExcellentExport.excel(this, 'artReport', 'reportTitle');">
-                         <i class="fa fa-file-excel-o"></i>Export
-                     </a>
-                </span>
-            </div> -->
+<!--            <div class="col-md-offset-10">-->
+<!--                <span>-->
+<!--                     <a  class="btn btn-success" download="list_of_patients_by_ordering_points.xls" href="#"-->
+<!--                        onclick="return ExcellentExport.excel(this, 'artReport', 'reportTitle');">-->
+<!--                         <i class="fa fa-file-excel-o"></i>Export-->
+<!--                     </a>-->
+<!--                </span>-->
+<!--            </div> -->
 
         </div>
         <div class="panel-body" style="overflow: scroll;height:500px">
@@ -42,7 +42,5 @@
             </table>
         </div>
     </div>
-
-    <p>&nbsp;</p>
 
 </div>
