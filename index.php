@@ -17,20 +17,33 @@
     <body style = "background-color:#1d5288">
 
         <div style = "background-color:;width:100%;height:10em;text-align:left;">
-            <img style ='width:10%;height:50%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
+            <img style ='width:10%;height:60%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
               src='assets/img/logos/MOH.jpg'>
             <h3>
-                <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome'>
+                <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome;font-size:16pt'>
                     Supply Pipeline Hierarchy Tool
                 </p>
             </h3>
 
             <h4>
-                <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal'>
+                <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal;font-size:14pt'>
                     Welcome to the Kenya Health <br>
                     Information System
                 </p>
             </h4>
+        </div>
+
+        <!-- Logos -->
+
+        <div style = "width:35%;height:15%;position:absolute;margin-left:880px;margin-top:-150px;border-radius:5px">            
+            <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
+            src='assets/img/logos/usaid_logo.png'>
+
+            <img style ='background-color:white;width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
+            src='assets/img/logos/Kenya-PEPFAR-Logo.png'>
+
+            <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
+            src='assets/img/logos/HCSM Logo Color.png'>
         </div>
 
         <!-- Login panel -->
@@ -52,19 +65,6 @@
                 <span class="shadow"></span>
                 <input id = "password-input" type="password" class="password" placeholder="Password" onchange="javascript:userAuthentication();" title="Enter your password and hit enter" autofocus/>
             </div>
-        </div>
-
-        <!-- Logos -->
-
-        <div style = "background-color:;width:40%;height:15%;position:absolute;margin-left:50px;margin-top:370px;border-radius:5px">            
-            <img style ='width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
-            src='assets/img/logos/usaid_logo.png'>
-
-            <img style ='width:25%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
-            src='assets/img/logos/Kenya-PEPFAR-Logo.png'>
-
-            <img style ='width:25%;height:80%;margin-left:5px;margin-top:10px;margin-right:10px;float:left;border:1px solid white' 
-            src='assets/img/logos/HCSM Logo Color.png'>
         </div>
 
         <!-- Footer -->

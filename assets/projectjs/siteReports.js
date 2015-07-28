@@ -238,6 +238,9 @@ function listSites(type,program,orgUnit, orgUnitLevel)
                                 "<span>Pipeline: "+
                                     "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
                                 "</span><br>"+
+                                "<span>Report: "+
+                                    "<span style = 'font-size:11pt;color:green'>List of Ordering Points</span>"+
+                                "</span><br>"+
                                 "<span>Level: "+
                                     "<span id = 'report_level' style = 'font-size:11pt;color:green'></span>"+
                                 "</span><br>"+
@@ -341,6 +344,9 @@ function listSites(type,program,orgUnit, orgUnitLevel)
                                 "</span><br>"+
                                 "<span>Pipeline: "+
                                     "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
+                                "</span><br>"+
+                                "<span>Report: "+
+                                    "<span style = 'font-size:11pt;color:green'>List of Service Points</span>"+
                                 "</span><br>"+
                                 "<span>Level: "+
                                     "<span id = 'report_level' style = 'font-size:11pt;color:green'></span>"+
@@ -504,6 +510,9 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                                 "<span>Pipeline: "+
                                     "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
                                 "</span><br>"+
+                                "<span>Report: "+
+                                    "<span style = 'font-size:11pt;color:green'>Ordering Points Distribution</span>"+
+                                "</span><br>"+
                                 "<span>Level: "+
                                     "<span id = 'report_level' style = 'font-size:11pt;color:green'>By County</span>"+
                                 "</span><br>"+
@@ -644,6 +653,9 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                                 "</span><br>"+
                                 "<span>Pipeline: "+
                                     "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
+                                "</span><br>"+
+                                "<span>Report: "+
+                                    "<span style = 'font-size:11pt;color:green'>Service Points Distribution</span>"+
                                 "</span><br>"+
                                 "<span>Level: "+
                                     "<span id = 'report_level' style = 'font-size:11pt;color:green'>By County</span>"+
@@ -835,6 +847,9 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                                         "<span>Pipeline: "+
                                             "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
                                         "</span><br>"+
+                                        "<span>Report: "+
+                                            "<span style = 'font-size:11pt;color:green'>Ordering Points Distribution Chart</span>"+
+                                        "</span><br>"+
                                         "<span>Level: "+
                                             "<span id = 'report_level' style = 'font-size:11pt;color:green'>By County</span>"+
                                         "</span><br>"+
@@ -842,7 +857,7 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                                     "</span>"+                             
                                 "</div>"+
                                 "<div class='panel-body'>"+
-                                    "<div id='orderingpoints-bar-chart' style='height:400px;width:auto;overflow:scroll'></div>"+
+                                    "<div id='orderingpoints-bar-chart' style='height:400px;width:auto;'></div>"+
                                 "</div>"+
                             "</div>"+
                             "<!-- END BAR CHART -->";
@@ -949,6 +964,9 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                                         "<span>Pipeline: "+
                                             "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
                                         "</span><br>"+
+                                        "<span>Report: "+
+                                            "<span style = 'font-size:11pt;color:green'>Service Points Distribution Chart</span>"+
+                                        "</span><br>"+
                                         "<span>Level: "+
                                             "<span id = 'report_level' style = 'font-size:11pt;color:green'>By County</span>"+
                                         "</span><br>"+
@@ -957,7 +975,7 @@ function sitesDistributionVisualizer(type,program,orgUnit, orgUnitLevel)
                                 "</div>"+
 
                                 "<div class='panel-body'>"+
-                                    "<div id='servicepoints-bar-chart' style='height: 300px;'></div>"+
+                                    "<div id='servicepoints-bar-chart' style='height: 300px;width:auto;'></div>"+
                                 "</div>"+
                             "</div>"+
                             "<!-- END BAR CHART -->";

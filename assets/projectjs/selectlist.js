@@ -552,7 +552,7 @@ function updateSelectList(level,unit_id,icon,changeColor)
     var icon = $("#"+icon);
     var any = $(".color");
 
-    if(any.hasClass("clickedColorAlt"))
+    if(any.hasClass("clickedColorAlt color"))
     {
 
         if (color.hasClass("unclickedColor"))

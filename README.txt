@@ -108,7 +108,7 @@ PROJECT NOTES
 		1. Database - MySQL
 
 		   A MySQL database is used to store data. The sql dump file is attached 
-		   (msh_task.sql)
+		   (supply_pipeline_hierarchy.sql)
 
 		2. Server side - PHP and Apache2
 
