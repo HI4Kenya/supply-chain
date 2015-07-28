@@ -254,10 +254,28 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     var dataSet="VoCwF0LPGjb";//"VOzBhzjvVcw";
     var mflCode="";
     var facilityName="";
-    var programId=3;
+    var programId=1;
 
     var url_facility_fmaps="api/get_facility_fmaps_report.php";
     var templateUrl="client/report_templates/art_report.php";
+
+    var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                        "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                            "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                        "</span>"+
+                        "&nbsp <span style = 'color:black'>|</span>"+
+                        "List of ART Patients By Ordering Points"+
+                        "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
+                            "<span>"+
+                                "<a  class='btn btn-default' download='list_of_patients_by_ordering_points_"+orgUnitLevel+".xls' href='#'"+
+                                    "onclick='return ExcellentExport.excel(this, \"artReport\", \"reportTitle\");'>"+
+                                    "<i class='fa fa-file-excel-o'></i>Export"+
+                                "</a>"+
+                            "</span>"+
+                        "</div>"+
+                    "</span>";
+
+    $('div#returned_messages').html(heading);
 
     $.get(templateUrl).then
     (function(responseData) {
@@ -456,10 +474,28 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
         var dataSet="rV6fPhufzlU";  //"VOzBhzjvVcw";
         var dataElementName="";
         var facilityName="";
-        var programId=3;
+        var programId=1;
 
         var url_facility_fmaps="api/get_stock_status.php";
         var templateUrl="client/report_templates/stock_status_report.php";
+
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                        "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                            "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                        "</span>"+
+                        "&nbsp <span style = 'color:black'>|</span>"+
+                        "Stock Status Report"+
+                        "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
+                            "<span>"+
+                                "<a  class='btn btn-default' download='stock_status_report_"+orgUnitLevel+".xls' href='#'"+
+                                    "onclick='return ExcellentExport.excel(this, \"artReport\", \"reportTitle\");'>"+
+                                    "<i class='fa fa-file-excel-o'></i>Export"+
+                                "</a>"+
+                            "</span>"+
+                        "</div>"+
+                    "</span>";
+
+        $('div#returned_messages').html(heading);
 
         $.get(templateUrl).then
         (function(responseData) {
@@ -547,6 +583,24 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
 
     var url_reporting_rate="api/get_reporting_rate.php";
     var templateUrl="client/report_templates/reporting_rate_report.php";
+
+    var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                        "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                            "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                        "</span>"+
+                        "&nbsp <span style = 'color:black'>|</span>"+
+                        "Reporting Rate"+
+                        "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
+                            "<span>"+
+                                "<a  class='btn btn-default' download='reporting_rate_report_"+orgUnitLevel+".xls' href='#'"+
+                                    "onclick='return ExcellentExport.excel(this, \"artReport\", \"reportTitle\");'>"+
+                                    "<i class='fa fa-file-excel-o'></i>Export"+
+                                "</a>"+
+                            "</span>"+
+                        "</div>"+
+                    "</span>";
+
+    $('div#returned_messages').html(heading);
 
     $.get(templateUrl).then
     (function(responseData) {
