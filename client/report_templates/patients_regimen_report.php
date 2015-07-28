@@ -3,11 +3,11 @@
         <div class="panel-heading">
             <h2>Ministry Of Health</h2></br>
             <h3 id="formName"></h3></br>
-            <label style="color:black"></label><span id="orgUnitName"></span>&nbsp;&nbsp;
-            <label style="color:black">Level:</label><span id="orgUnitLevel"></span>&nbsp;&nbsp;
-            <label style="color:black">Period:</label><span id="period"></span>
-            <div id="loading">Loading</div>
-
+            <div id="reportTitle">
+                <label style="color:black">LEVEL:</label><span id="orgUnitLevel"></span>&nbsp;&nbsp;-
+                <label style="color:black"></label><span id="orgUnitName"></span>&nbsp;&nbsp;
+                <label style="color:black">PERIOD:</label><span id="period"></span>
+            </div>
         </div>
         <div class="panel-body" style="overflow: scroll">
             <table class="table table-responsive table-striped">

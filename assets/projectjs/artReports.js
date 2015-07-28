@@ -225,7 +225,7 @@ function getARTAnalytics()
 
 	                else if(selectedReportID == "Patients By Regimen")
 	                {
-	                  generateReportPatientsByRegimen(periodOfTheReport,selectedOrgUnitID);
+	                  generateReportPatientsByRegimentrial(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
 	                }
 
 	                else if(selectedReportID == "Stock Status")
@@ -355,47 +355,206 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
     });
 }
 // function to generate report by Regimen
-function generateReportPatientsByRegimen(period,orgUnitID){
+function generateReportPatientsByRegimentrial(period,orgUnitID,orgUnitLevel){
+    var url_facility_fmaps="api/get_aggregate_729.php";
+    var programId=1;
+    var orgUnits=[];
+var dataSet="VoCwF0LPGjb";
+ var urlDataSetTemplate="api/get_dataset_template.php";
+            $.getJSON(urlDataSetTemplate,
+                {dataSet:dataSet},
+                function(htmlForm){
+                    if (htmlForm.toString() == "-1") {
+                        alert("nothing");
+                    }
 
-    // alert(period+""+orgUnitID+);
+                     $('div#facilities').empty();
+                $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
+                    $("#formName").append(htmlForm.dataEntryForm.name);
+                    // $("input").prop('disabled', true);
+                     $.getJSON("db/fetch/list_service_points.php",
+                                 {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                                function(facilities){
+                                    $.each(facilities,function(key, facility){
+                            orgUnits.push(facility.facility_id);
+
+                           
+                        });
+                        console.log(orgUnits);
+
+
+                        if(orgUnits.length==0){
+
+                            alert("no reporting level selected");
+                        }
+                        else{
+                            $.getJSON(url_facility_fmaps,
+                                {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                function(response){
+                            var responseData=response.adult_art;
+                             var responseDataone=response.paediatric_art;
+                             var responseDatatwo=response.paediatric_pep;
+                             var responseDatathree=response.adult_pep;
+                             var responseDatafour=response.adult_pmtct;
+                             var responseDatafive=response.paediatric_pmtct;
+                                    $.each(responseData,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDataone,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatatwo,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatathree,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatafour,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatafive,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                });
+
+                        }
+                                });
+                });
+
+
+}
+// formulation
+function generateReportPatientsByRegimen(period,orgUnitID,orgUnitLevel){
+
+    //alert(period+""+orgUnitID+""+orgUnitLevel);
     //orgUnits for the Selected Level
-    var dataSet="VOzBhzjvVcw";
-    var  id="Js2jIKhWf6P";
+    var orgUnits=[];
+        //["AwVQ3uJftlj","DMF5wWYxVHg"];
+    var dataSet="VoCwF0LPGjb";//"VOzBhzjvVcw";
+    var mflCode="";
+    var facilityName="";
+    var programId=3;
+
     var url_regimen_report="api/valuesets.php";
     var templateUrl="client/report_templates/patients_regimen_report.php";
 
     var urlDataSetTemplate="api/get_dataset_template.php";
     $.get(templateUrl).then
     (function(responseData) {
-        $('div#facilities').empty();
-        $('div#facilities').append(responseData);
-        $('#formName').append("Summary report patients by Regimen");
-        $('#period').append(generateYearName(period));
-                    $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
-                    $.getJSON(url_regimen_report,
-                        {dataSet:dataSet,period:period,orgUnit:id},
-                        function(obj){
-                            console.log(obj);
-                            // console.log(response);
+        $.get("db/fetch/get_orgunit_level_by_name.php",
+            {org_unit:orgUnitID,org_unit_level:orgUnitLevel},
+            function(orgUnitName){
+                //alert(orgUnitName);
+                $('div#facilities').empty();
+                $('div#facilities').append(responseData);
+                $('#formName').append("Summary report patients by Regimen");
+                $('#orgUnitName').append(orgUnitName.toUpperCase());
+                // $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
+                $('#period').append(generateYearName(period));
+
+                $.getJSON("db/fetch/list_service_points.php",
+                    {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                    function(facilities){
+
+                        $.each(facilities,function(key, facility){
+                            orgUnits.push(facility.facility_id);
+                        });
+
+                        if(orgUnits.length==0){
+
                             $("#loading").empty();
-                            $("#formData").empty();
+                            $("#loading").append("No service Points for the Organisation Level Selected");
+                        }
+                        // else{
 
-                                $("#formData").append("<tr>" +
-                                "<td>"+obj.data.adult_art+"</td>"+
-                                "<td>"+obj.data.pep_adults+"</td>"+
-                                "<td>"+obj.data.pmtct_women+"</td>"+
-                                "<td>"+obj.data.paediatric_art+"</td>"+
-                                "<td>"+obj.data.pep_children+"</td>"+
-                                "<td>"+obj.data.ipt+"</td>"+
-                                "<tr>");
-                            });
-                
-        });
+                        //     $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
 
-    
+                        //     setTimeout(function(){
+                        //         $('#loading').html("Try Loading Again");
+                        //     }, 60000);
+
+                        //     setTimeout(function(){
+                        //         $('#loading').html("");
+                        //     }, 70000);
+
+                            //$('#artReport').dataTable({
+                            //    "paging":   false,
+                            //    "ordering": true,
+                            //    "info":     false,
+                            //    "searching":false
+                            //});
+
+                            // $.getJSON(url_regimen_report,
+                            //     {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                            //     function(response){
+                            //         //console.log(response);
+                            //         $("#loading").empty();
+                            //         $("#formData").empty();
+
+                                    // $.each(response,function(index, obj){
+
+                                    //     if(obj.orgUnit=="grand_total"){
+                                    //         $("#grandTotal").append("<tr>" +
+                                    //         //"<td></td>"+
+                                    //         //"<td></td>"+
+                                    //         "<td colspan='3'>Grand Total</td>"+
+                                    //         "<td>"+obj.data.adult_art+"</td>"+
+                                    //         "<td>"+obj.data.adult_pep+"</td>"+
+                                    //         "<td>"+obj.data.adult_pmtct+"</td>"+
+                                    //         "<td>"+obj.data.paediatric_art+"</td>"+
+                                    //         "<td>"+obj.data.paediatric_pep+"</td>"+
+                                    //         "<td>"+obj.data.paediatric_pmtct+"</td>"+
+                                    //         "<tr>");
+                                    //     }
+                                    //     // else{
+                                    //     //     var facility=$.grep(facilities, function(e){ return e.facility_id==obj.orgUnit;});
+                                    //     //     mflCode=facility[0].mfl_code;
+                                    //     //     facilityName=facility[0].facility_name;
+
+                                    //     //    $('#formData').append("<tr>" +
+                                    //     //     "<td>"+(index+1)+"</td>"+
+                                    //     //     "<td>"+mflCode+"</td>"+
+                                    //     //     "<td>"+facilityName+"</td>"+
+                                    //     //     "<td>"+obj.data.adult_art+"</td>"+
+                                    //     //     "<td>"+obj.data.adult_pep+"</td>"+
+                                    //     //     "<td>"+obj.data.adult_pmtct+"</td>"+
+                                    //     //     "<td>"+obj.data.paediatric_art+"</td>"+
+                                    //     //     "<td>"+obj.data.paediatric_pep+"</td>"+
+                                    //     //     "<td>"+obj.data.paediatric_pmtct+"</td>"+
+                                    //     //     "<tr>");
+                                    //     // }
+                                    // });
+                                // });
+                        // }
+                    });
 
 
-
+            });
+    });
 }
 //Function for formatting the date
 function generateYearName(date){

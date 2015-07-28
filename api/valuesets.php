@@ -16,10 +16,10 @@
         $password = $access_password;
 
     //HTTP GET request -Using Curl -Response JSON
-   $period = "201501";
+    $period = $_GET['period'];
     $orgUnits = $_GET['orgUnits'];
-   $dataSet=$_GET['dataSet'];
-    $orgUnit =$_GET['orgUnit'];
+    $dataSet=$_GET['dataSet'];
+
     $report=array();
 
     //Data Elements for categories in the fmaps
