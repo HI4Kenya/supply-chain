@@ -222,11 +222,10 @@ function getARTAnalytics()
                         generateReportPatientsByOrderingPoints(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
 
                     }
-
-                    else if(selectedReportID == "Patients By Regimen")
-                    {
-                        generateReportPatientsByRegimen(periodOfTheReport,selectedOrgUnitID);
-                    }
+	                else if(selectedReportID == "Patients By Regimen")
+	                {
+	                  generateReportPatientsByRegimen(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
+	                }
 
                     else if(selectedReportID == "Stock Status")
                     {
@@ -350,42 +349,96 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
 
 
 // function to generate report by Regimen
-function generateReportPatientsByRegimen(period,orgUnitID) {
+function generateReportPatientsByRegimen(period,orgUnitID,orgUnitLevel){
+    var url_facility_fmaps="api/get_aggregate_729.php";
+    var programId=1;
+    var orgUnits=[];
+var dataSet="VoCwF0LPGjb";
+ var urlDataSetTemplate="api/get_dataset_template.php";
+            $.getJSON(urlDataSetTemplate,
+                {dataSet:dataSet},
+                function(htmlForm){
+                    if (htmlForm.toString() == "-1") {
+                        alert("nothing");
+                    }
 
-    // alert(period+""+orgUnitID+);
-    //orgUnits for the Selected Level
-    var dataSet = "VOzBhzjvVcw";
-    var id = "Js2jIKhWf6P";
-    var url_regimen_report = "api/valuesets.php";
-    var templateUrl = "client/report_templates/patients_regimen_report.php";
+                     $('div#facilities').empty();
+                $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
+                    $("#formName").append(htmlForm.dataEntryForm.name);
+                    // $("input").prop('disabled', true);
+                     $.getJSON("db/fetch/list_service_points.php",
+                                 {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                                function(facilities){
+                                    $.each(facilities,function(key, facility){
+                            orgUnits.push(facility.facility_id);
 
-    var urlDataSetTemplate = "api/get_dataset_template.php";
-    $.get(templateUrl).then
-    (function (responseData) {
-        $('div#facilities').empty();
-        $('div#facilities').append(responseData);
-        $('#formName').append("Summary report patients by Regimen");
-        $('#period').append(generateYearName(period));
-        $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
-        $.getJSON(url_regimen_report,
-            {dataSet: dataSet, period: period, orgUnit: id},
-            function (obj) {
-                console.log(obj);
-                // console.log(response);
-                $("#loading").empty();
-                $("#formData").empty();
+                           
+                        });
+                        console.log(orgUnits);
 
-                $("#formData").append("<tr>" +
-                "<td>" + obj.data.adult_art + "</td>" +
-                "<td>" + obj.data.pep_adults + "</td>" +
-                "<td>" + obj.data.pmtct_women + "</td>" +
-                "<td>" + obj.data.paediatric_art + "</td>" +
-                "<td>" + obj.data.pep_children + "</td>" +
-                "<td>" + obj.data.ipt + "</td>" +
-                "<tr>");
-            });
 
-    });
+                        if(orgUnits.length==0){
+
+                            alert("no reporting level selected");
+                        }
+                        else{
+                            $.getJSON(url_facility_fmaps,
+                                {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                function(response){
+                            var responseData=response.adult_art;
+                             var responseDataone=response.paediatric_art;
+                             var responseDatatwo=response.paediatric_pep;
+                             var responseDatathree=response.adult_pep;
+                             var responseDatafour=response.adult_pmtct;
+                             var responseDatafive=response.paediatric_pmtct;
+                                    $.each(responseData,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDataone,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatatwo,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatathree,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatafour,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                    $.each(responseDatafive,function(index, obj){
+                                var dataElementId = obj.dataElement;
+                                var optionComboId = "u4jRrJ0vVm6";
+                                var id = "#"+dataElementId + "-" + optionComboId + "-val";
+                                var tableItem = $(id);
+                                    tableItem.val(obj.value);  
+                                    });
+                                });
+
+                        }
+                                });
+                });
+
 
 }
 
