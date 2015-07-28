@@ -127,7 +127,7 @@
                                             </div>
                                             <br>
                                             <div class = 'btn btn-default btn-md' style = 'margin-bottom:5px; width:100%' onclick='javascript:classifyFacilities(4)' data-toggle='collapse' data-parent='#accordion' href='#collapseOrgUnits'>
-                                                Stand Alones
+                                                StandAlone sites
                                             </div>
                                         </div>
                                     </div>

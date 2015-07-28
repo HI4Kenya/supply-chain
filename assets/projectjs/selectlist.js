@@ -529,20 +529,22 @@ function filterFacilities(selectID,inputID)
 function updateSelectList(level,unit_id,icon,changeColor)
 {
     var url = "db/fetch/get_facilities.php";
-    $('span#classification_desc').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");   
+    $('span#available_facilities').html("<span class ='fa fa-exclamation-triangle' style = 'color:blue'></span>"+
+                                    "<span style = 'color:blue'> Loading</span><img src='assets/img/ajax-loader-3.gif'>"); 
+    $("select#SelectList").replaceWith("<span id = 'SelectList'><img src='assets/img/loading.gif'></span>");  
     $.getJSON
     (
         url,
         {id:unit_id,type:level},
         function(received)
         {
-            $("select#SelectList").empty();
+            $("span#SelectList").replaceWith("<select NAME='SelectList' ID='SelectList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'></select>");
             for(var j=0; j<received.length;j++)
             {
                 //alert(received[j].facility_name);
                 $("<option id = 'options' VALUE='"+received[j].facility_id+"'>"+received[j].facility_name+"</option>").appendTo("select#SelectList");
             }
-            $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
+            $('span#available_facilities').html("Available");   
         }
     );
 
