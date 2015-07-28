@@ -17,7 +17,7 @@ else
 
     //HTTP GET request -Using Curl -Response JSON
     $period = $_GET['period'];
-    $orgUnits = ["AwVQ3uJftlj", "Js2jIKhWf6P", "DMF5wWYxVHg", "pTlrkLDOyAx", "Yh9TiSUTbrT", "ZkbTg8ryBSo"];
+    $orgUnits = $_GET['orgUnits'];
     $dataSet=$_GET['dataSet'];
 
     $report=array();
