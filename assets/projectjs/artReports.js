@@ -225,7 +225,7 @@ function getARTAnalytics()
 
                     else if(selectedReportID == "Patients By Regimen")
                     {
-                        generateReportPatientsByRegimen(periodOfTheReport,selectedOrgUnitID);
+                        generatePatientsRegimenReport(periodOfTheReport,selectedOrgUnitID,selectedOrgUnitLevel);
                     }
 
                     else if(selectedReportID == "Stock Status")
@@ -284,15 +284,11 @@ function generateReportPatientsByOrderingPoints(period,orgUnitID, orgUnitLevel){
                         if(orgUnits.length==0){
 
                             $("#loading").empty();
-                            $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                            $("#loading").append("<p class='text-danger'>No Ordering Points for the Organisation Level Selected<p>");
                         }
                         else{
 
                             $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
-
-                            //setTimeout(function(){
-                            //    $('#loading').html("Try Loading Again");
-                            //}, 60000);
 
                             setTimeout(function(){
                                 $('#loading').html("");
@@ -397,7 +393,6 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
 
         dataElements=response.dataElements;
 
-        console.log(dataElements);
         //orgUnits for the Selected Level
         var orgUnits=[];//["AwVQ3uJftlj","Js2jIKhWf6P"];
         var dataSet="rV6fPhufzlU";  //"VOzBhzjvVcw";
@@ -432,7 +427,7 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
                             if(orgUnits.length==0){
 
                                 $("#loading").empty();
-                                $("#loading").append("No DataElements available");
+                                $("#loading").append("<p class='text-danger'>No DataElements available</p>");
                             }
                             else{
 
@@ -457,7 +452,6 @@ function generateStockStatusReport(period,orgUnitID, orgUnitLevel){
                                         $.each(response,function(index, obj){
 
                                             var objData=$.grep(dataElements, function(e){ return e.id==obj.dataElement;});
-                                            console.log(objData);
                                             dataElementName=objData[0].name;
 
                                             $('#formData').append("<tr>" +
@@ -490,7 +484,7 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
     var dataSet="HAcToQkdUS1";
     var mflCode="";
     var facilityName="";
-    var programId=1;
+    var programId=3;
 
     var url_reporting_rate="api/get_reporting_rate.php";
     var templateUrl="client/report_templates/reporting_rate_report.php";
@@ -519,7 +513,7 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
                         if(orgUnits.length==0){
 
                             $("#loading").empty();
-                            $("#loading").append("No Ordering Points for the Organisation Level Selected");
+                            $("#loading").append("<p class='text-danger'>No Ordering Points for the Organisation Level Selected<p>");
                         }
                         else{
 
@@ -571,6 +565,216 @@ function generateReportingRateReport(period,orgUnitID, orgUnitLevel){
     });
 }
 
+//Function to Generate Patients Regimen Report for Ordering Points
+function generatePatientsRegimenReport(period,orgUnitID, orgUnitLevel){
+
+    var dataElements=null;
+    $.getJSON("api/dataElements.json", function (response) {
+
+        dataElements=response.dataElements;
+        //alert(period+""+orgUnitID+""+orgUnitLevel);
+        //orgUnits for the Selected Level
+        var orgUnits=[];
+        var dataSet="VoCwF0LPGjb";
+        var dataElementName="";
+        var programId=3;
+
+        var url__patient_regimen="api/get_patients_regimen_report.php";
+        var templateUrl="client/report_templates/regimen_report.php";
+
+        $.get(templateUrl).then
+        (function(responseData) {
+            $.get("db/fetch/get_orgunit_level_by_name.php",
+                {org_unit:orgUnitID,org_unit_level:orgUnitLevel},
+                function(orgUnitName){
+
+                    //alert(orgUnitName);
+                    $('div#facilities').empty();
+                    $('div#facilities').append(responseData);
+                    $('#formName').append("Patients Regimen Report");
+                    $('#orgUnitName').append(orgUnitName.toUpperCase());
+                    $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
+                    $('#period').append(generateYearName(period));
+
+                    $.getJSON("db/fetch/get_ordering_points.php",
+                        {program_id:programId,org_unit_level:orgUnitLevel,org_unit:orgUnitID},
+                        function(facilities){
+
+                            $.each(facilities,function(key, facility){
+                                orgUnits.push(facility.facility_id);
+                            });
+
+                            if(orgUnits.length==0){
+
+                                $("#loading").empty();
+                                $("#loading").append("<p class='text-danger'>No Ordering Points for the Organisation Level Selected<p>");
+                            }
+                            else{
+
+                                $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+
+                                //setTimeout(function(){
+                                //    $('#loading').html("Try Loading Again");
+                                //}, 60000);
+
+                                setTimeout(function(){
+                                    $('#loading').html("");
+                                }, 100000);
+
+
+                                $.getJSON(url__patient_regimen,
+                                    {dataSet:dataSet,period:period,orgUnits:orgUnits},
+                                    function(response){
+                                        //console.log(response);
+                                        $("#loading").empty();
+                                        $("#formData").empty();
+
+                                        $.each(response,function(index, obj){
+
+                                            if(obj.adult_art){
+
+                                                $('#formData').append("<tr><td colspan='3'>Adult ART</td></tr>");
+                                                $.each(obj.adult_art, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.adult_art+ "</td>" +
+                                                "</tr>");
+                                            }
+
+
+                                            if(obj.adult_pep){
+
+                                                $('#formData').append("<tr><td colspan='3'>Adult PEP</td></tr>");
+                                                $.each(obj.adult_pep, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.adult_pep+ "</td>" +
+                                                "</tr>");
+                                            }
+
+                                            if(obj.adult_pmtct){
+
+                                                $('#formData').append("<tr><td colspan='3'>Adult PMTCT</td></tr>");
+                                                $.each(obj.adult_pmtct, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.adult_pmtct+ "</td>" +
+                                                "</tr>");
+                                            }
+
+                                            if(obj.paediatric_art){
+
+                                                $('#formData').append("<tr><td colspan='3'>PAEDIATRIC ART</td></tr>");
+                                                $.each(obj.paediatric_art, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.paediatric_art+ "</td>" +
+                                                "</tr>");
+                                            }
+
+                                            if(obj.paediatric_pep){
+
+                                                $('#formData').append("<tr><td colspan='3'>PAEDIATRIC PEP</td></tr>");
+                                                $.each(obj.paediatric_pep, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.paediatric_pep+ "</td>" +
+                                                "</tr>");
+                                            }
+
+                                            if(obj.paediatric_pmtct){
+
+                                                $('#formData').append("<tr><td colspan='3'>PAEDIATRIC PMTCT</td></tr>");
+                                                $.each(obj.paediatric_pmtct, function(i, dataElement){
+
+                                                    var objData=$.grep(dataElements, function(e){ return e.id==dataElement.dataElement;});
+                                                    dataElementName=objData[0].name;
+
+                                                    $('#formData').append("<tr>" +
+                                                    "<td>" + (i+1)+ "</td>" +
+                                                    "<td>" + dataElementName+ "</td>" +
+                                                    "<td>" +dataElement.value+ "</td>" +
+                                                    "</tr>");
+                                                });
+
+                                                $('#formData').append("<tr>" +
+                                                "<td></td>" +
+                                                "<td>Totals</td>" +
+                                                "<td>" +response.category.paediatric_pmtct+ "</td>" +
+                                                "</tr>");
+                                            }
+
+                                        });
+                                    });
+                            }
+                        });
+
+                });
+        });
+
+    });
+
+}
 //Function for formatting the date
 function generateYearName(date){
     var str = date;

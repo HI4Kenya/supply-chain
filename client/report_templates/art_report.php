@@ -11,6 +11,7 @@
             <div id="loading">Loading...</div>
 
             <div class="col-md-offset-10">
+                
                 <span>
                      <a  class="btn btn-success" download="list_of_patients_by_ordering_points.xls" href="#"
                         onclick="return ExcellentExport.excel(this, 'artReport', 'reportTitle');">
