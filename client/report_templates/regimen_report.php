@@ -24,16 +24,11 @@
             <table class="table table-responsive table-striped dataTable" id="artReport">
                 <thead>
                 <th>#</th>
-                <th></th>
-                <th>Name of Ordering Point(Central Site,Sub-County Store)</th>
-                <th>Type</th>
-                <th>Total No. of Facility Reports Expected</th>
-                <th>Actual Number of Reports Received</th>
-                <th>Reporting Rate(%)</th>
+                <th>Data Elements</th>
+                <th>Values</th>
                 </thead>
                 <tbody id="formData">
                 </tbody>
-
             </table>
         </div>
     </div>
