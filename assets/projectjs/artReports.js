@@ -361,8 +361,53 @@ var dataSet="VoCwF0LPGjb";
                     if (htmlForm.toString() == "-1") {
                         alert("nothing");
                     }
+                    var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "Report On Patients By Regimen "+
+                            "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
+                                "<span>"+
+                                    "<a  class='btn btn-default' download='patients_by_regimen_"+orgUnitLevel+".xls' href='#'"+
+                                        "onclick='return ExcellentExport.excel(this, \"facilities\", \"reportTitle\");'>"+
+                                        "<i class='fa fa-file-excel-o'></i>Export"+
+                                    "</a>"+
+                                "</span>"+
+                            "</div>"+
+                        "</span>";
+                        var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
+                        "<div class='panel-heading' style = 'color:black'>"+
+                            "<span class='panel-title' id='reportTitle' style = 'font-family:font awesome'>"+
+                                "<span>Program: "+
+                                    "<span id = 'program_name' style = 'color:green;font-size:11pt'></span>"+
+                                "</span><br>"+
+                                "<span>Pipeline: "+
+                                    "<span style = 'font-size:11pt;color:green'>KEMSA</span>"+
+                                "</span><br>"+
+                                "<span>Report: "+
+                                    "<span style = 'font-size:11pt;color:green'>Patients by Regimen Report</span>"+
+                                "</span><br>"+
+                                "<span>Level: "+
+                                    "<span id = 'report_level' style = 'font-size:11pt;color:green'></span>"+
+                                "</span><br>"+
+                                "<span>Date Generated: <span style = 'color:green;font-size:11pt'>"+dateGenerated+"</span></span><br>"+
+                            "</span>"+                             
+                        "</div>"+
+
+                        "<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>"+
+                            "<thead>"+
+                                "<th style = 'font-weight:bold'>Summary</th>"+                           
+                            "</thead>"+
+                            "<tbody id = 'formData'>"+
+                            "</tbody>"+
+                        "</table>"+
+                    "</div>";
+
+        $('div#returned_messages').html(heading);
 
                      $('div#facilities').empty();
+                     $('div#facilities').html(data);
                 $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
                     $("#formName").append(htmlForm.dataEntryForm.name);
                     // $("input").prop('disabled', true);
@@ -391,6 +436,7 @@ var dataSet="VoCwF0LPGjb";
                              var responseDatathree=response.adult_pep;
                              var responseDatafour=response.adult_pmtct;
                              var responseDatafive=response.paediatric_pmtct;
+                              var responseDatasix=response.category;
                                     $.each(responseData,function(index, obj){
                                 var dataElementId = obj.dataElement;
                                 var optionComboId = "u4jRrJ0vVm6";
@@ -433,6 +479,25 @@ var dataSet="VoCwF0LPGjb";
                                 var tableItem = $(id);
                                     tableItem.val(obj.value);  
                                     });
+                                      
+                                         $('#formData').append("<tr>" +
+                                            "<td>Adult ART Patients ="+responseDatasix.adult_art+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>Paediatric ART Patients ="+responseDatasix.paediatric_art+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>PEP Adults ="+responseDatasix.adult_pep+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>PEP Children ="+responseDatasix.paediatric_pep+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>PMTCT Women ="+responseDatasix.adult_pmtct+"</td>"+
+                                            "<tr>"
+                                            );
+                                    
+                            
                                 });
 
                         }
