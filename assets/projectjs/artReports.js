@@ -399,8 +399,8 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "</span>" +
                         "</div>";
 
-                    var summaryTableARVPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>" +
-                        "<h3>Summary for Patients on ARVs</h3>"+
+                    var summaryTableARVPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:600px;margin-top:10px;'>" +
+                        "<h3 style = 'margin-left:15px'>Summary for Patients on ARVs</h3>"+
                         "<thead>" +
                         "<th style = 'font-weight:bold'>Category</th>" +
                         "<th style = 'font-weight:bold'>Total</th>" +
@@ -409,8 +409,9 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "</tbody>" +
                         "</table>" +
                         "</div>";
-                    var summaryTableOIPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>" +
-                        "<h3>Summary for Patients on OI medicines</h3>"+
+
+                    var summaryTableOIPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:600px;margin-top:10px;'>" +
+                        "<h3 style = 'margin-left:15px'>Summary for Patients on OI medicines</h3>"+
                         "<thead>" +
                         "<th style = 'font-weight:bold'>Category</th>" +
                         "<th style = 'font-weight:bold'>Total</th>" +
