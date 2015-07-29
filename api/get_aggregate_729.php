@@ -28,8 +28,25 @@ else
     $paediatric_art=["uR26Yy0UKQe","luuOdMkUhUs","CjlzQG0xssl","dcJgt3rWowH","aihV4ADJ03p","iSfgVwytK4H","c1t8oGHQiGl","AMog4o55zNE","OZW7P0YVMTf","tq5Is5rstXr","T1ycYq5lhl9","Z6fMvN6VtSF","ccvlRpDaH9f","F7kHcKkcAkt","IwGG1bBlx3K","GCrlI7zb3oy","RhSiKJe7ZJq","J2X6rkORmGE","kE0fmdbd8Ge","Ac9RFUmUqJf","N2NmanbK65P","a2zcBjmJsFY","eaaug3VjX0J","z60P04EXWwx","FdlaCONjVHI"];
     $paediatric_pmtct=["RU37FYRhkuI","FfKmFD4Hsfh","ZBwrHoHlZPs","N06L50978pu","zE7RKAsYTpb","i995jo2yPXw"];
     $paediatric_pep=["SylmDjlZEjQ","wLghnsMARPW","F6tU0MuyNK5"];
-
+    $Universal_prophylaxis=["NPNJOlAZqJP","kkccClOPpov","ScQO9xeZzUc","Y7XvKlAZ6Sy"];
+    $ipt=["nqvRxB0Xvwd","cvwk3HCFzdl"];
+    $Cryptococcal_meningitis=["yyesz7MW62W","S2G7DEhKXBo","hiC7msWHauG","mr5TEZ2OSON","hiC7msWHauG","EFqPm0ZCu9P"]; 
     //creating the Regimen Report template
+    $Universal_prophylaxis_data=array();
+    foreach ($Universal_prophylaxis as $value) {
+        array_push($Universal_prophylaxis_data,array("dataElement"=>$value,"value"=>0));
+    }
+
+    $ipt_data=array();
+    foreach ($ipt as $value) {
+      array_push($ipt_data,array("dataElement"=>$value,"value"=>0));
+    }
+
+    $Cryptococcal_meningitis_data=array();
+    foreach ($Cryptococcal_meningitis as  $value) {
+        array_push($Cryptococcal_meningitis_data,array("dataElement"=>$value,"value"=>0));
+    }
+
     $adult_art_data=array();
     foreach($adult_art as $value){
         array_push($adult_art_data,array("dataElement"=>$value,"value"=>0));
@@ -62,7 +79,7 @@ else
 
     $regimen_report=array("adult_art"=>$adult_art_data,"adult_pmtct"=>$adult_pmtct_data,
         "adult_pep"=>$adult_pep_data,"paediatric_art"=>$paediatric_art_data,"paediatric_pmtct"=>$paediatric_pmtct_data,
-        "paediatric_pep"=>$paediatric_pep_data);
+        "paediatric_pep"=>$paediatric_pep_data,"Universal_prophylaxis"=>$Universal_prophylaxis_data,"ipt"=>$ipt_data,"Cryptococcal_meningitis"=>$Cryptococcal_meningitis_data);
 
 //    var_dump($regimen_report);
 //    echo json_encode($regimen_report);
@@ -73,6 +90,9 @@ else
     $grand_paediatric_art=0;
     $grand_paediatric_pmtct=0;
     $grand_paediatric_pep=0;
+    $grand_ipt=0;
+    $grand_universal_prophylaxis=0;
+    $grand_Cryptococcal_meningitis=0;
 
     foreach($orgUnits as $orgUnit){
 
@@ -82,7 +102,9 @@ else
         $sum_paediatric_art=0;
         $sum_paediatric_pmtct=0;
         $sum_paediatric_pep=0;
-
+        $sum_ipt=0;
+        $sum_universal_prophylaxis=0;
+        $sum_Cryptococcal_meningitis=0;
 //        $sum_universal_prophylaxis=0;
 //        $sum_diflucan_donation=0;
 //        $sum_pmtct_women=0;
@@ -119,6 +141,39 @@ else
             foreach ($data_values as $data_value){
 
                 $dsum=0;
+                 if (in_array($data_value["dataElement"], $sum_Cryptococcal_meningitis)) {
+                    $key = array_search($data_value["dataElement"],array_column($regimen_report["Cryptococcal_meningitis"],"dataElement"));
+                    if($key){
+                        $dsum=$regimen_report["Cryptococcal_meningitis"][$key]["value"];
+                        $dsum=$dsum+intval($data_value["value"]);
+                        $regimen_report["Cryptococcal_meningitis"][$key]["value"]=$dsum;
+                    }
+
+                    $sum_Cryptococcal_meningitis=$sum_Cryptococcal_meningitis+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $ipt)) {
+                    $key = array_search($data_value["dataElement"],array_column($regimen_report["ipt"],"dataElement"));
+                    if($key){
+                        $dsum=$regimen_report["ipt"][$key]["value"];
+                        $dsum=$dsum+intval($data_value["value"]);
+                        $regimen_report["ipt"][$key]["value"]=$dsum;
+                    }
+
+                    $sum_ipt=$sum_ipt+intval($data_value["value"]);
+                }
+
+                if (in_array($data_value["dataElement"], $Universal_prophylaxis)) {
+                    $key = array_search($data_value["dataElement"],array_column($regimen_report["Universal_prophylaxis"],"dataElement"));
+                    if($key){
+                        $dsum=$regimen_report["Universal_prophylaxis"][$key]["value"];
+                        $dsum=$dsum+intval($data_value["value"]);
+                        $regimen_report["Universal_prophylaxis"][$key]["value"]=$dsum;
+                    }
+
+                    $sum_universal_prophylaxis=$sum_universal_prophylaxis+intval($data_value["value"]);
+                }
+
                 if (in_array($data_value["dataElement"], $adult_art)) {
                     $key = array_search($data_value["dataElement"],array_column($regimen_report["adult_art"],"dataElement"));
                     if($key){
@@ -210,6 +265,9 @@ else
         $grand_paediatric_art= $grand_paediatric_art+$sum_paediatric_art;
         $grand_paediatric_pmtct=$grand_paediatric_pmtct+$sum_paediatric_pmtct;
         $grand_paediatric_pep=$grand_paediatric_pep+$sum_paediatric_pep;
+        $grand_ipt=$grand_ipt+$sum_ipt;
+        $grand_universal_prophylaxis=$grand_universal_prophylaxis+$sum_universal_prophylaxis;
+        $grand_Cryptococcal_meningitis=$grand_Cryptococcal_meningitis+$sum_Cryptococcal_meningitis;
 
         array_push($report,$data);
     }
@@ -220,7 +278,10 @@ else
         'adult_pmtct'=>$grand_adult_pmtct,
         'paediatric_art'=>$grand_paediatric_art,
         'paediatric_pep'=>$grand_paediatric_pep,
-        'paediatric_pmtct'=>$grand_paediatric_pmtct));
+        'paediatric_pmtct'=>$grand_paediatric_pmtct,
+        'ipt'=>$grand_ipt,
+        'universal_prophylaxis'=>$grand_universal_prophylaxis,
+        'Cryptococcal_meningitis'=>$grand_Cryptococcal_meningitis));
 
     $regimen_report=array_merge($regimen_report,$grand_data);
     echo json_encode($regimen_report);
