@@ -166,7 +166,6 @@ function maximizeView()
     var minimizeIcon = "<span id = 'maximize_icon' class = 'unclickedColor' title = 'Normal View' onclick = 'javascript:maximizeView();'>"+
                             "<img src='assets/img/icon-restore.png' style = 'height:100%;width:3%;'>"+
                         "</span>";
-    ;
 
 
     if (contentDiv.hasClass("col-md-9"))
