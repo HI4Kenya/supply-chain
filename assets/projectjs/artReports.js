@@ -392,8 +392,9 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "<span>Report: " +
                         "<span style = 'font-size:11pt;color:green'>Patients by Regimen Report</span>" +
                         "</span><br>" +
-                        "<span>Level: " +orgUnitLevel+"-"+orgUnitName+
-                        "<span id = 'report_level' style = 'font-size:11pt;color:green'></span>" +
+                        "<span>Level: "+
+                        "<span id = 'report_level' style = 'font-size:11pt;color:green'>"+orgUnitLevel+"-"+orgUnitName+
+                        "</span>" +
                         "</span><br>" +
                         "<span>Date Generated: <span style = 'color:green;font-size:11pt'>" + dateGenerated + "</span></span><br>" +
                         "</span>" +
@@ -425,9 +426,10 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                     $('div#facilities').empty();
                     $('div#facilities').html(data);
                     $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
+                    $("input").prop('disabled', true);
                     $("div#facilities").append(summaryTableARVPatients);
                     $("#formName").append(htmlForm.dataEntryForm.name);
-                    $("input").prop('disabled', false);
+
 
                     $.getJSON("db/fetch/get_ordering_points.php",
                         {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
