@@ -20,7 +20,7 @@
 <!--            </div> -->
 
         </div>
-        <div class="panel-body" style="overflow: scroll;height:500px">
+        <div class="panel-body">
             <table class="table table-responsive table-striped dataTable" id="artReport">
                 <thead>
                 <th>#</th>
