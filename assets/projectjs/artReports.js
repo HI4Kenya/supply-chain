@@ -273,7 +273,7 @@ function generateReportPatientsByOrderingPoints(period, orgUnitID, orgUnitLevel)
                 $('#period').append(generateYearName(period));
 
                 $.getJSON("db/fetch/get_ordering_points.php",
-                    {program_id: programId, org_unit_level: orgUnitLevel, org_unit: orgUnitID},
+                    {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
                     function (facilities) {
 
                         $.each(facilities, function (key, facility) {
@@ -359,154 +359,175 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
         {dataSet: dataSet},
         function (htmlForm) {
             if (htmlForm.toString() == "-1") {
-                alert("nothing");
+               alert("No organisation Units under the selected Level");
             }
-            var heading = "<span style = 'color:green;margin-left:30px'>" +
-                "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>" +
-                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>" +
-                "</span>" +
-                "&nbsp <span style = 'color:black'>|</span>" +
-                "Report On Patients By Regimen " +
-                "<div class='col-md-offset-10' style = 'margin-top:-30px'>" +
-                "<span>" +
-                "<a  class='btn btn-default' download='patients_by_regimen_" + orgUnitLevel + ".xls' href='#'" +
-                "onclick='return ExcellentExport.excel(this, \"facilities\", \"reportTitle\");'>" +
-                "<i class='fa fa-file-excel-o'></i>Export" +
-                "</a>" +
-                "</span>" +
-                "</div>" +
-                "</span>";
-            var data = "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>" +
-                "<div class='panel-heading' style = 'color:black'>" +
-                "<span class='panel-title' id='reportTitle' style = 'font-family:font awesome'>" +
-                "<span>Program: " +
-                "<span id = 'program_name' style = 'color:green;font-size:11pt'></span>" +
-                "</span><br>" +
-                "<span>Pipeline: " +
-                "<span style = 'font-size:11pt;color:green'>KEMSA</span>" +
-                "</span><br>" +
-                "<span>Report: " +
-                "<span style = 'font-size:11pt;color:green'>Patients by Regimen Report</span>" +
-                "</span><br>" +
-                "<span>Level: " +
-                "<span id = 'report_level' style = 'font-size:11pt;color:green'></span>" +
-                "</span><br>" +
-                "<span>Date Generated: <span style = 'color:green;font-size:11pt'>" + dateGenerated + "</span></span><br>" +
-                "</span>" +
-                "</div>";
 
-            var summaryTable="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>" +
-                "<thead>" +
-                "<th colspan='2' style = 'font-weight:bold'>Summary</th>" +
-                "</thead>" +
-                "<tbody id = 'formData'>" +
-                "</tbody>" +
-                "</table>" +
-                "</div>";
+            $.get("db/fetch/get_orgunit_level_by_name.php",
+                {org_unit: orgUnitID, org_unit_level: orgUnitLevel},
+                function (orgUnitName) {
 
-            $('div#returned_messages').html(heading);
+                    var heading = "<span style = 'color:green;margin-left:30px'>" +
+                        "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>" +
+                        "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>" +
+                        "</span>" +
+                        "&nbsp <span style = 'color:black'>|</span>" +
+                        "Report On Patients By Regimen " +
+                        "<div class='col-md-offset-10' style = 'margin-top:-30px'>" +
+                        "<span>" +
+                        "<a  class='btn btn-default' download='patients_by_regimen_" + orgUnitLevel + ".xls' href='#'" +
+                        "onclick='return ExcellentExport.excel(this, \"facilities\", \"reportTitle\");'>" +
+                        "<i class='fa fa-file-excel-o'></i>Export" +
+                        "</a>" +
+                        "</span>" +
+                        "<span id='loading'>Loading</span>"+
+                        "</div>" +
+                        "</span>";
 
-            $('div#facilities').empty();
-            $('div#facilities').html(data);
-            $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
-            $("div#facilities").append(summaryTable);
-            $("#formName").append(htmlForm.dataEntryForm.name);
-            $("input").prop('disabled', false);
+                    var data = "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>" +
+                        "<div class='panel-heading' style = 'color:black'>" +
+                        "<span class='panel-title' id='reportTitle' style = 'font-family:font awesome'>" +
+                        "<span>Pipeline: " +
+                        "<span style = 'font-size:11pt;color:green'>KEMSA</span>" +
+                        "</span><br>" +
+                        "<span>Report: " +
+                        "<span style = 'font-size:11pt;color:green'>Patients by Regimen Report</span>" +
+                        "</span><br>" +
+                        "<span>Level: "+
+                        "<span id = 'report_level' style = 'font-size:11pt;color:green'>"+orgUnitLevel+"-"+orgUnitName+
+                        "</span>" +
+                        "</span><br>" +
+                        "<span>Date Generated: <span style = 'color:green;font-size:11pt'>" + dateGenerated + "</span></span><br>" +
+                        "</span>" +
+                        "</div>";
 
-            $.getJSON("db/fetch/get_ordering_points.php",
-                {program_id: programId, org_unit_level: orgUnitLevel, org_unit: orgUnitID},
-                function (facilities) {
-                    $.each(facilities, function (key, facility) {
+                    var summaryTableARVPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>" +
+                        "<h3>Summary for Patients on ARVs</h3>"+
+                        "<thead>" +
+                        "<th style = 'font-weight:bold'>Category</th>" +
+                        "<th style = 'font-weight:bold'>Total</th>" +
+                        "</thead>" +
+                        "<tbody id = 'formData'>" +
+                        "</tbody>" +
+                        "</table>" +
+                        "</div>";
+                    var summaryTableOIPatients="<table class = 'table table-responsive table-striped' style = 'border-radius:5px;width:95%;margin-top:20px'>" +
+                        "<h3>Summary for Patients on OI medicines</h3>"+
+                        "<thead>" +
+                        "<th style = 'font-weight:bold'>Category</th>" +
+                        "<th style = 'font-weight:bold'>Total</th>" +
+                        "</thead>" +
+                        "<tbody id = 'formDataOI'>" +
+                        "</tbody>" +
+                        "</table>" +
+                        "</div>";
 
-                        orgUnits.push(facility.facility_id);
-                    });
-                    console.log(orgUnits);
+                    $('div#returned_messages').html(heading);
 
-
-                    if (orgUnits.length == 0) {
-
-                        alert("no reporting level selected");
-                    }
-                    else {
-                        $.getJSON(url_regimen_report,
-                            {dataSet: dataSet, period: period, orgUnits: orgUnits},
-                            function (response) {
-                                var responseDataAdultART = response.adult_art;
-                                var responseDataPaediatricArt = response.paediatric_art;
-                                var responseDataPaediatricPep = response.paediatric_pep;
-                                var responseDataAdultPep = response.adult_pep;
-                                var responseDataAdultPmtct = response.adult_pmtct;
-                                var responseDataPaediatricPmtct = response.paediatric_pmtct;
-                                var responseDataCategory = response.category;
-
-                                $.each(responseDataAdultART, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-
-                                $.each(responseDataPaediatricArt, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-                                $.each(responseDataPaediatricPep, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-                                $.each(responseDataAdultPep, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-                                $.each(responseDataAdultPmtct, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-                                $.each(responseDataPaediatricPmtct, function (index, obj) {
-                                    var dataElementId = obj.dataElement;
-                                    var optionComboId = "u4jRrJ0vVm6";
-                                    var id = "#" + dataElementId + "-" + optionComboId + "-val";
-                                    var tableItem = $(id);
-                                    tableItem.val(obj.value);
-                                });
-
-                                $('#formData').append("<tr>" +
-                                    "<td>Adult ART Patients </td><td>" + responseDataCategory.adult_art + "</td>" +
-                                    "<tr>" +
-                                    "<tr>" +
-                                    "<td>Paediatric ART Patients </td><td>" + responseDataCategory.paediatric_art + "</td>" +
-                                    "<tr>" +
-                                    "<tr>" +
-                                    "<td>PEP Adults </td><td>" + responseDataCategory.adult_pep + "</td>" +
-                                    "<tr>" +
-                                    "<tr>" +
-                                    "<td>PEP Children </td><td>" + responseDataCategory.paediatric_pep + "</td>" +
-                                    "<tr>" +
-                                    "<tr>" +
-                                    "<td>PMTCT Women </td><td>" + responseDataCategory.adult_pmtct + "</td>" +
-                                    "<tr>"
-                                );
+                    $('div#facilities').empty();
+                    $('div#facilities').html(data);
+                    $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
+                    $("input").prop('disabled', true);
+                    $("div#facilities").append(summaryTableARVPatients);
+                    $("#formName").append(htmlForm.dataEntryForm.name);
 
 
+                    $.getJSON("db/fetch/get_ordering_points.php",
+                        {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
+                        function (facilities) {
+                            $.each(facilities, function (key, facility) {
+
+                                orgUnits.push(facility.facility_id);
                             });
 
-                    }
+                            $("#loading").append('<img src="assets/img/ajax-loader-2.gif">');
+
+                            if (orgUnits.length == 0) {
+                                $("#loading").empty();
+                                $("#loading").append("<p class='text-danger'>No organisation Units Available</p>");
+                            }
+                            else {
+                                $.getJSON(url_regimen_report,
+                                    {dataSet: dataSet, period: period, orgUnits: orgUnits},
+                                    function (response) {
+
+                                        $("#loading").empty();
+
+                                        var responseDataAdultART = response.adult_art;
+                                        var responseDataPaediatricArt = response.paediatric_art;
+                                        var responseDataPaediatricPep = response.paediatric_pep;
+                                        var responseDataAdultPep = response.adult_pep;
+                                        var responseDataAdultPmtct = response.adult_pmtct;
+                                        var responseDataPaediatricPmtct = response.paediatric_pmtct;
+                                        var responseDataCategory = response.category;
+
+                                        $.each(responseDataAdultART, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+
+                                        $.each(responseDataPaediatricArt, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataPaediatricPep, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataAdultPep, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataAdultPmtct, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataPaediatricPmtct, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+
+                                        $('#formData').append("<tr>" +
+                                            "<td>Adult ART Patients </td><td>" + responseDataCategory.adult_art + "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>Paediatric ART Patients </td><td>" + responseDataCategory.paediatric_art + "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>PEP Adults </td><td>" + responseDataCategory.adult_pep + "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>PEP Children </td><td>" + responseDataCategory.paediatric_pep + "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>PMTCT Women </td><td>" + responseDataCategory.adult_pmtct + "</td>" +
+                                            "<tr>"
+                                        );
+
+                                    });
+                            }
+                        });
+
+
                 });
         });
-
 
 }
 
@@ -523,9 +544,9 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
         var dataSet = "rV6fPhufzlU";  //"VOzBhzjvVcw";
         var dataElementName = "";
         var facilityName = "";
-        var programId = 1;
+        var programId = 3;
 
-        var url_facility_fmaps = "api/get_stock_status.php";
+        var url_stock_status = "api/get_stock_status.php";
         var templateUrl = "client/report_templates/stock_status_report.php";
 
         var heading = "<span style = 'color:green;margin-left:30px'>" +
@@ -559,8 +580,8 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
                     $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
                     $('#period').append(generateYearName(period));
 
-                    $.getJSON("db/fetch/list_service_points.php",
-                        {program_id: programId, org_unit_level: orgUnitLevel, org_unit: orgUnitID},
+                    $.getJSON("db/fetch/get_ordering_points.php",
+                        {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
                         function (facilities) {
 
                             $.each(facilities, function (key, facility) {
@@ -570,7 +591,7 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
                             if (orgUnits.length == 0) {
 
                                 $("#loading").empty();
-                                $("#loading").append("<p class='text-danger'>No DataElements available</p>");
+                                $("#loading").append("<p class='text-danger'>No DataElements Available</p>");
                             }
                             else {
 
@@ -585,7 +606,7 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
                                 }, 100000);
 
 
-                                $.getJSON(url_facility_fmaps,
+                                $.getJSON(url_stock_status,
                                     {dataSet: dataSet, period: period, orgUnits: orgUnits},
                                     function (response) {
                                         //console.log(response);
@@ -666,7 +687,7 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                 $('#period').append(generateYearName(period));
 
                 $.getJSON("db/fetch/get_ordering_points.php",
-                    {program_id: programId, org_unit_level: orgUnitLevel, org_unit: orgUnitID},
+                    {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
                     function (facilities) {
 
                         $.each(facilities, function (key, facility) {
@@ -762,7 +783,7 @@ function generatePatientsRegimenReport(period, orgUnitID, orgUnitLevel) {
                     $('#period').append(generateYearName(period));
 
                     $.getJSON("db/fetch/get_ordering_points.php",
-                        {program_id: programId, org_unit_level: orgUnitLevel, org_unit: orgUnitID},
+                        {org_unit_level: orgUnitLevel, org_unit: orgUnitID},
                         function (facilities) {
 
                             $.each(facilities, function (key, facility) {
