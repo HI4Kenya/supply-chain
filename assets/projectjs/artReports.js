@@ -347,7 +347,6 @@ function generateReportPatientsByOrderingPoints(period, orgUnitID, orgUnitLevel)
 
 
 // function to generate report by Regimen
-<<<<<<< HEAD
 function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
    
     var url_regimen_report = "api/get_patients_regimen_report.php";
@@ -381,35 +380,7 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "</a>" +
                         "</span>" +
                         "<span id='loading'>Loading</span>"+
-                        "</div>" +
-=======
-function generateReportPatientsByRegimen(period,orgUnitID,orgUnitLevel){
-    var url_facility_fmaps="api/get_aggregate_729.php";
-    var programId=1;
-    var orgUnits=[];
-var dataSet="VoCwF0LPGjb";
- var urlDataSetTemplate="api/get_dataset_template.php";
-            $.getJSON(urlDataSetTemplate,
-                {dataSet:dataSet},
-                function(htmlForm){
-                    if (htmlForm.toString() == "-1") {
-                        alert("nothing");
-                    }
-                    var heading =  "<span style = 'color:green;margin-left:30px'>"+
-                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
-                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
-                            "</span>"+
-                            "&nbsp <span style = 'color:black'>|</span>"+
-                            "Report On Patients By Regimen "+
-                            "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
-                                "<span>"+
-                                    "<a  class='btn btn-default' download='patients_by_regimen_"+orgUnitLevel+".xls' href='#'"+
-                                        "onclick='return ExcellentExport.excel(this, \"artReport\", \"reportTitle\");'>"+
-                                        "<i class='fa fa-file-excel-o'></i>Export"+
-                                    "</a>"+
-                                "</span>"+
-                            "</div>"+
-                        "</span>";
+                        "</div>";
 
                     var data = "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>" +
                         "<div class='panel-heading' style = 'color:black'>" +
@@ -456,6 +427,7 @@ var dataSet="VoCwF0LPGjb";
                     $("div#facilities").append(htmlForm.dataEntryForm.htmlCode);
                     $("input").prop('disabled', true);
                     $("div#facilities").append(summaryTableARVPatients);
+                    $("div#facilities").append(summaryTableOIPatients);
                     $("#formName").append(htmlForm.dataEntryForm.name);
 
 
@@ -486,6 +458,9 @@ var dataSet="VoCwF0LPGjb";
                                         var responseDataAdultPep = response.adult_pep;
                                         var responseDataAdultPmtct = response.adult_pmtct;
                                         var responseDataPaediatricPmtct = response.paediatric_pmtct;
+                                        var responseDataipt=response.ipt;
+                                        var responseDataUniversalProphyliaxis=response.Universal_prophylaxis;
+                                        var responseDataMenengaitis=response.Cryptococcal_meningitis;
                                         var responseDataCategory = response.category;
 
                                         $.each(responseDataAdultART, function (index, obj) {
@@ -531,6 +506,27 @@ var dataSet="VoCwF0LPGjb";
                                             var tableItem = $(id);
                                             tableItem.val(obj.value);
                                         });
+                                        $.each(responseDataipt, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataUniversalProphyliaxis, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
+                                        $.each(responseDataMenengaitis, function (index, obj) {
+                                            var dataElementId = obj.dataElement;
+                                            var optionComboId = "u4jRrJ0vVm6";
+                                            var id = "#" + dataElementId + "-" + optionComboId + "-val";
+                                            var tableItem = $(id);
+                                            tableItem.val(obj.value);
+                                        });
 
                                         $('#formData').append("<tr>" +
                                             "<td>Adult ART Patients </td><td>" + responseDataCategory.adult_art + "</td>" +
@@ -547,17 +543,20 @@ var dataSet="VoCwF0LPGjb";
                                             "<tr>" +
                                             "<td>PMTCT Women </td><td>" + responseDataCategory.adult_pmtct + "</td>" +
                                             "<tr>"+
-                                            "<tr>" +
-                                            "<td>universal prophyliaxis ="+responseDatasix.universal_prophylaxis+"</td>"+
-                                            "<tr>"+
-                                            "<tr>" +
-                                            "<td>IPT ="+responseDatasix.ipt+"</td>"+
-                                            "<tr>"+
-                                            "<tr>" +
-                                            "<td>Diflucan Program ="+responseDatasix.Cryptococcal_meningitis+"</td>"+
-                                            "<tr>"
+                                            "<tr>" 
                                         );
-
+                                        
+                                        $('#formDataOI').append("<tr>" +
+                                            "<td>Universal prophylaxis</td><td>" + responseDataCategory.universal_prophylaxis+ "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>IPT </td><td>" + responseDataCategory.ipt + "</td>" +
+                                            "<tr>" +
+                                            "<tr>" +
+                                            "<td>Diflucan Program </td><td>" + responseDataCategory.Cryptococcal_meningitis + "</td>" +
+                                            "<tr>"+
+                                            "<tr>" 
+                                        );
                                     });
                             }
                         });
