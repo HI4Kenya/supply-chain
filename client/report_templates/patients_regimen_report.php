@@ -9,7 +9,7 @@
                 <label style="color:black">PERIOD:</label><span id="period"></span>
             </div>
         </div>
-        <div class="panel-body" style="overflow: scroll">
+        <div class="panel-body">
             <table class="table table-responsive table-striped">
                 <thead>
                 <th>Category</th>
