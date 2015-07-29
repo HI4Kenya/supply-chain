@@ -473,6 +473,7 @@ function listSites(type,program,orgUnit, orgUnitLevel)
 // Function sitesDistribution
 function sitesDistribution(type,program,orgUnit, orgUnitLevel)
 {
+    var contentDiv = $("div#col_body");
     if(type == "Ordering Points")
     {
         if (contentDiv.hasClass("col-md-9"))
@@ -530,6 +531,8 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                             "</span>";
 
         }
+
+        $('div#returned_messages').html(heading);
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
                         "<div class='panel-heading' style = 'color:black'>"+
@@ -704,6 +707,8 @@ function sitesDistribution(type,program,orgUnit, orgUnitLevel)
                             "</span>";
 
         }
+
+        $('div#returned_messages').html(heading);
 
         var data =  "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>"+
                         "<div class='panel-heading' style = 'color:black'>"+
