@@ -9,7 +9,7 @@
     $server = "localhost";
     $user = "root";
     $password = "wahome";
-    $database = "msh_tak";
+    $database = "msh_task";
 
     # DHIS2 Deployed URL
     # Instance of DHIS2 in use
