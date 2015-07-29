@@ -388,7 +388,7 @@ var dataSet="VoCwF0LPGjb";
                             "<div class='col-md-offset-10' style = 'margin-top:-30px'>"+
                                 "<span>"+
                                     "<a  class='btn btn-default' download='patients_by_regimen_"+orgUnitLevel+".xls' href='#'"+
-                                        "onclick='return ExcellentExport.excel(this, \"facilities\", \"reportTitle\");'>"+
+                                        "onclick='return ExcellentExport.excel(this, \"artReport\", \"reportTitle\");'>"+
                                         "<i class='fa fa-file-excel-o'></i>Export"+
                                     "</a>"+
                                 "</span>"+
@@ -512,6 +512,15 @@ var dataSet="VoCwF0LPGjb";
                                             "<tr>"+
                                             "<tr>" +
                                             "<td>PMTCT Women ="+responseDatasix.adult_pmtct+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>universal prophyliaxis ="+responseDatasix.universal_prophylaxis+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>IPT ="+responseDatasix.ipt+"</td>"+
+                                            "<tr>"+
+                                            "<tr>" +
+                                            "<td>Diflucan Program ="+responseDatasix.Cryptococcal_meningitis+"</td>"+
                                             "<tr>"
                                             );
                                     

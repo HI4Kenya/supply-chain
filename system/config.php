@@ -8,8 +8,8 @@
     # Edit accordingly
     $server = "localhost";
     $user = "root";
-    $password = "wahome";
-    $database = "msh_task";
+    $password = "root";
+    $database = "msh";
 
     # DHIS2 Deployed URL
     # Instance of DHIS2 in use
