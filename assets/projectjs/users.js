@@ -1936,7 +1936,34 @@ function editUsers(userID, userName)
 // functin detailedUserProfile()
 function detailedUserProfile(userID, userName)
 {
-    $('div#returned_messages').html("<span style = 'color:green;margin-left:30px'>"+userName+" DETAILS</span>");
+    var contentDiv = $("div#col_body");
+    if (contentDiv.hasClass("col-md-9"))
+    {
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/full-screen.png' class = 'unclickedColor' style = 'height:;width:;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "<span style = 'color:green;margin-left:30px'>"+
+                            userName+
+                            " DETAILS</span>";
+
+    } 
+
+    else if (contentDiv.hasClass("col-md-12"))
+    {
+        var heading =  "<span style = 'color:green;margin-left:30px'>"+
+                            "<span id = 'maximize_icon' title = 'Full Screen' onclick = 'javascript:maximizeView();'>"+
+                                "<img src='assets/img/icon-restore.png' class = 'unclickedColor' style = 'height:100%;width:3%;'>"+
+                            "</span>"+
+                            "&nbsp <span style = 'color:black'>|</span>"+
+                            "<span style = 'color:green;margin-left:30px'>"+
+                            userName+
+                            " DETAILS</span>";
+
+    }
+
+    $('div#returned_messages').html(heading);
     $('div#facilities').empty();
     // Get existing user details
     var userDetailsUrl = "db/fetch/get_individual_user.php";
