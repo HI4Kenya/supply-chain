@@ -372,6 +372,7 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "</span>" +
                         "&nbsp <span style = 'color:black'>|</span>" +
                         "Report On Patients By Regimen " +
+                        "<span id='loading' style='color: black'>|Loading</span>"+
                         "<div class='col-md-offset-10' style = 'margin-top:-30px'>" +
                         "<span>" +
                         "<a  class='btn btn-default' download='patients_by_regimen_" + orgUnitLevel + ".xls' href='#'" +
@@ -379,7 +380,6 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                         "<i class='fa fa-file-excel-o'></i>Export" +
                         "</a>" +
                         "</span>" +
-                        "<span id='loading'>Loading</span>"+
                         "</div>";
 
                     var data = "<div class='panel panel-default' style = 'margin-left:-30px;margin-top:0px'>" +
@@ -529,7 +529,7 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                                             tableItem.val(obj.value);
                                         });
 
-                                        $('#formData').append("<tr>" +
+                                        $('#formData').append("<tr class='text-left'>" +
                                             "<td>Adult ART Patients </td><td>" + responseDataCategory.adult_art + "</td>" +
                                             "<tr>" +
                                             "<tr>" +
@@ -547,7 +547,7 @@ function generateReportPatientsByRegimen(period, orgUnitID, orgUnitLevel) {
                                             "<tr>" 
                                         );
                                         
-                                        $('#formDataOI').append("<tr>" +
+                                        $('#formDataOI').append("<tr class='text-left'>" +
                                             "<td>Universal prophylaxis</td><td>" + responseDataCategory.universal_prophylaxis+ "</td>" +
                                             "<tr>" +
                                             "<tr>" +
@@ -612,7 +612,7 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
                     //alert(orgUnitName);
                     $('div#facilities').empty();
                     $('div#facilities').append(responseData);
-                    $('#formName').append("List of ART Service Points");
+                    $('#formName').append("Stock status report by selected level");
                     $('#orgUnitName').append(orgUnitName.toUpperCase());
                     $('#orgUnitLevel').append(orgUnitLevel.toUpperCase());
                     $('#period').append(generateYearName(period));
@@ -656,8 +656,9 @@ function generateStockStatusReport(period, orgUnitID, orgUnitLevel) {
                                                 return e.id == obj.dataElement;
                                             });
                                             dataElementName = objData[0].name;
+                                            dataElementName=dataElementName.replace(/MOH 730A/gi,"");
 
-                                            $('#formData').append("<tr>" +
+                                            $('#formData').append("<tr class='text-left'>" +
                                             "<td>" + (index + 1) + "</td>" +
                                             "<td>" + dataElementName + "</td>" +
                                             "<td>" + obj.consumption + "</td>" +
@@ -750,7 +751,7 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
 
 
                             $.getJSON(url_reporting_rate,
-                                {dataSet: dataSet, period: period, orgUnits: orgUnits, programId: programId},
+                                {dataSet: dataSet, period: period, orgUnits: orgUnits},
                                 function (response) {
                                     //console.log(response);
                                     $("#loading").empty();
@@ -759,7 +760,7 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                                     $.each(response, function (index, obj) {
 
                                         $.get("db/fetch/get_ordering_point_type.php",
-                                            {program_id: programId, facility_id: obj.orgUnit}, function (type) {
+                                            {facility_id: obj.orgUnit}, function (type) {
 
                                                 var orderingPointType = type;
                                                 var facility = $.grep(facilities, function (e) {
@@ -768,7 +769,7 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                                                 mflCode = facility[0].mfl_code;
                                                 facilityName = facility[0].facility_name;
 
-                                                $('#formData').append("<tr>" +
+                                                $('#formData').append("<tr  class='text-left'>" +
                                                 "<td>" + (index + 1) + "</td>" +
                                                 "<td>" + mflCode + "</td>" +
                                                 "<td>" + facilityName + "</td>" +
@@ -777,6 +778,19 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                                                 "<td>" + obj.reported + "</td>" +
                                                 "<td>" + obj.reporting_rate + "</td>" +
                                                 "<tr>");
+                                                $('#formData').append("<tr id="+index+">" + "</tr>");
+
+                                                if(obj.metadata.length>0){
+
+                                                    $.each(obj.metadata, function (key,data) {
+                                                        $('#'+index).append("<tr>" +
+                                                        "<td>" + data.satellite + "</td>" +
+                                                        "<td>" + data.expected + "</td>" +
+                                                        "<td>" + data.reported + "</td>" +
+                                                        "<td>" + data.reporting_rate + "</td>" +
+                                                        "</tr>");
+                                                    });
+                                                }
 
                                             });
                                     });
