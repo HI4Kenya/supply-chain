@@ -30,6 +30,7 @@
                 <th>Total No. of Facility Reports Expected</th>
                 <th>Actual Number of Reports Received</th>
                 <th>Reporting Rate(%)</th>
+                <th>view</th>
                 </thead>
                 <tbody id="formData">
                 </tbody>
@@ -37,7 +38,6 @@
             </table>
         </div>
     </div>
-
-    <p>&nbsp;</p>
+    <div id="modal"></div>
 
 </div>

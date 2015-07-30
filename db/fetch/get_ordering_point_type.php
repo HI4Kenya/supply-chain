@@ -14,21 +14,27 @@ else
     // If user has logged in
     require '../db_auth/db_con.php';
 
-    if(isset($_GET['facility_id'])&&isset($_GET['program_id']))
+    if(isset($_GET['facility_id']))
     {
-        $facility_id = $_GET['facility_id'];
-        $program_id = $_GET['program_id'];
-
-        $query ="SELECT classification FROM facility_program_mapping WHERE facility_id = '$facility_id' AND program_id = '$program_id'";;
+        $program_like="%art%";
+        $query ="SELECT program_id FROM programs WHERE program_name like '$program_like'";
         $answer = mysqli_query($conn,$query);
-        if($answer){
+        if($answer) {
             $row = mysqli_fetch_assoc($answer);
-            $return = (string)$row['classification'];
-            echo $return;
-        }
-        else{
+            $program_id= $row['program_id'];
+            $facility_id = $_GET['facility_id'];
 
-            echo "Undefined";
+            $query ="SELECT classification FROM facility_program_mapping WHERE facility_id = '$facility_id' AND program_id = '$program_id'";;
+            $answer = mysqli_query($conn,$query);
+            if($answer){
+                $row = mysqli_fetch_assoc($answer);
+                $return = (string)$row['classification'];
+                echo $return;
+            }
+            else{
+
+                echo "Undefined";
+            }
         }
 
     }
