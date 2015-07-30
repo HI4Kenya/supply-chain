@@ -756,6 +756,7 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                                     //console.log(response);
                                     $("#loading").empty();
                                     $("#formData").empty();
+                                    var dataModal="";
 
                                     $.each(response, function (index, obj) {
 
@@ -777,20 +778,42 @@ function generateReportingRateReport(period, orgUnitID, orgUnitLevel) {
                                                 "<td>" + obj.reports + "</td>" +
                                                 "<td>" + obj.reported + "</td>" +
                                                 "<td>" + obj.reporting_rate + "</td>" +
+                                                "<td><button type='button' class='btn btn-default' data-toggle='modal'"+
+                                                "data-target='#data"+index+"'>satellites</button></td>"+
                                                 "<tr>");
-                                                $('#formData').append("<tr id="+index+">" + "</tr>");
-
                                                 if(obj.metadata.length>0){
-
+                                                    var table="<table><thead><td>Satellite</td><td>Expected reports</td>" +
+                                                        "<td>Reports received</td><td>%reporting rate</td></thead><tbody>";
                                                     $.each(obj.metadata, function (key,data) {
-                                                        $('#'+index).append("<tr>" +
+                                                        table=table+"<tr></tr>"+
                                                         "<td>" + data.satellite + "</td>" +
                                                         "<td>" + data.expected + "</td>" +
                                                         "<td>" + data.reported + "</td>" +
-                                                        "<td>" + data.reporting_rate + "</td>" +
-                                                        "</tr>");
+                                                        "<td>" + data.reporting_rate + "</td></tr>";
                                                     });
+
+                                                    table=table+"</tbody></table>";
+                                                    console.log(table);
+                                                    dataModal=dataModal+'<div class="modal fade" id="data'+index+'" tabindex="-1" ' +
+                                                    'role="dialog" aria-labelledby="myModalLabel'+index+'">'+
+                                                    '<div class="modal-dialog" role="document"> ' +
+                                                    '<div class="modal-content"> ' +
+                                                    '<div class="modal-header"> ' +
+                                                    '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> ' +
+                                                    '<h4 class="modal-title" id="myModalLabel'+index+'">Satellites Reporting Rate</h4> ' +
+                                                    '</div> ' +
+                                                    '<div class="modal-body"> '+table+
+                                                    '</div> ' +
+                                                    '<div class="modal-footer"> ' +
+                                                    '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> ' +
+                                                    '</div> ' +
+                                                    '</div> ' +
+                                                    '</div> ' +
+                                                    '</div>';
+                                                    $('#modal').empty();
+                                                    $('#modal').html(dataModal);
                                                 }
+
 
                                             });
                                     });
