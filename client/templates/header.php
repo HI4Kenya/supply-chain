@@ -99,10 +99,15 @@
             <div class = "navbar navbar-inverse navbar-static-top" id = "header" style = "background-color: #276696">
                 <div class = "header_container" id = "container-fluid">
 
+                    <a href="">
+                        <img style ='width:5%;height:5%;margin-left:50px;margin-top:10px;float:left;border:1px solid white' 
+                          src='assets/img/logos/MOH.jpg'>
+                    </a>
+
                     <a href="" class="navbar-brand" id = "logo">
                         <p style = "color:white;font-weight:bold;margin-left:10px;font-size:16pt">
                             <!-- <img style ='width:10%;height:200%;margin-left:px;margin-top:0px;margin-right:10px;float:left;border:1px solid white' src='assets/img/logos/HCSM Logo Color.png'> -->
-                            <b style = "margin-left:120px">Supply Pipeline Hierarchy Tool
+                            <b style = "margin-left:0px">Supply Chain Hierarchy Tool
                         </p>
                     </a>
 

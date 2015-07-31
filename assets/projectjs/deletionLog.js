@@ -14,7 +14,7 @@ function getDeletionLog()
                         "<th style = 'font-weight:bold'>#</th>"+
                         "<th style = 'font-weight:bold'>NO Deleted</th>"+
                         "<th style = 'font-weight:bold'>Data Deleted</th>"+
-                        "<th style = 'font-weight:bold'>What was Deleted</th>"+
+                        "<th style = 'font-weight:bold'>Description</th>"+
                         "<th style = 'font-weight:bold'>Date Deleted</th>"+
                         "<th style = 'font-weight:bold'>Deleted By</th>"+
                         "<th style = 'font-weight:bold;color:green'>Recover</th>"+ 

@@ -64,6 +64,7 @@ function addIt(selectListID,pickListID)
         pickOLength = pickOptions.length;
         $('div#search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
     }
+
     selectOptions[0].selected = true;
 }
 // Deletes an item from the picklist
@@ -215,20 +216,22 @@ function submitIt(btn)
                     }
                     else if(result == 0)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Sub-County Store inserted<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Sub-County Store classified<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 1)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Sub-County Store exists<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 10)
                     {
@@ -237,14 +240,16 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 11)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Sub-County Store classification updated<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 12)
                     {
@@ -253,6 +258,7 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                  }
@@ -277,16 +283,17 @@ function submitIt(btn)
                     }
                     else if(result == 0)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central Sites inserted<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Central Sites classified<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 1)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Central Site exists<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
@@ -299,14 +306,16 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 11)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Central Site classification updated<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 12)
                     {
@@ -315,6 +324,7 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                  }
@@ -337,48 +347,53 @@ function submitIt(btn)
                  {
                     if(result == -1)
                     {
-                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:red;'>An error occured. Reset and try again<br><br></span>");
                     }
                     else if(result == 0)
                     {
-                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>Satellite Sites inserted<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:green;'>Satellite Sites classified<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 1)
                     {
-                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Satelite Site exists<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:red;'>Satelite Site exists<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 10)
                     {
-                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a StandAlone Site<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a StandAlone Site<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 11)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:blue;'>Satellite Site classification updated<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 12)
                     {
-                        $('div#cs_search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Sub-County Store<br><br></span>");
+                        $('div#ss_selected_filter_search').html("<span class = 'fa fa-ok' style = 'color:red;'>Selected Satelite Site exists as a Sub-County Store<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                     else if(result == 13)
                     {
@@ -387,6 +402,7 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
 
@@ -414,20 +430,22 @@ function submitIt(btn)
                     }
                     else if(result == 0)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>StandAlone site inserted<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:green;'>StandAlone site classified<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 1)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>Store exists<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:red;'>StandAlone site exists<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 9)
@@ -437,6 +455,7 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 10)
@@ -446,15 +465,17 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 11)
                     {
-                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>Facility updated<br><br></span>");
+                        $('div#search_field').html("<span class = 'fa fa-ok' style = 'color:blue;'>StandAlone Site classification updated<br><br></span>");
                         //Delete the item from the selected area
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
 
                     else if(result == 12)
@@ -464,6 +485,7 @@ function submitIt(btn)
                         var idOfSelectList = "SelectList";
                         var idOfPickList = "PickList";
                         delIt(idOfSelectList,idOfPickList);
+                        programSites();
                     }
                 }
             }
@@ -492,6 +514,8 @@ function filterFacilities(selectID,inputID)
 
             $(select).data('options', options);
 
+            $('span#available_facilities').html("<span style = 'color:green'> Searching</span> <img src='assets/img/ajax-loader-3.gif'>");
+
             $(textbox).bind('change keyup', function() 
             {
                 var options = $(select).empty().scrollTop(0).data('options');
@@ -506,6 +530,8 @@ function filterFacilities(selectID,inputID)
                       $(select).append(
                          $('<option>').text(option.text).val(option.value)
                       );
+
+                      $('span#available_facilities').html("Available");
                     }
                 });
 
@@ -513,6 +539,10 @@ function filterFacilities(selectID,inputID)
                 $(select).children().length === 1) 
                 {
                     $(select).children().get(0).selected = true;
+                }
+                else
+                {
+                    $('span#available_facilities').html("Available");
                 }
             });
         });
@@ -541,8 +571,7 @@ function updateSelectList(level,unit_id,icon,changeColor)
             $("span#SelectList").replaceWith("<select NAME='SelectList' ID='SelectList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'></select>");
             for(var j=0; j<received.length;j++)
             {
-                //alert(received[j].facility_name);
-                $("<option id = 'options' VALUE='"+received[j].facility_id+"'>"+received[j].facility_name+"</option>").appendTo("select#SelectList");
+                $("<option id = 'option_"+received[j].facility_id+"' VALUE='"+received[j].facility_id+"'>"+received[j].facility_name+"</option>").appendTo("select#SelectList");
             }
             $('span#available_facilities').html("Available");   
         }
@@ -653,3 +682,26 @@ function updateSelectList(level,unit_id,icon,changeColor)
 }
 /*End Function*/
 /*--------------------------------------------------------------------------------------------------------------------------------*/
+
+// Function programSites
+function programSites() 
+{
+    var programPickList = document.getElementById("ProgramsSelectList");
+    var programPickOptions = programPickList.options;
+    var programPickOLength = programPickOptions.length;
+    var programPickIndex = programPickList.selectedIndex;
+
+    var program_sites_url = "db/fetch/get_program_sites.php";
+    $.getJSON
+    ( 
+        program_sites_url,
+        {program_id:programPickOptions[programPickIndex].value},
+        function(receivedValues) 
+        {
+            for(var count=0; count<receivedValues.length; count++)
+            {
+                $("#option_"+receivedValues[count]).remove();
+            }
+        }
+    );
+}
