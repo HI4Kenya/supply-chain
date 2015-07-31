@@ -118,19 +118,19 @@
         // Initialize with the level
         else if($org_level=="init")
         {
-            $data = array();
-            //For testing purposes : WHERE parent_id = 'NHRktMsAkO1'
-            $facilities = "SELECT * FROM facilities ORDER BY facility_name LIMIT 100";
-            $result = mysqli_query($conn,$facilities);
-            if(mysqli_num_rows($result)>0)
-            {
-                while($row = mysqli_fetch_assoc($result)) 
-                {
-                    $data[] = $row;
-                }
-                $return = json_encode($data);
-                echo $return;
-            }
+            // $data = array();
+            // //For testing purposes : WHERE parent_id = 'NHRktMsAkO1'
+            // $facilities = "SELECT * FROM facilities ORDER BY facility_name LIMIT 100";
+            // $result = mysqli_query($conn,$facilities);
+            // if(mysqli_num_rows($result)>0)
+            // {
+            //     while($row = mysqli_fetch_assoc($result)) 
+            //     {
+            //         $data[] = $row;
+            //     }
+            //     $return = json_encode($data);
+            //     echo $return;
+            // }
 
         }
     	mysqli_close($conn);

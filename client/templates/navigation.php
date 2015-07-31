@@ -23,7 +23,7 @@
                     <br>
                     <div style = "margin-top:5px">
                         <span class="fa fa-cog unclickedColor" title = "Change Your Password" onclick="javascript:changePassword('<?php echo $_SESSION["name"];?>')"></span>
-                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px" title = "Sign Out"></span>
+                        <span class="fa fa-power-off unclickedColor user_logout_button" style ="margin-left:5px;height:30%" title = "Sign Out"></span>
                     </div>            
                 </div>
             </div>

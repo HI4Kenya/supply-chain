@@ -14,36 +14,32 @@
         <script type="text/javascript" src="assets/projectjs/login.js"></script>
     </head>
 
-    <body style = "background-color:#1d5288">
+    <body style = "background-color:#00AEEF">
 
-        <div style = "background-color:;width:100%;height:10em;text-align:left;">
+        <div style = "background-color:;width:100%;height:10em;text-align:left;margin-left:570px">
             <img style ='width:10%;height:60%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
               src='assets/img/logos/MOH.jpg'>
-            <h3>
-                <p style = 'color:white;padding-top:20px;margin-left:180px;font-family:FontAwesome;font-size:16pt'>
-                    Supply Pipeline Hierarchy Tool
-                </p>
-            </h3>
-
-            <h4>
-                <p style = 'color:white;padding-top:px;margin-left:150px;font-family:arial;font-weight:normal;font-size:14pt'>
-                    Welcome to the Kenya Health <br>
-                    Information System
-                </p>
-            </h4>
         </div>
 
+        <!-- <p style = 'color:white;font-family:FontAwesome;font-size:16pt;font-weight:bold'>
+            SUPPLY CHAIN HIERARCHY TOOL
+        </p> -->
         <!-- Logos -->
 
         <div style = "width:35%;height:15%;position:absolute;margin-left:880px;margin-top:-150px;border-radius:5px">            
-            <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
+            <!-- <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/usaid_logo.png'>
 
             <img style ='background-color:white;width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/Kenya-PEPFAR-Logo.png'>
 
             <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
-            src='assets/img/logos/HCSM Logo Color.png'>
+            src='assets/img/logos/HCSM Logo Color.png'> -->
+            <!-- <p>
+                This tool was developed for the Ministry of Health by USAID- funded Health Commodities & Services Management
+                Program implemented by Management Sciences for Health. Contents do not necessarily reflect the views of USAID
+                or the United States Government.
+            <p> -->
         </div>
 
         <!-- Login panel -->
