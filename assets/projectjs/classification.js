@@ -434,24 +434,6 @@ function classifyFacilities(type, satelliteClassification)
             $('span#satellites_area').html("Satellite Sites: Have the Sub-County Store above as their parent");
         }
 
-        
-        // Fetch Central Sites and display in the Central Sites picklist
-        var cs_url = "db/fetch/get_central_sites.php";
-        $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");         
-        $.getJSON
-        (
-            cs_url,
-            function(returned)
-            {
-                for(var j=0; j<returned.length;j++)
-                {
-                    $('span#note').html("Loading <img src='assets/img/ajax-loader-3.gif'>");   
-                    $("<option VALUE='"+returned[j].facility_id+"'>"+returned[j].facility_name+"</option>").appendTo("select#CSSelectList");
-                }
-                //$('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
-            }
-        );
-
         // Fetch facilities and display in the picklist
         var url = "db/fetch/get_facilities.php";
         $('span#note').html("<span class ='fa fa-exclamation-triangle'></span> Loading <img src='assets/img/ajax-loader-3.gif'>");         
@@ -617,9 +599,6 @@ function classifyFacilities(type, satelliteClassification)
             $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
         }
     );
-
-    //Fetch program sites
-    document.getElementById("ProgramsSelectList").onchange = function() {programSites()};
 }
 /*End Function*/
 /*--------------------------------------------------------------------------------------------------------------------------------*/
@@ -665,6 +644,9 @@ function programCentralSites(satelliteClassification)
             $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
         }
     );
+
+    /* Function that deletes already classified sites in the selectlist */
+    programSites();
 }
 /*End Function*/
 /*-------------------------------------------------------------------------------------------------------------------------------- */
