@@ -164,6 +164,7 @@ function classifyFacilities(type, satelliteClassification)
                 $('div#org_units_area').append(responseData);
             }
         );
+        document.getElementById("ProgramsSelectList").onchange = function() {programSites()};
 
     }
     /*END SUB-COUNTY STORES*/
@@ -283,6 +284,7 @@ function classifyFacilities(type, satelliteClassification)
                 $('div#org_units_area').append(responseData);
             }
         );
+        document.getElementById("ProgramsSelectList").onchange = function() {programSites()};
     }
     /*End CENTRAL STORES*/
     /*-------------------------------------------------------------------------------------------------------------------------*/
@@ -578,6 +580,7 @@ function classifyFacilities(type, satelliteClassification)
                 $('div#org_units_area').append(responseData);
             }
         );
+        document.getElementById("ProgramsSelectList").onchange = function() {programSites()};
 
     }
     /*END STANDALONES*/
