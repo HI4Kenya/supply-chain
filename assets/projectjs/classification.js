@@ -1,4 +1,4 @@
-/***********************************************************************************
+/**********************************************************************************
 * HI4KENYA AFYAINFO BOOTCAMP 2015                                                  *
 * -------------------------------                                                  *
 * GROUP ONE                                                                        *
@@ -166,6 +166,8 @@ function classifyFacilities(type, satelliteClassification)
         );
 
     }
+    /*END SUB-COUNTY STORES*/
+
     /* CENTRAL STORES */
     else if(type == 2)
     {
@@ -401,7 +403,7 @@ function classifyFacilities(type, satelliteClassification)
                         "<div id = 'all_facilities' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
                             //border:2px solid #2A6496
                             // Search for filtering purposes
-                            "<input placeholder = 'Search' id = 'available_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"SelectList\",\"available_filter_search\")'></input><br>"+
+                            "<input placeholder = 'Search' id = 'ss_available_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"SelectList\",\"available_filter_search\")'></input><br>"+
                             "<select NAME='SelectList' ID='SelectList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'>"+
                             "</select>"+
                         "</div>"+
@@ -409,7 +411,7 @@ function classifyFacilities(type, satelliteClassification)
                         // selected area
                         "<div id = 'selected_facilities' class='panel-heading' style = 'height:auto;width:40%;background-color:white;margin-right:10px;font-size:8pt;'>"+
                             "<div id = 'search_field'>"+
-                                "<input placeholder = 'Search' id = 'selected_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"PickList\",\"selected_filter_search\")'></input>"+
+                                "<input placeholder = 'Search' id = 'ss_selected_filter_search' style = 'width:100%;margin-bottom:3px' onkeypress='javascript:filterFacilities(\"PickList\",\"selected_filter_search\")'></input>"+
                             "</div>"+
                             "<select NAME='PickList' ID='PickList' SIZE='10' multiple='multiple' style = 'width:100%;min-height:270px'>"+
                             "</select>"+
@@ -615,6 +617,9 @@ function classifyFacilities(type, satelliteClassification)
             $('span#note').html("NOTE: Use DHIS2 Organization Units to sort and drill down");   
         }
     );
+
+    //Fetch program sites
+    document.getElementById("ProgramsSelectList").onchange = function() {programSites()};
 }
 /*End Function*/
 /*--------------------------------------------------------------------------------------------------------------------------------*/
@@ -662,4 +667,4 @@ function programCentralSites(satelliteClassification)
     );
 }
 /*End Function*/
-/*--------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------------------- */

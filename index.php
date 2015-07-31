@@ -16,17 +16,17 @@
 
     <body style = "background-color:#00AEEF">
 
-        <div style = "background-color:;width:100%;height:10em;text-align:left;margin-left:570px">
-            <img style ='width:10%;height:60%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
+        <div style = "background-color:;height:10em;text-align:left;margin-left:560px">
+            <img style ='width:18%;height:60%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
               src='assets/img/logos/MOH.jpg'>
         </div>
 
-        <!-- <p style = 'color:white;font-family:FontAwesome;font-size:16pt;font-weight:bold'>
+        <p style = 'color:white;font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;font-size:18pt;font-weight:bold;margin-top:-30px'>
             SUPPLY CHAIN HIERARCHY TOOL
-        </p> -->
+        </p>
         <!-- Logos -->
 
-        <div style = "width:35%;height:15%;position:absolute;margin-left:880px;margin-top:-150px;border-radius:5px">            
+        <div style = "width:40%;height:15%;position:absolute;margin-left:410px;margin-top:350px;border-radius:5px;color:blue">            
             <!-- <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/usaid_logo.png'>
 
@@ -35,11 +35,11 @@
 
             <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/HCSM Logo Color.png'> -->
-            <!-- <p>
+            <p>
                 This tool was developed for the Ministry of Health by USAID- funded Health Commodities & Services Management
                 Program implemented by Management Sciences for Health. Contents do not necessarily reflect the views of USAID
                 or the United States Government.
-            <p> -->
+            <p>
         </div>
 
         <!-- Login panel -->
@@ -71,12 +71,12 @@
                 &nbsp
                 *
                 <span id="applicationFooter">
-                    <a href="http://www.twitter.com/kwahome_" class = "fa fa-twitter" style = 'color:silver;' target="_blank">
+                    <a href="http://www.twitter.com/kwahome_" class = "fa fa-twitter" style = 'color:white;' target="_blank">
                     </a>
                 </span>
                 *
                 <span id="applicationFooter">
-                    <a href="https://ke.linkedin.com/in/kelvinwahome" class = "fa fa-linkedin" style = 'color:silver;' target="_blank">
+                    <a href="https://ke.linkedin.com/in/kelvinwahome" class = "fa fa-linkedin" style = 'color:white;' target="_blank">
                     </a>
                 </span>
                 *
