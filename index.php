@@ -26,7 +26,7 @@
         </p>
         <!-- Logos -->
 
-        <div style = "width:40%;height:15%;position:absolute;margin-left:410px;margin-top:350px;border-radius:5px;color:blue">            
+        <div style = "width:40%;height:15%;position:absolute;margin-left:410px;margin-top:350px;border-radius:5px;color:white;font-size:10pt">            
             <!-- <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/usaid_logo.png'>
 

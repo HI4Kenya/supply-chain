@@ -65,7 +65,7 @@ function addIt(selectListID,pickListID)
         $('div#search_field').html("<input placeholder = 'Search' style = 'width:100%;margin-bottom:3px'></input>");
     }
 
-    selectOptions[0].selected = true;
+    //selectOptions[0].selected = true;
 }
 // Deletes an item from the picklist
 function delIt(selectListID,pickListID) 
@@ -576,6 +576,9 @@ function updateSelectList(level,unit_id,icon,changeColor)
             $('span#available_facilities').html("Available");   
         }
     );
+
+    /* Delete the existing sites for the program selected */
+    programSites();
 
     var color = $("#"+changeColor);
     var icon = $("#"+icon);
