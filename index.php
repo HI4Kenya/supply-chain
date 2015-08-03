@@ -65,7 +65,7 @@
 
         <!-- Footer -->
 
-        <div id="footerArea" style = "margin-top:470px;text-align:left;border-top:1px solid white;font-family:LiberationSans, sans-serif;font-size:10pt">
+        <!-- <div id="footerArea" style = "margin-top:470px;text-align:left;border-top:1px solid white;font-family:LiberationSans, sans-serif;font-size:10pt">
             <div id="leftFooterArea" class="innerFooterArea" style = 'margin-left:50px;padding-top:10px'>
                 Powered by 
                 &nbsp
@@ -96,6 +96,6 @@
                   </a>
                 </span>
             </div>
-          </div>
+          </div> -->
     </body>
 </html>
