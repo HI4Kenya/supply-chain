@@ -146,7 +146,7 @@ function userAuthentication()
                     else if(statusMessage == 1)
                     {
                         var status_message =   "<div style ='color:white;background-color:#b64645;padding:5px;border-radius:3px;font-size:8pt"+
-                                                    "<span style = 'color:white;background-color:red'>Wrong password</span>"+
+                                                    "<span style = 'color:white;background-color:red'>Wrong Username or Password</span>"+
                                                 "</div>";
                         $('div#login_messages').empty();
                         $('div#login_messages').html(status_message);
@@ -180,7 +180,7 @@ function userAuthentication()
                     else if(statusMessage == -1)
                     {
                         var status_message =   "<div style ='color:white;background-color:#b64645;padding:5px;border-radius:3px;font-size:8pt"+
-                                                    "<span style = 'color:white;background-color:red'>User details not found</span>"+
+                                                    "<span style = 'color:white;background-color:red'>Wrong Username or Password</span>"+
                                                 "</div>";
                         $('div#login_messages').empty();
                         $('div#login_messages').html(status_message);
