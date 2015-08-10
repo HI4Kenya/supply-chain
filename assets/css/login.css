@@ -13,6 +13,32 @@
   transition: none;
 }
 
+.logo {
+  display: inline-block;
+  margin-top:10px;
+  text-align: center;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight:bold;
+}
+
+.header-text{
+  color:white;
+  margin-top:10px;
+  font-size:16pt;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-weight:bold;
+}
+
+.footer {
+  display: inline-block;
+  margin: 350px -115px;
+  text-align: center;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  width:40%;
+  color:white;
+  font-size:10pt;
+}
+
 .login {
   display: inline-block;
   width: 180px;
