@@ -7,6 +7,9 @@
         <link href="assets/css/normalize.css" rel="stylesheet">
         <link href="assets/css/login.css" rel="stylesheet">
 
+        <!-- Bootstrap -->
+       <!--  <link href="assets/Bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
         <!-- jQuery v1.11.2 library-->
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 
@@ -16,31 +19,25 @@
 
     <body style = "background-color:#00AEEF">
 
-        <div style = "background-color:;height:10em;text-align:left;margin-left:560px">
-            <img style ='width:18%;height:60%;margin-left:50px;margin-top:20px;margin-right:10px;float:left;border:1px solid white' 
-              src='assets/img/logos/MOH.jpg'>
+        <div class = "logo">
+            <img style = "width:80%;" src='assets/img/logos/MOH.jpg'>
         </div>
 
-        <p style = 'color:white;font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;font-size:18pt;font-weight:bold;margin-top:-30px'>
+        <p class = "header-text">
             SUPPLY CHAIN HIERARCHY TOOL
         </p>
         <!-- Logos -->
 
-        <div style = "width:40%;height:15%;position:absolute;margin-left:410px;margin-top:350px;border-radius:5px;color:white;font-size:10pt">            
-            <!-- <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
+        <!-- <div style = "width:40%;height:15%;position:absolute;margin-left:410px;margin-top:350px;border-radius:5px;color:white;font-size:10pt">            
+            <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/usaid_logo.png'>
 
             <img style ='background-color:white;width:27%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
             src='assets/img/logos/Kenya-PEPFAR-Logo.png'>
 
             <img style ='background-color:white;width:30%;height:80%;margin-left:5px;margin-top:10px;margin-right:5px;float:left;border:1px solid white' 
-            src='assets/img/logos/HCSM Logo Color.png'> -->
-            <p>
-                This tool was developed for the Ministry of Health by USAID- funded Health Commodities & Services Management
-                Program implemented by Management Sciences for Health. Contents do not necessarily reflect the views of USAID
-                or the United States Government.
-            <p>
-        </div>
+            src='assets/img/logos/HCSM Logo Color.png'>
+        </div> -->
 
         <!-- Login panel -->
         <div class="login">
@@ -62,6 +59,16 @@
                 <input id = "password-input" type="password" class="password" placeholder="Password" onchange="javascript:userAuthentication();" title="Enter your password and hit enter" autofocus/>
             </div>
         </div>
+
+        <!-- Disclaimer -->
+        <div class = "footer">            
+            <p>
+                This tool was developed for the Ministry of Health by USAID- funded Health Commodities & Services Management
+                Program implemented by Management Sciences for Health. Contents do not necessarily reflect the views of USAID
+                or the United States Government.
+            <p>
+        </div>
+        
 
         <!-- Footer -->
 
